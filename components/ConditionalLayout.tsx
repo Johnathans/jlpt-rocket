@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import TopNavbar from '@/components/Sidebar';
+import MarketingNavbar from '@/components/MarketingNavbar';
 import StreakCounter from '@/components/StreakCounter';
 import CategoryLinks from '@/components/CategoryLinks';
 import Footer from '@/components/Footer';
@@ -13,9 +14,10 @@ interface ConditionalLayoutProps {
 export default function ConditionalLayout({ children }: ConditionalLayoutProps) {
   const pathname = usePathname();
   const isTrainingMode = pathname?.startsWith('/match') || pathname?.startsWith('/cloze') || pathname?.includes('training');
+  const isMarketingPage = pathname === '/' || pathname === '/login' || pathname === '/signup';
   
-  // Only show footer on home, login, and sign up pages
-  const shouldShowFooter = pathname === '/' || pathname === '/login' || pathname === '/signup';
+  // Only show footer on marketing pages
+  const shouldShowFooter = isMarketingPage;
 
   if (isTrainingMode) {
     // Clean layout for training modes
@@ -26,7 +28,20 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
     );
   }
 
-  // Regular layout with navbar and conditional footer
+  if (isMarketingPage) {
+    // Marketing layout with simplified navbar
+    return (
+      <div className="min-h-screen bg-white">
+        <MarketingNavbar />
+        <main>
+          {children}
+        </main>
+        {shouldShowFooter && <Footer />}
+      </div>
+    );
+  }
+
+  // Regular app layout with full navbar, categories, and streak
   return (
     <div className="min-h-screen bg-gray-50">
       <TopNavbar />
@@ -36,7 +51,6 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
         <div>
           {children}
         </div>
-        {shouldShowFooter && <Footer />}
       </main>
     </div>
   );
