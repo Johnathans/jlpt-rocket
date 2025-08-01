@@ -1,0 +1,113 @@
+// Sample story data
+export const stories = [
+  {
+    id: 1,
+    title: 'はじめての友達',
+    titleEn: 'First Friend',
+    level: 'N5',
+    wordCount: 150,
+    description: 'A simple story about making your first friend at school.',
+    content: '私の名前は田中です。今日、学校で新しい友達に会いました。彼女の名前は山田さんです。山田さんは親切で面白い人です。私たちは一緒に昼食を食べました。とても楽しかったです。これからも友達でいたいと思います。',
+    imageUrl: 'https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg?auto=compress&cs=tinysrgb&w=800',
+    vocabulary: [
+      { id: 1, word: '私', reading: 'わたし', meaning: 'I, me', type: 'vocabulary', known: false },
+      { id: 2, word: '名前', reading: 'なまえ', meaning: 'name', type: 'vocabulary', known: true },
+      { id: 3, word: '今日', reading: 'きょう', meaning: 'today', type: 'vocabulary', known: false },
+      { id: 4, word: '学校', reading: 'がっこう', meaning: 'school', type: 'vocabulary', known: true },
+      { id: 5, word: '新', reading: 'あたら(しい)', meaning: 'new', type: 'kanji', known: false },
+      { id: 6, word: '友', reading: 'とも', meaning: 'friend', type: 'kanji', known: true },
+      { id: 7, word: '会', reading: 'あ(う)', meaning: 'meet', type: 'kanji', known: false },
+      { id: 8, word: '親切', reading: 'しんせつ', meaning: 'kind', type: 'vocabulary', known: true },
+    ]
+  },
+  {
+    id: 2,
+    title: '猫とさかな',
+    titleEn: 'The Cat and Fish',
+    level: 'N5',
+    wordCount: 200,
+    description: 'A curious cat discovers something interesting at the market.',
+    content: '黒い猫がいました。猫は魚が好きです。毎日、市場に行きます。今日も新鮮な魚を見つけました。魚屋のおじさんが小さな魚をくれました。猫はとても嬉しそうでした。美味しそうに食べていました。',
+    imageUrl: 'https://images.pexels.com/photos/1170986/pexels-photo-1170986.jpeg?auto=compress&cs=tinysrgb&w=800',
+    vocabulary: [
+      { id: 1, word: '黒', reading: 'くろ', meaning: 'black', type: 'kanji', known: false },
+      { id: 2, word: '猫', reading: 'ねこ', meaning: 'cat', type: 'vocabulary', known: true },
+      { id: 3, word: '魚', reading: 'さかな', meaning: 'fish', type: 'vocabulary', known: false },
+      { id: 4, word: '好き', reading: 'すき', meaning: 'like', type: 'vocabulary', known: true },
+      { id: 5, word: '毎日', reading: 'まいにち', meaning: 'every day', type: 'vocabulary', known: false },
+      { id: 6, word: '市場', reading: 'いちば', meaning: 'market', type: 'vocabulary', known: true },
+    ]
+  },
+  {
+    id: 3,
+    title: '桜の季節',
+    titleEn: 'Cherry Blossom Season',
+    level: 'N3',
+    wordCount: 350,
+    description: 'Experience the beauty of spring in Japan through a family\'s picnic.',
+    content: '春になりました。公園の桜が咲いています。家族でお花見をしました。お弁当を持って行きました。桜の花びらが風に舞っています。子供たちは花びらを集めて遊んでいます。とても美しい光景でした。日本の春は本当に素晴らしいです。',
+    imageUrl: 'https://images.pexels.com/photos/2070033/pexels-photo-2070033.jpeg?auto=compress&cs=tinysrgb&w=800',
+    vocabulary: [
+      { id: 1, word: '春', reading: 'はる', meaning: 'spring', type: 'kanji', known: false },
+      { id: 2, word: '公園', reading: 'こうえん', meaning: 'park', type: 'vocabulary', known: true },
+      { id: 3, word: '桜', reading: 'さくら', meaning: 'cherry blossom', type: 'vocabulary', known: false },
+      { id: 4, word: '家族', reading: 'かぞく', meaning: 'family', type: 'vocabulary', known: true },
+      { id: 5, word: '花', reading: 'はな', meaning: 'flower', type: 'kanji', known: false },
+      { id: 6, word: '美しい', reading: 'うつくしい', meaning: 'beautiful', type: 'vocabulary', known: true },
+    ]
+  },
+  {
+    id: 4,
+    title: '電車の旅',
+    titleEn: 'Train Journey',
+    level: 'N4',
+    wordCount: 400,
+    description: 'Follow a businessman\'s daily commute and unexpected encounters.',
+    content: '毎朝、電車に乗って会社に行きます。今日は珍しいことがありました。隣に座った老人が面白い話をしてくれました。昔の日本について聞きました。とても勉強になりました。電車の旅も悪くないと思いました。',
+    imageUrl: 'https://images.pexels.com/photos/1005417/pexels-photo-1005417.jpeg?auto=compress&cs=tinysrgb&w=800',
+    vocabulary: [
+      { id: 1, word: '毎朝', reading: 'まいあさ', meaning: 'every morning', type: 'vocabulary', known: false },
+      { id: 2, word: '電車', reading: 'でんしゃ', meaning: 'train', type: 'vocabulary', known: true },
+      { id: 3, word: '会社', reading: 'かいしゃ', meaning: 'company', type: 'vocabulary', known: false },
+      { id: 4, word: '珍', reading: 'めずら(しい)', meaning: 'rare', type: 'kanji', known: true },
+      { id: 5, word: '老人', reading: 'ろうじん', meaning: 'elderly person', type: 'vocabulary', known: false },
+      { id: 6, word: '昔', reading: 'むかし', meaning: 'long ago', type: 'vocabulary', known: true },
+    ]
+  },
+  {
+    id: 5,
+    title: '古い写真',
+    titleEn: 'Old Photograph',
+    level: 'N2',
+    wordCount: 600,
+    description: 'A grandmother shares memories through old family photographs.',
+    content: 'おばあさんは古いアルバムを開きました。そこには懐かしい写真がたくさんありました。若い頃の祖父母、家族の記念写真、昔の家の様子。一枚一枚に思い出が詰まっています。写真を見ながら、おばあさんは昔の話をしてくれました。時代は変わりましたが、家族の絆は変わりません。',
+    imageUrl: 'https://images.pexels.com/photos/1090638/pexels-photo-1090638.jpeg?auto=compress&cs=tinysrgb&w=800',
+    vocabulary: [
+      { id: 1, word: '古', reading: 'ふる(い)', meaning: 'old', type: 'kanji', known: false },
+      { id: 2, word: '懐かしい', reading: 'なつかしい', meaning: 'nostalgic', type: 'vocabulary', known: true },
+      { id: 3, word: '写真', reading: 'しゃしん', meaning: 'photograph', type: 'vocabulary', known: false },
+      { id: 4, word: '祖父母', reading: 'そふぼ', meaning: 'grandparents', type: 'vocabulary', known: true },
+      { id: 5, word: '記念', reading: 'きねん', meaning: 'commemoration', type: 'vocabulary', known: false },
+      { id: 6, word: '絆', reading: 'きずな', meaning: 'bond', type: 'vocabulary', known: true },
+    ]
+  },
+  {
+    id: 6,
+    title: '夏祭りの夜',
+    titleEn: 'Summer Festival Night',
+    level: 'N1',
+    wordCount: 750,
+    description: 'Romance and tradition blend at a local summer festival.',
+    content: '夏祭りの夜、浴衣を着た人々で賑わっていました。花火が空に咲きました。屋台の香りが漂い、太鼓の音が響きます。恋人同士、家族連れ、友達グループ。みんなが楽しそうです。日本の夏の風物詩を満喫しました。このような伝統的な祭りは大切にしたいものです。',
+    imageUrl: 'https://images.pexels.com/photos/2070033/pexels-photo-2070033.jpeg?auto=compress&cs=tinysrgb&w=800',
+    vocabulary: [
+      { id: 1, word: '夏祭り', reading: 'なつまつり', meaning: 'summer festival', type: 'vocabulary', known: false },
+      { id: 2, word: '浴衣', reading: 'ゆかた', meaning: 'yukata', type: 'vocabulary', known: true },
+      { id: 3, word: '花火', reading: 'はなび', meaning: 'fireworks', type: 'vocabulary', known: false },
+      { id: 4, word: '屋台', reading: 'やたい', meaning: 'food stall', type: 'vocabulary', known: true },
+      { id: 5, word: '伝統', reading: 'でんとう', meaning: 'tradition', type: 'vocabulary', known: false },
+      { id: 6, word: '祭', reading: 'まつ(り)', meaning: 'festival', type: 'kanji', known: true },
+    ]
+  },
+];
