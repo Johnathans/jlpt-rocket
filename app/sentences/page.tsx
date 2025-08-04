@@ -495,64 +495,71 @@ export default function SentencesPage() {
         <div className="flex gap-3">
           <button
             onClick={selectAll}
-            className="px-4 py-2 bg-green-500 text-white hover:bg-green-600 font-medium transition-colors rounded-md shadow-sm"
+            className="px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-medium transition-colors rounded-md shadow-sm border-b-4 border-green-700 hover:border-green-800 text-base"
           >
             Select All
           </button>
           <button
             onClick={clearAll}
-            className="px-4 py-2 bg-gray-500 text-white hover:bg-gray-600 font-medium transition-colors rounded-md shadow-sm"
+            className="px-6 py-3 bg-gray-500 text-white hover:bg-gray-600 font-medium transition-colors rounded-md shadow-sm border-b-4 border-gray-700 hover:border-gray-800 text-base"
           >
             Clear All
           </button>
         </div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-1">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {sentencesData.map((item) => (
           <div
             key={item.id}
             onClick={() => toggleSelected(item.id)}
-            className={`relative bg-white rounded-lg shadow-sm border-2 transition-all cursor-pointer hover:shadow-md p-6 ${
+            className={`border border-gray-200 border-b-4 transition-all duration-200 hover:shadow-lg rounded-lg p-6 relative cursor-pointer ${
               selectedSentences.has(item.id)
-                ? 'border-blue-500 bg-blue-50'
-                : 'border-gray-200 hover:border-gray-300'
+                ? 'bg-blue-50 border-blue-200 border-b-blue-400'
+                : 
+              masteredSentences.has(item.id)
+                ? 'bg-green-50 border-green-200 border-b-green-400'
+                : 'bg-white border-gray-200 border-b-gray-400 hover:border-gray-300 hover:border-b-gray-500'
             }`}
           >
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <h3 className="text-xl font-bold text-black font-japanese leading-relaxed">
-                    {item.fullSentence}
-                  </h3>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      playAudio(item.fullSentence);
-                    }}
-                    className="p-1 text-gray-500 hover:text-green-600 transition-colors"
-                  >
-                    <Volume2 className="h-4 w-4" />
-                  </button>
-                </div>
-                <p className="text-base text-gray-600 font-japanese mb-2 leading-relaxed">
-                  {item.fullReading}
-                </p>
-                <p className="text-gray-800 font-medium">
-                  {item.meaning}
-                </p>
+            <div className="text-center mb-4">
+              <div className="text-2xl font-bold text-black font-japanese mb-2 leading-relaxed">
+                {item.fullSentence}
               </div>
-              <div className="flex items-center gap-2">
-                <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getLevelColor(item.level)}`}>
-                  {item.level}
-                </span>
-                {selectedSentences.has(item.id) && (
-                  <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">✓</span>
-                  </div>
-                )}
-              </div>
+              <p className="text-base text-gray-600 font-japanese mb-2 leading-relaxed">
+                {item.fullReading}
+              </p>
+              <p className="text-gray-800 font-medium">
+                {item.meaning}
+              </p>
             </div>
+
+            {/* Top left badge */}
+            <div className="absolute top-4 left-4">
+              <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getLevelColor(item.level)}`}>
+                {item.level}
+              </span>
+            </div>
+
+            {/* Top right audio button */}
+            <div className="absolute top-4 right-4">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  playAudio(item.fullSentence);
+                }}
+                className="p-2 text-gray-500 hover:text-green-600 hover:bg-white/80 rounded-full transition-colors"
+              >
+                <Volume2 className="h-4 w-4" />
+              </button>
+            </div>
+
+            {/* Selected indicator */}
+            {selectedSentences.has(item.id) && (
+              <div className="absolute top-4 right-16 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-xs font-bold">✓</span>
+              </div>
+            )}
 
             <div className="border-t border-gray-100 pt-4">
               <div className="flex items-start gap-2 mb-2">
@@ -605,12 +612,12 @@ export default function SentencesPage() {
                   {selectedSentences.size} sentence{selectedSentences.size !== 1 ? 's' : ''} selected
                 </span>
               </div>
-              <button
-                onClick={startTraining}
-                className="px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-semibold transition-all rounded-lg shadow-sm border-b-4 border-green-600 hover:border-green-700 hover:translate-y-0.5 active:translate-y-0.5"
+              <Link 
+                href={`/cloze?type=sentences&items=${Array.from(selectedSentences).join(',')}`}
+                className="px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-semibold transition-all rounded-lg shadow-sm border-b-4 border-green-600 hover:border-green-700 hover:translate-y-0.5 active:translate-y-0.5 inline-block"
               >
                 Study Selected Sentences
-              </button>
+              </Link>
             </div>
           </div>
         </div>

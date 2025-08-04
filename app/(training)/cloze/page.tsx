@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import TrainingHeader from '@/components/TrainingHeader';
 import { ReviewSystem } from '@/lib/reviewSystem';
 import { StreakSystem } from '@/lib/streakSystem';
+import { useTTS } from '@/lib/useTTS';
 
 interface WordInSentence {
   id: number;
@@ -118,10 +119,20 @@ const sentencesData: SentenceItem[] = [
 export default function ClozePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { speak, isLoading: ttsLoading } = useTTS();
+  
+  // State variables
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [score, setScore] = useState(0);
+  const [showResult, setShowResult] = useState(false);
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [answerOptions, setAnswerOptions] = useState<string[]>([]);
+  const [clozeWord, setClozeWord] = useState<WordInSentence | null>(null);
   
   // Get selected items from URL params
   const selectedIds = searchParams.get('items')?.split(',').map(Number) || [];
-  
+
   // Memoize training items to prevent unnecessary re-renders
   const trainingItems = useMemo(() => {
     return selectedIds.length > 0 
@@ -129,19 +140,16 @@ export default function ClozePage() {
       : sentencesData.slice(0, 3); // Fallback to first 3 sentences
   }, [selectedIds]);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [score, setScore] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const [showResult, setShowResult] = useState(false);
-  const [clozeWord, setClozeWord] = useState<WordInSentence | null>(null);
-  const [answerOptions, setAnswerOptions] = useState<string[]>([]);
-
   const currentItem = trainingItems[currentIndex];
 
   // Generate cloze question when item changes
   useEffect(() => {
-    if (currentItem && !showResult) {
+    if (currentItem) {
+      // Reset state for new item
+      setSelectedAnswer(null);
+      setIsCorrect(null);
+      setShowResult(false);
+      
       // Get all target words (words that can be cloze targets)
       const targetWords = currentItem.words.filter(word => word.isTarget);
       
@@ -155,9 +163,12 @@ export default function ClozePage() {
         const wrongAnswers = getWrongAnswers(randomCloze, targetWords);
         const allOptions = [correctAnswer, ...wrongAnswers];
         setAnswerOptions(allOptions.sort(() => Math.random() - 0.5));
+      } else {
+        setClozeWord(null);
+        setAnswerOptions([]);
       }
     }
-  }, [currentIndex]); // Only depend on currentIndex, not trainingItems
+  }, [currentItem]); // Depend on currentItem instead of currentIndex
 
   const getWrongAnswers = (correctWord: WordInSentence, availableWords: WordInSentence[]): string[] => {
     // Get wrong answers from other target words in the same sentence or from other sentences
@@ -192,7 +203,19 @@ export default function ClozePage() {
           {currentItem.words.map((word, index) => (
             <span key={word.id}>
               {word.id === clozeWord.id ? (
-                <span className="inline-block w-20 h-12 bg-gray-200 border-2 border-dashed border-gray-400 rounded mx-1 align-middle"></span>
+                <span 
+                  className={`inline-block min-w-20 px-3 py-2 mx-1 rounded border-2 text-center align-middle ${
+                    selectedAnswer
+                      ? showResult
+                        ? isCorrect
+                          ? 'bg-green-100 border-green-500 text-green-800'
+                          : 'bg-red-100 border-red-500 text-red-800'
+                        : 'bg-blue-50 border-blue-300 text-blue-800'
+                      : 'bg-gray-200 border-dashed border-gray-400 text-gray-500'
+                  }`}
+                >
+                  {selectedAnswer || '___'}
+                </span>
               ) : (
                 word.word
               )}
@@ -209,7 +232,7 @@ export default function ClozePage() {
     );
   };
 
-  const handleAnswerSelect = (answer: string) => {
+  const handleAnswerSelect = async (answer: string) => {
     if (showResult) return;
     
     setSelectedAnswer(answer);
@@ -228,10 +251,21 @@ export default function ClozePage() {
       correct
     );
 
-    // Auto-advance after 2 seconds
+    // Play the correct sentence with TTS using Chirp 3 Leda voice
+    try {
+      await speak(currentItem.fullSentence, {
+        languageCode: 'ja-JP',
+        voiceName: 'ja-JP-Chirp3-HD-Leda',
+        autoPlay: true
+      });
+    } catch (error) {
+      console.error('TTS Error:', error);
+    }
+
+    // Auto-advance after 3 seconds (increased to allow time for TTS)
     setTimeout(() => {
       handleNext();
-    }, 2000);
+    }, 3000);
   };
 
   const handleNext = () => {

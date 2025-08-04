@@ -6,6 +6,7 @@ import TrainingHeader from '@/components/TrainingHeader';
 import MatchCompletionScreen from '@/components/MatchCompletionScreen';
 import { ReviewSystem } from '@/lib/reviewSystem';
 import { StreakSystem } from '@/lib/streakSystem';
+import { speakText, useTTS } from '@/lib/useTTS';
 
 interface TrainingItem {
   id: number;
@@ -70,6 +71,9 @@ export default function MatchPage() {
   const [wrongAnswers, setWrongAnswers] = useState<WrongAnswer[]>([]);
   const [showCompletion, setShowCompletion] = useState(false);
   const [earnedXP, setEarnedXP] = useState(0);
+  const [preloadedAudio, setPreloadedAudio] = useState<string | null>(null);
+  
+  const { speak, playAudio } = useTTS();
 
   // Load selected items from URL parameters
   useEffect(() => {
@@ -125,42 +129,104 @@ export default function MatchPage() {
       
       const allOptions = [correctAnswer, ...wrongAnswers];
       setShuffledOptions(allOptions.sort(() => Math.random() - 0.5));
+      
+      // Preload audio for the current question to avoid delay
+      preloadCurrentAudio();
     }
   }, [currentItem, trainingItems]);
+  
+  const preloadCurrentAudio = async () => {
+    if (currentItem) {
+      const audioText = currentItem.reading || currentItem.character;
+      try {
+        console.log('Preloading audio for:', audioText);
+        const audioUrl = await speak(audioText, {
+          languageCode: 'ja-JP',
+          voiceName: 'ja-JP-Chirp3-HD-Leda',
+          autoPlay: false // Don't play automatically, just preload
+        });
+        setPreloadedAudio(audioUrl);
+        console.log('Audio preloaded successfully');
+      } catch (error) {
+        console.error('Failed to preload audio:', error);
+        setPreloadedAudio(null);
+      }
+    }
+  };
+
+  const playJapaneseAudio = async (text: string) => {
+    console.log('Playing Japanese audio for:', text);
+    try {
+      // If we have preloaded audio, play it immediately
+      if (preloadedAudio) {
+        console.log('Playing preloaded audio');
+        await playAudio(preloadedAudio);
+        console.log('Preloaded audio played successfully');
+        return;
+      }
+      
+      console.log('No preloaded audio, generating on demand...');
+      // Fallback to generating audio on demand
+      await speakText(text, {
+        languageCode: 'ja-JP',
+        voiceName: 'ja-JP-Chirp3-HD-Leda',
+        autoPlay: true
+      });
+      console.log('On-demand audio succeeded');
+    } catch (error) {
+      console.error('Audio playback failed:', error);
+      console.log('Falling back to Web Speech API...');
+      // Fallback to Web Speech API if TTS fails
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ja-JP';
+        utterance.rate = 0.8;
+        speechSynthesis.speak(utterance);
+        console.log('Web Speech API fallback used');
+      }
+    }
+  };
 
   const handleAnswerSelect = (answer: string) => {
     if (showResult) return;
-    
     setSelectedAnswer(answer);
-    const correct = answer === currentItem.meaning;
+  };
+
+  const handleCheckAnswer = () => {
+    if (!selectedAnswer) return;
+    
+    const correct = selectedAnswer === currentItem.meaning;
     setIsCorrect(correct);
     setShowResult(true);
+    
+    // Play Japanese audio for the correct answer using Google TTS
+    const audioText = currentItem.reading || currentItem.character;
+    playJapaneseAudio(audioText);
     
     if (correct) {
       setScore(score + 1);
       // Update review system for correct answer
       ReviewSystem.updateItemProgress(currentItem.id, currentItem.type, true);
     } else {
-      // Track wrong answer
+      // Record wrong answer
       const wrongAnswer: WrongAnswer = {
         id: currentItem.id,
         character: currentItem.character,
         meaning: currentItem.meaning,
         reading: currentItem.reading,
-        userAnswer: answer,
+        userAnswer: selectedAnswer,
         correctAnswer: currentItem.meaning,
         type: currentItem.type
       };
-      setWrongAnswers(prev => [...prev, wrongAnswer]);
-      
+      setWrongAnswers([...wrongAnswers, wrongAnswer]);
       // Update review system for incorrect answer
       ReviewSystem.updateItemProgress(currentItem.id, currentItem.type, false);
     }
-
-    // Auto-advance after 1.5 seconds
+    
+    // Auto-advance after 2 seconds
     setTimeout(() => {
       handleNext();
-    }, 1500);
+    }, 2000);
   };
 
   const handleNext = () => {
@@ -169,6 +235,7 @@ export default function MatchPage() {
       setSelectedAnswer(null);
       setShowResult(false);
       setIsCorrect(null);
+      setPreloadedAudio(null); // Clear preloaded audio for next question
     } else {
       // Training complete - show completion screen
       setShowCompletion(true);
@@ -249,7 +316,7 @@ export default function MatchPage() {
       <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] px-4">
         {/* Large Kanji/Character - Not in container */}
         <div className="text-center mb-12">
-          <div className="text-8xl sm:text-9xl md:text-[12rem] lg:text-[14rem] font-bold text-gray-900 font-japanese leading-none mb-4">
+          <div className="text-[10rem] sm:text-9xl md:text-[12rem] lg:text-[14rem] font-bold text-gray-900 font-japanese leading-none mb-4">
             {currentItem.character}
           </div>
           {currentItem.reading && (
@@ -266,19 +333,23 @@ export default function MatchPage() {
               const isSelected = selectedAnswer === option;
               const isCorrectAnswer = option === currentItem.meaning;
               
-              let buttonClass = "w-full p-6 text-center text-lg font-semibold rounded-lg transition-all duration-200 border-b-4 ";
+              let buttonClass = "w-full p-6 text-center text-lg font-semibold rounded-lg transition-all duration-200 border-2 border-black ";
               
               if (!showResult) {
-                buttonClass += "bg-white hover:bg-gray-50 border-gray-300 hover:border-gray-400 text-gray-800 shadow-sm hover:shadow-md cursor-pointer";
+                if (isSelected) {
+                  buttonClass += "bg-blue-100 text-blue-800 shadow-md";
+                } else {
+                  buttonClass += "bg-white hover:bg-gray-50 text-gray-800 shadow-sm hover:shadow-md cursor-pointer";
+                }
               } else {
                 if (isSelected && isCorrectAnswer) {
-                  buttonClass += "bg-green-100 border-green-500 text-green-800";
+                  buttonClass += "bg-green-100 text-green-800";
                 } else if (isSelected && !isCorrectAnswer) {
-                  buttonClass += "bg-red-100 border-red-500 text-red-800";
+                  buttonClass += "bg-red-100 text-red-800";
                 } else if (isCorrectAnswer) {
-                  buttonClass += "bg-green-100 border-green-500 text-green-800";
+                  buttonClass += "bg-green-100 text-green-800";
                 } else {
-                  buttonClass += "bg-gray-100 border-gray-300 text-gray-500";
+                  buttonClass += "bg-gray-100 text-gray-500";
                 }
               }
 
@@ -314,6 +385,47 @@ export default function MatchPage() {
             )}
           </div>
         )}
+      </div>
+
+      {/* Bottom Row with Rocket Icon and Check Answer Button */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
+        <div className="max-w-4xl mx-auto flex items-center justify-between">
+          {/* Rocket Icon and text on the left */}
+          <div className="flex items-center space-x-3">
+            <img 
+              src="/6110736_rocket_spaceship_icon (2).png" 
+              alt="Rocket JLPT Logo" 
+              className="h-12 w-12"
+            />
+            <span className="text-lg font-medium text-gray-700">
+              Select the Kanji meaning
+            </span>
+          </div>
+          
+          {/* Button on the right */}
+          <div className="flex-shrink-0">
+            {!showResult ? (
+              <button
+                onClick={handleCheckAnswer}
+                disabled={!selectedAnswer}
+                className={`py-4 px-12 rounded-lg font-semibold text-lg transition-all duration-200 border-b-4 border-black ${
+                  selectedAnswer
+                    ? 'bg-gray-200 hover:bg-gray-300 text-gray-800 shadow-lg hover:shadow-xl'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
+              >
+                CHECK
+              </button>
+            ) : (
+              <button
+                onClick={handleNext}
+                className="py-4 px-12 rounded-lg font-semibold text-lg bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 border-b-4 border-black"
+              >
+                {currentIndex < trainingItems.length - 1 ? 'CONTINUE' : 'FINISH'}
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

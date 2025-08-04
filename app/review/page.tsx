@@ -52,6 +52,8 @@ export default function ReviewPage() {
   } = useReviewStore();
   
   const [stats, setStats] = useState({ total: 0, mastered: 0, learning: 0, review: 0, dueToday: 0 });
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   // Load data on mount and when page becomes visible
   const refreshData = () => {
@@ -94,51 +96,35 @@ export default function ReviewPage() {
     }
   };
 
+  // Calculate pagination
+  const totalPages = Math.ceil(reviewItems.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = reviewItems.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div className="p-6">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Review</h1>
 
-        {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
-          <div className="bg-white rounded-lg shadow-sm p-6 text-center">
-            <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg mx-auto mb-3">
-              <BookOpen className="h-6 w-6 text-blue-600" />
+        {/* Simplified Header */}
+        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <div className="text-center">
+            <div className="text-4xl font-bold text-gray-900 mb-2">{reviewItems.length}</div>
+            <div className="text-lg text-gray-600 mb-6">
+              {reviewItems.length === 1 ? 'item due for review' : 'items due for review'}
             </div>
-            <div className="text-2xl font-bold text-gray-900">{stats.total}</div>
-            <div className="text-sm text-gray-600">Total Items</div>
-          </div>
-          
-          <div className="bg-white rounded-lg shadow-sm p-6 text-center">
-            <div className="flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg mx-auto mb-3">
-              <Target className="h-6 w-6 text-green-600" />
-            </div>
-            <div className="text-2xl font-bold text-gray-900">{stats.mastered}</div>
-            <div className="text-sm text-gray-600">Mastered</div>
-          </div>
-          
-          <div className="bg-white rounded-lg shadow-sm p-6 text-center">
-            <div className="flex items-center justify-center w-12 h-12 bg-yellow-100 rounded-lg mx-auto mb-3">
-              <TrendingUp className="h-6 w-6 text-yellow-600" />
-            </div>
-            <div className="text-2xl font-bold text-gray-900">{stats.learning}</div>
-            <div className="text-sm text-gray-600">Learning</div>
-          </div>
-          
-          <div className="bg-white rounded-lg shadow-sm p-6 text-center">
-            <div className="flex items-center justify-center w-12 h-12 bg-red-100 rounded-lg mx-auto mb-3">
-              <Clock className="h-6 w-6 text-red-600" />
-            </div>
-            <div className="text-2xl font-bold text-gray-900">{stats.review}</div>
-            <div className="text-sm text-gray-600">In Review</div>
-          </div>
-          
-          <div className="bg-white rounded-lg shadow-sm p-6 text-center">
-            <div className="flex items-center justify-center w-12 h-12 bg-purple-100 rounded-lg mx-auto mb-3">
-              <Calendar className="h-6 w-6 text-purple-600" />
-            </div>
-            <div className="text-2xl font-bold text-gray-900">{stats.dueToday}</div>
-            <div className="text-sm text-gray-600">Due Today</div>
+            <button 
+              onClick={handleStartReview}
+              disabled={reviewItems.length === 0}
+              className="px-8 py-4 bg-green-500 text-white hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed font-semibold transition-all rounded-lg shadow-sm border-b-4 border-green-600 hover:border-green-700 disabled:border-gray-400 hover:translate-y-0.5 active:translate-y-0.5 disabled:translate-y-0"
+            >
+              {reviewItems.length === 0 ? 'No Items to Review' : 'Start Review Session'}
+            </button>
           </div>
         </div>
 
@@ -165,7 +151,7 @@ export default function ReviewPage() {
             </div>
           ) : (
             <div className="space-y-4">
-              {reviewItems.slice(0, 10).map((progress) => {
+              {currentItems.map((progress) => {
                 const itemDetails = getItemDetails(progress);
                 if (!itemDetails) return null;
                 
@@ -216,11 +202,69 @@ export default function ReviewPage() {
                 );
               })}
               
-              {reviewItems.length > 10 && (
-                <div className="text-center text-sm text-gray-600 py-2">
-                  ... and {reviewItems.length - 10} more items
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className="flex justify-center items-center mt-8">
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-gray-300 transition-all duration-200"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                      Previous
+                    </button>
+                    
+                    {/* Page Numbers */}
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+                        let page;
+                        if (totalPages <= 5) {
+                          page = i + 1;
+                        } else if (currentPage <= 3) {
+                          page = i + 1;
+                        } else if (currentPage >= totalPages - 2) {
+                          page = totalPages - 4 + i;
+                        } else {
+                          page = currentPage - 2 + i;
+                        }
+                        
+                        return (
+                          <button
+                            key={page}
+                            onClick={() => handlePageChange(page)}
+                            className={`w-10 h-10 text-sm font-medium rounded-lg transition-all duration-200 ${
+                              currentPage === page
+                                ? 'bg-green-500 text-white shadow-md hover:bg-green-600'
+                                : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400'
+                            }`}
+                          >
+                            {page}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    
+                    <button
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-gray-300 transition-all duration-200"
+                    >
+                      Next
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               )}
+              
+              {/* Items count info */}
+              <div className="text-center text-sm text-gray-600 py-2">
+                Showing {startIndex + 1}-{Math.min(endIndex, reviewItems.length)} of {reviewItems.length} items
+              </div>
             </div>
           )}
         </div>

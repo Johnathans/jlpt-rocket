@@ -25,12 +25,6 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
             <Link 
-              href="/stories" 
-              className="text-gray-700 hover:text-green-600 font-medium transition-colors px-3 py-2 rounded-md hover:bg-gray-50"
-            >
-              Stories
-            </Link>
-            <Link 
               href="/sentences" 
               className="text-gray-700 hover:text-green-600 font-medium transition-colors px-3 py-2 rounded-md hover:bg-gray-50"
             >
@@ -64,13 +58,6 @@ export default function Navbar() {
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden pb-4 space-y-2">
-            <Link 
-              href="/stories" 
-              className="block px-4 py-3 text-gray-700 hover:text-green-600 hover:bg-gray-50 font-medium transition-colors rounded-md mx-2"
-              onClick={() => setIsOpen(false)}
-            >
-              Stories
-            </Link>
             <Link 
               href="/sentences" 
               className="block px-4 py-3 text-gray-700 hover:text-green-600 hover:bg-gray-50 font-medium transition-colors rounded-md mx-2"

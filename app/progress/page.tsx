@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { ReviewSystem } from '@/lib/reviewSystem';
 
 interface ReviewStats {
@@ -17,6 +18,9 @@ const TOTAL_COUNTS = {
 };
 
 export default function ProgressPage() {
+  const searchParams = useSearchParams();
+  const selectedLevel = searchParams.get('level') || 'N5';
+  
   const [stats, setStats] = useState<ReviewStats>({
     kanji: { learning: 0, mastered: 0, total: TOTAL_COUNTS.kanji },
     vocabulary: { learning: 0, mastered: 0, total: TOTAL_COUNTS.vocabulary },
@@ -125,48 +129,9 @@ export default function ProgressPage() {
   return (
     <div className="p-6">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Learning Progress</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">{selectedLevel} Progress</h1>
 
         <div className="bg-white rounded-lg shadow-sm p-8">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Progress Overview</h2>
-            <button
-              onClick={() => {
-                const progressMap = ReviewSystem.getProgressData();
-                const newStats = {
-                  kanji: { learning: 0, mastered: 0, total: TOTAL_COUNTS.kanji },
-                  vocabulary: { learning: 0, mastered: 0, total: TOTAL_COUNTS.vocabulary },
-                  sentences: { learning: 0, mastered: 0, total: TOTAL_COUNTS.sentences }
-                };
-                progressMap.forEach((progress) => {
-                  if (progress.type === 'kanji') {
-                    if (progress.masteryLevel >= 100) {
-                      newStats.kanji.mastered++;
-                    } else if (progress.correctCount > 0 || progress.incorrectCount > 0) {
-                      newStats.kanji.learning++;
-                    }
-                  } else if (progress.type === 'vocabulary') {
-                    if (progress.masteryLevel >= 100) {
-                      newStats.vocabulary.mastered++;
-                    } else if (progress.correctCount > 0 || progress.incorrectCount > 0) {
-                      newStats.vocabulary.learning++;
-                    }
-                  } else if (progress.type === 'sentences') {
-                    if (progress.masteryLevel >= 100) {
-                      newStats.sentences.mastered++;
-                    } else if (progress.correctCount > 0 || progress.incorrectCount > 0) {
-                      newStats.sentences.learning++;
-                    }
-                  }
-                });
-                setStats(newStats);
-              }}
-              className="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded-lg text-sm font-medium transition-colors"
-            >
-              Refresh
-            </button>
-          </div>
-          
           <div className="space-y-6">
             {categories.map((category) => (
               <div key={category.name}>
@@ -178,8 +143,8 @@ export default function ProgressPage() {
                 </div>
                 
                 <div className="relative">
-                  <div className="w-full bg-gray-200 rounded-full h-12">
-                    <div className="flex h-12 rounded-full overflow-hidden">
+                  <div className="w-full bg-gray-200 rounded h-16">
+                    <div className="flex h-16 rounded overflow-hidden">
                       <div 
                         className="bg-green-500 flex items-center justify-center text-white text-sm font-medium"
                         style={{ width: `${(category.data.mastered / maxTotal) * 100}%` }}
