@@ -1,5 +1,5 @@
-import StoryPageClient from '@/components/StoryPageClient';
 import { stories } from '@/lib/data/stories';
+import StoryModuleClient from '@/components/StoryModuleClient';
 
 export async function generateStaticParams() {
   return stories.map((story) => ({
@@ -7,24 +7,24 @@ export async function generateStaticParams() {
   }));
 }
 
-interface StoryPageProps {
+interface StoryModulePageProps {
   params: {
     id: string;
   };
 }
 
-export default function StoryPage({ params }: StoryPageProps) {
+export default function StoryModulePage({ params }: StoryModulePageProps) {
   const storyId = parseInt(params.id, 10);
   const story = stories.find(s => s.id === storyId);
 
   if (!story) {
     return (
-      <div className="min-h-full flex items-center justify-center p-6">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-black mb-4">Story not found</h1>
           <a 
             href="/"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-semibold transition-all rounded-md shadow-sm"
+            className="px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-semibold transition-all rounded-md"
           >
             Back to Stories
           </a>
@@ -33,5 +33,5 @@ export default function StoryPage({ params }: StoryPageProps) {
     );
   }
 
-  return <StoryPageClient story={story} />;
+  return <StoryModuleClient story={story} />;
 }

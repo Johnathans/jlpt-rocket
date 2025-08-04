@@ -189,13 +189,13 @@ export default function VocabularyPage() {
         <div className="flex gap-3">
           <button
             onClick={selectAll}
-            className="px-4 py-2 bg-green-500 text-white hover:bg-green-600 font-medium transition-colors rounded-md shadow-sm"
+            className="px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-medium transition-colors rounded-md shadow-sm border-b-4 border-green-700 hover:border-green-800 text-base"
           >
             Select All
           </button>
           <button
             onClick={clearAll}
-            className="px-4 py-2 bg-gray-500 text-white hover:bg-gray-600 font-medium transition-colors rounded-md shadow-sm"
+            className="px-6 py-3 bg-gray-500 text-white hover:bg-gray-600 font-medium transition-colors rounded-md shadow-sm border-b-4 border-gray-700 hover:border-gray-800 text-base"
           >
             Clear All
           </button>
@@ -218,34 +218,44 @@ export default function VocabularyPage() {
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-2xl font-bold text-black font-japanese">
+                    <div className="text-center mb-4">
+                      <div className="text-6xl font-bold text-black font-japanese mb-2">
                         {item.word}
-                      </h3>
-                      <button
-                        onClick={() => playAudio(item.word)}
-                        className="p-1 text-gray-500 hover:text-green-600 transition-colors"
-                      >
-                        <Volume2 className="h-4 w-4" />
-                      </button>
+                      </div>
+                      <p className="text-lg text-gray-600 font-japanese mb-2">
+                        {item.reading}
+                      </p>
+                      <p className="text-lg text-gray-800 font-medium">
+                        {item.meaning}
+                      </p>
                     </div>
-                    <p className="text-lg text-gray-600 font-japanese mb-1">
-                      {item.reading}
-                    </p>
-                    <p className="text-gray-800 font-medium">
-                      {item.meaning}
-                    </p>
                   </div>
-                  <div className="flex items-center gap-2">
+                  {/* Top left badge */}
+                  <div className="absolute top-4 left-4">
                     <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getLevelColor(item.level)}`}>
-                    {item.level}
-                  </span>
+                      {item.level}
+                    </span>
+                  </div>
+
+                  {/* Top right audio button */}
+                  <div className="absolute top-4 right-4">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        playAudio(item.word);
+                      }}
+                      className="p-2 text-gray-500 hover:text-green-600 hover:bg-white/80 rounded-full transition-colors"
+                    >
+                      <Volume2 className="h-4 w-4" />
+                    </button>
+                  </div>
+
+                  {/* Selected indicator */}
                   {selectedVocab.has(item.id) && (
-                    <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                    <div className="absolute top-4 right-16 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
                       <span className="text-white text-xs font-bold">✓</span>
                     </div>
                   )}
-                </div>
               </div>
 
             <div className="border-t border-gray-100 pt-4">

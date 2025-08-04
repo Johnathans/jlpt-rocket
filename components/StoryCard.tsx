@@ -43,9 +43,9 @@ export default function StoryCard({ story }: StoryCardProps) {
   return (
     <div className={`bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-6 border-2 border-gray-200 border-b-4 border-b-gray-400 hover:border-gray-300 hover:border-b-gray-500 relative ${isLocked ? 'opacity-75' : ''}`}>
         {isLocked && (
-          <div className="absolute inset-0 bg-black/20 flex items-center justify-center z-10">
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-5 shadow-2xl border-2 border-blue-200 border-b-4 border-blue-300">
-              <Lock className="h-8 w-8 text-blue-600 drop-shadow-sm" />
+          <div className="absolute inset-0 bg-black/20 flex items-center justify-center z-10 rounded-lg">
+            <div className="bg-white rounded-xl p-4 shadow-lg border-2 border-gray-300">
+              <Lock className="h-8 w-8 text-gray-600" />
             </div>
           </div>
         )}

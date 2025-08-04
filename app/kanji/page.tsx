@@ -204,13 +204,13 @@ export default function KanjiPage() {
         <div className="flex gap-3">
           <button
             onClick={selectAll}
-            className="px-4 py-2 bg-green-500 text-white hover:bg-green-600 font-medium transition-colors rounded-md shadow-sm"
+            className="px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-medium transition-colors rounded-md shadow-sm border-b-4 border-green-700 hover:border-green-800 text-base"
           >
             Select All
           </button>
           <button
             onClick={clearAll}
-            className="px-4 py-2 bg-gray-500 text-white hover:bg-gray-600 font-medium transition-colors rounded-md shadow-sm"
+            className="px-6 py-3 bg-gray-500 text-white hover:bg-gray-600 font-medium transition-colors rounded-md shadow-sm border-b-4 border-gray-700 hover:border-gray-800 text-base"
           >
             Clear All
           </button>
