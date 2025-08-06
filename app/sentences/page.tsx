@@ -489,7 +489,8 @@ export default function SentencesPage() {
   }
 
   return (
-    <div className="p-6">
+    <div className="min-h-screen bg-gray-50 pb-20">
+      <div className="p-6 max-w-6xl mx-auto">
       <div className="mb-6 flex justify-between items-center">
         <p className="text-sm text-gray-600">Select sentences to begin studying</p>
         <div className="flex gap-3">
@@ -622,6 +623,7 @@ export default function SentencesPage() {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }
