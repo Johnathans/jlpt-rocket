@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import TopNavbar from '@/components/Sidebar';
+import SidebarLayout from '@/components/SidebarLayout';
 import MarketingNavbar from '@/components/MarketingNavbar';
 import StreakCounter from '@/components/StreakCounter';
 import CategoryLinks from '@/components/CategoryLinks';
@@ -41,10 +41,9 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
     );
   }
 
-  // Regular app layout with full navbar, categories, and streak
+  // Regular app layout with sidebar, categories, and streak
   return (
-    <div className="min-h-screen bg-gray-50">
-      <TopNavbar />
+    <SidebarLayout>
       <main className="bg-gray-50 relative">
         <CategoryLinks />
         <StreakCounter />
@@ -52,6 +51,6 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
           {children}
         </div>
       </main>
-    </div>
+    </SidebarLayout>
   );
 }

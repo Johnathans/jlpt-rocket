@@ -183,7 +183,8 @@ export default function VocabularyPage() {
   };
 
   return (
-    <div className="p-6">
+    <div className="min-h-screen bg-gray-50 pb-20">
+      <div className="p-6 max-w-6xl mx-auto">
       <div className="mb-6 flex justify-between items-center">
         <p className="text-sm text-gray-600">Select vocabulary to begin studying</p>
         <div className="flex gap-3">
@@ -319,6 +320,7 @@ export default function VocabularyPage() {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }
