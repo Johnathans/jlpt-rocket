@@ -380,7 +380,7 @@ export default function ClozePage() {
                   >
                     {option}
                     {showResult && isCorrectAnswer && (
-                      <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-600 rounded flex items-center justify-center">
+                      <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded flex items-center justify-center">
                         <span className="text-white text-xs font-bold">✓</span>
                       </div>
                     )}
@@ -413,7 +413,7 @@ export default function ClozePage() {
             <button
               onClick={handleCheckAnswer}
               disabled={!selectedAnswer}
-              className={`py-4 px-32 rounded-full font-semibold text-sm transition-all duration-200 ${
+              className={`py-4 px-32 rounded-full font-semibold text-sm transition-all duration-200 border-b-4 border-gray-300 ${
                 selectedAnswer
                   ? 'text-white shadow-lg hover:shadow-xl'
                   : 'bg-gray-200 text-gray-400 cursor-not-allowed'
@@ -425,7 +425,11 @@ export default function ClozePage() {
           ) : (
             <button
               onClick={handleNext}
-              className="py-4 px-32 rounded-full font-semibold text-sm bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+              className={`py-4 px-32 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 border-b-4 ${
+                isCorrect
+                  ? 'bg-green-500 hover:bg-green-600 text-white border-green-700'
+                  : 'bg-gray-300 hover:bg-gray-400 text-gray-700 border-gray-500'
+              }`}
             >
               {currentIndex < trainingItems.length - 1 ? 'CONTINUE' : 'FINISH'}
             </button>
