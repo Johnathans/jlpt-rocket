@@ -128,38 +128,36 @@ export default function ProgressPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="p-6">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">{selectedLevel} Progress</h1>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
         <div className="bg-white rounded-lg shadow-sm p-8">
           <div className="space-y-6">
             {categories.map((category) => (
               <div key={category.name}>
-                <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-lg font-medium text-gray-800">{category.name}</h3>
-                  <span className="text-sm text-gray-600">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-2xl font-bold text-gray-800">{category.name}</h3>
+                  <span className="text-lg text-gray-600 font-medium">
                     {category.data.mastered + category.data.learning} / {category.data.total}
                   </span>
                 </div>
                 
                 <div className="relative">
-                  <div className="w-full bg-gray-200 rounded h-16">
-                    <div className="flex h-16 rounded overflow-hidden">
+                  <div className="w-full bg-gray-200 rounded h-32">
+                    <div className="flex h-32 rounded overflow-hidden">
                       <div 
-                        className="bg-green-500 flex items-center justify-center text-white text-sm font-medium"
+                        className="bg-green-500 flex items-center justify-center text-white text-lg font-bold"
                         style={{ width: `${(category.data.mastered / maxTotal) * 100}%` }}
                       >
                         {category.data.mastered > 0 && (
-                          <span className="px-2">{category.data.mastered}</span>
+                          <span className="px-3">{category.data.mastered}</span>
                         )}
                       </div>
                       <div 
-                        className="bg-green-300 flex items-center justify-center text-gray-800 text-sm font-medium"
+                        className="bg-green-300 flex items-center justify-center text-gray-800 text-lg font-bold"
                         style={{ width: `${(category.data.learning / maxTotal) * 100}%` }}
                       >
                         {category.data.learning > 0 && (
-                          <span className="px-2">{category.data.learning}</span>
+                          <span className="px-3">{category.data.learning}</span>
                         )}
                       </div>
                     </div>
@@ -169,18 +167,17 @@ export default function ProgressPage() {
             ))}
           </div>
 
-          <div className="flex items-center gap-6 mt-6 text-sm">
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-green-500 rounded"></div>
-              <span>Mastered</span>
+          <div className="flex items-center gap-8 mt-8 text-base">
+            <div className="flex items-center gap-3">
+              <div className="w-5 h-5 bg-green-500 rounded"></div>
+              <span className="font-medium">Mastered</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-green-300 rounded"></div>
-              <span>Learning</span>
+            <div className="flex items-center gap-3">
+              <div className="w-5 h-5 bg-green-300 rounded"></div>
+              <span className="font-medium">Learning</span>
             </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
   );

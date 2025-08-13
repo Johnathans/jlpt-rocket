@@ -1,8 +1,9 @@
 'use client';
 
-import { X, Settings, Flame } from 'lucide-react';
+import { X, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import AudioSettingsModal from './AudioSettingsModal';
 
 interface TrainingHeaderProps {
   progress: number; // 0-100
@@ -17,16 +18,24 @@ export default function TrainingHeader({
   onSettings, 
   closeHref = "/" 
 }: TrainingHeaderProps) {
-  const [xp, setXp] = useState(0);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
 
-  useEffect(() => {
-    // Load XP from localStorage on client side
-    const storedXP = localStorage.getItem('userXP');
-    setXp(storedXP ? parseInt(storedXP) : 0);
-  }, []);
+  const handleSettingsClick = () => {
+    if (onSettings) {
+      onSettings();
+    } else {
+      setShowSettingsModal(true);
+    }
+  };
+
   return (
-    <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="flex items-center justify-between px-6 py-4">
+    <>
+      <AudioSettingsModal 
+        isOpen={showSettingsModal} 
+        onClose={() => setShowSettingsModal(false)} 
+      />
+    <div className="sticky top-0 z-50">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white">
         {/* Close Button */}
         <div className="flex-shrink-0">
           {onClose ? (
@@ -46,27 +55,22 @@ export default function TrainingHeader({
           )}
         </div>
         
-        {/* Inline Progress Bar - Thicker */}
-        <div className="flex-1 mx-8">
-          <div className="w-full bg-gray-200 rounded-full h-3">
+        {/* Inline Progress Bar with Review Bubble */}
+        <div className="flex-1 flex justify-center items-center gap-3">
+          <div className="w-full max-w-2xl bg-gray-200 rounded-full h-3">
             <div 
               className="bg-green-500 h-3 rounded-full transition-all duration-500 ease-out"
               style={{ width: `${Math.max(0, Math.min(100, progress))}%` }}
             />
           </div>
+          {/* Review Bubble */}
+          <div className="w-6 h-3 bg-gray-400 rounded-full flex-shrink-0"></div>
         </div>
         
-        {/* XP Counter and Settings Button */}
-        <div className="flex-shrink-0 flex items-center gap-3">
-          {/* XP Counter */}
-          <div className="flex items-center gap-2 px-3 py-2 bg-white text-green-600 rounded-lg shadow-sm border border-gray-200">
-            <Flame className="h-4 w-4" />
-            <span className="text-sm font-bold">{xp} XP</span>
-          </div>
-          
-          {/* Settings Button */}
+        {/* Settings Button */}
+        <div className="flex-shrink-0">
           <button
-            onClick={onSettings}
+            onClick={handleSettingsClick}
             className="p-3 text-gray-900 bg-gray-100 rounded-lg transition-colors border-b-4 border-gray-300 hover:bg-gray-200 hover:border-gray-400"
           >
             <Settings className="h-6 w-6" />
@@ -74,5 +78,6 @@ export default function TrainingHeader({
         </div>
       </div>
     </div>
+    </>
   );
 }

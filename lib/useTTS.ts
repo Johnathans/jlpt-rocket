@@ -30,7 +30,7 @@ export function useTTS() {
       setState(prev => ({ ...prev, isLoading: true, error: null }));
 
       // Create cache key
-      const cacheKey = `${text}-${options.languageCode || 'ja-JP'}-${options.voiceName || 'ja-JP-Neural2-B'}`;
+      const cacheKey = `${text}-${options.languageCode || 'ja-JP'}-${options.voiceName || 'ja-JP-Journey-F'}`;
       
       let audioUrl: string;
 
@@ -47,7 +47,7 @@ export function useTTS() {
           body: JSON.stringify({
             text,
             languageCode: options.languageCode || 'ja-JP',
-            voiceName: options.voiceName || 'ja-JP-Neural2-B',
+            voiceName: options.voiceName || 'ja-JP-Journey-F',
           }),
         });
 

@@ -6,6 +6,7 @@ import TrainingHeader from '@/components/TrainingHeader';
 import { ReviewSystem } from '@/lib/reviewSystem';
 import { StreakSystem } from '@/lib/streakSystem';
 import { useTTS } from '@/lib/useTTS';
+import { playIncorrectSound, playCorrectSound, shouldPlayVoice, playButtonClickSound } from '@/lib/audioUtils';
 
 interface WordInSentence {
   id: number;
@@ -199,7 +200,7 @@ export default function ClozePage() {
     
     return (
       <div className="text-center">
-        <div className="text-3xl font-japanese leading-relaxed mb-4">
+        <div className="text-5xl font-japanese leading-relaxed mb-4">
           {currentItem.words.map((word, index) => (
             <span key={word.id}>
               {word.id === clozeWord.id ? (
@@ -208,8 +209,8 @@ export default function ClozePage() {
                     selectedAnswer
                       ? showResult
                         ? isCorrect
-                          ? 'bg-green-100 border-green-500 text-green-800'
-                          : 'bg-red-100 border-red-500 text-red-800'
+                          ? 'bg-green-100 border-green-500 text-green-600'
+                          : 'bg-red-100 border-red-500 text-red-600'
                         : 'bg-blue-50 border-blue-300 text-blue-800'
                       : 'bg-gray-200 border-dashed border-gray-400 text-gray-500'
                   }`}
@@ -232,16 +233,54 @@ export default function ClozePage() {
     );
   };
 
-  const handleAnswerSelect = async (answer: string) => {
+  const handleAnswerSelect = (answer: string) => {
     if (showResult) return;
-    
+    playButtonClickSound();
     setSelectedAnswer(answer);
-    const correct = answer === clozeWord?.word;
+  };
+
+  const handleCheckAnswer = async () => {
+    if (!selectedAnswer) return;
+    
+    const correct = selectedAnswer === clozeWord?.word;
     setIsCorrect(correct);
     setShowResult(true);
     
     if (correct) {
+      // Play correct answer sound
+      playCorrectSound();
       setScore(score + 1);
+      
+      // Play TTS after a small delay for correct answers if voice is enabled
+      if (shouldPlayVoice()) {
+        setTimeout(async () => {
+          try {
+            await speak(currentItem.fullSentence, {
+              languageCode: 'ja-JP',
+              voiceName: 'ja-JP-Chirp3-HD-Leda',
+              autoPlay: true
+            });
+          } catch (error) {
+            console.error('TTS Error:', error);
+          }
+        }, 300);
+      }
+    } else {
+      // Play incorrect answer sound
+      playIncorrectSound();
+      
+      // Play TTS immediately for incorrect answers if voice is enabled
+      if (shouldPlayVoice()) {
+        try {
+          await speak(currentItem.fullSentence, {
+            languageCode: 'ja-JP',
+            voiceName: 'ja-JP-Chirp3-HD-Leda',
+            autoPlay: true
+          });
+        } catch (error) {
+          console.error('TTS Error:', error);
+        }
+      }
     }
 
     // Update progress in review system (using sentence ID and 'sentences' type)
@@ -250,22 +289,6 @@ export default function ClozePage() {
       'sentences',
       correct
     );
-
-    // Play the correct sentence with TTS using Chirp 3 Leda voice
-    try {
-      await speak(currentItem.fullSentence, {
-        languageCode: 'ja-JP',
-        voiceName: 'ja-JP-Chirp3-HD-Leda',
-        autoPlay: true
-      });
-    } catch (error) {
-      console.error('TTS Error:', error);
-    }
-
-    // Auto-advance after 3 seconds (increased to allow time for TTS)
-    setTimeout(() => {
-      handleNext();
-    }, 3000);
   };
 
   const handleNext = () => {
@@ -301,13 +324,13 @@ export default function ClozePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white flex flex-col">
       <TrainingHeader 
         progress={progress}
         closeHref="/sentences"
       />
       
-      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] p-6">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 pb-24 pt-8 space-y-8">
         <div className="w-full max-w-4xl">
           {/* Question Counter */}
           <div className="text-center mb-8">
@@ -322,41 +345,57 @@ export default function ClozePage() {
           </div>
 
           {/* Answer Options */}
-          <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
-            {answerOptions.map((option, index) => (
-              <button
-                key={index}
-                onClick={() => handleAnswerSelect(option)}
-                disabled={showResult}
-                className={`p-6 text-xl font-japanese rounded-lg border-4 transition-all duration-200 ${
-                  showResult
-                    ? option === clozeWord?.word
-                      ? 'bg-green-100 border-green-500 text-green-800'
-                      : option === selectedAnswer
-                      ? 'bg-red-100 border-red-500 text-red-800'
-                      : 'bg-gray-100 border-gray-300 text-gray-600'
-                    : 'bg-white border-gray-300 hover:border-blue-400 hover:bg-blue-50 active:scale-95'
-                }`}
-              >
-                {option}
-              </button>
-            ))}
+          <div className="w-full max-w-2xl mx-auto">
+            <div className="grid grid-cols-2 gap-4">
+              {answerOptions.map((option, index) => {
+                const isSelected = selectedAnswer === option;
+                const isCorrectAnswer = option === clozeWord?.word;
+                
+                let buttonClass = "w-full p-4 text-center text-base font-semibold rounded-lg transition-all duration-200 border-2 border-gray-300 relative ";
+                
+                if (!showResult) {
+                  if (isSelected) {
+                    buttonClass += "bg-blue-100 text-blue-800 shadow-md";
+                  } else {
+                    buttonClass += "bg-white hover:bg-gray-50 text-gray-800 shadow-sm hover:shadow-md cursor-pointer";
+                  }
+                } else {
+                  if (isSelected && isCorrectAnswer) {
+                    buttonClass += "bg-green-100 text-green-600";
+                  } else if (isSelected && !isCorrectAnswer) {
+                    buttonClass += "bg-red-100 text-red-600";
+                  } else if (isCorrectAnswer) {
+                    buttonClass += "bg-green-100 text-green-600";
+                  } else {
+                    buttonClass += "bg-gray-100 text-gray-500";
+                  }
+                }
+
+                return (
+                  <button
+                    key={index}
+                    onClick={() => handleAnswerSelect(option)}
+                    className={buttonClass}
+                    disabled={showResult}
+                  >
+                    {option}
+                    {showResult && isCorrectAnswer && (
+                      <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-600 rounded flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">✓</span>
+                      </div>
+                    )}
+                    {showResult && isSelected && !isCorrectAnswer && (
+                      <div className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 rounded flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">✗</span>
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Result Feedback */}
-          {showResult && (
-            <div className="text-center mt-8">
-              <div className={`text-2xl font-bold mb-2 ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                {isCorrect ? '正解！' : '不正解'}
-              </div>
-              {clozeWord && (
-                <div className="text-gray-700">
-                  <div className="font-japanese text-lg">{clozeWord.word} ({clozeWord.reading})</div>
-                  <div className="text-sm">{clozeWord.meaning}</div>
-                </div>
-              )}
-            </div>
-          )}
+
 
           {/* Score */}
           <div className="text-center mt-8">
@@ -364,6 +403,33 @@ export default function ClozePage() {
               Score: {score}/{trainingItems.length}
             </span>
           </div>
+        </div>
+      </div>
+
+      {/* Bottom Row with Centered Check Button */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6">
+        <div className="max-w-2xl mx-auto flex justify-center">
+          {!showResult ? (
+            <button
+              onClick={handleCheckAnswer}
+              disabled={!selectedAnswer}
+              className={`py-4 px-32 rounded-full font-semibold text-sm transition-all duration-200 ${
+                selectedAnswer
+                  ? 'text-white shadow-lg hover:shadow-xl'
+                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+              }`}
+              style={selectedAnswer ? { backgroundColor: '#333333' } : {}}
+            >
+              CHECK
+            </button>
+          ) : (
+            <button
+              onClick={handleNext}
+              className="py-4 px-32 rounded-full font-semibold text-sm bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+            >
+              {currentIndex < trainingItems.length - 1 ? 'CONTINUE' : 'FINISH'}
+            </button>
+          )}
         </div>
       </div>
     </div>

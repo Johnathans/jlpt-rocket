@@ -184,20 +184,7 @@ export default function SentencesPage() {
   const [earnedXP, setEarnedXP] = useState(0);
 
   const getLevelColor = (level: string) => {
-    switch (level) {
-      case 'N5':
-        return 'bg-green-100 text-green-800 border-green-200';
-      case 'N4':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'N3':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'N2':
-        return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'N1':
-        return 'bg-red-100 text-red-800 border-red-200';
-      default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
+    return 'bg-gray-100 text-gray-900 border-gray-200';
   };
 
   const playAudio = (sentence: string) => {
@@ -490,7 +477,7 @@ export default function SentencesPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
-      <div className="p-6 max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
       <div className="mb-6 flex justify-between items-center">
         <p className="text-sm text-gray-600">Select sentences to begin studying</p>
         <div className="flex gap-3">
@@ -502,7 +489,7 @@ export default function SentencesPage() {
           </button>
           <button
             onClick={clearAll}
-            className="px-6 py-3 bg-gray-500 text-white hover:bg-gray-600 font-medium transition-colors rounded-md shadow-sm border-b-4 border-gray-700 hover:border-gray-800 text-base"
+            className="px-6 py-3 bg-gray-400 text-white hover:bg-gray-500 font-medium transition-colors rounded-md shadow-sm border-b-4 border-gray-600 hover:border-gray-700 text-base"
           >
             Clear All
           </button>
@@ -514,20 +501,43 @@ export default function SentencesPage() {
           <div
             key={item.id}
             onClick={() => toggleSelected(item.id)}
-            className={`border border-gray-200 border-b-4 transition-all duration-200 hover:shadow-lg rounded-lg p-6 relative cursor-pointer ${
+            className={`border-t-4 border-l-6 border-r-6 border-b-8 border-gray-200 transition-all duration-200 hover:shadow-lg rounded-2xl p-6 relative cursor-pointer ${
               selectedSentences.has(item.id)
-                ? 'bg-blue-50 border-blue-200 border-b-blue-400'
+                ? 'bg-blue-50 border-blue-200 border-b-blue-500'
                 : 
               masteredSentences.has(item.id)
-                ? 'bg-green-50 border-green-200 border-b-green-400'
-                : 'bg-white border-gray-200 border-b-gray-400 hover:border-gray-300 hover:border-b-gray-500'
+                ? 'bg-green-50 border-green-200 border-b-green-500'
+                : 'bg-white border-gray-200 border-b-gray-400 hover:border-gray-300 hover:border-b-gray-600'
             }`}
           >
-            <div className="text-center mb-4">
-              <div className="text-2xl font-bold text-black font-japanese mb-2 leading-relaxed">
+            {/* Top row with badge and controls */}
+            <div className="flex justify-between items-start mb-6">
+              <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getLevelColor(item.level)}`}>
+                {item.level}
+              </span>
+              <div className="flex items-center gap-2">
+                {selectedSentences.has(item.id) && (
+                  <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                    <span className="text-white text-xs font-bold">✓</span>
+                  </div>
+                )}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    playAudio(item.fullSentence);
+                  }}
+                  className="p-2 text-gray-500 hover:text-green-600 hover:bg-white/80 rounded-full transition-colors"
+                >
+                  <Volume2 className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+
+            <div className="text-center mb-6">
+              <div className="text-2xl font-bold text-black font-japanese mb-3 leading-relaxed">
                 {item.fullSentence}
               </div>
-              <p className="text-base text-gray-600 font-japanese mb-2 leading-relaxed">
+              <p className="text-base text-gray-600 font-japanese mb-3 leading-relaxed">
                 {item.fullReading}
               </p>
               <p className="text-gray-800 font-medium">
@@ -535,41 +545,14 @@ export default function SentencesPage() {
               </p>
             </div>
 
-            {/* Top left badge */}
-            <div className="absolute top-4 left-4">
-              <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getLevelColor(item.level)}`}>
-                {item.level}
-              </span>
-            </div>
-
-            {/* Top right audio button */}
-            <div className="absolute top-4 right-4">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  playAudio(item.fullSentence);
-                }}
-                className="p-2 text-gray-500 hover:text-green-600 hover:bg-white/80 rounded-full transition-colors"
-              >
-                <Volume2 className="h-4 w-4" />
-              </button>
-            </div>
-
-            {/* Selected indicator */}
-            {selectedSentences.has(item.id) && (
-              <div className="absolute top-4 right-16 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs font-bold">✓</span>
-              </div>
-            )}
-
-            <div className="border-t border-gray-100 pt-4">
-              <div className="flex items-start gap-2 mb-2">
+            <div className="border-t border-gray-100 pt-4 mb-4">
+              <div className="flex items-start gap-3 mb-3">
                 <MessageSquare className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-gray-900 font-japanese leading-relaxed">
+                  <p className="text-gray-900 font-japanese leading-relaxed mb-2">
                     {item.context}
                   </p>
-                  <p className="text-sm text-gray-600 mt-1">
+                  <p className="text-sm text-gray-600">
                     {item.contextTranslation}
                   </p>
                 </div>
@@ -577,7 +560,7 @@ export default function SentencesPage() {
             </div>
 
             {/* Mastery Toggle Switch */}
-            <div className="absolute bottom-4 right-4">
+            <div className="absolute bottom-4 right-4 pt-2">
               <div className="flex items-center gap-2">
                 <span className="text-xs text-gray-500">
                   {masteredSentences.has(item.id) ? 'Mastered' : 'Learning'}

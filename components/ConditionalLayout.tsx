@@ -13,7 +13,7 @@ interface ConditionalLayoutProps {
 
 export default function ConditionalLayout({ children }: ConditionalLayoutProps) {
   const pathname = usePathname();
-  const isTrainingMode = pathname === '/match' || pathname === '/cloze' || pathname === '/input' || pathname?.includes('/training/') || (pathname?.includes('/story/') && pathname?.includes('/module'));
+  const isTrainingMode = pathname === '/match' || pathname === '/cloze' || pathname === '/input' || pathname?.includes('/training/') || pathname?.includes('/story/');
   const isMarketingPage = pathname === '/' || pathname === '/login' || pathname === '/signup';
   
   // Only show footer on marketing pages

@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import TrainingHeader from '@/components/TrainingHeader';
 import MatchCompletionScreen from '@/components/MatchCompletionScreen';
+import QuitConfirmationModal from '@/components/QuitConfirmationModal';
 import { ReviewSystem } from '@/lib/reviewSystem';
 import { StreakSystem } from '@/lib/streakSystem';
 import { speakText, useTTS } from '@/lib/useTTS';
+import { playIncorrectSound, playCorrectSound, shouldPlayVoice, playButtonClickSound } from '@/lib/audioUtils';
 
 interface TrainingItem {
   id: number;
@@ -72,6 +74,7 @@ export default function MatchPage() {
   const [showCompletion, setShowCompletion] = useState(false);
   const [earnedXP, setEarnedXP] = useState(0);
   const [preloadedAudio, setPreloadedAudio] = useState<string | null>(null);
+  const [showQuitModal, setShowQuitModal] = useState(false);
   
   const { speak, playAudio } = useTTS();
 
@@ -189,6 +192,7 @@ export default function MatchPage() {
 
   const handleAnswerSelect = (answer: string) => {
     if (showResult) return;
+    playButtonClickSound();
     setSelectedAnswer(answer);
   };
 
@@ -199,15 +203,31 @@ export default function MatchPage() {
     setIsCorrect(correct);
     setShowResult(true);
     
-    // Play Japanese audio for the correct answer using Google TTS
-    const audioText = currentItem.reading || currentItem.character;
-    playJapaneseAudio(audioText);
-    
     if (correct) {
+      // Play correct answer sound
+      playCorrectSound();
+      
+      // Play Japanese audio after a small delay if voice is enabled
+      if (shouldPlayVoice()) {
+        const audioText = currentItem.reading || currentItem.character;
+        setTimeout(() => {
+          playJapaneseAudio(audioText);
+        }, 300);
+      }
+      
       setScore(score + 1);
       // Update review system for correct answer
       ReviewSystem.updateItemProgress(currentItem.id, currentItem.type, true);
     } else {
+      // Play Japanese audio immediately for incorrect answers if voice is enabled
+      if (shouldPlayVoice()) {
+        const audioText = currentItem.reading || currentItem.character;
+        playJapaneseAudio(audioText);
+      }
+      
+      // Play incorrect answer sound
+      playIncorrectSound();
+      
       // Record wrong answer
       const wrongAnswer: WrongAnswer = {
         id: currentItem.id,
@@ -222,11 +242,6 @@ export default function MatchPage() {
       // Update review system for incorrect answer
       ReviewSystem.updateItemProgress(currentItem.id, currentItem.type, false);
     }
-    
-    // Auto-advance after 2 seconds
-    setTimeout(() => {
-      handleNext();
-    }, 2000);
   };
 
   const handleNext = () => {
@@ -258,13 +273,30 @@ export default function MatchPage() {
   };
 
   const handleClose = () => {
-    router.push('/');
+    setShowQuitModal(true);
   };
 
-  const handleSettings = () => {
-    // TODO: Implement settings modal
-    console.log('Settings clicked');
+  const handleKeepLearning = () => {
+    setShowQuitModal(false);
   };
+
+  const handleQuit = () => {
+    setShowQuitModal(false);
+    // Navigate back to the original page based on the training type
+    const type = searchParams.get('type');
+    if (type === 'vocabulary') {
+      router.push('/vocabulary');
+    } else if (type === 'kanji') {
+      router.push('/kanji');
+    } else if (type === 'sentences') {
+      router.push('/sentences');
+    } else {
+      // Fallback to home page if type is unknown
+      router.push('/');
+    }
+  };
+
+
 
   const handlePracticeMissed = () => {
     // Create a new training session with only wrong answers
@@ -304,19 +336,17 @@ export default function MatchPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Training Header */}
+    <div className="min-h-screen bg-white flex flex-col">
       <TrainingHeader 
-        progress={progress}
+        progress={(currentIndex / trainingItems.length) * 100}
         onClose={handleClose}
-        onSettings={handleSettings}
       />
 
-      {/* Main Content */}
-      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] px-4">
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col items-center justify-center px-4 pb-24 pt-8 space-y-8">
         {/* Large Kanji/Character - Not in container */}
         <div className="text-center mb-12">
-          <div className="text-[10rem] sm:text-9xl md:text-[12rem] lg:text-[14rem] font-bold text-gray-900 font-japanese leading-none mb-4">
+          <div className="text-[10rem] sm:text-9xl md:text-[12rem] lg:text-[14rem] font-bold font-japanese leading-none mb-4" style={{ color: '#333333' }}>
             {currentItem.character}
           </div>
           {currentItem.reading && (
@@ -333,7 +363,7 @@ export default function MatchPage() {
               const isSelected = selectedAnswer === option;
               const isCorrectAnswer = option === currentItem.meaning;
               
-              let buttonClass = "w-full p-6 text-center text-lg font-semibold rounded-lg transition-all duration-200 border-2 border-black ";
+              let buttonClass = "w-full p-4 text-center text-base font-semibold rounded-lg transition-all duration-200 border-2 border-gray-300 ";
               
               if (!showResult) {
                 if (isSelected) {
@@ -343,11 +373,11 @@ export default function MatchPage() {
                 }
               } else {
                 if (isSelected && isCorrectAnswer) {
-                  buttonClass += "bg-green-100 text-green-800";
+                  buttonClass += "bg-green-100 text-green-600";
                 } else if (isSelected && !isCorrectAnswer) {
-                  buttonClass += "bg-red-100 text-red-800";
+                  buttonClass += "bg-red-100 text-red-600";
                 } else if (isCorrectAnswer) {
-                  buttonClass += "bg-green-100 text-green-800";
+                  buttonClass += "bg-green-100 text-green-600";
                 } else {
                   buttonClass += "bg-gray-100 text-gray-500";
                 }
@@ -357,76 +387,62 @@ export default function MatchPage() {
                 <button
                   key={index}
                   onClick={() => handleAnswerSelect(option)}
-                  className={buttonClass}
+                  className={`${buttonClass} relative`}
                   disabled={showResult}
                 >
                   {option}
+                  {showResult && isCorrectAnswer && (
+                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-600 rounded flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">✓</span>
+                    </div>
+                  )}
+                  {showResult && isSelected && !isCorrectAnswer && (
+                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 rounded flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">✗</span>
+                    </div>
+                  )}
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Result Feedback */}
-        {showResult && (
-          <div className="mt-8 text-center">
-            {isCorrect ? (
-              <div className="text-green-600">
-                <div className="text-5xl mb-2">✓</div>
-                <p className="text-xl font-semibold">Correct!</p>
-              </div>
-            ) : (
-              <div className="text-red-600">
-                <div className="text-5xl mb-2">✗</div>
-                <p className="text-xl font-semibold">
-                  The answer is "{currentItem.meaning}"
-                </p>
-              </div>
-            )}
-          </div>
-        )}
+
       </div>
 
-      {/* Bottom Row with Rocket Icon and Check Answer Button */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          {/* Rocket Icon and text on the left */}
-          <div className="flex items-center space-x-3">
-            <img 
-              src="/6110736_rocket_spaceship_icon (2).png" 
-              alt="Rocket JLPT Logo" 
-              className="h-12 w-12"
-            />
-            <span className="text-lg font-medium text-gray-700">
-              Select the Kanji meaning
-            </span>
-          </div>
-          
-          {/* Button on the right */}
-          <div className="flex-shrink-0">
-            {!showResult ? (
-              <button
-                onClick={handleCheckAnswer}
-                disabled={!selectedAnswer}
-                className={`py-4 px-12 rounded-lg font-semibold text-lg transition-all duration-200 border-b-4 border-black ${
-                  selectedAnswer
-                    ? 'bg-gray-200 hover:bg-gray-300 text-gray-800 shadow-lg hover:shadow-xl'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                }`}
-              >
-                CHECK
-              </button>
-            ) : (
-              <button
-                onClick={handleNext}
-                className="py-4 px-12 rounded-lg font-semibold text-lg bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 border-b-4 border-black"
-              >
-                {currentIndex < trainingItems.length - 1 ? 'CONTINUE' : 'FINISH'}
-              </button>
-            )}
-          </div>
+      {/* Bottom Row with Centered Check Button */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6">
+        <div className="max-w-2xl mx-auto flex justify-center">
+          {!showResult ? (
+            <button
+              onClick={handleCheckAnswer}
+              disabled={!selectedAnswer}
+              className={`py-4 px-32 rounded-full font-semibold text-sm transition-all duration-200 ${
+                selectedAnswer
+                  ? 'text-white shadow-lg hover:shadow-xl'
+                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+              }`}
+              style={selectedAnswer ? { backgroundColor: '#333333' } : {}}
+            >
+              CHECK
+            </button>
+          ) : (
+            <button
+              onClick={handleNext}
+              className="py-4 px-32 rounded-full font-semibold text-sm bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+            >
+              {currentIndex < trainingItems.length - 1 ? 'CONTINUE' : 'FINISH'}
+            </button>
+          )}
         </div>
       </div>
+
+      {/* Quit Confirmation Modal */}
+      <QuitConfirmationModal
+        isOpen={showQuitModal}
+        onKeepLearning={handleKeepLearning}
+        onQuit={handleQuit}
+      />
     </div>
   );
 }
