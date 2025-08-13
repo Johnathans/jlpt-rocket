@@ -11,7 +11,9 @@ import {
   BarChart3,
   User,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Settings,
+  CreditCard
 } from 'lucide-react';
 import { ReviewSystem } from '@/lib/reviewSystem';
 
@@ -95,10 +97,10 @@ export default function DashboardNavbar() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className={`py-4 text-base font-medium transition-all duration-200 border-b-2 ${
+                      className={`py-4 text-base font-medium transition-all duration-200 ${
                         isActive
-                          ? 'text-blue-600 border-b-blue-600'
-                          : 'text-gray-700 hover:text-gray-900 border-b-transparent hover:border-b-gray-300'
+                          ? 'text-blue-600'
+                          : 'text-gray-700 hover:text-gray-900'
                       }`}
                     >
                       {item.label}
@@ -156,26 +158,29 @@ export default function DashboardNavbar() {
                 
                 {/* Dropdown Menu */}
                 {isProfileMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-200 py-3 z-50">
                     <Link
                       href="/profile"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 rounded-lg mx-2"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
+                      <User className="h-5 w-5 text-gray-600" />
                       Profile
                     </Link>
                     <Link
                       href="/settings"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 rounded-lg mx-2"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
+                      <Settings className="h-5 w-5 text-gray-600" />
                       Settings
                     </Link>
                     <Link
                       href="/membership"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 rounded-lg mx-2"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
+                      <CreditCard className="h-5 w-5 text-gray-600" />
                       Membership
                     </Link>
                   </div>

@@ -8,29 +8,42 @@ const client = new TextToSpeechClient({
 
 export async function POST(request: NextRequest) {
   try {
-    const { text, languageCode = 'ja-JP', voiceName = 'ja-JP-Neural2-B' } = await request.json();
+    const { text, languageCode = 'ja-JP', voiceName = 'ja-JP-Chirp3-HD-Leda' } = await request.json();
 
     if (!text) {
       return NextResponse.json({ error: 'Text is required' }, { status: 400 });
     }
 
-    // Construct the request
+    // Use plain text for better Chirp 3 compatibility
+
+    // Debug logging
+    console.log('TTS Request Details:', {
+      voiceName,
+      languageCode,
+      textLength: text.length,
+      isChirp3: voiceName.includes('Chirp3')
+    });
+
+    // Construct the request for Chirp 3 (HD-Leda voice)
     const ttsRequest = {
-      input: { text },
+      input: { text }, // Use plain text for better Chirp 3 compatibility
       voice: {
         languageCode,
-        name: voiceName,
+        name: voiceName, // ja-JP-Chirp3-HD-Leda is Chirp 3
         ssmlGender: 'FEMALE' as const,
       },
       audioConfig: {
         audioEncoding: 'MP3' as const,
-        speakingRate: 0.9, // Slightly slower for language learning
+        speakingRate: 0.75, // Slower for language learning (was 0.9)
         pitch: 0.0,
+        effectsProfileId: ['telephony-class-application'], // Enhanced quality
       },
     };
 
     // Perform the text-to-speech request
+    console.log('Sending TTS request with voice:', voiceName);
     const [response] = await client.synthesizeSpeech(ttsRequest);
+    console.log('TTS response received, audio content length:', response.audioContent?.length);
 
     if (!response.audioContent) {
       return NextResponse.json({ error: 'Failed to generate audio' }, { status: 500 });
@@ -47,10 +60,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('TTS Error details:', {
       message: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined,
-      voiceName: voiceName,
-      languageCode: languageCode,
-      text: text.substring(0, 50) + (text.length > 50 ? '...' : '')
+      stack: error instanceof Error ? error.stack : undefined
     });
     return NextResponse.json(
       { error: 'Failed to generate speech', details: error instanceof Error ? error.message : 'Unknown error' },

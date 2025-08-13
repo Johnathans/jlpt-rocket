@@ -108,21 +108,19 @@ export default function ReviewPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="p-6">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Review</h1>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
         {/* Simplified Header */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <div className="text-center">
-            <div className="text-4xl font-bold text-gray-900 mb-2">{reviewItems.length}</div>
-            <div className="text-lg text-gray-600 mb-6">
+            <div className="text-8xl font-bold text-gray-900 mb-4">{reviewItems.length}</div>
+            <div className="text-2xl text-gray-600 mb-8">
               {reviewItems.length === 1 ? 'item due for review' : 'items due for review'}
             </div>
             <button 
               onClick={handleStartReview}
               disabled={reviewItems.length === 0}
-              className="px-8 py-4 bg-green-500 text-white hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed font-semibold transition-all rounded-lg shadow-sm border-b-4 border-green-600 hover:border-green-700 disabled:border-gray-400 hover:translate-y-0.5 active:translate-y-0.5 disabled:translate-y-0"
+              className="px-12 py-6 text-xl bg-green-500 text-white hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed font-bold transition-all rounded-lg shadow-lg border-b-4 border-green-600 hover:border-green-700 disabled:border-gray-400 hover:translate-y-0.5 active:translate-y-0.5 disabled:translate-y-0"
             >
               {reviewItems.length === 0 ? 'No Items to Review' : 'Start Review Session'}
             </button>
@@ -269,18 +267,6 @@ export default function ReviewPage() {
             </div>
           )}
         </div>
-
-        {/* Review Button */}
-        <div className="text-center">
-          <button 
-            onClick={handleStartReview}
-            disabled={reviewItems.length === 0}
-            className="px-8 py-4 bg-green-500 text-white hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed font-semibold transition-all rounded-lg shadow-sm border-b-4 border-green-600 hover:border-green-700 disabled:border-gray-400 hover:translate-y-0.5 active:translate-y-0.5 disabled:translate-y-0"
-          >
-            {reviewItems.length === 0 ? 'No Items to Review' : `Start Review Session (${reviewItems.length} items)`}
-          </button>
-        </div>
-      </div>
       </div>
     </div>
   );

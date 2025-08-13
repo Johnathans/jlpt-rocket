@@ -50,10 +50,10 @@ export default function VocabKanjiGrid({ items }: VocabKanjiGridProps) {
         {itemList.map((item) => (
           <div
             key={item.id}
-            className={`bg-white border-2 border-b-4 transition-all duration-200 hover:shadow-lg rounded-lg p-4 cursor-pointer ${
+            className={`bg-white border-t-4 border-l-6 border-r-6 border-b-8 transition-all duration-200 hover:shadow-lg rounded-2xl p-4 cursor-pointer ${
               knownItems.has(item.id)
-                ? 'border-green-300 border-b-green-500 bg-green-50'
-                : 'border-gray-200 border-b-gray-400 hover:border-gray-300 hover:border-b-gray-500'
+                ? 'border-green-300 border-b-green-600 bg-green-50'
+                : 'border-gray-200 border-b-gray-400 hover:border-gray-300 hover:border-b-gray-600'
             }`}
             onClick={() => toggleKnown(item.id)}
           >

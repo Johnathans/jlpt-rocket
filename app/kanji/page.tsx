@@ -137,20 +137,7 @@ export default function KanjiPage() {
   }, [masteredKanji]);
 
   const getLevelColor = (level: string) => {
-    switch (level) {
-      case 'N5':
-        return 'bg-green-100 text-green-800 border-green-200';
-      case 'N4':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'N3':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'N2':
-        return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'N1':
-        return 'bg-red-100 text-red-800 border-red-200';
-      default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
+    return 'bg-gray-100 text-gray-900 border-gray-200';
   };
 
   const playAudio = (word: string) => {
@@ -199,7 +186,7 @@ export default function KanjiPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
-      <div className="p-6 max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
       <div className="mb-6 flex justify-between items-center">
         <p className="text-sm text-gray-600">Select kanji to begin studying</p>
         <div className="flex gap-3">
@@ -211,7 +198,7 @@ export default function KanjiPage() {
           </button>
           <button
             onClick={clearAll}
-            className="px-6 py-3 bg-gray-500 text-white hover:bg-gray-600 font-medium transition-colors rounded-md shadow-sm border-b-4 border-gray-700 hover:border-gray-800 text-base"
+            className="px-6 py-3 bg-gray-400 text-white hover:bg-gray-500 font-medium transition-colors rounded-md shadow-sm border-b-4 border-gray-600 hover:border-gray-700 text-base"
           >
             Clear All
           </button>
@@ -223,13 +210,13 @@ export default function KanjiPage() {
           <div
             key={item.id}
             onClick={() => toggleSelected(item.id)}
-            className={`border border-gray-200 border-b-4 transition-all duration-200 hover:shadow-lg rounded-lg p-6 relative cursor-pointer ${
+            className={`border-t-4 border-l-6 border-r-6 border-b-8 border-gray-200 transition-all duration-200 hover:shadow-lg rounded-2xl p-6 relative cursor-pointer ${
               selectedKanji.has(item.id)
-                ? 'bg-blue-50 border-blue-200 border-b-blue-400'
+                ? 'bg-blue-50 border-blue-200 border-b-blue-500'
                 : 
               masteredKanji.has(item.id)
-                ? 'bg-green-50 border-green-200 border-b-green-400'
-                : 'bg-white border-gray-200 border-b-gray-400 hover:border-gray-300 hover:border-b-gray-500'
+                ? 'bg-green-50 border-green-200 border-b-green-500'
+                : 'bg-white border-gray-200 border-b-gray-400 hover:border-gray-300 hover:border-b-gray-600'
             }`}
           >
             <div className="text-center mb-4">
@@ -272,9 +259,9 @@ export default function KanjiPage() {
               </div>
             )}
 
-            <div className="border-t border-gray-100 pt-4">
+            <div className="border-t border-gray-100 pt-4 mb-12">
               <h4 className="text-sm font-medium text-gray-700 mb-2">Examples:</h4>
-              <div className="space-y-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {item.examples.map((example, index) => (
                   <div key={index} className="flex items-start gap-2">
                     <BookOpen className="h-3 w-3 text-gray-500 mt-1 flex-shrink-0" />

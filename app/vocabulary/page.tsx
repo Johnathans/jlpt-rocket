@@ -122,20 +122,7 @@ export default function VocabularyPage() {
   }, [masteredVocab]);
 
   const getLevelColor = (level: string) => {
-    switch (level) {
-      case 'N5':
-        return 'bg-green-100 text-green-800 border-green-200';
-      case 'N4':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'N3':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'N2':
-        return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'N1':
-        return 'bg-red-100 text-red-800 border-red-200';
-      default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
+    return 'bg-gray-100 text-gray-900 border-gray-200';
   };
 
   const playAudio = (word: string) => {
@@ -184,7 +171,7 @@ export default function VocabularyPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
-      <div className="p-6 max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
       <div className="mb-6 flex justify-between items-center">
         <p className="text-sm text-gray-600">Select vocabulary to begin studying</p>
         <div className="flex gap-3">
@@ -196,7 +183,7 @@ export default function VocabularyPage() {
           </button>
           <button
             onClick={clearAll}
-            className="px-6 py-3 bg-gray-500 text-white hover:bg-gray-600 font-medium transition-colors rounded-md shadow-sm border-b-4 border-gray-700 hover:border-gray-800 text-base"
+            className="px-6 py-3 bg-gray-400 text-white hover:bg-gray-500 font-medium transition-colors rounded-md shadow-sm border-b-4 border-gray-600 hover:border-gray-700 text-base"
           >
             Clear All
           </button>
@@ -208,25 +195,25 @@ export default function VocabularyPage() {
               <div
                 key={item.id}
                 onClick={() => toggleSelected(item.id)}
-                className={`border border-gray-200 border-b-4 transition-all duration-200 hover:shadow-lg rounded-lg p-6 relative cursor-pointer ${
+                className={`border-t-4 border-l-6 border-r-6 border-b-8 border-gray-200 transition-all duration-200 hover:shadow-lg rounded-2xl p-6 relative cursor-pointer ${
                   selectedVocab.has(item.id)
-                    ? 'bg-blue-50 border-blue-200 border-b-blue-400'
+                    ? 'bg-blue-50 border-blue-200 border-b-blue-500'
                     : 
                   masteredVocab.has(item.id)
-                    ? 'bg-green-50 border-green-200 border-b-green-400'
-                    : 'bg-white border-gray-200 border-b-gray-400 hover:border-gray-300 hover:border-b-gray-500'
+                    ? 'bg-green-50 border-green-200 border-b-green-500'
+                    : 'bg-white border-gray-200 border-b-gray-400 hover:border-gray-300 hover:border-b-gray-600'
                 }`}
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
-                    <div className="text-center mb-4">
-                      <div className="text-6xl font-bold text-black font-japanese mb-2">
+                    <div className="text-center mb-4 pt-4">
+                      <div className="text-7xl font-bold text-black font-japanese mb-3">
                         {item.word}
                       </div>
-                      <p className="text-lg text-gray-600 font-japanese mb-2">
+                      <p className="text-xl text-gray-600 font-japanese mb-3">
                         {item.reading}
                       </p>
-                      <p className="text-lg text-gray-800 font-medium">
+                      <p className="text-xl text-gray-800 font-medium">
                         {item.meaning}
                       </p>
                     </div>
@@ -259,22 +246,10 @@ export default function VocabularyPage() {
                   )}
               </div>
 
-            <div className="border-t border-gray-100 pt-4">
-              <div className="flex items-start gap-2 mb-2">
-                <BookOpen className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-gray-900 font-japanese leading-relaxed">
-                    {item.example}
-                  </p>
-                  <p className="text-sm text-gray-600 mt-1">
-                    {item.exampleTranslation}
-                  </p>
-                </div>
-              </div>
-            </div>
+
 
             {/* Mastery Toggle Switch */}
-            <div className="absolute bottom-4 right-4">
+            <div className="absolute bottom-4 right-4 pt-2">
               <div className="flex items-center gap-2">
                 <span className="text-xs text-gray-500">
                   {masteredVocab.has(item.id) ? 'Mastered' : 'Learning'}
