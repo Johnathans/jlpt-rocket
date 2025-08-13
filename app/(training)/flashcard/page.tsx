@@ -287,7 +287,7 @@ export default function FlashcardPage() {
 
       <div className="flex flex-col items-center justify-center px-6 py-12" style={{ minHeight: 'calc(100vh - 120px)' }}>
         {/* Flashcard */}
-        <div className="relative w-full max-w-xl h-[30rem] mb-4">
+        <div className="relative w-full max-w-xl h-[30rem] mb-10">
           <div 
             className={`absolute inset-0 w-full h-full transition-transform duration-700 transform-style-preserve-3d cursor-pointer ${
               isFlipped ? 'rotate-y-180' : ''
@@ -336,7 +336,7 @@ export default function FlashcardPage() {
               </button>
               
               <div className="text-center">
-                <div className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-800 mb-4">
+                <div className="text-4xl sm:text-5xl md:text-6xl font-black text-gray-800 mb-4">
                   {currentItem.meaning}
                 </div>
                 {currentItem.reading && (
@@ -352,14 +352,11 @@ export default function FlashcardPage() {
           </div>
         </div>
 
-        {/* Action Buttons - Always present to prevent layout shift */}
-        <div className="text-center mb-6 h-16 flex flex-col justify-center">
-          <h2 className="text-xl font-semibold text-gray-700">
-            {isFlipped ? 'Did you remember?' : 'Try to remember the meaning'}
+        {/* Prompt */}
+        <div className="text-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-700">
+            Do you remember?
           </h2>
-          <p className="text-gray-400 text-sm mt-2 h-5">
-            {!isFlipped ? 'Then tap the card to reveal the answer' : ''}
-          </p>
         </div>
         <div className="flex gap-6">
           <button
