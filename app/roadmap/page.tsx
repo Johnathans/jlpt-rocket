@@ -200,8 +200,8 @@ export default function RoadmapPage() {
                         />
                       </div>
                     ) : lesson.type === 'review' ? (
-                      <div className="w-52 h-52 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <RotateCcw className="w-24 h-24 text-blue-600" strokeWidth={3} />
+                      <div className="w-52 h-52 bg-gray-100 rounded-lg flex items-center justify-center">
+                        <RotateCcw className="w-24 h-24 text-gray-600" strokeWidth={3} />
                       </div>
                     ) : (
                       <div className="w-44 h-44 bg-green-100 rounded-lg flex items-center justify-center">
@@ -215,7 +215,7 @@ export default function RoadmapPage() {
                     <div className="flex items-center gap-2 mb-2">
                       <h3 className="font-bold text-gray-900 text-2xl">{lesson.title}</h3>
                       {lesson.status === 'completed' && lesson.type === 'review' && (
-                        <span className="text-base text-green-600 font-medium">Review complete!</span>
+                        <span className="text-base text-green-500 font-medium">Review complete!</span>
                       )}
                     </div>
                     
@@ -234,7 +234,7 @@ export default function RoadmapPage() {
                            e.stopPropagation();
                            toggleExpansion(lesson.id);
                          }}
-                         className="mt-6 flex items-center gap-3 text-blue-600 hover:text-blue-700 font-bold text-lg"
+                         className="mt-6 flex items-center gap-3 text-gray-600 hover:text-gray-700 font-bold text-lg"
                        >
                          {expandedLessons.has(lesson.id) ? (
                            <>

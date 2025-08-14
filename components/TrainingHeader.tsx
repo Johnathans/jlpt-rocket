@@ -10,13 +10,15 @@ interface TrainingHeaderProps {
   onClose?: () => void;
   onSettings?: () => void;
   closeHref?: string;
+  rightButton?: React.ReactNode;
 }
 
 export default function TrainingHeader({ 
   progress, 
   onClose, 
   onSettings, 
-  closeHref = "/" 
+  closeHref = "/",
+  rightButton
 }: TrainingHeaderProps) {
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
@@ -67,8 +69,9 @@ export default function TrainingHeader({
           <div className="w-4 h-3 sm:w-6 bg-gray-400 rounded-full flex-shrink-0"></div>
         </div>
         
-        {/* Settings Button */}
-        <div className="flex-shrink-0">
+        {/* Right Button or Settings Button */}
+        <div className="flex-shrink-0 flex items-center gap-2">
+          {rightButton && rightButton}
           <button
             onClick={handleSettingsClick}
             className="p-3 text-gray-900 bg-gray-100 rounded-lg transition-colors border-b-4 border-gray-300 hover:bg-gray-200 hover:border-gray-400"

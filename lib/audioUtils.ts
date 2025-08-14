@@ -45,7 +45,7 @@ export const playButtonClickSound = () => {
   console.log('Attempting to play click sound...');
   try {
     const audio = new Audio('/sounds/mouse-click-2-89867.mp3');
-    audio.volume = 0.2;
+    audio.volume = 0.5;
     audio.play().then(() => {
       console.log('Click sound played successfully');
     }).catch(error => {

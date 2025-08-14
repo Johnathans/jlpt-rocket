@@ -200,7 +200,7 @@ export default function ClozePage() {
     
     return (
       <div className="text-center">
-        <div className="text-5xl font-japanese leading-relaxed mb-4">
+        <div className="text-5xl font-japanese font-bold leading-relaxed mb-4">
           {currentItem.words.map((word, index) => (
             <span key={word.id}>
               {word.id === clozeWord.id ? (
@@ -332,12 +332,7 @@ export default function ClozePage() {
       
       <div className="flex-1 flex flex-col items-center justify-center px-4 pb-24 pt-8 space-y-8">
         <div className="w-full max-w-4xl">
-          {/* Question Counter */}
-          <div className="text-center mb-8">
-            <span className="text-sm text-gray-600">
-              Question {currentIndex + 1} of {trainingItems.length}
-            </span>
-          </div>
+
 
           {/* Sentence with Cloze */}
           <div className="mb-12">
@@ -397,12 +392,7 @@ export default function ClozePage() {
 
 
 
-          {/* Score */}
-          <div className="text-center mt-8">
-            <span className="text-sm text-gray-600">
-              Score: {score}/{trainingItems.length}
-            </span>
-          </div>
+
         </div>
       </div>
 

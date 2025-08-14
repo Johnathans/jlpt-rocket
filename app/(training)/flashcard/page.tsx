@@ -361,23 +361,13 @@ export default function FlashcardPage() {
         <div className="flex gap-6">
           <button
             onClick={handleForget}
-            disabled={!isFlipped}
-            className={`px-20 py-5 rounded-lg font-semibold transition-all duration-200 border-b-4 min-w-[240px] ${
-              isFlipped
-                ? 'bg-gray-200 hover:bg-gray-300 text-gray-700 border-gray-400 cursor-pointer'
-                : 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
-            }`}
+            className="px-20 py-5 rounded-lg font-semibold transition-all duration-200 border-b-4 min-w-[240px] bg-gray-200 hover:bg-gray-300 text-gray-700 border-gray-400 cursor-pointer"
           >
             ✗&nbsp;&nbsp;&nbsp;&nbsp;Forgot
           </button>
           <button
             onClick={handleRemember}
-            disabled={!isFlipped}
-            className={`px-20 py-5 rounded-lg font-semibold transition-all duration-200 border-b-4 min-w-[240px] ${
-              isFlipped
-                ? 'bg-green-500 hover:bg-green-600 text-white border-green-700 cursor-pointer'
-                : 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
-            }`}
+            className="px-20 py-5 rounded-lg font-semibold transition-all duration-200 border-b-4 min-w-[240px] bg-green-500 hover:bg-green-600 text-white border-green-700 cursor-pointer"
           >
             ✓&nbsp;&nbsp;&nbsp;&nbsp;Remember
           </button>

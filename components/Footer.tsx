@@ -8,15 +8,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and Description */}
           <div className="col-span-1 md:col-span-2">
-            <Link href="/" className="flex items-center space-x-3 mb-4">
-              <img 
-                src="/6110736_rocket_spaceship_icon (2).png" 
-                alt="Rocket JLPT Logo" 
-                className="h-8 w-8"
-              />
+            <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+              <Rocket className="h-6 w-6 text-green-500" />
               <span className="text-xl text-gray-900">
-                <span className="font-black">Rocket</span>
-                <span className="font-medium ml-1">JLPT</span>
+                <span className="font-light">Rocket</span>
+                <span className="font-black ml-1">JLPT</span>
               </span>
             </Link>
             <p className="text-gray-600 mb-4 max-w-md">
