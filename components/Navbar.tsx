@@ -12,13 +12,11 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-            <div className="p-2 bg-green-500 rounded-lg">
-              <Rocket className="h-6 w-6 text-white" />
-            </div>
+          <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+            <Rocket className="h-6 w-6 text-green-500" />
             <span className="text-2xl text-gray-900">
-              <span className="font-black">Rocket</span>
-              <span className="font-medium ml-1">JLPT</span>
+              <span className="font-light">Rocket</span>
+              <span className="font-black ml-1">JLPT</span>
             </span>
           </Link>
 

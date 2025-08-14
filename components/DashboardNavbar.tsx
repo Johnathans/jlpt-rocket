@@ -13,7 +13,10 @@ import {
   ChevronDown,
   ChevronUp,
   Settings,
-  CreditCard
+  CreditCard,
+  FileText,
+  GraduationCap,
+  Rocket
 } from 'lucide-react';
 import { ReviewSystem } from '@/lib/reviewSystem';
 
@@ -64,6 +67,7 @@ export default function DashboardNavbar() {
     { href: '/vocabulary', label: 'Vocabulary', icon: Languages },
     { href: '/kanji', label: 'Kanji', icon: null },
     { href: '/sentences', label: 'Sentences', icon: Target },
+    { href: '/test', label: 'Test', icon: FileText },
   ];
 
   return (
@@ -74,15 +78,11 @@ export default function DashboardNavbar() {
           <div className="flex items-center justify-between h-20">
             {/* Logo Section */}
             <div className="flex items-center">
-              <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-                <img 
-                  src="/6110736_rocket_spaceship_icon (2).png" 
-                  alt="Rocket JLPT Logo" 
-                  className="h-12 w-12 flex-shrink-0"
-                />
+              <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+                <Rocket className="h-6 w-6 text-green-500 flex-shrink-0" />
                 <span className="text-2xl text-gray-900">
-                  <span className="font-black">Rocket</span>
-                  <span className="font-medium ml-1">JLPT</span>
+                  <span className="font-light">Rocket</span>
+                  <span className="font-black ml-1">JLPT</span>
                 </span>
               </Link>
             </div>
@@ -97,10 +97,10 @@ export default function DashboardNavbar() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className={`py-4 text-base font-medium transition-all duration-200 ${
+                      className={`py-4 px-4 text-base font-medium transition-all duration-200 rounded-lg ${
                         isActive
-                          ? 'text-blue-600'
-                          : 'text-gray-700 hover:text-gray-900'
+                          ? 'text-black bg-green-100'
+                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
                       }`}
                     >
                       {item.label}
@@ -161,26 +161,34 @@ export default function DashboardNavbar() {
                   <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-200 py-3 z-50">
                     <Link
                       href="/profile"
-                      className="flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 rounded-lg mx-2"
+                      className="flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-700 hover:bg-green-50 hover:text-green-700 transition-all duration-200 rounded-lg mx-2"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      <User className="h-5 w-5 text-gray-600" />
+                      <User className="h-5 w-5 text-green-500" />
                       Profile
                     </Link>
                     <Link
-                      href="/settings"
-                      className="flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 rounded-lg mx-2"
+                      href="/change-jlpt-level"
+                      className="flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-700 hover:bg-green-50 hover:text-green-700 transition-all duration-200 rounded-lg mx-2"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      <Settings className="h-5 w-5 text-gray-600" />
+                      <GraduationCap className="h-5 w-5 text-green-500" />
+                      Change JLPT Level
+                    </Link>
+                    <Link
+                      href="/settings"
+                      className="flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-700 hover:bg-green-50 hover:text-green-700 transition-all duration-200 rounded-lg mx-2"
+                      onClick={() => setIsProfileMenuOpen(false)}
+                    >
+                      <Settings className="h-5 w-5 text-green-500" />
                       Settings
                     </Link>
                     <Link
                       href="/membership"
-                      className="flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 rounded-lg mx-2"
+                      className="flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-700 hover:bg-green-50 hover:text-green-700 transition-all duration-200 rounded-lg mx-2"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      <CreditCard className="h-5 w-5 text-gray-600" />
+                      <CreditCard className="h-5 w-5 text-green-500" />
                       Membership
                     </Link>
                   </div>
