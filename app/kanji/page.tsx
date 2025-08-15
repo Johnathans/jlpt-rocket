@@ -5,9 +5,10 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Volume2, BookOpen, Brush } from 'lucide-react';
 import { ReviewSystem } from '@/lib/reviewSystem';
+import { getAllKanji, KanjiData, getVocabularyByLevel } from '@/lib/supabase-data';
 
 interface KanjiItem {
-  id: number;
+  id: string;
   kanji: string;
   meaning: string;
   level: string;
@@ -20,83 +21,63 @@ interface KanjiItem {
   mastered?: boolean;
 }
 
-const kanjiData: KanjiItem[] = [
-  {
-    id: 1,
-    kanji: '学',
-    meaning: 'study, learning',
-    level: 'N5',
-    strokes: 8,
-    examples: [
-      { word: '学校', reading: 'がっこう', meaning: 'school' },
-      { word: '学生', reading: 'がくせい', meaning: 'student' }
-    ]
-  },
-  {
-    id: 2,
-    kanji: '友',
-    meaning: 'friend',
-    level: 'N5',
-    strokes: 4,
-    examples: [
-      { word: '友達', reading: 'ともだち', meaning: 'friend' },
-      { word: '友人', reading: 'ゆうじん', meaning: 'friend' }
-    ]
-  },
-  {
-    id: 3,
-    kanji: '本',
-    meaning: 'book, origin',
-    level: 'N5',
-    strokes: 5,
-    examples: [
-      { word: '本', reading: 'ほん', meaning: 'book' },
-      { word: '日本', reading: 'にほん', meaning: 'Japan' }
-    ]
-  },
-  {
-    id: 4,
-    kanji: '電',
-    meaning: 'electricity',
-    level: 'N4',
-    strokes: 13,
-    examples: [
-      { word: '電車', reading: 'でんしゃ', meaning: 'train' },
-      { word: '電話', reading: 'でんわ', meaning: 'telephone' }
-    ]
-  },
-  {
-    id: 5,
-    kanji: '料',
-    meaning: 'fee, materials',
-    level: 'N4',
-    strokes: 10,
-    examples: [
-      { word: '料理', reading: 'りょうり', meaning: 'cooking' },
-      { word: '料金', reading: 'りょうきん', meaning: 'fee' }
-    ]
-  },
-  {
-    id: 6,
-    kanji: '経',
-    meaning: 'sutra, longitude, pass thru',
-    level: 'N3',
-    strokes: 11,
-    examples: [
-      { word: '経験', reading: 'けいけん', meaning: 'experience' },
-      { word: '経済', reading: 'けいざい', meaning: 'economy' }
-    ]
-  }
-];
-
 export default function KanjiPage() {
   const searchParams = useSearchParams();
   const selectedLevel = searchParams.get('level') || 'N5';
-  const [masteredKanji, setMasteredKanji] = useState<Set<number>>(new Set());
-  const [selectedKanji, setSelectedKanji] = useState<Set<number>>(new Set());
+  const [kanjiData, setKanjiData] = useState<KanjiItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [masteredKanji, setMasteredKanji] = useState<Set<string>>(new Set());
+  const [selectedKanji, setSelectedKanji] = useState<Set<string>>(new Set());
+
+  // Fetch kanji data from Supabase
+  useEffect(() => {
+    const fetchKanjiData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const supabaseKanji = await getAllKanji();
+        const vocabularyData = await getVocabularyByLevel(selectedLevel as any);
+        
+        // Transform Supabase data to match KanjiItem interface
+        const transformedKanji: KanjiItem[] = supabaseKanji.map(kanji => {
+          // Find vocabulary examples that use this kanji
+          const examples = vocabularyData
+            .filter(vocab => vocab.kanji_used.includes(kanji.character))
+            .slice(0, 2) // Limit to 2 examples
+            .map(vocab => ({
+              word: vocab.word,
+              reading: vocab.reading,
+              meaning: vocab.meaning
+            }));
+
+          return {
+            id: kanji.id,
+            kanji: kanji.character,
+            meaning: kanji.meaning,
+            level: kanji.jlpt_level,
+            strokes: kanji.stroke_count,
+            examples
+          };
+        });
+
+        setKanjiData(transformedKanji);
+      } catch (err) {
+        console.error('Error fetching kanji data:', err);
+        setError('Failed to load kanji data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchKanjiData();
+  }, [selectedLevel]);
 
   // Sync mastery state with ReviewSystem on component mount and when returning from training
   useEffect(() => {
+    if (kanjiData.length === 0) return;
+    
     const syncMasteryState = () => {
       const newMasteredKanji = new Set(masteredKanji);
       let hasChanges = false;
@@ -134,7 +115,7 @@ export default function KanjiPage() {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', syncMasteryState);
     };
-  }, [masteredKanji]);
+  }, [masteredKanji, kanjiData]);
 
   const getLevelColor = (level: string) => {
     return 'bg-gray-100 text-gray-900 border-gray-200';
@@ -157,7 +138,7 @@ export default function KanjiPage() {
     setSelectedKanji(new Set());
   };
 
-  const toggleSelected = (id: number) => {
+  const toggleSelected = (id: string) => {
     const newSelectedKanji = new Set(selectedKanji);
     if (newSelectedKanji.has(id)) {
       newSelectedKanji.delete(id);
@@ -167,7 +148,7 @@ export default function KanjiPage() {
     setSelectedKanji(newSelectedKanji);
   };
 
-  const toggleMastered = (id: number) => {
+  const toggleMastered = (id: string) => {
     const newMasteredKanji = new Set(masteredKanji);
     const isCurrentlyMastered = newMasteredKanji.has(id);
     
@@ -184,11 +165,48 @@ export default function KanjiPage() {
     setMasteredKanji(newMasteredKanji);
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 pb-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
+              <p className="text-gray-600">Loading kanji data...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 pb-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
+          <div className="flex justify-center items-center h-64">
+            <div className="text-center">
+              <div className="text-red-500 text-6xl mb-4">⚠️</div>
+              <h2 className="text-xl font-semibold text-gray-900 mb-2">Error Loading Data</h2>
+              <p className="text-gray-600 mb-4">{error}</p>
+              <button
+                onClick={() => window.location.reload()}
+                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+              >
+                Retry
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
       <div className="mb-6 flex justify-between items-center">
-        <p className="text-sm text-gray-600">Select kanji to begin studying</p>
+        <p className="text-sm text-gray-600">Select kanji to begin studying ({kanjiData.length} available)</p>
         <div className="flex gap-3">
           <button
             onClick={selectAll}

@@ -317,7 +317,7 @@ export default function FlashcardPage() {
 
             {/* Back of card */}
             <div 
-              className="absolute inset-0 w-full h-full bg-gray-50 rounded-2xl shadow-xl border-2 border-gray-200 flex flex-col items-center justify-center backface-hidden rotate-y-180"
+              className="absolute inset-0 w-full h-full bg-white rounded-2xl shadow-xl border-2 border-gray-200 flex flex-col items-center justify-center backface-hidden rotate-y-180"
               style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
             >
               {/* Audio icon */}

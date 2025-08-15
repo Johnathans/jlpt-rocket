@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { 
   Target,
@@ -118,11 +119,17 @@ export default function DashboardNavbar() {
                 href="/progress"
                 className={`p-3 rounded-lg transition-all duration-200 ${
                   pathname === '/progress'
-                    ? 'bg-blue-50 text-blue-700'
+                    ? 'bg-green-100 text-black'
                     : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                 }`}
               >
-                <BarChart3 className="h-6 w-6" />
+                <Image 
+                  src="/chart-bars.png" 
+                  alt="Progress" 
+                  width={24} 
+                  height={24} 
+                  className="h-6 w-6" 
+                />
               </Link>
 
               {/* Review Icon with Badge */}
@@ -130,13 +137,19 @@ export default function DashboardNavbar() {
                 href="/review"
                 className={`relative p-3 rounded-lg transition-all duration-200 ${
                   pathname === '/review'
-                    ? 'bg-blue-50 text-blue-700'
+                    ? 'bg-green-100 text-black'
                     : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                 }`}
               >
-                <RotateCcw className="h-6 w-6" />
+                <Image 
+                  src="/rewind.png" 
+                  alt="Review" 
+                  width={24} 
+                  height={24} 
+                  className="h-6 w-6" 
+                />
                 {reviewCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                  <span className="absolute -top-1 -right-1 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold" style={{ backgroundColor: '#FB4141' }}>
                     {reviewCount > 99 ? '99+' : reviewCount}
                   </span>
                 )}
@@ -148,7 +161,13 @@ export default function DashboardNavbar() {
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
                   className="flex items-center gap-1 p-3 rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900"
                 >
-                  <User className="h-6 w-6" />
+                  <Image 
+                    src="/user.png" 
+                    alt="Profile" 
+                    width={24} 
+                    height={24} 
+                    className="h-6 w-6" 
+                  />
                   {isProfileMenuOpen ? (
                     <ChevronUp className="h-4 w-4" />
                   ) : (
@@ -242,7 +261,13 @@ export default function DashboardNavbar() {
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <BarChart3 className="h-5 w-5 flex-shrink-0" />
+                  <Image 
+                    src="/chart-bars.png" 
+                    alt="Progress" 
+                    width={20} 
+                    height={20} 
+                    className="h-5 w-5 flex-shrink-0" 
+                  />
                   <span>Progress</span>
                 </Link>
 
@@ -256,10 +281,16 @@ export default function DashboardNavbar() {
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <RotateCcw className="h-5 w-5 flex-shrink-0" />
+                  <Image 
+                    src="/rewind.png" 
+                    alt="Review" 
+                    width={20} 
+                    height={20} 
+                    className="h-5 w-5 flex-shrink-0" 
+                  />
                   <span>Review</span>
                   {reviewCount > 0 && (
-                    <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold ml-1">
+                    <span className="text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold ml-1" style={{ backgroundColor: '#FB4141' }}>
                       {reviewCount > 99 ? '99+' : reviewCount}
                     </span>
                   )}
