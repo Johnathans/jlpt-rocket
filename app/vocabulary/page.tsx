@@ -5,9 +5,10 @@ import { Check, X, BookOpen, Volume2 } from 'lucide-react';
 import Link from 'next/link';
 import { ReviewSystem } from '@/lib/reviewSystem';
 import { useSearchParams } from 'next/navigation';
+import { getAllVocabulary, VocabularyData } from '@/lib/supabase-data';
 
 interface VocabularyItem {
-  id: number;
+  id: string;
   word: string;
   reading: string;
   meaning: string;
@@ -17,71 +18,51 @@ interface VocabularyItem {
   mastered?: boolean;
 }
 
-const vocabularyData: VocabularyItem[] = [
-  {
-    id: 1,
-    word: '学校',
-    reading: 'がっこう',
-    meaning: 'school',
-    level: 'N5',
-    example: '学校に行きます。',
-    exampleTranslation: 'I go to school.'
-  },
-  {
-    id: 2,
-    word: '友達',
-    reading: 'ともだち',
-    meaning: 'friend',
-    level: 'N5',
-    example: '友達と遊びます。',
-    exampleTranslation: 'I play with friends.'
-  },
-  {
-    id: 3,
-    word: '勉強',
-    reading: 'べんきょう',
-    meaning: 'study',
-    level: 'N5',
-    example: '日本語を勉強します。',
-    exampleTranslation: 'I study Japanese.'
-  },
-  {
-    id: 4,
-    word: '電車',
-    reading: 'でんしゃ',
-    meaning: 'train',
-    level: 'N4',
-    example: '電車で会社に行きます。',
-    exampleTranslation: 'I go to work by train.'
-  },
-  {
-    id: 5,
-    word: '料理',
-    reading: 'りょうり',
-    meaning: 'cooking, cuisine',
-    level: 'N4',
-    example: '母の料理は美味しいです。',
-    exampleTranslation: 'My mother\'s cooking is delicious.'
-  },
-  {
-    id: 6,
-    word: '経験',
-    reading: 'けいけん',
-    meaning: 'experience',
-    level: 'N3',
-    example: '貴重な経験をしました。',
-    exampleTranslation: 'I had a valuable experience.'
-  }
-];
-
 export default function VocabularyPage() {
   const searchParams = useSearchParams();
   const selectedLevel = searchParams.get('level') || 'N5';
-  const [masteredVocab, setMasteredVocab] = useState<Set<number>>(new Set());
-  const [selectedVocab, setSelectedVocab] = useState<Set<number>>(new Set());
+  const [vocabularyData, setVocabularyData] = useState<VocabularyItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [masteredVocab, setMasteredVocab] = useState<Set<string>>(new Set());
+  const [selectedVocab, setSelectedVocab] = useState<Set<string>>(new Set());
+
+  // Fetch vocabulary data from Supabase
+  useEffect(() => {
+    const fetchVocabularyData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const supabaseVocab = await getAllVocabulary();
+        
+        // Transform Supabase data to match VocabularyItem interface
+        const transformedVocab: VocabularyItem[] = supabaseVocab.map(vocab => ({
+          id: vocab.id,
+          word: vocab.word,
+          reading: vocab.reading,
+          meaning: vocab.meaning,
+          level: vocab.jlpt_level,
+          example: vocab.example_sentence,
+          exampleTranslation: vocab.example_translation
+        }));
+
+        setVocabularyData(transformedVocab);
+      } catch (err) {
+        console.error('Error fetching vocabulary data:', err);
+        setError('Failed to load vocabulary data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVocabularyData();
+  }, [selectedLevel]);
 
   // Sync mastery state with ReviewSystem on component mount and when returning from training
   useEffect(() => {
+    if (vocabularyData.length === 0) return;
+    
     const syncMasteryState = () => {
       const newMasteredVocab = new Set(masteredVocab);
       let hasChanges = false;
@@ -119,7 +100,7 @@ export default function VocabularyPage() {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', syncMasteryState);
     };
-  }, [masteredVocab]);
+  }, [masteredVocab, vocabularyData]);
 
   const getLevelColor = (level: string) => {
     return 'bg-gray-100 text-gray-900 border-gray-200';

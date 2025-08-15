@@ -7,6 +7,7 @@ import { ReviewSystem } from '@/lib/reviewSystem';
 import { StreakSystem } from '@/lib/streakSystem';
 import { useTTS } from '@/lib/useTTS';
 import { playIncorrectSound, playCorrectSound, shouldPlayVoice, playButtonClickSound } from '@/lib/audioUtils';
+import { parseClozeText, getSentencesByLevel, SentenceData, JLPTLevel, getRandomVocabulary } from '@/lib/supabase-data';
 
 interface WordInSentence {
   id: number;
@@ -28,148 +29,197 @@ interface SentenceItem {
   mastered?: boolean;
 }
 
-// Same sentences data as in the sentences page
-const sentencesData: SentenceItem[] = [
-  {
-    id: 1,
-    words: [
-      { id: 101, word: '今日', reading: 'きょう', meaning: 'today', isTarget: true },
-      { id: 102, word: 'は', reading: 'は', meaning: 'topic particle', isTarget: false },
-      { id: 103, word: '学校', reading: 'がっこう', meaning: 'school', isTarget: true },
-      { id: 104, word: 'に', reading: 'に', meaning: 'to/direction particle', isTarget: false },
-      { id: 105, word: '行きます', reading: 'いきます', meaning: 'go (polite)', isTarget: true },
-      { id: 106, word: '。', reading: '。', meaning: 'period', isTarget: false }
-    ],
-    fullSentence: '今日は学校に行きます。',
-    fullReading: 'きょうは がっこうに いきます。',
-    meaning: 'Today I will go to school.',
-    level: 'N5',
-    context: '毎日学校に行くのが楽しいです。',
-    contextTranslation: 'Going to school every day is fun.'
-  },
-  {
-    id: 2,
-    words: [
-      { id: 201, word: '友達', reading: 'ともだち', meaning: 'friend', isTarget: true },
-      { id: 202, word: 'と', reading: 'と', meaning: 'with particle', isTarget: false },
-      { id: 203, word: '映画', reading: 'えいが', meaning: 'movie', isTarget: true },
-      { id: 204, word: 'を', reading: 'を', meaning: 'object particle', isTarget: false },
-      { id: 205, word: '見ました', reading: 'みました', meaning: 'watched (past)', isTarget: true },
-      { id: 206, word: '。', reading: '。', meaning: 'period', isTarget: false }
-    ],
-    fullSentence: '友達と映画を見ました。',
-    fullReading: 'ともだちと えいがを みました。',
-    meaning: 'I watched a movie with my friend.',
-    level: 'N5',
-    context: '週末に友達と映画館に行きました。',
-    contextTranslation: 'I went to the movie theater with my friend on the weekend.'
-  },
-  {
-    id: 3,
-    words: [
-      { id: 301, word: '日本語', reading: 'にほんご', meaning: 'Japanese language', isTarget: true },
-      { id: 302, word: 'を', reading: 'を', meaning: 'object particle', isTarget: false },
-      { id: 303, word: '勉強しています', reading: 'べんきょうしています', meaning: 'studying (continuous)', isTarget: true },
-      { id: 304, word: '。', reading: '。', meaning: 'period', isTarget: false }
-    ],
-    fullSentence: '日本語を勉強しています。',
-    fullReading: 'にほんごを べんきょうしています。',
-    meaning: 'I am studying Japanese.',
-    level: 'N5',
-    context: '毎日一時間日本語を勉強しています。',
-    contextTranslation: 'I study Japanese for one hour every day.'
-  },
-  {
-    id: 4,
-    words: [
-      { id: 401, word: '電車', reading: 'でんしゃ', meaning: 'train', isTarget: true },
-      { id: 402, word: 'で', reading: 'で', meaning: 'by means of particle', isTarget: false },
-      { id: 403, word: '会社', reading: 'かいしゃ', meaning: 'company', isTarget: true },
-      { id: 404, word: 'に', reading: 'に', meaning: 'to particle', isTarget: false },
-      { id: 405, word: '通っています', reading: 'かよっています', meaning: 'commuting (continuous)', isTarget: true },
-      { id: 406, word: '。', reading: '。', meaning: 'period', isTarget: false }
-    ],
-    fullSentence: '電車で会社に通っています。',
-    fullReading: 'でんしゃで かいしゃに かよっています。',
-    meaning: 'I commute to work by train.',
-    level: 'N4',
-    context: '毎朝満員電車に乗るのは大変です。',
-    contextTranslation: 'Taking the crowded train every morning is tough.'
-  },
-  {
-    id: 5,
-    words: [
-      { id: 501, word: '母', reading: 'はは', meaning: 'mother', isTarget: true },
-      { id: 502, word: 'の', reading: 'の', meaning: 'possessive particle', isTarget: false },
-      { id: 503, word: '料理', reading: 'りょうり', meaning: 'cooking', isTarget: true },
-      { id: 504, word: 'は', reading: 'は', meaning: 'topic particle', isTarget: false },
-      { id: 505, word: 'とても', reading: 'とても', meaning: 'very', isTarget: true },
-      { id: 506, word: '美味しい', reading: 'おいしい', meaning: 'delicious', isTarget: true },
-      { id: 507, word: 'です', reading: 'です', meaning: 'polite copula', isTarget: false },
-      { id: 508, word: '。', reading: '。', meaning: 'period', isTarget: false }
-    ],
-    fullSentence: '母の料理はとても美味しいです。',
-    fullReading: 'ははの りょうりは とても おいしいです。',
-    meaning: 'My mother\'s cooking is very delicious.',
-    level: 'N4',
-    context: '特に母の作るカレーが大好きです。',
-    contextTranslation: 'I especially love the curry my mother makes.'
-  }
-];
-
 export default function ClozePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { speak, isLoading: ttsLoading } = useTTS();
   
   // State variables
+  const [sentencesData, setSentencesData] = useState<SentenceItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [answerOptions, setAnswerOptions] = useState<string[]>([]);
+  const [currentClozeData, setCurrentClozeData] = useState<{
+    sentence: string;
+    clozeWord: string;
+    options: string[];
+  } | null>(null);
   const [clozeWord, setClozeWord] = useState<WordInSentence | null>(null);
+
+  // Fetch sentences from Supabase
+  useEffect(() => {
+    const fetchSentences = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const level = searchParams.get('level') || 'N5';
+        const sentences = await getSentencesByLevel(level as JLPTLevel);
+        
+        if (sentences.length === 0) {
+          setError('No sentences found for this level');
+          return;
+        }
+        
+        // Transform SentenceData to SentenceItem format for existing UI
+        const transformedSentences: SentenceItem[] = sentences.map((sentence, index) => {
+          const parsed = parseClozeText(sentence.japanese_text);
+          
+          // Create words array - simplified approach for now
+          // We'll create a basic word structure that the existing UI can work with
+          const words: WordInSentence[] = [];
+          let wordId = index * 100 + 1;
+          
+          // For now, create a simple structure with the first cloze word as target
+          if (parsed.clozeWords.length > 0) {
+            // Add the cloze word as the target
+            words.push({
+              id: wordId++,
+              word: parsed.clozeWords[0],
+              reading: '',
+              meaning: '',
+              isTarget: true
+            });
+          }
+          
+          return {
+            id: sentence.id, // Keep the original UUID string ID from Supabase
+            words,
+            fullSentence: sentence.japanese_text, // Keep the original sentence with asterisks!
+            fullReading: '', // We don't have reading data in Supabase yet
+            meaning: sentence.english_translation,
+            level: sentence.jlpt_level,
+            context: '', // We don't have context data in Supabase yet
+            contextTranslation: ''
+          };
+        });
+        
+        setSentencesData(transformedSentences);
+      } catch (err) {
+        console.error('Error fetching sentences:', err);
+        setError('Failed to load sentences');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSentences();
+  }, [searchParams]);
   
   // Get selected items from URL params
-  const selectedIds = searchParams.get('items')?.split(',').map(Number) || [];
+  const selectedIds = searchParams.get('items')?.split(',') || [];
+  console.log('Selected IDs from URL:', selectedIds);
+  console.log('Available sentences data:', sentencesData);
 
   // Memoize training items to prevent unnecessary re-renders
   const trainingItems = useMemo(() => {
-    return selectedIds.length > 0 
-      ? sentencesData.filter(item => selectedIds.includes(item.id))
-      : sentencesData.slice(0, 3); // Fallback to first 3 sentences
-  }, [selectedIds]);
+    if (selectedIds.length > 0) {
+      // Filter sentences by matching UUIDs directly
+      const filtered = sentencesData.filter(item => selectedIds.includes(item.id));
+      console.log('Filtered training items:', filtered);
+      console.log('Sentence IDs in data:', sentencesData.map(s => s.id));
+      return filtered;
+    }
+    return sentencesData.slice(0, 3); // Fallback to first 3 sentences
+  }, [selectedIds, sentencesData]);
 
   const currentItem = trainingItems[currentIndex];
 
   // Generate cloze question when item changes
   useEffect(() => {
-    if (currentItem) {
-      // Reset state for new item
-      setSelectedAnswer(null);
-      setIsCorrect(null);
-      setShowResult(false);
-      
-      // Get all target words (words that can be cloze targets)
-      const targetWords = currentItem.words.filter(word => word.isTarget);
-      
-      if (targetWords.length > 0) {
-        // Randomly select one word to be the cloze
-        const randomCloze = targetWords[Math.floor(Math.random() * targetWords.length)];
-        setClozeWord(randomCloze);
+    const generateClozeQuestion = async () => {
+      if (currentItem) {
+        // Reset state for new item
+        setSelectedAnswer(null);
+        setIsCorrect(null);
+        setShowResult(false);
         
-        // Generate answer options (correct answer + 3 wrong answers)
-        const correctAnswer = randomCloze.word;
-        const wrongAnswers = getWrongAnswers(randomCloze, targetWords);
-        const allOptions = [correctAnswer, ...wrongAnswers];
-        setAnswerOptions(allOptions.sort(() => Math.random() - 0.5));
-      } else {
-        setClozeWord(null);
-        setAnswerOptions([]);
+        // Parse the sentence to get cloze words
+        const parsed = parseClozeText(currentItem.fullSentence);
+        console.log('Parsed sentence:', parsed);
+        console.log('Full sentence:', currentItem.fullSentence);
+        
+        if (parsed.hasCloze && parsed.clozeWords.length > 0) {
+          // Randomly select one cloze word to be the target
+          const randomClozeWord = parsed.clozeWords[Math.floor(Math.random() * parsed.clozeWords.length)];
+          console.log('Selected cloze word:', randomClozeWord);
+          
+          // Set up current cloze data
+          setCurrentClozeData({
+            sentence: parsed.cleanSentence,
+            clozeWord: randomClozeWord,
+            options: []
+          });
+          
+          // Create a temporary WordInSentence for compatibility with existing functions
+          const tempClozeWord: WordInSentence = {
+            id: 1,
+            word: randomClozeWord,
+            reading: '',
+            meaning: '',
+            isTarget: true
+          };
+          setClozeWord(tempClozeWord);
+          
+          // Generate answer options (correct answer + 3 wrong answers)
+          const correctAnswer = randomClozeWord;
+          const wrongAnswers = await generateWrongAnswersForCloze(randomClozeWord);
+          const allOptions = [correctAnswer, ...wrongAnswers];
+          console.log('Generated answer options:', allOptions);
+          setAnswerOptions(allOptions.sort(() => Math.random() - 0.5));
+        } else {
+          console.log('No cloze words found in sentence');
+          // Fallback: create a simple cloze from the sentence
+          const fallbackOptions = ['学校', '今日', '友達', '本'];
+          setAnswerOptions(fallbackOptions);
+          setClozeWord({
+            id: 1,
+            word: '学校',
+            reading: 'がっこう',
+            meaning: 'school',
+            isTarget: true
+          });
+          setCurrentClozeData({
+            sentence: currentItem.fullSentence,
+            clozeWord: '学校',
+            options: fallbackOptions
+          });
+        }
       }
-    }
+    };
+
+    generateClozeQuestion();
   }, [currentItem]); // Depend on currentItem instead of currentIndex
+
+  // Generate wrong answers for cloze questions
+  const generateWrongAnswersForCloze = async (correctWord: string): Promise<string[]> => {
+    try {
+      // Get random vocabulary words from Supabase to use as wrong answers
+      const randomVocab = await getRandomVocabulary('N5', 10);
+      const wrongAnswers = randomVocab
+        .map(vocab => vocab.word)
+        .filter(word => word !== correctWord)
+        .slice(0, 3);
+      
+      // If we don't have enough wrong answers, add some fallback options
+      const fallbackOptions = ['今日', '明日', '昨日', '学校', '友達', '先生', '学生', '日本', '英語', '勉強'];
+      const additionalOptions = fallbackOptions
+        .filter(word => word !== correctWord && !wrongAnswers.includes(word))
+        .slice(0, 3 - wrongAnswers.length);
+      
+      return [...wrongAnswers, ...additionalOptions].slice(0, 3);
+    } catch (error) {
+      console.error('Error generating wrong answers:', error);
+      // Fallback to hardcoded options
+      const fallbackOptions = ['今日', '明日', '昨日', '学校', '友達', '先生'];
+      return fallbackOptions.filter(word => word !== correctWord).slice(0, 3);
+    }
+  };
 
   const getWrongAnswers = (correctWord: WordInSentence, availableWords: WordInSentence[]): string[] => {
     // Get wrong answers from other target words in the same sentence or from other sentences
@@ -196,32 +246,55 @@ export default function ClozePage() {
   };
 
   const renderSentenceWithCloze = () => {
-    if (!currentItem || !clozeWord) return null;
+    if (!currentItem) return null;
+    
+    // Use the original sentence from Supabase which contains asterisks
+    const originalText = currentItem.fullSentence;
+    
+    // Check if the sentence has asterisks (cloze format)
+    const firstAsterisk = originalText.indexOf('*');
+    const secondAsterisk = originalText.indexOf('*', firstAsterisk + 1);
+    
+    if (firstAsterisk === -1 || secondAsterisk === -1) {
+      // No asterisks found, just show the sentence as is
+      return (
+        <div className="text-center">
+          <div className="text-5xl font-japanese font-bold leading-relaxed mb-4">
+            {originalText}
+          </div>
+          <div className="text-lg text-gray-600 font-japanese mb-6">
+            {currentItem.fullReading}
+          </div>
+          <div className="text-gray-800 font-medium">
+            {currentItem.meaning}
+          </div>
+        </div>
+      );
+    }
+    
+    // Split the sentence into parts
+    const beforeCloze = originalText.substring(0, firstAsterisk);
+    const clozeWord = originalText.substring(firstAsterisk + 1, secondAsterisk);
+    const afterCloze = originalText.substring(secondAsterisk + 1);
     
     return (
       <div className="text-center">
         <div className="text-5xl font-japanese font-bold leading-relaxed mb-4">
-          {currentItem.words.map((word, index) => (
-            <span key={word.id}>
-              {word.id === clozeWord.id ? (
-                <span 
-                  className={`inline-block min-w-20 px-3 py-2 mx-1 rounded border-2 text-center align-middle ${
-                    selectedAnswer
-                      ? showResult
-                        ? isCorrect
-                          ? 'bg-green-100 border-green-500 text-green-600'
-                          : 'bg-red-100 border-red-500 text-red-600'
-                        : 'bg-blue-50 border-blue-300 text-blue-800'
-                      : 'bg-gray-200 border-dashed border-gray-400 text-gray-500'
-                  }`}
-                >
-                  {selectedAnswer || '___'}
-                </span>
-              ) : (
-                word.word
-              )}
-            </span>
-          ))}
+          <span>{beforeCloze}</span>
+          <span 
+            className={`inline-block min-w-20 px-3 py-2 mx-1 rounded border-2 text-center align-middle ${
+              selectedAnswer
+                ? showResult
+                  ? isCorrect
+                    ? 'bg-green-100 border-green-500 text-green-600'
+                    : 'bg-red-100 border-red-500 text-red-600'
+                  : 'bg-blue-50 border-blue-300 text-blue-800'
+                : 'bg-gray-200 border-dashed border-gray-400 text-gray-500'
+            }`}
+          >
+            {selectedAnswer || '___'}
+          </span>
+          <span>{afterCloze}</span>
         </div>
         <div className="text-lg text-gray-600 font-japanese mb-6">
           {currentItem.fullReading}
@@ -255,7 +328,9 @@ export default function ClozePage() {
       if (shouldPlayVoice()) {
         setTimeout(async () => {
           try {
-            await speak(currentItem.fullSentence, {
+            // Use clean sentence without asterisks for TTS
+            const cleanSentence = parseClozeText(currentItem.fullSentence).cleanSentence;
+            await speak(cleanSentence, {
               languageCode: 'ja-JP',
               voiceName: 'ja-JP-Chirp3-HD-Leda',
               autoPlay: true
@@ -272,7 +347,9 @@ export default function ClozePage() {
       // Play TTS immediately for incorrect answers if voice is enabled
       if (shouldPlayVoice()) {
         try {
-          await speak(currentItem.fullSentence, {
+          // Use clean sentence without asterisks for TTS
+          const cleanSentence = parseClozeText(currentItem.fullSentence).cleanSentence;
+          await speak(cleanSentence, {
             languageCode: 'ja-JP',
             voiceName: 'ja-JP-Chirp3-HD-Leda',
             autoPlay: true
@@ -306,7 +383,8 @@ export default function ClozePage() {
 
   const progress = trainingItems.length > 0 ? ((currentIndex + 1) / trainingItems.length) * 100 : 0;
 
-  if (!currentItem) {
+  // Only show "no sentences" message if we're done loading and truly have no sentences
+  if (!loading && !currentItem) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -321,6 +399,11 @@ export default function ClozePage() {
         </div>
       </div>
     );
+  }
+
+  // Show nothing (blank) while loading - let it load seamlessly
+  if (loading || !currentItem) {
+    return null;
   }
 
   return (

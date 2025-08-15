@@ -7,6 +7,7 @@ import { Volume2, BookOpen, MessageSquare, X, Home, RotateCcw } from 'lucide-rea
 import { ReviewSystem } from '@/lib/reviewSystem';
 import { StreakSystem } from '@/lib/streakSystem';
 import MatchCompletionScreen from '@/components/MatchCompletionScreen';
+import { getSentencesByLevel, SentenceData, JLPTLevel, parseClozeText } from '@/lib/supabase-data';
 
 interface WordInSentence {
   id: number;
@@ -17,7 +18,7 @@ interface WordInSentence {
 }
 
 interface SentenceItem {
-  id: number;
+  id: string;
   words: WordInSentence[];
   fullSentence: string;
   fullReading: string;
@@ -38,100 +39,80 @@ interface WrongAnswer {
   type: 'kanji' | 'vocabulary' | 'sentences';
 }
 
-const sentencesData: SentenceItem[] = [
-  {
-    id: 1,
-    words: [
-      { id: 101, word: '今日', reading: 'きょう', meaning: 'today', isTarget: true },
-      { id: 102, word: 'は', reading: 'は', meaning: 'topic particle', isTarget: false },
-      { id: 103, word: '学校', reading: 'がっこう', meaning: 'school', isTarget: true },
-      { id: 104, word: 'に', reading: 'に', meaning: 'to/direction particle', isTarget: false },
-      { id: 105, word: '行きます', reading: 'いきます', meaning: 'go (polite)', isTarget: true },
-      { id: 106, word: '。', reading: '。', meaning: 'period', isTarget: false }
-    ],
-    fullSentence: '今日は学校に行きます。',
-    fullReading: 'きょうは がっこうに いきます。',
-    meaning: 'Today I will go to school.',
-    level: 'N5',
-    context: '毎日学校に行くのが楽しいです。',
-    contextTranslation: 'Going to school every day is fun.'
-  },
-  {
-    id: 2,
-    words: [
-      { id: 201, word: '友達', reading: 'ともだち', meaning: 'friend', isTarget: true },
-      { id: 202, word: 'と', reading: 'と', meaning: 'with particle', isTarget: false },
-      { id: 203, word: '映画', reading: 'えいが', meaning: 'movie', isTarget: true },
-      { id: 204, word: 'を', reading: 'を', meaning: 'object particle', isTarget: false },
-      { id: 205, word: '見ました', reading: 'みました', meaning: 'watched (past)', isTarget: true },
-      { id: 206, word: '。', reading: '。', meaning: 'period', isTarget: false }
-    ],
-    fullSentence: '友達と映画を見ました。',
-    fullReading: 'ともだちと えいがを みました。',
-    meaning: 'I watched a movie with my friend.',
-    level: 'N5',
-    context: '週末に友達と映画館に行きました。',
-    contextTranslation: 'I went to the movie theater with my friend on the weekend.'
-  },
-  {
-    id: 3,
-    words: [
-      { id: 301, word: '日本語', reading: 'にほんご', meaning: 'Japanese language', isTarget: true },
-      { id: 302, word: 'を', reading: 'を', meaning: 'object particle', isTarget: false },
-      { id: 303, word: '勉強しています', reading: 'べんきょうしています', meaning: 'studying (continuous)', isTarget: true },
-      { id: 304, word: '。', reading: '。', meaning: 'period', isTarget: false }
-    ],
-    fullSentence: '日本語を勉強しています。',
-    fullReading: 'にほんごを べんきょうしています。',
-    meaning: 'I am studying Japanese.',
-    level: 'N5',
-    context: '毎日一時間日本語を勉強しています。',
-    contextTranslation: 'I study Japanese for one hour every day.'
-  },
-  {
-    id: 4,
-    words: [
-      { id: 401, word: '電車', reading: 'でんしゃ', meaning: 'train', isTarget: true },
-      { id: 402, word: 'で', reading: 'で', meaning: 'by means of particle', isTarget: false },
-      { id: 403, word: '会社', reading: 'かいしゃ', meaning: 'company', isTarget: true },
-      { id: 404, word: 'に', reading: 'に', meaning: 'to particle', isTarget: false },
-      { id: 405, word: '通っています', reading: 'かよっています', meaning: 'commuting (continuous)', isTarget: true },
-      { id: 406, word: '。', reading: '。', meaning: 'period', isTarget: false }
-    ],
-    fullSentence: '電車で会社に通っています。',
-    fullReading: 'でんしゃで かいしゃに かよっています。',
-    meaning: 'I commute to work by train.',
-    level: 'N4',
-    context: '毎朝満員電車に乗るのは大変です。',
-    contextTranslation: 'Taking the crowded train every morning is tough.'
-  },
-  {
-    id: 5,
-    words: [
-      { id: 501, word: '母', reading: 'はは', meaning: 'mother', isTarget: true },
-      { id: 502, word: 'の', reading: 'の', meaning: 'possessive particle', isTarget: false },
-      { id: 503, word: '料理', reading: 'りょうり', meaning: 'cooking', isTarget: true },
-      { id: 504, word: 'は', reading: 'は', meaning: 'topic particle', isTarget: false },
-      { id: 505, word: 'とても', reading: 'とても', meaning: 'very', isTarget: true },
-      { id: 506, word: '美味しい', reading: 'おいしい', meaning: 'delicious', isTarget: true },
-      { id: 507, word: 'です', reading: 'です', meaning: 'polite copula', isTarget: false },
-      { id: 508, word: '。', reading: '。', meaning: 'period', isTarget: false }
-    ],
-    fullSentence: '母の料理はとても美味しいです。',
-    fullReading: 'ははの りょうりは とても おいしいです。',
-    meaning: 'My mother\'s cooking is very delicious.',
-    level: 'N4',
-    context: '特に母の作るカレーが大好きです。',
-    contextTranslation: 'I especially love the curry my mother makes.'
-  }
-];
+// This will be populated from Supabase
+let sentencesData: SentenceItem[] = [];
 
 export default function SentencesPage() {
   const searchParams = useSearchParams();
   const selectedLevel = searchParams.get('level') || 'N5';
-  const [masteredSentences, setMasteredSentences] = useState<Set<number>>(new Set());
-  const [selectedSentences, setSelectedSentences] = useState<Set<number>>(new Set());
+  
+  const [selectedSentences, setSelectedSentences] = useState<Set<string>>(new Set());
+  const [masteredSentences, setMasteredSentences] = useState<Set<string>>(new Set());
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [sentences, setSentences] = useState<SentenceItem[]>([]);
   const [isTraining, setIsTraining] = useState(false);
+
+  // Fetch sentences from Supabase
+  useEffect(() => {
+    const fetchSentences = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const supabaseSentences = await getSentencesByLevel(selectedLevel as JLPTLevel);
+        console.log(`Fetched ${supabaseSentences.length} sentences for level ${selectedLevel}:`, supabaseSentences);
+        
+        if (supabaseSentences.length === 0) {
+          setError('No sentences found for this level');
+          return;
+        }
+        
+        // Transform SentenceData to SentenceItem format for existing UI
+        const transformedSentences: SentenceItem[] = supabaseSentences.map((sentence, index) => {
+          const parsed = parseClozeText(sentence.japanese_text);
+          
+          // Create words array - simplified approach for now
+          const words: WordInSentence[] = [];
+          let wordId = index * 100 + 1;
+          
+          // For now, create a simple structure with the first cloze word as target
+          if (parsed.clozeWords.length > 0) {
+            // Add the cloze word as the target
+            words.push({
+              id: wordId++,
+              word: parsed.clozeWords[0],
+              reading: '',
+              meaning: '',
+              isTarget: true
+            });
+          }
+          
+          return {
+            id: sentence.id,
+            words,
+            fullSentence: parsed.cleanSentence,
+            fullReading: '', // We don't have reading data in Supabase yet
+            meaning: sentence.english_translation,
+            level: sentence.jlpt_level,
+            context: '', // We don't have context data in Supabase yet
+            contextTranslation: ''
+          };
+        });
+        
+        setSentences(transformedSentences);
+        // Update the global sentencesData for compatibility
+        sentencesData = transformedSentences;
+      } catch (err) {
+        console.error('Error fetching sentences:', err);
+        setError('Failed to load sentences');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSentences();
+  }, [selectedLevel]);
 
   // Sync mastery state with ReviewSystem on component mount and when returning from training
   useEffect(() => {
@@ -204,17 +185,19 @@ export default function SentencesPage() {
     setSelectedSentences(new Set());
   };
 
-  const toggleSelected = (id: number) => {
-    const newSelectedSentences = new Set(selectedSentences);
-    if (newSelectedSentences.has(id)) {
-      newSelectedSentences.delete(id);
-    } else {
-      newSelectedSentences.add(id);
-    }
-    setSelectedSentences(newSelectedSentences);
+  const toggleSelected = (id: string) => {
+    setSelectedSentences(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
   };
 
-  const toggleMastered = (id: number) => {
+  const toggleMastered = (id: string) => {
     const newMastered = new Set(masteredSentences);
     if (newMastered.has(id)) {
       newMastered.delete(id);
@@ -496,8 +479,21 @@ export default function SentencesPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {sentencesData.map((item) => (
+      {loading && (
+        <div className="flex justify-center items-center py-12">
+          <div className="text-gray-600">Loading sentences...</div>
+        </div>
+      )}
+
+      {error && (
+        <div className="flex justify-center items-center py-12">
+          <div className="text-red-600">Error: {error}</div>
+        </div>
+      )}
+
+      {!loading && !error && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {sentences.map((item) => (
           <div
             key={item.id}
             onClick={() => toggleSelected(item.id)}
@@ -583,8 +579,9 @@ export default function SentencesPage() {
               </div>
             </div>
           </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       {/* Study Footer Bar */}
       {selectedSentences.size > 0 && (

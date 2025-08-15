@@ -1,17 +1,19 @@
 'use client';
 
-import { useState } from 'react';
-import { List, Volume2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { List, Volume2, Clock } from 'lucide-react';
 import TrainingHeader from '@/components/TrainingHeader';
+import { generateKanjiReadingQuestions, JLPTLevel } from '@/lib/supabase-data';
 
 interface TestQuestion {
   id: number;
   sentence: string;
   underlinedKanji: string;
   kanjiPosition: number; // Position in sentence where kanji appears
-  options: string[];
-  correctAnswer: number; // Index of correct option (0-3)
-  explanation?: string;
+  options?: string[]; // Optional for fill-in-the-blank
+  correctAnswer: number | string; // Index for multiple choice, string for fill-in-the-blank
+  image?: string; // Optional image for listening mode
+  type: 'multiple-choice' | 'fill-in-blank';
 }
 
 const kanjiReadingQuestions: TestQuestion[] = [
@@ -22,7 +24,7 @@ const kanjiReadingQuestions: TestQuestion[] = [
     kanjiPosition: 4, // Position where 学校 starts
     options: ["がっこう", "がくこう", "まなびや", "がくしゃ"],
     correctAnswer: 0,
-    explanation: "学校 is read as がっこう (gakkou), meaning 'school'."
+    type: 'multiple-choice'
   },
   {
     id: 2,
@@ -31,7 +33,8 @@ const kanjiReadingQuestions: TestQuestion[] = [
     kanjiPosition: 3,
     options: ["てんき", "あまき", "そらき", "てんけ"],
     correctAnswer: 0,
-    explanation: "天気 is read as てんき (tenki), meaning 'weather'."
+    image: "/vecteezy_amazing-purple-planet-space-landscape-vector-design_8873373.jpg",
+    type: 'multiple-choice'
   },
   {
     id: 3,
@@ -40,7 +43,7 @@ const kanjiReadingQuestions: TestQuestion[] = [
     kanjiPosition: 3,
     options: ["えいが", "えが", "かげえ", "うつしえ"],
     correctAnswer: 0,
-    explanation: "映画 is read as えいが (eiga), meaning 'movie'."
+    type: 'fill-in-blank'
   },
   {
     id: 4,
@@ -49,7 +52,7 @@ const kanjiReadingQuestions: TestQuestion[] = [
     kanjiPosition: 0,
     options: ["あたらしい", "しんしい", "にいしい", "あらたしい"],
     correctAnswer: 0,
-    explanation: "新しい is read as あたらしい (atarashii), meaning 'new'."
+    type: 'multiple-choice'
   },
   {
     id: 5,
@@ -58,20 +61,37 @@ const kanjiReadingQuestions: TestQuestion[] = [
     kanjiPosition: 0,
     options: ["でんしゃ", "でんくるま", "いなずまぐるま", "らいしゃ"],
     correctAnswer: 0,
-    explanation: "電車 is read as でんしゃ (densha), meaning 'train'."
+    type: 'multiple-choice'
   }
 ];
 
 export default function KanjiReadingTestPage() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<number | string | null>(null);
+  const [textAnswer, setTextAnswer] = useState('');
   const [showResult, setShowResult] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [answers, setAnswers] = useState<(number | null)[]>(new Array(kanjiReadingQuestions.length).fill(null));
+  const [answers, setAnswers] = useState<(number | string | null)[]>(new Array(kanjiReadingQuestions.length).fill(null));
   const [score, setScore] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
 
   const question = kanjiReadingQuestions[currentQuestion];
   const progress = ((currentQuestion + 1) / kanjiReadingQuestions.length) * 100;
+
+  // Timer countdown effect
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [timeLeft]);
+
+  // Format time as MM:SS
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
 
   const handleAnswerSelect = (answerIndex: number) => {
     setSelectedAnswer(answerIndex);
@@ -88,19 +108,40 @@ export default function KanjiReadingTestPage() {
     }
   };
 
+  const handleTextSubmit = () => {
+    if (textAnswer.trim() === '') return;
+    
+    setSelectedAnswer(textAnswer);
+    setShowResult(true);
+    
+    // Update answers array
+    const newAnswers = [...answers];
+    newAnswers[currentQuestion] = textAnswer;
+    setAnswers(newAnswers);
+    
+    // Update score if correct
+    if (textAnswer === question.correctAnswer && answers[currentQuestion] === null) {
+      setScore(score + 1);
+    }
+  };
+
   const handleNext = () => {
     if (currentQuestion < kanjiReadingQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
-      setSelectedAnswer(answers[currentQuestion + 1]);
-      setShowResult(answers[currentQuestion + 1] !== null);
+      const nextAnswer = answers[currentQuestion + 1];
+      setSelectedAnswer(nextAnswer);
+      setTextAnswer(typeof nextAnswer === 'string' ? nextAnswer : '');
+      setShowResult(nextAnswer !== null);
     }
   };
 
   const handlePrevious = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
-      setSelectedAnswer(answers[currentQuestion - 1]);
-      setShowResult(answers[currentQuestion - 1] !== null);
+      const prevAnswer = answers[currentQuestion - 1];
+      setSelectedAnswer(prevAnswer);
+      setTextAnswer(typeof prevAnswer === 'string' ? prevAnswer : '');
+      setShowResult(prevAnswer !== null);
     }
   };
 
@@ -109,8 +150,23 @@ export default function KanjiReadingTestPage() {
     const before = sentence.substring(0, kanjiPosition);
     const after = sentence.substring(kanjiPosition + underlinedKanji.length);
     
+    if (question.type === 'fill-in-blank') {
+      return (
+        <div className="text-4xl font-japanese leading-relaxed text-center flex items-center justify-center gap-2">
+          <span>{before}</span>
+          <span className="inline-block w-32 text-center border-b-4 border-gray-400 pb-2">
+            {showResult && selectedAnswer !== null 
+              ? question.options?.[selectedAnswer as number] || ''
+              : '___'
+            }
+          </span>
+          <span>{after}</span>
+        </div>
+      );
+    }
+    
     return (
-      <p className="text-2xl font-japanese leading-relaxed text-center">
+      <p className="text-4xl font-japanese leading-relaxed text-center">
         {before}
         <span className="underline decoration-2 underline-offset-4 font-bold text-gray-900">
           {underlinedKanji}
@@ -133,47 +189,90 @@ export default function KanjiReadingTestPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 relative">
-      {/* Training Header */}
-      <TrainingHeader 
-        progress={progress}
-        onClose={() => window.history.back()}
-        rightButton={
-          <button
-            onClick={toggleDrawer}
-            className="p-3 rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-100"
-          >
-            <List className="h-6 w-6" />
-          </button>
-        }
-      />
-
-      {/* Main Content */}
-      <div className="pt-20 pb-8 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-[calc(100vh-12rem)]">
-            
-            {/* Left Content Area */}
-            <div className="lg:col-span-2 flex flex-col justify-center items-center bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-              <div className="text-center space-y-6">
-                <h2 className="text-lg font-semibold text-gray-700 mb-8">
-                  Choose the correct reading for the underlined kanji:
-                </h2>
-                
-                <div className="bg-gray-50 rounded-xl p-8">
-                  {renderSentenceWithUnderline()}
-                </div>
-
-                {/* Audio button (placeholder) */}
-                <button className="flex items-center gap-2 mx-auto px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors">
-                  <Volume2 className="h-5 w-5" />
-                  <span className="text-sm">Play Audio</span>
-                </button>
+      {/* Custom Test Header */}
+      <div className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-sm z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Left Side - Close Button and Test Badge */}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => window.history.back()}
+                className="p-2 rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-100"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              
+              {/* Test Badge */}
+              <div className="bg-white px-3 py-1 rounded-full border border-green-500">
+                <span className="text-black text-sm font-medium">Kanji Reading</span>
               </div>
             </div>
 
-            {/* Right Answer Area */}
-            <div className="flex flex-col justify-center space-y-4">
-              {question.options.map((option, index) => {
+            {/* Question Counter */}
+            <div className="absolute left-1/2 transform -translate-x-1/2">
+              <div className="bg-gray-100 px-4 py-2 rounded-lg border border-gray-200">
+                <span className="text-gray-600 text-sm font-medium mr-2">Question</span>
+                <span className="text-gray-900 font-bold text-lg">
+                  {currentQuestion + 1}/{kanjiReadingQuestions.length}
+                </span>
+              </div>
+            </div>
+
+            {/* Right Side - Timer and Questions List Button */}
+            <div className="flex items-center gap-3">
+              {/* Timer */}
+              <div className="flex items-center gap-2 bg-green-100 px-3 py-2 rounded-lg border border-green-200">
+                <Clock className="h-5 w-5 text-green-600" />
+                <span className="text-green-800 font-medium text-sm">
+                  {formatTime(timeLeft)}
+                </span>
+              </div>
+
+              {/* Questions List Button */}
+              <button
+                onClick={toggleDrawer}
+                className="p-3 rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-100"
+              >
+                <List className="h-6 w-6" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="pt-20 pb-28 px-4 flex justify-center">
+        <div className="w-full max-w-4xl">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+            {/* Question Section */}
+            <div className="text-center space-y-6 mb-8">
+              {/* Question Image (if available) */}
+              {question.image && (
+                <div className="mb-6">
+                  <img 
+                    src={question.image} 
+                    alt="Question context image" 
+                    className="mx-auto rounded-lg shadow-md max-w-md w-full h-48 object-cover"
+                  />
+                </div>
+              )}
+              
+              <div className="p-8">
+                {renderSentenceWithUnderline()}
+              </div>
+
+              {/* Audio button (placeholder) */}
+              <button className="flex items-center gap-2 mx-auto px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors">
+                <Volume2 className="h-5 w-5" />
+                <span className="text-sm">Play Audio</span>
+              </button>
+            </div>
+
+            {/* Answer Options */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {question.options?.map((option, index) => {
                 const isSelected = selectedAnswer === index;
                 const isCorrect = index === question.correctAnswer;
                 const isWrong = showResult && isSelected && !isCorrect;
@@ -185,14 +284,14 @@ export default function KanjiReadingTestPage() {
                     onClick={() => !showResult && handleAnswerSelect(index)}
                     disabled={showResult}
                     className={`
-                      relative p-6 rounded-2xl border border-gray-200 border-b-4 transition-all duration-200 text-left
+                      relative p-6 rounded-2xl border-2 border-gray-200 border-b-4 transition-all duration-200 text-left
                       ${!showResult 
-                        ? 'bg-white border-b-gray-400 hover:border-b-gray-500 hover:shadow-md' 
+                        ? 'bg-white hover:shadow-md border-b-gray-300' 
                         : shouldShowCorrect
-                        ? 'bg-green-50 border-green-200 border-b-green-500 text-green-800'
+                        ? 'bg-green-50 border-green-300 border-b-green-400 text-green-800'
                         : isWrong
-                        ? 'bg-red-50 border-red-200 border-b-red-500 text-red-800'
-                        : 'bg-gray-50 border-gray-200 border-b-gray-400 text-gray-500'
+                        ? 'bg-red-50 border-red-300 border-b-red-400 text-red-800'
+                        : 'bg-gray-50 border-gray-300 border-b-gray-400 text-gray-500'
                       }
                       ${!showResult ? 'cursor-pointer' : 'cursor-default'}
                     `}
@@ -201,7 +300,7 @@ export default function KanjiReadingTestPage() {
                       <div className={`
                         w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold
                         ${!showResult 
-                          ? 'bg-gray-900 text-white' 
+                          ? 'bg-gray-200 text-black' 
                           : shouldShowCorrect
                           ? 'bg-green-500 text-white'
                           : isWrong
@@ -218,34 +317,52 @@ export default function KanjiReadingTestPage() {
                   </button>
                 );
               })}
+            </div>
 
-              {/* Explanation */}
-              {showResult && question.explanation && (
-                <div className="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
-                  <p className="text-sm text-blue-800">
-                    <strong>Explanation:</strong> {question.explanation}
-                  </p>
-                </div>
-              )}
+          </div>
+        </div>
+      </div>
 
-              {/* Navigation Buttons */}
-              <div className="flex justify-between mt-8">
-                <button
-                  onClick={handlePrevious}
-                  disabled={currentQuestion === 0}
-                  className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  Previous
-                </button>
-                
-                <button
-                  onClick={handleNext}
-                  disabled={currentQuestion === kanjiReadingQuestions.length - 1}
-                  className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                >
-                  Next
-                </button>
-              </div>
+      {/* Bottom Navigation Bar */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative flex items-center h-20">
+            {/* Centered Previous and Next Buttons */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 flex gap-6">
+              <button
+                onClick={handlePrevious}
+                disabled={currentQuestion === 0}
+                className="flex items-center gap-2 px-6 py-3 bg-gray-200 text-gray-700 rounded-lg border border-gray-300 border-b-4 border-b-gray-400 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Previous
+              </button>
+              
+              <button
+                onClick={handleNext}
+                disabled={currentQuestion === kanjiReadingQuestions.length - 1}
+                className="flex items-center gap-2 px-6 py-3 bg-gray-200 text-gray-700 rounded-lg border border-gray-300 border-b-4 border-b-gray-400 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                Next
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+            
+            {/* Right Side - Finish Button */}
+            <div className="ml-auto">
+              <button
+                onClick={() => {
+                  // Handle finish logic here
+                  console.log('Test finished!');
+                }}
+                className="px-8 py-3 bg-green-500 text-white rounded-lg border border-green-600 border-b-4 border-b-green-700 hover:bg-green-600 transition-colors"
+              >
+                Finish
+              </button>
             </div>
           </div>
         </div>
