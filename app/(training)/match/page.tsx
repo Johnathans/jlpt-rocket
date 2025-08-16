@@ -9,9 +9,11 @@ import { ReviewSystem } from '@/lib/reviewSystem';
 import { StreakSystem } from '@/lib/streakSystem';
 import { speakText, useTTS } from '@/lib/useTTS';
 import { playIncorrectSound, playCorrectSound, shouldPlayVoice, playButtonClickSound } from '@/lib/audioUtils';
+import { getKanjiByLevel, getVocabularyByLevel } from '@/lib/supabase-data';
+import type { JLPTLevel } from '@/lib/supabase-data';
 
 interface TrainingItem {
-  id: number;
+  id: string;
   character: string;
   meaning: string;
   reading?: string;
@@ -19,7 +21,7 @@ interface TrainingItem {
 }
 
 interface WrongAnswer {
-  id: number;
+  id: string;
   character: string;
   meaning: string;
   reading?: string;
@@ -28,36 +30,18 @@ interface WrongAnswer {
   type: 'kanji' | 'vocabulary' | 'sentences';
 }
 
-// Vocabulary data
-const vocabularyData = [
-  { id: 1, word: '学校', reading: 'がっこう', meaning: 'school', level: 'N5' },
-  { id: 2, word: '友達', reading: 'ともだち', meaning: 'friend', level: 'N5' },
-  { id: 3, word: '勉強', reading: 'べんきょう', meaning: 'study', level: 'N5' },
-  { id: 4, word: '電車', reading: 'でんしゃ', meaning: 'train', level: 'N4' },
-  { id: 5, word: '料理', reading: 'りょうり', meaning: 'cooking, cuisine', level: 'N4' },
-  { id: 6, word: '経験', reading: 'けいけん', meaning: 'experience', level: 'N3' },
-];
-
-// Kanji data
-const kanjiData = [
-  { id: 1, kanji: '学', meaning: 'study, learning', level: 'N5' },
-  { id: 2, kanji: '友', meaning: 'friend', level: 'N5' },
-  { id: 3, kanji: '本', meaning: 'book, origin', level: 'N5' },
-  { id: 4, kanji: '電', meaning: 'electricity', level: 'N4' },
-  { id: 5, kanji: '料', meaning: 'fee, materials', level: 'N4' },
-  { id: 6, kanji: '経', meaning: 'sutra, longitude, pass thru', level: 'N3' },
-];
+// No hardcoded data - we'll fetch from Supabase
 
 // Sample fallback data
 const sampleItems: TrainingItem[] = [
-  { id: 1, character: '学校', meaning: 'school', reading: 'がっこう', type: 'vocabulary' },
-  { id: 2, character: '友達', meaning: 'friend', reading: 'ともだち', type: 'vocabulary' },
-  { id: 3, character: '勉強', meaning: 'study', reading: 'べんきょう', type: 'vocabulary' },
-  { id: 4, character: '学', meaning: 'study, learning', type: 'kanji' },
-  { id: 5, character: '友', meaning: 'friend', type: 'kanji' },
-  { id: 6, character: '本', meaning: 'book', type: 'kanji' },
-  { id: 7, character: '水', meaning: 'water', type: 'kanji' },
-  { id: 8, character: '火', meaning: 'fire', type: 'kanji' },
+  { id: '1', character: '学校', meaning: 'school', reading: 'がっこう', type: 'vocabulary' },
+  { id: '2', character: '友達', meaning: 'friend', reading: 'ともだち', type: 'vocabulary' },
+  { id: '3', character: '勉強', meaning: 'study', reading: 'べんきょう', type: 'vocabulary' },
+  { id: '4', character: '学', meaning: 'study, learning', type: 'kanji' },
+  { id: '5', character: '友', meaning: 'friend', type: 'kanji' },
+  { id: '6', character: '本', meaning: 'book', type: 'kanji' },
+  { id: '7', character: '水', meaning: 'water', type: 'kanji' },
+  { id: '8', character: '火', meaning: 'fire', type: 'kanji' },
 ];
 
 export default function MatchPage() {
@@ -80,38 +64,100 @@ export default function MatchPage() {
 
   // Load selected items from URL parameters
   useEffect(() => {
-    const type = searchParams.get('type');
-    const itemIds = searchParams.get('items')?.split(',').map(id => parseInt(id)) || [];
-    
-    if (type && itemIds.length > 0) {
-      let selectedItems: TrainingItem[] = [];
+    const fetchTrainingItems = async () => {
+      const type = searchParams.get('type');
+      const itemIds = searchParams.get('items')?.split(',') || [];
       
-      if (type === 'vocabulary') {
-        selectedItems = vocabularyData
-          .filter(item => itemIds.includes(item.id))
-          .map(item => ({
-            id: item.id,
-            character: item.word,
-            meaning: item.meaning,
-            reading: item.reading,
-            type: 'vocabulary' as const
-          }));
-      } else if (type === 'kanji') {
-        selectedItems = kanjiData
-          .filter(item => itemIds.includes(item.id))
-          .map(item => ({
-            id: item.id,
-            character: item.kanji,
-            meaning: item.meaning,
-            type: 'kanji' as const
-          }));
+      if (type && itemIds.length > 0) {
+        let selectedItems: TrainingItem[] = [];
+        
+        if (type === 'vocabulary') {
+          // Try to get vocabulary data from localStorage first (passed from vocabulary page)
+          const storedVocabData = localStorage.getItem('selectedVocabularyData');
+          if (storedVocabData) {
+            try {
+              const parsedVocabData = JSON.parse(storedVocabData);
+              selectedItems = parsedVocabData.map((item: any) => ({
+                id: item.id,
+                character: item.word,
+                meaning: item.meaning,
+                reading: item.reading,
+                type: 'vocabulary' as const
+              }));
+              // Clear the stored data after use
+              localStorage.removeItem('selectedVocabularyData');
+            } catch (error) {
+              console.error('Failed to parse stored vocabulary data:', error);
+            }
+          }
+          
+          // If localStorage failed, fetch from Supabase
+          if (selectedItems.length === 0) {
+            try {
+              const allVocabData = await getVocabularyByLevel('N5' as JLPTLevel); // Default to N5, could be improved
+              selectedItems = allVocabData
+                .filter(item => itemIds.includes(item.id))
+                .map(item => ({
+                  id: item.id,
+                  character: item.word,
+                  meaning: item.meaning,
+                  reading: item.reading,
+                  type: 'vocabulary' as const
+                }));
+            } catch (error) {
+              console.error('Failed to fetch vocabulary from Supabase:', error);
+            }
+          }
+        } else if (type === 'kanji') {
+          // Try to get kanji data from localStorage first (passed from kanji page)
+          const storedKanjiData = localStorage.getItem('selectedKanjiData');
+          console.log('Raw stored kanji data:', storedKanjiData);
+          if (storedKanjiData) {
+            try {
+              const parsedKanjiData = JSON.parse(storedKanjiData);
+              console.log('Parsed kanji data:', parsedKanjiData);
+              selectedItems = parsedKanjiData.map((item: any) => ({
+                id: item.id,
+                character: item.character,
+                meaning: item.meaning,
+                type: 'kanji' as const
+              }));
+              console.log('Mapped training items:', selectedItems);
+              // Clear the stored data after use
+              localStorage.removeItem('selectedKanjiData');
+            } catch (error) {
+              console.error('Failed to parse stored kanji data:', error);
+            }
+          } else {
+            console.log('No stored kanji data found in localStorage');
+          }
+          
+          // If localStorage failed, fetch from Supabase
+          if (selectedItems.length === 0) {
+            try {
+              const allKanjiData = await getKanjiByLevel('N5' as JLPTLevel); // Default to N5, could be improved
+              selectedItems = allKanjiData
+                .filter(item => itemIds.includes(item.id))
+                .map(item => ({
+                  id: item.id,
+                  character: item.character,
+                  meaning: item.meaning,
+                  type: 'kanji' as const
+                }));
+            } catch (error) {
+              console.error('Failed to fetch kanji from Supabase:', error);
+            }
+          }
+        }
+        
+        setTrainingItems(selectedItems.length > 0 ? selectedItems : sampleItems);
+      } else {
+        // Fallback to sample items if no selection
+        setTrainingItems(sampleItems);
       }
-      
-      setTrainingItems(selectedItems.length > 0 ? selectedItems : sampleItems);
-    } else {
-      // Fallback to sample items if no selection
-      setTrainingItems(sampleItems);
-    }
+    };
+
+    fetchTrainingItems();
   }, [searchParams]);
 
   const currentItem = trainingItems[currentIndex];
@@ -123,9 +169,13 @@ export default function MatchPage() {
       // Create options: correct answer + 3 random wrong answers
       const correctAnswer = currentItem.meaning;
       
-      // Get wrong answers from all available data (not just training items)
-      const allItems = [...vocabularyData.map(v => v.meaning), ...kanjiData.map(k => k.meaning)];
-      const wrongAnswers = allItems
+      // Get wrong answers from training items and sample items
+      const allMeanings = [
+        ...trainingItems.map(item => item.meaning),
+        ...sampleItems.map(item => item.meaning)
+      ];
+      
+      const wrongAnswers = allMeanings
         .filter(meaning => meaning !== correctAnswer)
         .sort(() => Math.random() - 0.5)
         .slice(0, 3);

@@ -39,6 +39,9 @@ interface WrongAnswer {
   type: 'kanji' | 'vocabulary' | 'sentences';
 }
 
+const ITEMS_PER_PAGE = 50;
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
 // This will be populated from Supabase
 let sentencesData: SentenceItem[] = [];
 
@@ -50,16 +53,41 @@ export default function SentencesPage() {
   const [masteredSentences, setMasteredSentences] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [sentences, setSentences] = useState<SentenceItem[]>([]);
+  const [allSentences, setAllSentences] = useState<SentenceItem[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isTraining, setIsTraining] = useState(false);
 
-  // Fetch sentences from Supabase
+  // Calculate paginated data
+  const totalPages = Math.ceil(allSentences.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const sentences = allSentences.slice(startIndex, endIndex);
+
+  // Fetch sentences from Supabase with caching
   useEffect(() => {
     const fetchSentences = async () => {
       try {
         setLoading(true);
         setError(null);
         
+        // Check cache first
+        const cacheKey = `sentences-${selectedLevel}`;
+        const cached = localStorage.getItem(cacheKey);
+        const cacheTimestamp = localStorage.getItem(`${cacheKey}-timestamp`);
+        
+        if (cached && cacheTimestamp) {
+          const isExpired = Date.now() - parseInt(cacheTimestamp) > CACHE_DURATION;
+          if (!isExpired) {
+            console.log('Loading sentences from cache');
+            const cachedSentences = JSON.parse(cached);
+            setAllSentences(cachedSentences);
+            sentencesData = cachedSentences;
+            setLoading(false);
+            return;
+          }
+        }
+        
+        console.log('Fetching sentences from Supabase');
         const supabaseSentences = await getSentencesByLevel(selectedLevel as JLPTLevel);
         console.log(`Fetched ${supabaseSentences.length} sentences for level ${selectedLevel}:`, supabaseSentences);
         
@@ -100,7 +128,12 @@ export default function SentencesPage() {
           };
         });
         
-        setSentences(transformedSentences);
+        // Cache the data
+        localStorage.setItem(cacheKey, JSON.stringify(transformedSentences));
+        localStorage.setItem(`${cacheKey}-timestamp`, Date.now().toString());
+        
+        setAllSentences(transformedSentences);
+        setCurrentPage(1); // Reset to first page when data changes
         // Update the global sentencesData for compatibility
         sentencesData = transformedSentences;
       } catch (err) {
@@ -582,6 +615,53 @@ export default function SentencesPage() {
           ))}
         </div>
       )}
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-4 mt-8 mb-8">
+          <button
+            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Previous
+          </button>
+          
+          <div className="flex items-center gap-2">
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              const pageNum = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
+              if (pageNum > totalPages) return null;
+              
+              return (
+                <button
+                  key={pageNum}
+                  onClick={() => setCurrentPage(pageNum)}
+                  className={`px-3 py-2 rounded-lg ${
+                    pageNum === currentPage
+                      ? 'bg-green-500 text-white'
+                      : 'bg-white border border-gray-300 hover:bg-gray-50'
+                  }`}
+                >
+                  {pageNum}
+                </button>
+              );
+            })}
+          </div>
+          
+          <button
+            onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Next
+          </button>
+        </div>
+      )}
+
+      {/* Page Info */}
+      <div className="text-center text-sm text-gray-600 mb-8">
+        Showing {startIndex + 1}-{Math.min(endIndex, allSentences.length)} of {allSentences.length} sentences
+      </div>
 
       {/* Study Footer Bar */}
       {selectedSentences.size > 0 && (

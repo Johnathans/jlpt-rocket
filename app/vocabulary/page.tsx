@@ -18,22 +18,48 @@ interface VocabularyItem {
   mastered?: boolean;
 }
 
+const ITEMS_PER_PAGE = 50;
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
 export default function VocabularyPage() {
   const searchParams = useSearchParams();
   const selectedLevel = searchParams.get('level') || 'N5';
-  const [vocabularyData, setVocabularyData] = useState<VocabularyItem[]>([]);
+  const [allVocabularyData, setAllVocabularyData] = useState<VocabularyItem[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [masteredVocab, setMasteredVocab] = useState<Set<string>>(new Set());
   const [selectedVocab, setSelectedVocab] = useState<Set<string>>(new Set());
 
-  // Fetch vocabulary data from Supabase
+  // Calculate paginated data
+  const totalPages = Math.ceil(allVocabularyData.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const vocabularyData = allVocabularyData.slice(startIndex, endIndex);
+
+  // Fetch vocabulary data from Supabase with caching
   useEffect(() => {
     const fetchVocabularyData = async () => {
       try {
         setLoading(true);
         setError(null);
         
+        // Check cache first
+        const cacheKey = `vocabulary-${selectedLevel}`;
+        const cached = localStorage.getItem(cacheKey);
+        const cacheTimestamp = localStorage.getItem(`${cacheKey}-timestamp`);
+        
+        if (cached && cacheTimestamp) {
+          const isExpired = Date.now() - parseInt(cacheTimestamp) > CACHE_DURATION;
+          if (!isExpired) {
+            console.log('Loading vocabulary from cache');
+            setAllVocabularyData(JSON.parse(cached));
+            setLoading(false);
+            return;
+          }
+        }
+        
+        console.log('Fetching vocabulary from Supabase');
         const supabaseVocab = await getAllVocabulary();
         
         // Transform Supabase data to match VocabularyItem interface
@@ -47,7 +73,12 @@ export default function VocabularyPage() {
           exampleTranslation: vocab.example_translation
         }));
 
-        setVocabularyData(transformedVocab);
+        // Cache the data
+        localStorage.setItem(cacheKey, JSON.stringify(transformedVocab));
+        localStorage.setItem(`${cacheKey}-timestamp`, Date.now().toString());
+        
+        setAllVocabularyData(transformedVocab);
+        setCurrentPage(1); // Reset to first page when data changes
       } catch (err) {
         console.error('Error fetching vocabulary data:', err);
         setError('Failed to load vocabulary data');
@@ -256,6 +287,53 @@ export default function VocabularyPage() {
         ))}
       </div>
 
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-4 mt-8 mb-8">
+          <button
+            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Previous
+          </button>
+          
+          <div className="flex items-center gap-2">
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              const pageNum = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
+              if (pageNum > totalPages) return null;
+              
+              return (
+                <button
+                  key={pageNum}
+                  onClick={() => setCurrentPage(pageNum)}
+                  className={`px-3 py-2 rounded-lg ${
+                    pageNum === currentPage
+                      ? 'bg-green-500 text-white'
+                      : 'bg-white border border-gray-300 hover:bg-gray-50'
+                  }`}
+                >
+                  {pageNum}
+                </button>
+              );
+            })}
+          </div>
+          
+          <button
+            onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Next
+          </button>
+        </div>
+      )}
+
+      {/* Page Info */}
+      <div className="text-center text-sm text-gray-600 mb-8">
+        Showing {startIndex + 1}-{Math.min(endIndex, allVocabularyData.length)} of {allVocabularyData.length} vocabulary
+      </div>
+
       {/* Study Footer Bar */}
       {selectedVocab.size > 0 && (
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
@@ -269,6 +347,13 @@ export default function VocabularyPage() {
               <Link 
                 href={`/match?type=vocabulary&items=${Array.from(selectedVocab).join(',')}`}
                 className="px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-semibold transition-all rounded-lg shadow-sm border-b-4 border-green-600 hover:border-green-700 hover:translate-y-0.5 active:translate-y-0.5 inline-block"
+                onClick={() => {
+                  // Store selected vocabulary data in localStorage for the match page
+                  const selectedVocabData = allVocabularyData.filter(vocab => 
+                    selectedVocab.has(vocab.id.toString())
+                  );
+                  localStorage.setItem('selectedVocabularyData', JSON.stringify(selectedVocabData));
+                }}
               >
                 Study Selected Vocabulary
               </Link>

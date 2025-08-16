@@ -3,42 +3,88 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useReviewStore } from '@/lib/store/useReviewStore';
-import { ItemProgress } from '@/lib/reviewSystem';
+import { ItemProgress, ReviewSystem } from '@/lib/reviewSystem';
 import { Calendar, Clock, Target, TrendingUp, BookOpen } from 'lucide-react';
+import { getVocabularyByLevel, getKanjiByLevel, getSentencesByLevel, JLPTLevel } from '@/lib/supabase-data';
 
-// Import vocabulary and kanji data to display full item details
-const vocabularyData = [
-  { id: 1, word: '学校', reading: 'がっこう', meaning: 'school', level: 'N5' },
-  { id: 2, word: '友達', reading: 'ともだち', meaning: 'friend', level: 'N5' },
-  { id: 3, word: '勉強', reading: 'べんきょう', meaning: 'study', level: 'N5' },
-  { id: 4, word: '電車', reading: 'でんしゃ', meaning: 'train', level: 'N4' },
-  { id: 5, word: '料理', reading: 'りょうり', meaning: 'cooking, cuisine', level: 'N4' },
-  { id: 6, word: '経験', reading: 'けいけん', meaning: 'experience', level: 'N3' },
-];
+// Cache for fetched data to avoid repeated API calls
+const dataCache = {
+  vocabulary: new Map(),
+  kanji: new Map(),
+  sentences: new Map()
+};
 
-const kanjiData = [
-  { id: 1, kanji: '学', meaning: 'study, learning', level: 'N5' },
-  { id: 2, kanji: '友', meaning: 'friend', level: 'N5' },
-  { id: 3, kanji: '電', meaning: 'electricity', level: 'N4' },
-  { id: 4, kanji: '料', meaning: 'fee, materials', level: 'N4' },
-  { id: 5, kanji: '経', meaning: 'sutra, longitude', level: 'N3' },
-];
-
-const sentencesData = [
-  { id: 1, fullSentence: '今日は学校に行きます。', fullReading: 'きょうは がっこうに いきます。', meaning: 'Today I will go to school.', level: 'N5' },
-  { id: 2, fullSentence: '友達と映画を見ました。', fullReading: 'ともだちと えいがを みました。', meaning: 'I watched a movie with my friend.', level: 'N5' },
-  { id: 3, fullSentence: '日本語を勉強しています。', fullReading: 'にほんごを べんきょうしています。', meaning: 'I am studying Japanese.', level: 'N5' },
-  { id: 4, fullSentence: '電車で会社に通っています。', fullReading: 'でんしゃで かいしゃに かよっています。', meaning: 'I commute to work by train.', level: 'N4' },
-  { id: 5, fullSentence: '母の料理はとても美味しいです。', fullReading: 'ははの りょうりは とても おいしいです。', meaning: 'My mother\'s cooking is very delicious.', level: 'N4' },
-];
-
-function getItemDetails(progress: ItemProgress) {
-  if (progress.type === 'vocabulary') {
-    return vocabularyData.find(item => item.id === progress.id);
-  } else if (progress.type === 'kanji') {
-    return kanjiData.find(item => item.id === progress.id);
-  } else if (progress.type === 'sentences') {
-    return sentencesData.find(item => item.id === progress.id);
+async function getItemDetails(progress: ItemProgress) {
+  try {
+    if (progress.type === 'vocabulary') {
+      // Check cache first
+      if (dataCache.vocabulary.has(progress.id)) {
+        return dataCache.vocabulary.get(progress.id);
+      }
+      
+      // Fetch all vocabulary data for all levels if not cached
+      const levels: JLPTLevel[] = ['N5', 'N4', 'N3', 'N2', 'N1'];
+      for (const level of levels) {
+        const levelData = await getVocabularyByLevel(level);
+        levelData.forEach(item => {
+          dataCache.vocabulary.set(item.id, {
+            id: item.id,
+            word: item.word,
+            reading: item.reading,
+            meaning: item.meaning,
+            level: level
+          });
+        });
+      }
+      
+      return dataCache.vocabulary.get(progress.id);
+    } else if (progress.type === 'kanji') {
+      // Check cache first
+      if (dataCache.kanji.has(progress.id)) {
+        return dataCache.kanji.get(progress.id);
+      }
+      
+      // Fetch all kanji data for all levels if not cached
+      const levels: JLPTLevel[] = ['N5', 'N4', 'N3', 'N2', 'N1'];
+      for (const level of levels) {
+        const levelData = await getKanjiByLevel(level);
+        levelData.forEach(item => {
+          dataCache.kanji.set(item.id, {
+            id: item.id,
+            kanji: item.character,
+            meaning: item.meaning,
+            level: level
+          });
+        });
+      }
+      
+      return dataCache.kanji.get(progress.id);
+    } else if (progress.type === 'sentences') {
+      // Check cache first
+      if (dataCache.sentences.has(progress.id)) {
+        return dataCache.sentences.get(progress.id);
+      }
+      
+      // Fetch all sentences data for all levels if not cached
+      const levels: JLPTLevel[] = ['N5', 'N4', 'N3', 'N2', 'N1'];
+      for (const level of levels) {
+        const levelData = await getSentencesByLevel(level);
+        levelData.forEach(item => {
+          dataCache.sentences.set(item.id, {
+            id: item.id,
+            fullSentence: item.japanese_text,
+            fullReading: item.japanese_text, // Note: SentenceData doesn't have separate reading field
+            meaning: item.english_translation,
+            level: level
+          });
+        });
+      }
+      
+      return dataCache.sentences.get(progress.id);
+    }
+  } catch (error) {
+    console.error('Error fetching item details:', error);
+    return null;
   }
   return null;
 }
@@ -53,12 +99,29 @@ export default function ReviewPage() {
   
   const [stats, setStats] = useState({ total: 0, mastered: 0, learning: 0, review: 0, dueToday: 0 });
   const [currentPage, setCurrentPage] = useState(1);
+  const [itemDetails, setItemDetails] = useState<Map<number, any>>(new Map());
+  const [loading, setLoading] = useState(true);
   const itemsPerPage = 10;
 
   // Load data on mount and when page becomes visible
-  const refreshData = () => {
+  const refreshData = async () => {
+    setLoading(true);
     loadReviewItems();
     setStats(getReviewStats());
+    
+    // Fetch item details for all review items
+    const detailsMap = new Map();
+    const currentReviewItems = useReviewStore.getState().reviewItems;
+    
+    for (const item of currentReviewItems) {
+      const details = await getItemDetails(item);
+      if (details) {
+        detailsMap.set(item.id, details);
+      }
+    }
+    
+    setItemDetails(detailsMap);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -106,6 +169,11 @@ export default function ReviewPage() {
     setCurrentPage(page);
   };
 
+  const handleClearReviewData = () => {
+    ReviewSystem.clearAllReviewData();
+    refreshData();
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -117,13 +185,21 @@ export default function ReviewPage() {
             <div className="text-2xl text-gray-600 mb-8">
               {reviewItems.length === 1 ? 'item due for review' : 'items due for review'}
             </div>
-            <button 
-              onClick={handleStartReview}
-              disabled={reviewItems.length === 0}
-              className="px-12 py-6 text-xl bg-green-500 text-white hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed font-bold transition-all rounded-lg shadow-lg border-b-4 border-green-600 hover:border-green-700 disabled:border-gray-400 hover:translate-y-0.5 active:translate-y-0.5 disabled:translate-y-0"
-            >
-              {reviewItems.length === 0 ? 'No Items to Review' : 'Start Review Session'}
-            </button>
+            <div className="flex gap-4 justify-center">
+              <button
+                onClick={handleStartReview}
+                disabled={reviewItems.length === 0}
+                className="bg-green-500 hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200"
+              >
+                Start Review Session
+              </button>
+              <button
+                onClick={handleClearReviewData}
+                className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
+              >
+                Clear Review Data
+              </button>
+            </div>
           </div>
         </div>
 
@@ -150,56 +226,69 @@ export default function ReviewPage() {
             </div>
           ) : (
             <div className="space-y-4">
-              {currentItems.map((progress) => {
-                const itemDetails = getItemDetails(progress);
-                if (!itemDetails) return null;
+              {loading ? (
+                <div className="text-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-500 mx-auto"></div>
+                  <p className="text-gray-600 mt-2">Loading review items...</p>
+                </div>
+              ) : (
+                currentItems.map((progress) => {
+                  const details = itemDetails.get(progress.id);
+                  if (!details) {
+                    // Skip items with invalid IDs (empty strings, etc.)
+                    return null;
+                  }
                 
-                const masteryColor = progress.masteryLevel >= 75 ? 'text-green-600' : 
-                                   progress.masteryLevel >= 50 ? 'text-yellow-600' : 
-                                   progress.masteryLevel >= 25 ? 'text-orange-600' : 'text-red-600';
-                
-                return (
-                  <div key={`${progress.type}_${progress.id}`} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-1">
-                        <h3 className="text-lg font-bold text-black font-japanese">
-                          {progress.type === 'sentences' 
-                            ? (itemDetails as any).fullSentence
-                            : progress.type === 'vocabulary' 
-                            ? (itemDetails as any).word 
-                            : (itemDetails as any).kanji
-                          }
-                        </h3>
-                        {(progress.type === 'vocabulary' || progress.type === 'sentences') && (
-                          <span className="text-sm text-gray-600 font-japanese">
+                  const masteryColor = progress.masteryLevel >= 75 ? 'text-green-600' : 
+                                     progress.masteryLevel >= 50 ? 'text-yellow-600' : 
+                                     progress.masteryLevel >= 25 ? 'text-orange-600' : 'text-red-600';
+                  const masteryBg = progress.masteryLevel >= 75 ? 'bg-green-100' : 
+                                     progress.masteryLevel >= 50 ? 'bg-yellow-100' : 
+                                     progress.masteryLevel >= 25 ? 'bg-orange-100' : 'bg-red-100';
+                  
+                  return (
+                    <div key={`${progress.type}_${progress.id}`} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-1">
+                          <h3 className="text-lg font-bold text-black font-japanese">
                             {progress.type === 'sentences' 
-                              ? (itemDetails as any).fullReading
-                              : (itemDetails as any).reading
+                              ? details.fullSentence
+                              : progress.type === 'vocabulary' 
+                              ? details.word 
+                              : details.kanji
                             }
+                          </h3>
+                          {(progress.type === 'vocabulary' || progress.type === 'sentences') && (
+                            <span className="text-sm text-gray-600 font-japanese">
+                              {progress.type === 'sentences' 
+                                ? details.fullReading
+                                : details.reading
+                              }
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-gray-800 font-medium mb-1">
+                          {details.meaning}
+                        </p>
+                        <div className="flex items-center gap-4 text-xs text-gray-500">
+                          <span className="uppercase tracking-wide font-medium">{progress.type}</span>
+                          <span className={`font-medium ${masteryColor}`}>
+                            {progress.masteryLevel}% mastered
                           </span>
-                        )}
-                      </div>
-                      <p className="text-gray-800 font-medium mb-1">
-                        {itemDetails.meaning}
-                      </p>
-                      <div className="flex items-center gap-4 text-xs text-gray-500">
-                        <span className="uppercase tracking-wide font-medium">{progress.type}</span>
-                        <span className={`font-medium ${masteryColor}`}>
-                          {progress.masteryLevel}% mastered
-                        </span>
-                        <span>
-                          {progress.correctCount}/{progress.correctCount + progress.incorrectCount} correct
-                        </span>
-                        {progress.nextReviewDate > new Date() && (
                           <span>
-                            Next: {progress.nextReviewDate.toLocaleDateString()}
+                            {progress.correctCount}/{progress.correctCount + progress.incorrectCount} correct
                           </span>
-                        )}
+                          {progress.nextReviewDate > new Date() && (
+                            <span>
+                              Next: {progress.nextReviewDate.toLocaleDateString()}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              )}
               
               {/* Pagination Controls */}
               {totalPages > 1 && (
