@@ -19,7 +19,7 @@ interface VocabularyItem {
 }
 
 const ITEMS_PER_PAGE = 50;
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION = 1 * 60 * 1000; // 1 minute
 
 export default function VocabularyPage() {
   const searchParams = useSearchParams();
@@ -154,7 +154,7 @@ export default function VocabularyPage() {
     setSelectedVocab(new Set());
   };
 
-  const toggleSelected = (id: number) => {
+  const toggleSelected = (id: string) => {
     const newSelectedVocab = new Set(selectedVocab);
     if (newSelectedVocab.has(id)) {
       newSelectedVocab.delete(id);
@@ -164,7 +164,7 @@ export default function VocabularyPage() {
     setSelectedVocab(newSelectedVocab);
   };
 
-  const toggleMastered = (id: number) => {
+  const toggleMastered = (id: string) => {
     const newMasteredVocab = new Set(masteredVocab);
     const isCurrentlyMastered = newMasteredVocab.has(id);
     

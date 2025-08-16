@@ -111,20 +111,16 @@ export default function MatchPage() {
         } else if (type === 'kanji') {
           // Try to get kanji data from localStorage first (passed from kanji page)
           const storedKanjiData = localStorage.getItem('selectedKanjiData');
-          console.log('Raw stored kanji data:', storedKanjiData);
           if (storedKanjiData) {
             try {
               const parsedKanjiData = JSON.parse(storedKanjiData);
-              console.log('Parsed kanji data:', parsedKanjiData);
               selectedItems = parsedKanjiData.map((item: any) => ({
                 id: item.id,
-                character: item.character,
+                character: item.kanji, // Fix: use 'kanji' property, not 'character'
                 meaning: item.meaning,
                 type: 'kanji' as const
               }));
-              console.log('Mapped training items:', selectedItems);
-              // Clear the stored data after use
-              localStorage.removeItem('selectedKanjiData');
+              localStorage.removeItem('selectedKanjiData'); // Clear localStorage immediately
             } catch (error) {
               console.error('Failed to parse stored kanji data:', error);
             }

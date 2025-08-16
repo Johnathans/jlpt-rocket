@@ -64,7 +64,7 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
   
   answerReviewItem: (itemId, type, isCorrect) => {
     // Update progress in the review system
-    ReviewSystem.updateItemProgress(itemId, type, isCorrect);
+    ReviewSystem.updateItemProgress(itemId.toString(), type, isCorrect);
     
     // Update session stats
     const { todayReviewed, todayCorrect } = get();
@@ -74,10 +74,10 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
     });
     
     // If incorrect, keep item in review queue; if correct, it may be removed based on mastery
-    const progress = ReviewSystem.getItemProgress(itemId, type);
+    const progress = ReviewSystem.getItemProgress(itemId.toString(), type);
     if (isCorrect && progress.masteryLevel >= 100) {
       // Remove from review if mastered
-      ReviewSystem.removeFromReview(itemId, type);
+      ReviewSystem.removeFromReview(itemId.toString(), type);
     }
   },
   

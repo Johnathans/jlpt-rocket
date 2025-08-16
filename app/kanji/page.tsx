@@ -22,7 +22,7 @@ interface KanjiItem {
 }
 
 const ITEMS_PER_PAGE = 50;
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION = 1 * 60 * 1000; // 1 minute
 
 export default function KanjiPage() {
   const searchParams = useSearchParams();
@@ -419,9 +419,6 @@ export default function KanjiPage() {
                   const selectedKanjiData = allKanjiData.filter(kanji => 
                     selectedKanji.has(kanji.id.toString())
                   );
-                  console.log('Selected kanji IDs:', Array.from(selectedKanji));
-                  console.log('All kanji data:', allKanjiData);
-                  console.log('Filtered selected kanji data:', selectedKanjiData);
                   localStorage.setItem('selectedKanjiData', JSON.stringify(selectedKanjiData));
                 }}
               >

@@ -30,7 +30,7 @@ interface SentenceItem {
 }
 
 interface WrongAnswer {
-  id: number;
+  id: string;
   character: string;
   meaning: string;
   reading?: string;
@@ -40,7 +40,7 @@ interface WrongAnswer {
 }
 
 const ITEMS_PER_PAGE = 50;
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION = 1 * 60 * 1000; // 1 minute
 
 // This will be populated from Supabase
 let sentencesData: SentenceItem[] = [];

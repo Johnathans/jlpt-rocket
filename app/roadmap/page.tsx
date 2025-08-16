@@ -286,7 +286,7 @@ export default function RoadmapPage() {
                   }
                 }}
                 className={`
-                  relative bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden
+                  relative bg-white rounded-2xl shadow-sm border border-gray-200 border-b-4 border-b-gray-300 overflow-hidden
                   transition-all duration-200 hover:shadow-md
                   ${isClickable ? 'cursor-pointer hover:scale-105' : ''}
                   ${lesson.status === 'locked' ? 'opacity-60' : ''}

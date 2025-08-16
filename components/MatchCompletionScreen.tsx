@@ -5,7 +5,7 @@ import { RotateCcw, Home } from 'lucide-react';
 import Lottie from 'lottie-react';
 
 interface WrongAnswer {
-  id: number;
+  id: string;
   character: string;
   meaning: string;
   reading?: string;
