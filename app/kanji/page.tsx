@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Volume2, BookOpen, Brush } from 'lucide-react';
@@ -24,7 +24,7 @@ interface KanjiItem {
 const ITEMS_PER_PAGE = 50;
 const CACHE_DURATION = 1 * 60 * 1000; // 1 minute
 
-export default function KanjiPage() {
+function KanjiPageContent() {
   const searchParams = useSearchParams();
   const selectedLevel = searchParams.get('level') || 'N5';
   const [allKanjiData, setAllKanjiData] = useState<KanjiItem[]>([]);
@@ -430,5 +430,13 @@ export default function KanjiPage() {
       )}
       </div>
     </div>
+  );
+}
+
+export default function KanjiPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>}>
+      <KanjiPageContent />
+    </Suspense>
   );
 }

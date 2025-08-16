@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Volume2, BookOpen, MessageSquare, X, Home, RotateCcw } from 'lucide-react';
@@ -45,7 +45,7 @@ const CACHE_DURATION = 1 * 60 * 1000; // 1 minute
 // This will be populated from Supabase
 let sentencesData: SentenceItem[] = [];
 
-export default function SentencesPage() {
+function SentencesPageContent() {
   const searchParams = useSearchParams();
   const selectedLevel = searchParams.get('level') || 'N5';
   
@@ -685,5 +685,13 @@ export default function SentencesPage() {
       )}
       </div>
     </div>
+  );
+}
+
+export default function SentencesPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>}>
+      <SentencesPageContent />
+    </Suspense>
   );
 }

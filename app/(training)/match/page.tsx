@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import TrainingHeader from '@/components/TrainingHeader';
 import MatchCompletionScreen from '@/components/MatchCompletionScreen';
@@ -44,7 +44,7 @@ const sampleItems: TrainingItem[] = [
   { id: '8', character: '火', meaning: 'fire', type: 'kanji' },
 ];
 
-export default function MatchPage() {
+function MatchPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -494,5 +494,13 @@ export default function MatchPage() {
         onQuit={handleQuit}
       />
     </div>
+  );
+}
+
+export default function MatchPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>}>
+      <MatchPageContent />
+    </Suspense>
   );
 }

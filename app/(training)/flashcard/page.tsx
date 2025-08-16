@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import TrainingHeader from '@/components/TrainingHeader';
 import MatchCompletionScreen from '@/components/MatchCompletionScreen';
@@ -31,7 +31,7 @@ interface WrongAnswer {
 
 // No hardcoded data - we'll fetch from Supabase
 
-export default function FlashcardPage() {
+function FlashcardPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -413,5 +413,13 @@ export default function FlashcardPage() {
         }
       `}</style>
     </div>
+  );
+}
+
+export default function FlashcardPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>}>
+      <FlashcardPageContent />
+    </Suspense>
   );
 }
