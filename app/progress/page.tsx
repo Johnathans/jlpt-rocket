@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { ReviewSystem } from '@/lib/reviewSystem';
 
@@ -17,7 +17,7 @@ const TOTAL_COUNTS = {
   sentences: 5 // Based on sentencesData in the app
 };
 
-export default function ProgressPage() {
+function ProgressPageContent() {
   const searchParams = useSearchParams();
   const selectedLevel = searchParams.get('level') || 'N5';
   
@@ -180,5 +180,13 @@ export default function ProgressPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ProgressPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>}>
+      <ProgressPageContent />
+    </Suspense>
   );
 }

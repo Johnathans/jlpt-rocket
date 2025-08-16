@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { Check, X, BookOpen, Volume2 } from 'lucide-react';
 import Link from 'next/link';
 import { ReviewSystem } from '@/lib/reviewSystem';
@@ -21,7 +21,7 @@ interface VocabularyItem {
 const ITEMS_PER_PAGE = 50;
 const CACHE_DURATION = 1 * 60 * 1000; // 1 minute
 
-export default function VocabularyPage() {
+function VocabularyPageContent() {
   const searchParams = useSearchParams();
   const selectedLevel = searchParams.get('level') || 'N5';
   const [allVocabularyData, setAllVocabularyData] = useState<VocabularyItem[]>([]);
@@ -363,5 +363,13 @@ export default function VocabularyPage() {
       )}
       </div>
     </div>
+  );
+}
+
+export default function VocabularyPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>}>
+      <VocabularyPageContent />
+    </Suspense>
   );
 }

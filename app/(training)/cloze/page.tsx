@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import TrainingHeader from '@/components/TrainingHeader';
 import { ReviewSystem } from '@/lib/reviewSystem';
@@ -29,7 +29,7 @@ interface SentenceItem {
   mastered?: boolean;
 }
 
-export default function ClozePage() {
+function ClozePageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { speak, isLoading: ttsLoading } = useTTS();
@@ -510,5 +510,13 @@ export default function ClozePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ClozePage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>}>
+      <ClozePageContent />
+    </Suspense>
   );
 }
