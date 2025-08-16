@@ -1,8 +1,9 @@
 'use client';
 
-import { Lock, RotateCcw, ChevronDown, ChevronUp, Rewind, Play } from 'lucide-react';
+import { Lock, RotateCcw, ChevronDown, ChevronUp, Rewind, Play, CheckCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Image from 'next/image';
 
 interface Lesson {
   id: number;
@@ -12,6 +13,7 @@ interface Lesson {
   status: 'completed' | 'available' | 'locked';
   type: 'lesson' | 'review' | 'recap';
   icon: string;
+  image?: string;
   kanji?: { character: string; meaning: string; reading: string }[];
   vocabulary?: { word: string; reading: string; meaning: string }[];
 }
@@ -27,6 +29,7 @@ const lessons: Lesson[] = [
     status: 'completed',
     type: 'lesson',
     icon: '💬',
+    image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop',
     kanji: [
       { character: '私', meaning: 'I, me', reading: 'わたし' },
       { character: '名', meaning: 'name', reading: 'な' },
@@ -45,7 +48,8 @@ const lessons: Lesson[] = [
     description: [],
     status: 'completed',
     type: 'review',
-    icon: '🎯'
+    icon: '🎯',
+    image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=300&fit=crop'
   },
   {
     id: 3,
@@ -57,6 +61,7 @@ const lessons: Lesson[] = [
     status: 'completed',
     type: 'lesson',
     icon: '📝',
+    image: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop',
     kanji: [
       { character: '時', meaning: 'time, hour', reading: 'じ' },
       { character: '分', meaning: 'minute', reading: 'ふん' },
@@ -78,6 +83,7 @@ const lessons: Lesson[] = [
     status: 'available',
     type: 'lesson',
     icon: '👨‍👩‍👧‍👦',
+    image: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=300&fit=crop',
     kanji: [
       { character: '家', meaning: 'house, family', reading: 'いえ' },
       { character: '母', meaning: 'mother', reading: 'はは' },
@@ -96,7 +102,8 @@ const lessons: Lesson[] = [
     description: [],
     status: 'available',
     type: 'review',
-    icon: '📝'
+    icon: '📝',
+    image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=300&fit=crop'
   },
   {
     id: 6,
@@ -107,7 +114,8 @@ const lessons: Lesson[] = [
     ],
     status: 'locked',
     type: 'lesson',
-    icon: '🍜'
+    icon: '🍜',
+    image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop'
   },
   {
     id: 7,
@@ -118,7 +126,8 @@ const lessons: Lesson[] = [
     ],
     status: 'locked',
     type: 'lesson',
-    icon: '🚇'
+    icon: '🚇',
+    image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=400&h=300&fit=crop'
   },
   {
     id: 8,
@@ -128,6 +137,76 @@ const lessons: Lesson[] = [
     status: 'locked',
     type: 'review',
     icon: '🚌'
+  },
+  {
+    id: 9,
+    title: 'Story 6 - Shopping Spree',
+    subtitle: 'Shopping and Money',
+    description: [
+      'Explore the vibrant shopping districts of Tokyo with Tanaka-san. Learn how to ask for prices, negotiate, and make purchases while discovering Japanese consumer culture.'
+    ],
+    status: 'locked',
+    type: 'lesson',
+    icon: '🛍️',
+    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop'
+  },
+  {
+    id: 10,
+    title: 'Story 7 - Weather Talk',
+    subtitle: 'Weather and Seasons',
+    description: [
+      'Experience Tokyo\'s changing seasons and learn to discuss weather patterns. Master seasonal vocabulary and cultural expressions tied to Japan\'s four distinct seasons.'
+    ],
+    status: 'locked',
+    type: 'lesson',
+    icon: '🌸',
+    image: 'https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=300&fit=crop'
+  },
+  {
+    id: 11,
+    title: 'Review',
+    subtitle: 'Practice food, transport, and shopping vocabulary',
+    description: [],
+    status: 'locked',
+    type: 'review',
+    icon: '📝',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop'
+  },
+  {
+    id: 12,
+    title: 'Story 8 - School Days',
+    subtitle: 'Education and School Life',
+    description: [
+      'Visit a local Japanese school with Tanaka-san\'s children. Learn about the Japanese education system and practice vocabulary related to school subjects and activities.'
+    ],
+    status: 'locked',
+    type: 'lesson',
+    icon: '🏫',
+    image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=300&fit=crop'
+  },
+  {
+    id: 13,
+    title: 'Story 9 - Festival Fun',
+    subtitle: 'Culture and Celebrations',
+    description: [
+      'Attend a traditional Japanese festival and immerse yourself in local customs. Learn festival-specific vocabulary and cultural expressions while enjoying the festivities.'
+    ],
+    status: 'locked',
+    type: 'lesson',
+    icon: '🎌',
+    image: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=300&fit=crop'
+  },
+  {
+    id: 14,
+    title: 'Recap',
+    subtitle: 'Your Japanese Journey',
+    description: [
+      'Reflect on your incredible journey through Tokyo with Tanaka-san. Review all the vocabulary, grammar, and cultural insights you\'ve gained throughout your adventure.'
+    ],
+    status: 'locked',
+    type: 'recap',
+    icon: '🎓',
+    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=300&fit=crop'
   }
 ];
 
@@ -163,191 +242,208 @@ export default function RoadmapPage() {
     setExpandedLessons(newExpanded);
   };
 
+  const getStatusColor = (status: string, type: string) => {
+    if (status === 'completed') {
+      return 'bg-green-500';
+    } else if (status === 'available') {
+      return 'bg-green-400';
+    } else {
+      return 'bg-gray-400';
+    }
+  };
+
+  const getStatusIcon = (status: string, type: string) => {
+    if (status === 'completed') {
+      return <CheckCircle className="h-6 w-6 text-white" />;
+    } else if (status === 'available') {
+      return <Play className="h-6 w-6 text-white" />;
+    } else {
+      return <Lock className="h-6 w-6 text-white" />;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Main Content */}
-        <div>
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Learning Roadmap</h1>
+          <p className="text-gray-600">Follow your journey through Japanese stories and lessons</p>
+        </div>
 
-          {/* Stories Grid */}
-          <div className="space-y-6">
-            {lessons.map((lesson, index) => (
-              <div key={lesson.id} className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-                <div
-                  onClick={() => {
-                    if (lesson.status === 'available' && lesson.type === 'lesson') {
-                      handleStoryClick(lesson.id);
-                    }
-                  }}
-                  className={`flex items-start gap-6 transition-all duration-200 ${
-                    lesson.status === 'available' && lesson.type === 'lesson' ? 'hover:bg-gray-50 cursor-pointer rounded-lg p-4 -m-4' : ''
-                  } ${lesson.status === 'locked' ? 'opacity-60' : ''}`}
-                >
-                  {/* Photo */}
-                  <div className="flex-shrink-0">
-                    {lesson.type === 'lesson' ? (
-                      <div className="w-52 h-52 rounded-lg overflow-hidden">
-                        <img 
-                          src={
-                            lesson.id === 1 ? "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=208&h=208&fit=crop&crop=center" : // Tokyo greeting/meeting
-                            lesson.id === 3 ? "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=208&h=208&fit=crop&crop=center" : // Clock tower
-                            lesson.id === 4 ? "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=208&h=208&fit=crop&crop=center" : // Family photo
-                            lesson.id === 6 ? "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=208&h=208&fit=crop&crop=center" : // Ramen
-                            "https://images.unsplash.com/photo-1480796927426-f609979314bd?w=208&h=208&fit=crop&crop=center" // Default Tokyo
-                          }
-                          alt={lesson.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    ) : lesson.type === 'review' ? (
-                      <div className="w-52 h-52 bg-gray-100 rounded-lg flex items-center justify-center">
-                        <RotateCcw className="w-24 h-24 text-gray-600" strokeWidth={3} />
-                      </div>
-                    ) : (
-                      <div className="w-44 h-44 bg-green-100 rounded-lg flex items-center justify-center">
-                        <img src="/check.png" alt="Completed" className="w-24 h-24" />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-1 max-w-2xl">
-                    <div className="flex items-center gap-2 mb-2">
-                      <h3 className="font-bold text-gray-900 text-2xl">{lesson.title}</h3>
-                      {lesson.status === 'completed' && lesson.type === 'review' && (
-                        <span className="text-base text-green-500 font-medium">Review complete!</span>
-                      )}
+        {/* Stories Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {lessons.map((lesson, index) => {
+            const isClickable = lesson.status === 'available' && lesson.type === 'lesson';
+            const statusColor = getStatusColor(lesson.status, lesson.type);
+            
+            return (
+              <div
+                key={lesson.id}
+                onClick={() => {
+                  if (isClickable) {
+                    handleStoryClick(lesson.id);
+                  }
+                }}
+                className={`
+                  relative bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden
+                  transition-all duration-200 hover:shadow-md
+                  ${isClickable ? 'cursor-pointer hover:scale-105' : ''}
+                  ${lesson.status === 'locked' ? 'opacity-60' : ''}
+                `}
+              >
+                {/* Image */}
+                <div className="relative h-48 overflow-hidden">
+                  {lesson.image ? (
+                    <Image
+                      src={lesson.image}
+                      alt={lesson.title}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                      <span className="text-4xl">{lesson.icon}</span>
                     </div>
-                    
-                    {lesson.description.length > 0 && (
-                      <div className="text-base text-gray-600 leading-relaxed">
-                        {lesson.description.map((item, idx) => (
-                          <p key={idx}>{item}</p>
-                        ))}
-                      </div>
-                    )}
+                  )}
+                  
+                  {/* Status Badge - Only show for locked lessons */}
+                  {lesson.status === 'locked' && (
+                    <div className={`absolute top-3 right-3 ${statusColor} rounded-full p-2 shadow-lg`}>
+                      {getStatusIcon(lesson.status, lesson.type)}
+                    </div>
+                  )}
 
-                     {/* Expand/Collapse Button for lessons with content */}
-                     {lesson.type === 'lesson' && (lesson.kanji || lesson.vocabulary) && (
-                       <button
-                         onClick={(e) => {
-                           e.stopPropagation();
-                           toggleExpansion(lesson.id);
-                         }}
-                         className="mt-6 flex items-center gap-3 text-gray-600 hover:text-gray-700 font-bold text-lg"
-                       >
-                         {expandedLessons.has(lesson.id) ? (
-                           <>
-                             <ChevronUp className="h-5 w-5" />
-                             Hide Content
-                           </>
-                         ) : (
-                           <>
-                             <ChevronDown className="h-5 w-5" />
-                             Show Kanji & Vocabulary
-                           </>
-                         )}
-                       </button>
-                     )}
+                  {/* Lesson Number */}
+                  <div className="absolute top-3 left-3 bg-black/20 backdrop-blur-sm text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                    {lesson.id}
                   </div>
 
-                  {/* Right Side Actions */}
-                  <div className="flex-shrink-0">
-                     {lesson.status === 'completed' && lesson.type === 'lesson' && (
-                       <button className="flex flex-col items-center gap-5 px-12 py-8 bg-gray-400 text-white hover:bg-gray-500 font-semibold transition-all duration-200 rounded-xl shadow-lg border-b-4 border-b-gray-500 hover:border-b-gray-600 text-xl hover:scale-105 min-w-[180px]">
-                         Redo lesson
-                         <div className="bg-white bg-opacity-20 rounded-full p-4">
-                           <Play className="w-12 h-12 text-white fill-white" />
-                         </div>
-                       </button>
-                     )}
-                     {lesson.status === 'available' && lesson.type === 'lesson' && (
-                       <button className="flex flex-col items-center gap-5 px-12 py-8 bg-green-500 text-white hover:bg-green-600 font-semibold transition-all duration-200 rounded-xl shadow-lg border-b-4 border-green-700 hover:border-green-800 text-xl hover:scale-105 min-w-[180px]">
-                         Start lesson
-                         <div className="bg-white bg-opacity-20 rounded-full p-4">
-                           <Play className="w-12 h-12 text-white fill-white" />
-                         </div>
-                       </button>
-                     )}
-                    {lesson.status === 'locked' && (
-                      <Lock className="w-6 h-6 text-gray-400" />
-                    )}
+                  {/* JLPT Level Badge */}
+                  <div className="absolute bottom-3 right-3 bg-gray-800 text-white rounded-full px-2 py-1 text-xs font-bold shadow-lg">
+                    N5
                   </div>
                 </div>
 
-                {/* Expanded Content - Kanji and Vocabulary Cards */}
-                {expandedLessons.has(lesson.id) && lesson.type === 'lesson' && (
-                  <div className="mt-6 pt-6 border-t border-gray-200">
-                    {/* Kanji Section */}
-                    {lesson.kanji && lesson.kanji.length > 0 && (
-                      <div className="mb-4">
-                        <h4 className="text-base font-semibold text-gray-900 mb-2">Kanji</h4>
-                        <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-10 gap-1">
-                          {lesson.kanji.map((kanji, idx) => (
-                            <div
-                              key={idx}
-                              className="bg-white border border-gray-200 border-b-4 border-b-gray-300 rounded p-2 shadow-sm hover:shadow-md transition-shadow"
-                            >
-                              <div className="text-center">
-                                <div className="text-lg font-bold text-gray-900 font-japanese">
+                {/* Content */}
+                <div className="p-4">
+                  <div className="mb-2">
+                    <h3 className="font-bold text-gray-900 text-sm mb-1 line-clamp-2">
+                      {lesson.title}
+                    </h3>
+                    <p className="text-xs text-gray-600 line-clamp-1">
+                      {lesson.subtitle}
+                    </p>
+                  </div>
+
+                  {/* Description */}
+                  {lesson.description.length > 0 && (
+                    <p className="text-xs text-gray-500 line-clamp-3 mb-3">
+                      {lesson.description[0]}
+                    </p>
+                  )}
+
+                  {/* Type Badge */}
+                  <div className="flex justify-between items-center">
+                    <span className={`
+                      px-2 py-1 rounded-full text-xs font-medium
+                      ${lesson.type === 'lesson' ? 'bg-green-100 text-green-700' : 
+                        lesson.type === 'review' ? 'bg-green-100 text-green-700' : 
+                        'bg-green-100 text-green-700'}
+                    `}>
+                      {lesson.type.charAt(0).toUpperCase() + lesson.type.slice(1)}
+                    </span>
+                    
+                    {/* Status Text */}
+                    <span className={`
+                      text-xs font-medium
+                      ${lesson.status === 'completed' ? 'text-green-600' : 
+                        lesson.status === 'available' ? 'text-green-600' : 
+                        'text-gray-400'}
+                    `}>
+                      {lesson.status === 'completed' ? 'Complete' : 
+                       lesson.status === 'available' ? 'Available' : 
+                       'Locked'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Expandable Content for Lessons */}
+                {lesson.type === 'lesson' && (lesson.kanji || lesson.vocabulary) && (
+                  <div className="border-t border-gray-100">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleExpansion(lesson.id);
+                      }}
+                      className="w-full p-3 text-xs text-gray-600 hover:bg-gray-50 flex items-center justify-center gap-2"
+                    >
+                      {expandedLessons.has(lesson.id) ? (
+                        <>
+                          <ChevronUp className="h-4 w-4" />
+                          Hide Details
+                        </>
+                      ) : (
+                        <>
+                          <ChevronDown className="h-4 w-4" />
+                          Show Details
+                        </>
+                      )}
+                    </button>
+                    
+                    {/* Expanded Content */}
+                    {expandedLessons.has(lesson.id) && (
+                      <div className="p-4 bg-gray-50 border-t border-gray-100">
+                        {/* Kanji Preview */}
+                        {lesson.kanji && lesson.kanji.length > 0 && (
+                          <div className="mb-3">
+                            <h4 className="text-xs font-semibold text-gray-700 mb-2">Kanji ({lesson.kanji.length})</h4>
+                            <div className="flex flex-wrap gap-1">
+                              {lesson.kanji.slice(0, 6).map((kanji, idx) => (
+                                <div
+                                  key={idx}
+                                  className="w-8 h-8 bg-white border border-gray-200 rounded flex items-center justify-center text-sm font-bold"
+                                >
                                   {kanji.character}
                                 </div>
-                              </div>
+                              ))}
+                              {lesson.kanji.length > 6 && (
+                                <div className="w-8 h-8 bg-gray-200 border border-gray-300 rounded flex items-center justify-center text-xs text-gray-600">
+                                  +{lesson.kanji.length - 6}
+                                </div>
+                              )}
                             </div>
-                          ))}
-                        </div>
+                          </div>
+                        )}
+
+                        {/* Vocabulary Preview */}
+                        {lesson.vocabulary && lesson.vocabulary.length > 0 && (
+                          <div>
+                            <h4 className="text-xs font-semibold text-gray-700 mb-2">Vocabulary ({lesson.vocabulary.length})</h4>
+                            <div className="flex flex-wrap gap-1">
+                              {lesson.vocabulary.slice(0, 4).map((vocab, idx) => (
+                                <div
+                                  key={idx}
+                                  className="px-2 py-1 bg-white border border-gray-200 rounded text-xs"
+                                >
+                                  {vocab.word}
+                                </div>
+                              ))}
+                              {lesson.vocabulary.length > 4 && (
+                                <div className="px-2 py-1 bg-gray-200 border border-gray-300 rounded text-xs text-gray-600">
+                                  +{lesson.vocabulary.length - 4} more
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     )}
-                     {lesson.kanji && lesson.kanji.length > 0 && (
-                       <div className="mb-4">
-                         <h4 className="text-base font-semibold text-gray-900 mb-2">Kanji</h4>
-                         <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-10 gap-1">
-                           {lesson.kanji.map((kanji, idx) => (
-                             <div
-                               key={idx}
-                               className="bg-white border border-gray-200 border-b-4 border-b-gray-300 rounded p-2 shadow-sm hover:shadow-md transition-shadow"
-                             >
-                               <div className="text-center">
-                                 <div className="text-lg font-bold text-gray-900 font-japanese">
-                                   {kanji.character}
-                                 </div>
-                               </div>
-                             </div>
-                           ))}
-                         </div>
-                       </div>
-                     )}
-
-                     {/* Vocabulary Section */}
-                     {lesson.vocabulary && lesson.vocabulary.length > 0 && (
-                       <div>
-                         <h4 className="text-base font-semibold text-gray-900 mb-2">Vocabulary</h4>
-                         <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-7 gap-1">
-                           {lesson.vocabulary.map((vocab, idx) => (
-                             <div
-                               key={idx}
-                               className="bg-white border border-gray-200 border-b-4 border-b-gray-300 rounded p-2 shadow-sm hover:shadow-md transition-shadow"
-                             >
-                               <div className="text-center">
-                                 <div className="text-sm font-bold text-gray-900 font-japanese truncate">
-                                   {vocab.word}
-                                 </div>
-                                 {vocab.word !== vocab.reading && (
-                                   <div className="text-xs text-gray-600 truncate">
-                                     {vocab.reading}
-                                   </div>
-                                 )}
-                               </div>
-                             </div>
-                           ))}
-                         </div>
-                       </div>
-                     )}
-                   </div>
-                 )}
-               </div>
-             ))}
-           </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

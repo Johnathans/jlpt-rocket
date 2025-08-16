@@ -1,7 +1,7 @@
 // Review System for Spaced Repetition Learning
 
 export interface ItemProgress {
-  id: number;
+  id: string;
   type: 'vocabulary' | 'kanji' | 'sentences';
   correctCount: number;        // Number of times answered correctly
   incorrectCount: number;      // Number of times answered incorrectly
@@ -64,6 +64,12 @@ export class ReviewSystem {
     return progressMap;
   }
 
+  // Clear all review data (useful when switching from hardcoded to real data)
+  static clearAllReviewData(): void {
+    if (typeof window === 'undefined') return;
+    localStorage.removeItem(this.STORAGE_KEY);
+  }
+
   // Save progress data
   static saveProgressData(progressMap: Map<string, ItemProgress>): void {
     if (typeof window === 'undefined') return;
@@ -91,13 +97,12 @@ export class ReviewSystem {
   }
 
   // Get progress for a specific item
-  static getItemProgress(id: number, type: 'vocabulary' | 'kanji' | 'sentences'): ItemProgress {
-    const key = `${type}_${id}`;
+  static getItemProgress(itemId: string, itemType: 'vocabulary' | 'kanji' | 'sentences'): ItemProgress {
+    const key = `${itemType}_${itemId}`;
     const progressMap = this.getProgressData();
-    
-    return progressMap.get(key) || {
-      id,
-      type,
+    const existing = progressMap.get(key) || {
+      id: itemId,
+      type: itemType,
       correctCount: 0,
       incorrectCount: 0,
       lastReviewed: new Date(),
@@ -106,21 +111,18 @@ export class ReviewSystem {
       isInReview: false,
       streak: 0
     };
+    return existing;
   }
 
-  // Update item progress after answering
-  static updateItemProgress(
-    id: number, 
-    type: 'vocabulary' | 'kanji' | 'sentences', 
-    isCorrect: boolean
-  ): ItemProgress {
-    console.log(`[ReviewSystem] Updating progress for ${type} ${id}: ${isCorrect ? 'correct' : 'incorrect'}`);
+  // Update item progress after training session
+  static updateItemProgress(itemId: string, itemType: 'vocabulary' | 'kanji' | 'sentences', isCorrect: boolean): ItemProgress {
+    console.log(`[ReviewSystem] Updating progress for ${itemType} ${itemId}: ${isCorrect ? 'correct' : 'incorrect'}`);
     
-    const key = `${type}_${id}`;
+    const key = `${itemType}_${itemId}`;
     const progressMap = this.getProgressData();
     const settings = this.getReviewSettings();
     
-    let progress = this.getItemProgress(id, type);
+    let progress = this.getItemProgress(itemId, itemType);
     const now = new Date();
     
     if (isCorrect) {
@@ -190,8 +192,8 @@ export class ReviewSystem {
   }
 
   // Mark item as no longer in review
-  static removeFromReview(id: number, type: 'vocabulary' | 'kanji' | 'sentences'): void {
-    const key = `${type}_${id}`;
+  static removeFromReview(itemId: string, itemType: 'vocabulary' | 'kanji' | 'sentences'): void {
+    const key = `${itemType}_${itemId}`;
     const progressMap = this.getProgressData();
     const progress = progressMap.get(key);
     
@@ -202,13 +204,13 @@ export class ReviewSystem {
     }
   }
 
-  // Manually set item as mastered (for manual toggle)
-  static setItemMastered(id: number, type: 'vocabulary' | 'kanji' | 'sentences'): void {
-    const key = `${type}_${id}`;
+  // Manually set item as mastered (100% mastery)
+  static setItemMastered(itemId: string, itemType: 'vocabulary' | 'kanji' | 'sentences'): void {
+    const key = `${itemType}_${itemId}`;
     const progressMap = this.getProgressData();
     const settings = this.getReviewSettings();
     
-    let progress = this.getItemProgress(id, type);
+    let progress = this.getItemProgress(itemId, itemType);
     const now = new Date();
     
     // Set to mastered state
@@ -221,18 +223,18 @@ export class ReviewSystem {
     progressMap.set(key, progress);
     this.saveProgressData(progressMap);
     
-    console.log(`[ReviewSystem] Manually set ${type} ${id} as mastered:`, progress);
+    console.log(`[ReviewSystem] Manually set ${itemType} ${itemId} as mastered:`, progress);
   }
 
-  // Reset item progress (for manual unmastery toggle)
-  static resetItemProgress(id: number, type: 'vocabulary' | 'kanji' | 'sentences'): void {
-    const key = `${type}_${id}`;
+  // Reset item progress to initial state
+  static resetItemProgress(itemId: string, itemType: 'vocabulary' | 'kanji' | 'sentences'): void {
+    const key = `${itemType}_${itemId}`;
     const progressMap = this.getProgressData();
     
     // Reset to initial state
     const resetProgress: ItemProgress = {
-      id,
-      type,
+      id: itemId,
+      type: itemType,
       correctCount: 0,
       incorrectCount: 0,
       lastReviewed: new Date(),
@@ -245,7 +247,7 @@ export class ReviewSystem {
     progressMap.set(key, resetProgress);
     this.saveProgressData(progressMap);
     
-    console.log(`[ReviewSystem] Reset progress for ${type} ${id}:`, resetProgress);
+    console.log(`[ReviewSystem] Reset progress for ${itemType} ${itemId}:`, resetProgress);
   }
 
   // Get statistics

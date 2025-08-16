@@ -114,6 +114,17 @@ export default function DashboardNavbar() {
 
             {/* Right Side Icon Menu */}
             <div className="hidden md:flex items-center gap-2">
+              {/* Fire Icon */}
+              <div className="flex items-center justify-center w-12 h-12 rounded-lg hover:bg-gray-50 transition-all duration-200">
+                <Image 
+                  src="/fire.png" 
+                  alt="Fire" 
+                  width={24} 
+                  height={24} 
+                  className="h-6 w-6 flex-shrink-0" 
+                />
+              </div>
+              
               {/* Progress Icon */}
               <Link
                 href="/progress"

@@ -21,22 +21,48 @@ interface KanjiItem {
   mastered?: boolean;
 }
 
+const ITEMS_PER_PAGE = 50;
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
 export default function KanjiPage() {
   const searchParams = useSearchParams();
   const selectedLevel = searchParams.get('level') || 'N5';
-  const [kanjiData, setKanjiData] = useState<KanjiItem[]>([]);
+  const [allKanjiData, setAllKanjiData] = useState<KanjiItem[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [masteredKanji, setMasteredKanji] = useState<Set<string>>(new Set());
   const [selectedKanji, setSelectedKanji] = useState<Set<string>>(new Set());
 
-  // Fetch kanji data from Supabase
+  // Calculate paginated data
+  const totalPages = Math.ceil(allKanjiData.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const kanjiData = allKanjiData.slice(startIndex, endIndex);
+
+  // Fetch kanji data from Supabase with caching
   useEffect(() => {
     const fetchKanjiData = async () => {
       try {
         setLoading(true);
         setError(null);
         
+        // Check cache first
+        const cacheKey = `kanji-${selectedLevel}`;
+        const cached = localStorage.getItem(cacheKey);
+        const cacheTimestamp = localStorage.getItem(`${cacheKey}-timestamp`);
+        
+        if (cached && cacheTimestamp) {
+          const isExpired = Date.now() - parseInt(cacheTimestamp) > CACHE_DURATION;
+          if (!isExpired) {
+            console.log('Loading kanji from cache');
+            setAllKanjiData(JSON.parse(cached));
+            setLoading(false);
+            return;
+          }
+        }
+        
+        console.log('Fetching kanji from Supabase');
         const supabaseKanji = await getAllKanji();
         const vocabularyData = await getVocabularyByLevel(selectedLevel as any);
         
@@ -62,7 +88,12 @@ export default function KanjiPage() {
           };
         });
 
-        setKanjiData(transformedKanji);
+        // Cache the data
+        localStorage.setItem(cacheKey, JSON.stringify(transformedKanji));
+        localStorage.setItem(`${cacheKey}-timestamp`, Date.now().toString());
+        
+        setAllKanjiData(transformedKanji);
+        setCurrentPage(1); // Reset to first page when data changes
       } catch (err) {
         console.error('Error fetching kanji data:', err);
         setError('Failed to load kanji data');
@@ -323,6 +354,53 @@ export default function KanjiPage() {
         ))}
       </div>
 
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-4 mt-8 mb-8">
+          <button
+            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Previous
+          </button>
+          
+          <div className="flex items-center gap-2">
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              const pageNum = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
+              if (pageNum > totalPages) return null;
+              
+              return (
+                <button
+                  key={pageNum}
+                  onClick={() => setCurrentPage(pageNum)}
+                  className={`px-3 py-2 rounded-lg ${
+                    pageNum === currentPage
+                      ? 'bg-green-500 text-white'
+                      : 'bg-white border border-gray-300 hover:bg-gray-50'
+                  }`}
+                >
+                  {pageNum}
+                </button>
+              );
+            })}
+          </div>
+          
+          <button
+            onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Next
+          </button>
+        </div>
+      )}
+
+      {/* Page Info */}
+      <div className="text-center text-sm text-gray-600 mb-8">
+        Showing {startIndex + 1}-{Math.min(endIndex, allKanjiData.length)} of {allKanjiData.length} kanji
+      </div>
+
       {/* Study Footer Bar */}
       {selectedKanji.size > 0 && (
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
@@ -336,6 +414,16 @@ export default function KanjiPage() {
               <Link 
                 href={`/match?type=kanji&items=${Array.from(selectedKanji).join(',')}`}
                 className="px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-semibold transition-all rounded-lg shadow-sm border-b-4 border-green-600 hover:border-green-700 hover:translate-y-0.5 active:translate-y-0.5 inline-block"
+                onClick={() => {
+                  // Store selected kanji data in localStorage for the match page
+                  const selectedKanjiData = allKanjiData.filter(kanji => 
+                    selectedKanji.has(kanji.id.toString())
+                  );
+                  console.log('Selected kanji IDs:', Array.from(selectedKanji));
+                  console.log('All kanji data:', allKanjiData);
+                  console.log('Filtered selected kanji data:', selectedKanjiData);
+                  localStorage.setItem('selectedKanjiData', JSON.stringify(selectedKanjiData));
+                }}
               >
                 Study Selected Kanji
               </Link>
