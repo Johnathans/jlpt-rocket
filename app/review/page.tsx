@@ -99,7 +99,7 @@ export default function ReviewPage() {
   
   const [stats, setStats] = useState({ total: 0, mastered: 0, learning: 0, review: 0, dueToday: 0 });
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemDetails, setItemDetails] = useState<Map<number, any>>(new Map());
+  const [itemDetails, setItemDetails] = useState<Map<string, any>>(new Map());
   const [loading, setLoading] = useState(true);
   const itemsPerPage = 10;
 
@@ -308,7 +308,7 @@ export default function ReviewPage() {
                     {/* Page Numbers */}
                     <div className="flex items-center gap-1">
                       {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
-                        let page;
+                        let page: number;
                         if (totalPages <= 5) {
                           page = i + 1;
                         } else if (currentPage <= 3) {

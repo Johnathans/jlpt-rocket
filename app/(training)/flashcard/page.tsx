@@ -9,9 +9,10 @@ import { ReviewSystem } from '@/lib/reviewSystem';
 import { StreakSystem } from '@/lib/streakSystem';
 import { speakText, useTTS } from '@/lib/useTTS';
 import { playIncorrectSound, playCorrectSound, shouldPlayVoice, playButtonClickSound } from '@/lib/audioUtils';
+import { getKanjiByLevel, getVocabularyByLevel, JLPTLevel } from '@/lib/supabase-data';
 
 interface TrainingItem {
-  id: number;
+  id: string;
   character: string;
   meaning: string;
   reading?: string;
@@ -19,7 +20,7 @@ interface TrainingItem {
 }
 
 interface WrongAnswer {
-  id: number;
+  id: string;
   character: string;
   meaning: string;
   reading?: string;
@@ -28,37 +29,7 @@ interface WrongAnswer {
   type: 'kanji' | 'vocabulary' | 'sentences';
 }
 
-// Vocabulary data
-const vocabularyData = [
-  { id: 1, word: '学校', reading: 'がっこう', meaning: 'school', level: 'N5' },
-  { id: 2, word: '友達', reading: 'ともだち', meaning: 'friend', level: 'N5' },
-  { id: 3, word: '勉強', reading: 'べんきょう', meaning: 'study', level: 'N5' },
-  { id: 4, word: '電車', reading: 'でんしゃ', meaning: 'train', level: 'N4' },
-  { id: 5, word: '料理', reading: 'りょうり', meaning: 'cooking, cuisine', level: 'N4' },
-  { id: 6, word: '経験', reading: 'けいけん', meaning: 'experience', level: 'N3' },
-];
-
-// Kanji data
-const kanjiData = [
-  { id: 1, kanji: '学', meaning: 'study, learning', level: 'N5' },
-  { id: 2, kanji: '友', meaning: 'friend', level: 'N5' },
-  { id: 3, kanji: '本', meaning: 'book, origin', level: 'N5' },
-  { id: 4, kanji: '電', meaning: 'electricity', level: 'N4' },
-  { id: 5, kanji: '料', meaning: 'fee, materials', level: 'N4' },
-  { id: 6, kanji: '経', meaning: 'sutra, longitude, pass thru', level: 'N3' },
-];
-
-// Sample fallback data
-const sampleItems: TrainingItem[] = [
-  { id: 1, character: '学校', meaning: 'school', reading: 'がっこう', type: 'vocabulary' },
-  { id: 2, character: '友達', meaning: 'friend', reading: 'ともだち', type: 'vocabulary' },
-  { id: 3, character: '勉強', meaning: 'study', reading: 'べんきょう', type: 'vocabulary' },
-  { id: 4, character: '学', meaning: 'study, learning', type: 'kanji' },
-  { id: 5, character: '友', meaning: 'friend', type: 'kanji' },
-  { id: 6, character: '本', meaning: 'book', type: 'kanji' },
-  { id: 7, character: '水', meaning: 'water', type: 'kanji' },
-  { id: 8, character: '火', meaning: 'fire', type: 'kanji' },
-];
+// No hardcoded data - we'll fetch from Supabase
 
 export default function FlashcardPage() {
   const router = useRouter();
@@ -74,43 +45,82 @@ export default function FlashcardPage() {
   
   const { speak, playAudio } = useTTS();
 
-  // Load selected items from URL parameters
+  // Load selected items from URL parameters and localStorage
   useEffect(() => {
-    const type = searchParams.get('type');
-    const itemIds = searchParams.get('items')?.split(',').map(id => parseInt(id)) || [];
-    
-    if (type && itemIds.length > 0) {
-      let selectedItems: TrainingItem[] = [];
+    const fetchTrainingItems = async () => {
+      const type = searchParams.get('type');
+      const itemIds = searchParams.get('items')?.split(',') || [];
       
-      if (type === 'vocabulary') {
-        selectedItems = vocabularyData
-          .filter(item => itemIds.includes(item.id))
-          .map(item => ({
-            id: item.id,
-            character: item.word,
-            meaning: item.meaning,
-            reading: item.reading,
-            type: 'vocabulary'
-          }));
-      } else if (type === 'kanji') {
-        selectedItems = kanjiData
-          .filter(item => itemIds.includes(item.id))
-          .map(item => ({
-            id: item.id,
-            character: item.kanji,
-            meaning: item.meaning,
-            type: 'kanji'
-          }));
-      }
-      
-      if (selectedItems.length > 0) {
+      if (type && itemIds.length > 0) {
+        let selectedItems: TrainingItem[] = [];
+        
+        if (type === 'vocabulary') {
+          // Try to get vocabulary data from localStorage first (passed from vocabulary page)
+          const storedVocabData = localStorage.getItem('selectedVocabularyData');
+          if (storedVocabData) {
+            try {
+              const parsedVocabData = JSON.parse(storedVocabData);
+              selectedItems = parsedVocabData.map((item: any) => ({
+                id: item.id,
+                character: item.word,
+                meaning: item.meaning,
+                reading: item.reading,
+                type: 'vocabulary' as const
+              }));
+              localStorage.removeItem('selectedVocabularyData');
+            } catch (error) {
+              console.error('Failed to parse stored vocabulary data:', error);
+            }
+          }
+          // Fallback to fetching from Supabase if localStorage fails
+          if (selectedItems.length === 0) {
+            const allVocabData = await getVocabularyByLevel('N5' as JLPTLevel);
+            selectedItems = allVocabData
+              .filter(item => itemIds.includes(item.id))
+              .map(item => ({
+                id: item.id,
+                character: item.word,
+                meaning: item.meaning,
+                reading: item.reading,
+                type: 'vocabulary' as const
+              }));
+          }
+        } else if (type === 'kanji') {
+          // Try to get kanji data from localStorage first (passed from kanji page)
+          const storedKanjiData = localStorage.getItem('selectedKanjiData');
+          if (storedKanjiData) {
+            try {
+              const parsedKanjiData = JSON.parse(storedKanjiData);
+              selectedItems = parsedKanjiData.map((item: any) => ({
+                id: item.id,
+                character: item.kanji,
+                meaning: item.meaning,
+                type: 'kanji' as const
+              }));
+              localStorage.removeItem('selectedKanjiData');
+            } catch (error) {
+              console.error('Failed to parse stored kanji data:', error);
+            }
+          }
+          // Fallback to fetching from Supabase if localStorage fails
+          if (selectedItems.length === 0) {
+            const allKanjiData = await getKanjiByLevel('N5' as JLPTLevel);
+            selectedItems = allKanjiData
+              .filter(item => itemIds.includes(item.id))
+              .map(item => ({
+                id: item.id,
+                character: item.character,
+                meaning: item.meaning,
+                type: 'kanji' as const
+              }));
+          }
+        }
+        
         setTrainingItems(selectedItems);
-      } else {
-        setTrainingItems(sampleItems);
       }
-    } else {
-      setTrainingItems(sampleItems);
-    }
+    };
+
+    fetchTrainingItems();
   }, [searchParams]);
 
   const currentItem = trainingItems[currentIndex];
@@ -171,7 +181,7 @@ export default function FlashcardPage() {
     playCorrectSound();
     
     // Update review system
-    ReviewSystem.updateItemProgress(currentItem.id, currentItem.type, true);
+    ReviewSystem.updateItemProgress(currentItem.id.toString(), currentItem.type, true);
     
     setScore(score + 1);
     handleNext();
@@ -182,11 +192,11 @@ export default function FlashcardPage() {
     playIncorrectSound();
     
     // Update review system
-    ReviewSystem.updateItemProgress(currentItem.id, currentItem.type, false);
+    ReviewSystem.updateItemProgress(currentItem.id.toString(), currentItem.type, false);
     
     // Add to wrong answers
     setWrongAnswers([...wrongAnswers, {
-      id: currentItem.id,
+      id: currentItem.id.toString(),
       character: currentItem.character,
       meaning: currentItem.meaning,
       reading: currentItem.reading,
@@ -226,7 +236,7 @@ export default function FlashcardPage() {
     
     // Record partial completion
     trainingItems.slice(0, currentIndex).forEach(item => {
-      ReviewSystem.updateItemProgress(item.id, item.type, true);
+      ReviewSystem.updateItemProgress(item.id.toString(), item.type, true);
     });
     
     setShowCompletion(true);

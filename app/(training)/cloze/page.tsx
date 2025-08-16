@@ -18,7 +18,7 @@ interface WordInSentence {
 }
 
 interface SentenceItem {
-  id: number;
+  id: string;
   words: WordInSentence[];
   fullSentence: string;
   fullReading: string;
