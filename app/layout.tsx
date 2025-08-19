@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter, Noto_Sans_JP } from 'next/font/google';
 import ConditionalLayout from '@/components/ConditionalLayout';
 import { AuthProvider } from '@/lib/auth';
+import { JLPTLevelProvider } from '@/contexts/JLPTLevelContext';
 
 const inter = Inter({ subsets: ['latin'] });
 const notoSansJP = Noto_Sans_JP({ 
@@ -44,7 +45,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} ${notoSansJP.variable}`}>
         <AuthProvider>
-          <ConditionalLayout>{children}</ConditionalLayout>
+          <JLPTLevelProvider>
+            <ConditionalLayout>{children}</ConditionalLayout>
+          </JLPTLevelProvider>
         </AuthProvider>
       </body>
     </html>

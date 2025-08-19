@@ -8,6 +8,7 @@ import { ReviewSystem } from '@/lib/reviewSystem';
 import { StreakSystem } from '@/lib/streakSystem';
 import MatchCompletionScreen from '@/components/MatchCompletionScreen';
 import { getSentencesByLevel, SentenceData, JLPTLevel, parseClozeText } from '@/lib/supabase-data';
+import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 
 interface WordInSentence {
   id: number;
@@ -47,7 +48,8 @@ let sentencesData: SentenceItem[] = [];
 
 function SentencesPageContent() {
   const searchParams = useSearchParams();
-  const selectedLevel = searchParams.get('level') || 'N5';
+  const { currentLevel } = useJLPTLevel();
+  const selectedLevel = searchParams.get('level') || currentLevel;
   
   const [selectedSentences, setSelectedSentences] = useState<Set<string>>(new Set());
   const [masteredSentences, setMasteredSentences] = useState<Set<string>>(new Set());
@@ -145,6 +147,15 @@ function SentencesPageContent() {
     };
 
     fetchSentences();
+    
+    // Listen for JLPT level changes
+    const handleLevelChange = () => {
+      setCurrentPage(1); // Reset to first page when level changes
+      fetchSentences();
+    };
+    
+    window.addEventListener('jlpt-level-changed', handleLevelChange);
+    return () => window.removeEventListener('jlpt-level-changed', handleLevelChange);
   }, [selectedLevel]);
 
   // Sync mastery state with ReviewSystem on component mount and when returning from training

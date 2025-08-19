@@ -2,8 +2,9 @@
 
 import { Lock, RotateCcw, ChevronDown, ChevronUp, Rewind, Play, CheckCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 
 interface Lesson {
   id: number;
@@ -14,11 +15,12 @@ interface Lesson {
   type: 'lesson' | 'review' | 'recap';
   icon: string;
   image?: string;
+  level: string;
   kanji?: { character: string; meaning: string; reading: string }[];
   vocabulary?: { word: string; reading: string; meaning: string }[];
 }
 
-const lessons: Lesson[] = [
+const allLessons: Lesson[] = [
   {
     id: 1,
     title: 'Story 1 - Meeting Tanaka-san',
@@ -29,6 +31,7 @@ const lessons: Lesson[] = [
     status: 'completed',
     type: 'lesson',
     icon: '💬',
+    level: 'N5',
     image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop',
     kanji: [
       { character: '私', meaning: 'I, me', reading: 'わたし' },
@@ -49,6 +52,7 @@ const lessons: Lesson[] = [
     status: 'completed',
     type: 'review',
     icon: '🎯',
+    level: 'N5',
     image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=300&fit=crop'
   },
   {
@@ -61,6 +65,7 @@ const lessons: Lesson[] = [
     status: 'completed',
     type: 'lesson',
     icon: '📝',
+    level: 'N5',
     image: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop',
     kanji: [
       { character: '時', meaning: 'time, hour', reading: 'じ' },
@@ -83,6 +88,7 @@ const lessons: Lesson[] = [
     status: 'available',
     type: 'lesson',
     icon: '👨‍👩‍👧‍👦',
+    level: 'N4',
     image: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=300&fit=crop',
     kanji: [
       { character: '家', meaning: 'house, family', reading: 'いえ' },
@@ -103,6 +109,7 @@ const lessons: Lesson[] = [
     status: 'available',
     type: 'review',
     icon: '📝',
+    level: 'N4',
     image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=300&fit=crop'
   },
   {
@@ -115,6 +122,7 @@ const lessons: Lesson[] = [
     status: 'locked',
     type: 'lesson',
     icon: '🍜',
+    level: 'N4',
     image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop'
   },
   {
@@ -127,6 +135,7 @@ const lessons: Lesson[] = [
     status: 'locked',
     type: 'lesson',
     icon: '🚇',
+    level: 'N3',
     image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=400&h=300&fit=crop'
   },
   {
@@ -136,7 +145,8 @@ const lessons: Lesson[] = [
     description: [],
     status: 'locked',
     type: 'review',
-    icon: '🚌'
+    icon: '🚌',
+    level: 'N3'
   },
   {
     id: 9,
@@ -148,6 +158,7 @@ const lessons: Lesson[] = [
     status: 'locked',
     type: 'lesson',
     icon: '🛍️',
+    level: 'N3',
     image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop'
   },
   {
@@ -160,6 +171,7 @@ const lessons: Lesson[] = [
     status: 'locked',
     type: 'lesson',
     icon: '🌸',
+    level: 'N2',
     image: 'https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=300&fit=crop'
   },
   {
@@ -170,6 +182,7 @@ const lessons: Lesson[] = [
     status: 'locked',
     type: 'review',
     icon: '📝',
+    level: 'N2',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop'
   },
   {
@@ -182,6 +195,7 @@ const lessons: Lesson[] = [
     status: 'locked',
     type: 'lesson',
     icon: '🏫',
+    level: 'N2',
     image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=300&fit=crop'
   },
   {
@@ -194,6 +208,7 @@ const lessons: Lesson[] = [
     status: 'locked',
     type: 'lesson',
     icon: '🎌',
+    level: 'N1',
     image: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=300&fit=crop'
   },
   {
@@ -206,13 +221,33 @@ const lessons: Lesson[] = [
     status: 'locked',
     type: 'recap',
     icon: '🎓',
+    level: 'N1',
     image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=300&fit=crop'
   }
 ];
 
 export default function RoadmapPage() {
   const router = useRouter();
+  const { currentLevel } = useJLPTLevel();
   const [expandedLessons, setExpandedLessons] = useState<Set<number>>(new Set());
+  const [lessons, setLessons] = useState<Lesson[]>([]);
+
+  // Filter lessons by current JLPT level
+  useEffect(() => {
+    const filteredLessons = allLessons.filter(lesson => lesson.level === currentLevel);
+    setLessons(filteredLessons);
+  }, [currentLevel]);
+
+  // Listen for JLPT level changes
+  useEffect(() => {
+    const handleLevelChange = () => {
+      const filteredLessons = allLessons.filter(lesson => lesson.level === currentLevel);
+      setLessons(filteredLessons);
+    };
+    
+    window.addEventListener('jlpt-level-changed', handleLevelChange);
+    return () => window.removeEventListener('jlpt-level-changed', handleLevelChange);
+  }, [currentLevel]);
 
   const handleStoryClick = (lessonId: number) => {
     console.log('Story clicked:', lessonId);
@@ -321,7 +356,7 @@ export default function RoadmapPage() {
 
                   {/* JLPT Level Badge */}
                   <div className="absolute bottom-3 right-3 bg-gray-800 text-white rounded-full px-2 py-1 text-xs font-bold shadow-lg">
-                    N5
+                    {lesson.level}
                   </div>
                 </div>
 

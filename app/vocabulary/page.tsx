@@ -5,7 +5,8 @@ import { Check, X, BookOpen, Volume2 } from 'lucide-react';
 import Link from 'next/link';
 import { ReviewSystem } from '@/lib/reviewSystem';
 import { useSearchParams } from 'next/navigation';
-import { getAllVocabulary, VocabularyData } from '@/lib/supabase-data';
+import { getAllVocabulary, getVocabularyByLevel, getVocabularyCountByLevel, VocabularyData } from '@/lib/supabase-data';
+import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 
 interface VocabularyItem {
   id: string;
@@ -23,8 +24,10 @@ const CACHE_DURATION = 1 * 60 * 1000; // 1 minute
 
 function VocabularyPageContent() {
   const searchParams = useSearchParams();
-  const selectedLevel = searchParams.get('level') || 'N5';
+  const { currentLevel } = useJLPTLevel();
+  const selectedLevel = searchParams.get('level') || currentLevel;
   const [allVocabularyData, setAllVocabularyData] = useState<VocabularyItem[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -32,62 +35,79 @@ function VocabularyPageContent() {
   const [selectedVocab, setSelectedVocab] = useState<Set<string>>(new Set());
 
   // Calculate paginated data
-  const totalPages = Math.ceil(allVocabularyData.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const vocabularyData = allVocabularyData.slice(startIndex, endIndex);
 
-  // Fetch vocabulary data from Supabase with caching
+  // Load vocabulary data with caching
   useEffect(() => {
-    const fetchVocabularyData = async () => {
+    const loadVocabularyData = async () => {
+      setLoading(true);
+      setError(null);
+      
       try {
-        setLoading(true);
-        setError(null);
-        
-        // Check cache first
         const cacheKey = `vocabulary-${selectedLevel}`;
-        const cached = localStorage.getItem(cacheKey);
+        const cachedData = localStorage.getItem(cacheKey);
         const cacheTimestamp = localStorage.getItem(`${cacheKey}-timestamp`);
         
-        if (cached && cacheTimestamp) {
+        // Check if we have valid cached data
+        if (cachedData && cacheTimestamp) {
           const isExpired = Date.now() - parseInt(cacheTimestamp) > CACHE_DURATION;
           if (!isExpired) {
-            console.log('Loading vocabulary from cache');
-            setAllVocabularyData(JSON.parse(cached));
+            const parsedData = JSON.parse(cachedData);
+            const cachedCount = localStorage.getItem(`${cacheKey}-count`);
+            setAllVocabularyData(parsedData);
+            setTotalCount(cachedCount ? parseInt(cachedCount) : parsedData.length);
             setLoading(false);
             return;
           }
         }
         
-        console.log('Fetching vocabulary from Supabase');
-        const supabaseVocab = await getAllVocabulary();
+        // Fetch total count for pagination and data in parallel
+        const [totalVocabCount, vocabularyData] = await Promise.all([
+          getVocabularyCountByLevel(selectedLevel as any),
+          getVocabularyByLevel(selectedLevel as any)
+        ]);
         
-        // Transform Supabase data to match VocabularyItem interface
-        const transformedVocab: VocabularyItem[] = supabaseVocab.map(vocab => ({
-          id: vocab.id,
-          word: vocab.word,
-          reading: vocab.reading,
-          meaning: vocab.meaning,
-          level: vocab.jlpt_level,
-          example: vocab.example_sentence,
-          exampleTranslation: vocab.example_translation
+        setTotalCount(totalVocabCount);
+        
+        // Transform to match our interface
+        const transformedData: VocabularyItem[] = vocabularyData.map(item => ({
+          id: item.id,
+          word: item.word,
+          reading: item.reading,
+          meaning: item.meaning,
+          level: item.jlpt_level,
+          example: item.example_sentence,
+          exampleTranslation: item.example_translation
         }));
-
-        // Cache the data
-        localStorage.setItem(cacheKey, JSON.stringify(transformedVocab));
+        
+        setAllVocabularyData(transformedData);
+        
+        // Cache the data and count
+        localStorage.setItem(cacheKey, JSON.stringify(transformedData));
+        localStorage.setItem(`${cacheKey}-count`, totalVocabCount.toString());
         localStorage.setItem(`${cacheKey}-timestamp`, Date.now().toString());
         
-        setAllVocabularyData(transformedVocab);
-        setCurrentPage(1); // Reset to first page when data changes
-      } catch (err) {
-        console.error('Error fetching vocabulary data:', err);
+      } catch (error) {
+        console.error('Error loading vocabulary:', error);
         setError('Failed to load vocabulary data');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchVocabularyData();
+    loadVocabularyData();
+    
+    // Listen for JLPT level changes
+    const handleLevelChange = () => {
+      setCurrentPage(1); // Reset to first page when level changes
+      loadVocabularyData();
+    };
+    
+    window.addEventListener('jlpt-level-changed', handleLevelChange);
+    return () => window.removeEventListener('jlpt-level-changed', handleLevelChange);
   }, [selectedLevel]);
 
   // Sync mastery state with ReviewSystem on component mount and when returning from training
@@ -184,7 +204,7 @@ function VocabularyPageContent() {
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
-      <div className="mb-6 flex justify-between items-center">
+        <div className="mb-6 flex justify-between items-center">
         <p className="text-sm text-gray-600">Select vocabulary to begin studying</p>
         <div className="flex gap-3">
           <button
@@ -214,31 +234,31 @@ function VocabularyPageContent() {
                   masteredVocab.has(item.id)
                     ? 'bg-green-50 border-green-200 border-b-green-500'
                     : 'bg-white border-gray-200 border-b-gray-400 hover:border-gray-300 hover:border-b-gray-600'
-                }`}
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex-1">
-                    <div className="text-center mb-4 pt-4">
-                      <div className="text-7xl font-bold text-black font-japanese mb-3">
-                        {item.word}
-                      </div>
-                      <p className="text-xl text-gray-600 font-japanese mb-3">
-                        {item.reading}
-                      </p>
-                      <p className="text-xl text-gray-800 font-medium">
-                        {item.meaning}
-                      </p>
+              }`}
+            >
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex-1">
+                  <div className="text-center mb-4 pt-4">
+                    <div className="text-7xl font-bold text-black font-japanese mb-3">
+                      {item.word}
                     </div>
+                    <p className="text-xl text-gray-600 font-japanese mb-3">
+                      {item.reading}
+                    </p>
+                    <p className="text-xl text-gray-800 font-medium">
+                      {item.meaning}
+                    </p>
                   </div>
-                  {/* Top left badge */}
-                  <div className="absolute top-4 left-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getLevelColor(item.level)}`}>
-                      {item.level}
-                    </span>
-                  </div>
+                </div>
+                {/* Top left badge */}
+                <div className="absolute top-4 left-4">
+                  <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getLevelColor(item.level)}`}>
+                    {item.level}
+                  </span>
+                </div>
 
-                  {/* Top right audio button */}
-                  <div className="absolute top-4 right-4">
+                {/* Top right audio button */}
+                <div className="absolute top-4 right-4">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -250,18 +270,16 @@ function VocabularyPageContent() {
                     </button>
                   </div>
 
-                  {/* Selected indicator */}
-                  {selectedVocab.has(item.id) && (
-                    <div className="absolute top-4 right-16 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">✓</span>
-                    </div>
-                  )}
+                {/* Selected indicator */}
+                {selectedVocab.has(item.id) && (
+                  <div className="absolute top-4 right-16 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                    <span className="text-white text-xs font-bold">✓</span>
+                  </div>
+                )}
               </div>
 
-
-
-            {/* Mastery Toggle Switch */}
-            <div className="absolute bottom-4 right-4 pt-2">
+              {/* Mastery Toggle Switch */}
+              <div className="absolute bottom-4 right-4 pt-2">
               <div className="flex items-center gap-2">
                 <span className="text-xs text-gray-500">
                   {masteredVocab.has(item.id) ? 'Mastered' : 'Learning'}
@@ -331,7 +349,7 @@ function VocabularyPageContent() {
 
       {/* Page Info */}
       <div className="text-center text-sm text-gray-600 mb-8">
-        Showing {startIndex + 1}-{Math.min(endIndex, allVocabularyData.length)} of {allVocabularyData.length} vocabulary
+        Showing {startIndex + 1}-{Math.min(endIndex, totalCount)} of {totalCount} vocabulary
       </div>
 
       {/* Study Footer Bar */}
