@@ -115,6 +115,20 @@ export async function getVocabularyByLevel(level: JLPTLevel): Promise<Vocabulary
   return data || []
 }
 
+export async function getAllVocabulary(): Promise<VocabularyData[]> {
+  const { data, error } = await supabase
+    .from('vocabulary')
+    .select('*')
+    .order('frequency_rank', { ascending: true })
+
+  if (error) {
+    console.error('Error fetching all vocabulary:', error)
+    throw error
+  }
+
+  return data || []
+}
+
 export async function getVocabularyCountByLevel(level: JLPTLevel): Promise<number> {
   const { count, error } = await supabase
     .from('vocabulary')
