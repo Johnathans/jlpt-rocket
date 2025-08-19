@@ -12,6 +12,12 @@ export interface KanjiData {
   frequency_rank: number
   stroke_count: number
   radical: string
+  examples?: Array<{
+    word: string
+    reading: string
+    meaning: string
+    level: string
+  }>
   created_at: string
   updated_at: string
 }
@@ -66,6 +72,7 @@ export async function getAllKanji(): Promise<KanjiData[]> {
     .from('kanji')
     .select('*')
     .order('frequency_rank', { ascending: true })
+    .limit(3000) // Increase limit to get all kanji (2211 total)
 
   if (error) {
     console.error('Error fetching all kanji:', error)
@@ -108,14 +115,30 @@ export async function getVocabularyByLevel(level: JLPTLevel): Promise<Vocabulary
   return data || []
 }
 
-export async function getAllVocabulary(): Promise<VocabularyData[]> {
+export async function getVocabularyCountByLevel(level: JLPTLevel): Promise<number> {
+  const { count, error } = await supabase
+    .from('vocabulary')
+    .select('*', { count: 'exact', head: true })
+    .eq('jlpt_level', level)
+
+  if (error) {
+    console.error('Error fetching vocabulary count:', error)
+    throw error
+  }
+
+  return count || 0
+}
+
+export async function getVocabularyExamplesForKanji(kanjiCharacter: string, limit: number = 2): Promise<VocabularyData[]> {
   const { data, error } = await supabase
     .from('vocabulary')
     .select('*')
+    .contains('kanji_used', [kanjiCharacter])
     .order('frequency_rank', { ascending: true })
+    .limit(limit)
 
   if (error) {
-    console.error('Error fetching all vocabulary:', error)
+    console.error('Error fetching vocabulary examples for kanji:', error)
     throw error
   }
 

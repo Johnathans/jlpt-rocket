@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Volume2, BookOpen, Brush } from 'lucide-react';
 import { ReviewSystem } from '@/lib/reviewSystem';
-import { getAllKanji, KanjiData, getVocabularyByLevel } from '@/lib/supabase-data';
+import { getKanjiByLevel, KanjiData } from '@/lib/supabase-data';
+import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 
 interface KanjiItem {
   id: string;
@@ -26,19 +27,36 @@ const CACHE_DURATION = 1 * 60 * 1000; // 1 minute
 
 function KanjiPageContent() {
   const searchParams = useSearchParams();
-  const selectedLevel = searchParams.get('level') || 'N5';
+  const { currentLevel } = useJLPTLevel();
+  const selectedLevel = searchParams.get('level') || currentLevel;
   const [allKanjiData, setAllKanjiData] = useState<KanjiItem[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [kanjiExamples, setKanjiExamples] = useState<Record<string, Array<{word: string, reading: string, meaning: string}>>>({});
   const [masteredKanji, setMasteredKanji] = useState<Set<string>>(new Set());
   const [selectedKanji, setSelectedKanji] = useState<Set<string>>(new Set());
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Calculate paginated data
   const totalPages = Math.ceil(allKanjiData.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const kanjiData = allKanjiData.slice(startIndex, endIndex);
+
+  // Load static kanji examples JSON
+  useEffect(() => {
+    const loadKanjiExamples = async () => {
+      try {
+        const response = await fetch('/data/kanji-examples.json');
+        const examples = await response.json();
+        setKanjiExamples(examples);
+      } catch (error) {
+        console.error('Failed to load kanji examples:', error);
+      }
+    };
+    
+    loadKanjiExamples();
+  }, []);
 
   // Fetch kanji data from Supabase with caching
   useEffect(() => {
@@ -48,7 +66,7 @@ function KanjiPageContent() {
         setError(null);
         
         // Check cache first
-        const cacheKey = `kanji-${selectedLevel}`;
+        const cacheKey = `kanji-data-${selectedLevel}`;
         const cached = localStorage.getItem(cacheKey);
         const cacheTimestamp = localStorage.getItem(`${cacheKey}-timestamp`);
         
@@ -63,30 +81,17 @@ function KanjiPageContent() {
         }
         
         console.log('Fetching kanji from Supabase');
-        const supabaseKanji = await getAllKanji();
-        const vocabularyData = await getVocabularyByLevel(selectedLevel as any);
+        const filteredKanji = await getKanjiByLevel(selectedLevel as any);
         
-        // Transform Supabase data to match KanjiItem interface
-        const transformedKanji: KanjiItem[] = supabaseKanji.map(kanji => {
-          // Find vocabulary examples that use this kanji
-          const examples = vocabularyData
-            .filter(vocab => vocab.kanji_used.includes(kanji.character))
-            .slice(0, 2) // Limit to 2 examples
-            .map(vocab => ({
-              word: vocab.word,
-              reading: vocab.reading,
-              meaning: vocab.meaning
-            }));
-
-          return {
-            id: kanji.id,
-            kanji: kanji.character,
-            meaning: kanji.meaning,
-            level: kanji.jlpt_level,
-            strokes: kanji.stroke_count,
-            examples
-          };
-        });
+        // Use static examples from JSON file
+        const transformedKanji: KanjiItem[] = filteredKanji.map(kanji => ({
+          id: kanji.id,
+          kanji: kanji.character,
+          meaning: kanji.meaning,
+          level: kanji.jlpt_level,
+          strokes: kanji.stroke_count,
+          examples: kanjiExamples[kanji.character] || [] // Use static examples
+        }));
 
         // Cache the data
         localStorage.setItem(cacheKey, JSON.stringify(transformedKanji));
@@ -102,8 +107,10 @@ function KanjiPageContent() {
       }
     };
 
-    fetchKanjiData();
-  }, [selectedLevel]);
+    if (Object.keys(kanjiExamples).length > 0) {
+      fetchKanjiData();
+    }
+  }, [selectedLevel, kanjiExamples]);
 
   // Sync mastery state with ReviewSystem on component mount and when returning from training
   useEffect(() => {

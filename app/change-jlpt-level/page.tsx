@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { GraduationCap, Book, FileText, MessageSquare } from 'lucide-react';
-
-type JLPTLevel = 'N5' | 'N4' | 'N3' | 'N2' | 'N1';
+import { useJLPTLevel, type JLPTLevel } from '@/contexts/JLPTLevelContext';
+import { useRouter } from 'next/navigation';
 
 const jlptLevels = [
   {
@@ -64,19 +64,28 @@ const jlptLevels = [
 ];
 
 export default function ChangeJLPTLevelPage() {
+  const { currentLevel, setCurrentLevel } = useJLPTLevel();
   const [selectedLevel, setSelectedLevel] = useState<JLPTLevel | null>(null);
-  const [currentLevel, setCurrentLevel] = useState<JLPTLevel>('N4'); // Default current level
+  const [isChanging, setIsChanging] = useState(false);
+  const router = useRouter();
 
   const handleLevelSelect = (level: JLPTLevel) => {
     setSelectedLevel(level);
   };
 
-  const handleConfirmLevel = () => {
+  const handleConfirmLevel = async () => {
     if (selectedLevel) {
+      setIsChanging(true);
+      
+      // Update the global JLPT level
       setCurrentLevel(selectedLevel);
-      console.log(`JLPT level changed to ${selectedLevel}`);
-      // TODO: Save to user preferences/database
-      // TODO: Show success message or redirect
+      
+      // Show success message briefly
+      setTimeout(() => {
+        setIsChanging(false);
+        // Redirect to vocabulary page to see the change
+        router.push('/vocabulary');
+      }, 1000);
     }
   };
 
@@ -190,9 +199,10 @@ export default function ChangeJLPTLevelPage() {
               <div className="text-center">
                 <button
                   onClick={handleConfirmLevel}
-                  className="px-8 py-4 bg-green-500 text-white font-bold text-lg rounded-xl hover:bg-green-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  disabled={isChanging}
+                  className="px-8 py-4 bg-green-500 text-white font-bold text-lg rounded-xl hover:bg-green-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Switch to {selectedLevel}
+                  {isChanging ? 'Switching...' : `Switch to ${selectedLevel}`}
                 </button>
               </div>
             )}
