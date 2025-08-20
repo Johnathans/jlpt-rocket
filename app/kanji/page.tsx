@@ -18,6 +18,7 @@ interface KanjiItem {
     word: string;
     reading: string;
     meaning: string;
+    level?: string;
   }>;
   mastered?: boolean;
 }
@@ -32,7 +33,7 @@ function KanjiPageContent() {
   const [allKanjiData, setAllKanjiData] = useState<KanjiItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [kanjiExamples, setKanjiExamples] = useState<Record<string, Array<{word: string, reading: string, meaning: string}>>>({});
+  const [kanjiExamples, setKanjiExamples] = useState<Record<string, Array<{word: string, reading: string, meaning: string, level: string}>>>({});
   const [masteredKanji, setMasteredKanji] = useState<Set<string>>(new Set());
   const [selectedKanji, setSelectedKanji] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,20 +44,22 @@ function KanjiPageContent() {
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const kanjiData = allKanjiData.slice(startIndex, endIndex);
 
-  // Load static kanji examples JSON
+  // Load level-filtered kanji examples JSON
   useEffect(() => {
     const loadKanjiExamples = async () => {
       try {
-        const response = await fetch('/data/kanji-examples.json');
-        const examples = await response.json();
-        setKanjiExamples(examples);
+        const response = await fetch('/data/kanji-examples-by-level.json');
+        const allLevelExamples = await response.json();
+        // Get examples for current user level (includes current level and below)
+        const levelExamples = allLevelExamples[selectedLevel] || {};
+        setKanjiExamples(levelExamples);
       } catch (error) {
         console.error('Failed to load kanji examples:', error);
       }
     };
     
     loadKanjiExamples();
-  }, []);
+  }, [selectedLevel]);
 
   // Fetch kanji data from Supabase with caching
   useEffect(() => {
@@ -83,15 +86,33 @@ function KanjiPageContent() {
         console.log('Fetching kanji from Supabase');
         const filteredKanji = await getKanjiByLevel(selectedLevel as any);
         
-        // Use static examples from JSON file
-        const transformedKanji: KanjiItem[] = filteredKanji.map(kanji => ({
-          id: kanji.id,
-          kanji: kanji.character,
-          meaning: kanji.meaning,
-          level: kanji.jlpt_level,
-          strokes: kanji.stroke_count,
-          examples: kanjiExamples[kanji.character] || [] // Use static examples
-        }));
+        // Use static examples from JSON file with display prioritization
+        const transformedKanji: KanjiItem[] = filteredKanji.map(kanji => {
+          const allExamples = kanjiExamples[kanji.character] || [];
+          
+          // Prioritize examples: current level first, then lower levels
+          const currentLevelExamples = allExamples.filter(ex => ex.level === selectedLevel);
+          const otherLevelExamples = allExamples.filter(ex => ex.level !== selectedLevel);
+          
+          // Take up to 2 examples, prioritizing current level
+          const displayExamples = [
+            ...currentLevelExamples.slice(0, 2),
+            ...otherLevelExamples.slice(0, Math.max(0, 2 - currentLevelExamples.length))
+          ].slice(0, 2);
+          
+          return {
+            id: kanji.id,
+            kanji: kanji.character,
+            meaning: kanji.meaning,
+            level: kanji.jlpt_level,
+            strokes: kanji.stroke_count,
+            examples: displayExamples.map(ex => ({
+              word: ex.word,
+              reading: ex.reading,
+              meaning: ex.meaning
+            }))
+          };
+        });
 
         // Cache the data
         localStorage.setItem(cacheKey, JSON.stringify(transformedKanji));

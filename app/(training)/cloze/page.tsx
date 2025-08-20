@@ -364,7 +364,8 @@ function ClozePageContent() {
     ReviewSystem.updateItemProgress(
       currentItem.id,
       'sentences',
-      correct
+      correct,
+      currentItem
     );
   };
 

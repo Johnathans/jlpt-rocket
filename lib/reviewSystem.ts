@@ -10,6 +10,15 @@ export interface ItemProgress {
   masteryLevel: number;        // 0, 25, 50, 75, 100 (percentage)
   isInReview: boolean;
   streak: number;              // Current correct streak
+  // Content data to avoid API calls
+  content?: {
+    word?: string;           // For vocabulary
+    reading?: string;        // For vocabulary/kanji
+    meaning: string;         // For all types
+    character?: string;      // For kanji
+    sentence?: string;       // For sentences
+    level?: string;          // JLPT level
+  };
 }
 
 export interface ReviewSettings {
@@ -115,7 +124,7 @@ export class ReviewSystem {
   }
 
   // Update item progress after training session
-  static updateItemProgress(itemId: string, itemType: 'vocabulary' | 'kanji' | 'sentences', isCorrect: boolean): ItemProgress {
+  static updateItemProgress(itemId: string, itemType: 'vocabulary' | 'kanji' | 'sentences', isCorrect: boolean, itemContent?: any): ItemProgress {
     console.log(`[ReviewSystem] Updating progress for ${itemType} ${itemId}: ${isCorrect ? 'correct' : 'incorrect'}`);
     
     const key = `${itemType}_${itemId}`;
@@ -124,6 +133,31 @@ export class ReviewSystem {
     
     let progress = this.getItemProgress(itemId, itemType);
     const now = new Date();
+    
+    // Store content data if provided (first time or update)
+    if (itemContent && !progress.content) {
+      if (itemType === 'vocabulary') {
+        progress.content = {
+          word: itemContent.word || itemContent.character,
+          reading: itemContent.reading,
+          meaning: itemContent.meaning,
+          level: itemContent.level
+        };
+      } else if (itemType === 'kanji') {
+        progress.content = {
+          character: itemContent.character || itemContent.kanji,
+          reading: itemContent.reading,
+          meaning: itemContent.meaning,
+          level: itemContent.level
+        };
+      } else if (itemType === 'sentences') {
+        progress.content = {
+          sentence: itemContent.japanese_text || itemContent.fullSentence,
+          meaning: itemContent.english_translation || itemContent.meaning,
+          level: itemContent.level
+        };
+      }
+    }
     
     if (isCorrect) {
       progress.correctCount++;

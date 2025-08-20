@@ -3,6 +3,7 @@ export interface StreakData {
   lastSessionDate: string | null;
   weeklyProgress: boolean[]; // 7 days, starting from Monday
   totalSessions: number;
+  dailyStreaks: Record<string, boolean>; // YYYY-MM-DD format
 }
 
 export class StreakSystem {
@@ -17,7 +18,8 @@ export class StreakSystem {
         currentStreak: 0,
         lastSessionDate: null,
         weeklyProgress: [false, false, false, false, false, false, false],
-        totalSessions: 0
+        totalSessions: 0,
+        dailyStreaks: {}
       };
     }
 
@@ -27,7 +29,8 @@ export class StreakSystem {
         currentStreak: 0,
         lastSessionDate: null,
         weeklyProgress: [false, false, false, false, false, false, false],
-        totalSessions: 0
+        totalSessions: 0,
+        dailyStreaks: {}
       };
     }
 
@@ -38,7 +41,8 @@ export class StreakSystem {
         currentStreak: 0,
         lastSessionDate: null,
         weeklyProgress: [false, false, false, false, false, false, false],
-        totalSessions: 0
+        totalSessions: 0,
+        dailyStreaks: {}
       };
     }
   }
@@ -56,16 +60,20 @@ export class StreakSystem {
    */
   static recordSession(): StreakData {
     const now = new Date();
-    const today = now.toISOString().split('T')[0]; // YYYY-MM-DD format
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`; // Local date format
     const currentData = this.getStreakData();
 
     // If already completed a session today, just return current data
-    if (currentData.lastSessionDate === today) {
+    if (currentData.dailyStreaks?.[today]) {
       return currentData;
     }
 
     const newData = { ...currentData };
     newData.totalSessions++;
+    
+    // Mark today as completed
+    newData.dailyStreaks = { ...(currentData.dailyStreaks || {}) };
+    newData.dailyStreaks[today] = true;
 
     // Check if this continues the streak
     if (currentData.lastSessionDate) {
@@ -93,6 +101,14 @@ export class StreakSystem {
 
     this.saveStreakData(newData);
     return newData;
+  }
+
+  /**
+   * Get daily streak status for a specific date
+   */
+  static hasStreakForDate(date: string): boolean {
+    const data = this.getStreakData();
+    return data.dailyStreaks?.[date] || false;
   }
 
   /**
@@ -149,7 +165,8 @@ export class StreakSystem {
       currentStreak: 0,
       lastSessionDate: null,
       weeklyProgress: [false, false, false, false, false, false, false],
-      totalSessions: 0
+      totalSessions: 0,
+      dailyStreaks: {}
     };
     this.saveStreakData(resetData);
   }

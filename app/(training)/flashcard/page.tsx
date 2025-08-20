@@ -181,7 +181,7 @@ function FlashcardPageContent() {
     playCorrectSound();
     
     // Update review system
-    ReviewSystem.updateItemProgress(currentItem.id.toString(), currentItem.type, true);
+    ReviewSystem.updateItemProgress(currentItem.id.toString(), currentItem.type, true, currentItem);
     
     setScore(score + 1);
     handleNext();
@@ -192,7 +192,7 @@ function FlashcardPageContent() {
     playIncorrectSound();
     
     // Update review system
-    ReviewSystem.updateItemProgress(currentItem.id.toString(), currentItem.type, false);
+    ReviewSystem.updateItemProgress(currentItem.id.toString(), currentItem.type, false, currentItem);
     
     // Add to wrong answers
     setWrongAnswers([...wrongAnswers, {
@@ -236,7 +236,7 @@ function FlashcardPageContent() {
     
     // Record partial completion
     trainingItems.slice(0, currentIndex).forEach(item => {
-      ReviewSystem.updateItemProgress(item.id.toString(), item.type, true);
+      ReviewSystem.updateItemProgress(item.id.toString(), item.type, true, item);
     });
     
     setShowCompletion(true);
