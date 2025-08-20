@@ -1,485 +1,296 @@
 'use client';
 
-import { Lock, RotateCcw, ChevronDown, ChevronUp, Rewind, Play, CheckCircle } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
+import { Calendar, Clock, BookOpen, FileText, Target, ChevronRight, Check } from 'lucide-react';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
+import { getContentCounts } from '@/lib/supabase-data';
 
-interface Lesson {
-  id: number;
-  title: string;
-  subtitle: string;
-  description: string[];
-  status: 'completed' | 'available' | 'locked';
-  type: 'lesson' | 'review' | 'recap';
-  icon: string;
-  image?: string;
-  level: string;
-  kanji?: { character: string; meaning: string; reading: string }[];
-  vocabulary?: { word: string; reading: string; meaning: string }[];
+interface DailyPlan {
+  day: number;
+  date: string;
+  kanji: number;
+  vocabulary: number;
+  testQuestions: number;
+  completed: boolean;
 }
 
-const allLessons: Lesson[] = [
-  {
-    id: 1,
-    title: 'Story 1 - Meeting Tanaka-san',
-    subtitle: 'Basic Greetings',
-    description: [
-      'You arrive in Tokyo and meet your host family. Learn how to introduce yourself politely and make a great first impression with proper Japanese greetings.'
-    ],
-    status: 'completed',
-    type: 'lesson',
-    icon: '💬',
-    level: 'N5',
-    image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop',
-    kanji: [
-      { character: '私', meaning: 'I, me', reading: 'わたし' },
-      { character: '名', meaning: 'name', reading: 'な' },
-      { character: '前', meaning: 'front, before', reading: 'まえ' }
-    ],
-    vocabulary: [
-      { word: 'はじめまして', reading: 'はじめまして', meaning: 'Nice to meet you' },
-      { word: 'よろしく', reading: 'よろしく', meaning: 'Please treat me favorably' },
-      { word: 'こんにちは', reading: 'こんにちは', meaning: 'Hello' }
-    ]
-  },
-  {
-    id: 2,
-    title: 'Review',
-    subtitle: 'Review complete!',
-    description: [],
-    status: 'completed',
-    type: 'review',
-    icon: '🎯',
-    level: 'N5',
-    image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=300&fit=crop'
-  },
-  {
-    id: 3,
-    title: 'Story 2 - The Clock Tower',
-    subtitle: 'Numbers and Time',
-    description: [
-      'You visit the famous Tokyo Clock Tower with Tanaka-san. Practice telling time and counting as you explore the city and plan your daily schedule.'
-    ],
-    status: 'completed',
-    type: 'lesson',
-    icon: '📝',
-    level: 'N5',
-    image: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop',
-    kanji: [
-      { character: '時', meaning: 'time, hour', reading: 'じ' },
-      { character: '分', meaning: 'minute', reading: 'ふん' },
-      { character: '今', meaning: 'now', reading: 'いま' }
-    ],
-    vocabulary: [
-      { word: '一時', reading: 'いちじ', meaning: 'one o\'clock' },
-      { word: '三十分', reading: 'さんじゅっぷん', meaning: 'thirty minutes' },
-      { word: '今日', reading: 'きょう', meaning: 'today' }
-    ]
-  },
-  {
-    id: 4,
-    title: 'Story 3 - Family Photo',
-    subtitle: 'Family and Relationships',
-    description: [
-      'Tanaka-san shows you old family photos and tells stories about each relative. Learn to describe family relationships and talk about ages in Japanese.'
-    ],
-    status: 'available',
-    type: 'lesson',
-    icon: '👨‍👩‍👧‍👦',
-    level: 'N4',
-    image: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=300&fit=crop',
-    kanji: [
-      { character: '家', meaning: 'house, family', reading: 'いえ' },
-      { character: '母', meaning: 'mother', reading: 'はは' },
-      { character: '父', meaning: 'father', reading: 'ちち' }
-    ],
-    vocabulary: [
-      { word: 'お母さん', reading: 'おかあさん', meaning: 'mother (polite)' },
-      { word: 'お父さん', reading: 'おとうさん', meaning: 'father (polite)' },
-      { word: '家族', reading: 'かぞく', meaning: 'family' }
-    ]
-  },
-  {
-    id: 5,
-    title: 'Review',
-    subtitle: 'Practice numbers and family vocabulary',
-    description: [],
-    status: 'available',
-    type: 'review',
-    icon: '📝',
-    level: 'N4',
-    image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=300&fit=crop'
-  },
-  {
-    id: 6,
-    title: 'Story 4 - Ramen Adventure',
-    subtitle: 'Food and Dining',
-    description: [
-      'You and Tanaka-san venture to a bustling ramen shop in Shibuya. Learn essential food vocabulary and practice ordering your first authentic Japanese meal.'
-    ],
-    status: 'locked',
-    type: 'lesson',
-    icon: '🍜',
-    level: 'N4',
-    image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop'
-  },
-  {
-    id: 7,
-    title: 'Story 5 - Lost in Tokyo',
-    subtitle: 'Transportation',
-    description: [
-      'After getting separated from Tanaka-san in the busy Tokyo station, you must navigate the complex train system and ask locals for directions to find your way back.'
-    ],
-    status: 'locked',
-    type: 'lesson',
-    icon: '🚇',
-    level: 'N3',
-    image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=400&h=300&fit=crop'
-  },
-  {
-    id: 8,
-    title: 'Review',
-    subtitle: 'Unit 1 Final Review',
-    description: [],
-    status: 'locked',
-    type: 'review',
-    icon: '🚌',
-    level: 'N3'
-  },
-  {
-    id: 9,
-    title: 'Story 6 - Shopping Spree',
-    subtitle: 'Shopping and Money',
-    description: [
-      'Explore the vibrant shopping districts of Tokyo with Tanaka-san. Learn how to ask for prices, negotiate, and make purchases while discovering Japanese consumer culture.'
-    ],
-    status: 'locked',
-    type: 'lesson',
-    icon: '🛍️',
-    level: 'N3',
-    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop'
-  },
-  {
-    id: 10,
-    title: 'Story 7 - Weather Talk',
-    subtitle: 'Weather and Seasons',
-    description: [
-      'Experience Tokyo\'s changing seasons and learn to discuss weather patterns. Master seasonal vocabulary and cultural expressions tied to Japan\'s four distinct seasons.'
-    ],
-    status: 'locked',
-    type: 'lesson',
-    icon: '🌸',
-    level: 'N2',
-    image: 'https://images.unsplash.com/photo-1522383225653-ed111181a951?w=400&h=300&fit=crop'
-  },
-  {
-    id: 11,
-    title: 'Review',
-    subtitle: 'Practice food, transport, and shopping vocabulary',
-    description: [],
-    status: 'locked',
-    type: 'review',
-    icon: '📝',
-    level: 'N2',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop'
-  },
-  {
-    id: 12,
-    title: 'Story 8 - School Days',
-    subtitle: 'Education and School Life',
-    description: [
-      'Visit a local Japanese school with Tanaka-san\'s children. Learn about the Japanese education system and practice vocabulary related to school subjects and activities.'
-    ],
-    status: 'locked',
-    type: 'lesson',
-    icon: '🏫',
-    level: 'N2',
-    image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=300&fit=crop'
-  },
-  {
-    id: 13,
-    title: 'Story 9 - Festival Fun',
-    subtitle: 'Culture and Celebrations',
-    description: [
-      'Attend a traditional Japanese festival and immerse yourself in local customs. Learn festival-specific vocabulary and cultural expressions while enjoying the festivities.'
-    ],
-    status: 'locked',
-    type: 'lesson',
-    icon: '🎌',
-    level: 'N1',
-    image: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&h=300&fit=crop'
-  },
-  {
-    id: 14,
-    title: 'Recap',
-    subtitle: 'Your Japanese Journey',
-    description: [
-      'Reflect on your incredible journey through Tokyo with Tanaka-san. Review all the vocabulary, grammar, and cultural insights you\'ve gained throughout your adventure.'
-    ],
-    status: 'locked',
-    type: 'recap',
-    icon: '🎓',
-    level: 'N1',
-    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&h=300&fit=crop'
-  }
+interface StudyPlan {
+  totalDays: number;
+  dailyKanji: number;
+  dailyVocabulary: number;
+  dailyTestQuestions: number;
+  schedule: DailyPlan[];
+}
+
+const timelineOptions = [
+  { days: 60, label: '60 Days', description: 'Intensive study plan' },
+  { days: 90, label: '90 Days', description: 'Balanced approach' },
+  { days: 120, label: '120 Days', description: 'Comfortable pace' },
+  { days: 180, label: '180 Days', description: 'Relaxed learning' }
 ];
 
 export default function RoadmapPage() {
-  const router = useRouter();
   const { currentLevel } = useJLPTLevel();
-  const [expandedLessons, setExpandedLessons] = useState<Set<number>>(new Set());
-  const [lessons, setLessons] = useState<Lesson[]>([]);
+  const [selectedDays, setSelectedDays] = useState(90);
+  const [studyPlan, setStudyPlan] = useState<StudyPlan | null>(null);
+  const [contentCounts, setContentCounts] = useState({ kanji: 0, vocabulary: 0, sentences: 0 });
+  const [loading, setLoading] = useState(true);
 
-  // Filter lessons by current JLPT level
+  // Load content counts
   useEffect(() => {
-    const filteredLessons = allLessons.filter(lesson => lesson.level === currentLevel);
-    setLessons(filteredLessons);
-  }, [currentLevel]);
+    const loadContentCounts = async () => {
+      try {
+        const counts = await getContentCounts();
+        setContentCounts(counts);
+      } catch (error) {
+        console.error('Error loading content counts:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // Listen for JLPT level changes
+    loadContentCounts();
+  }, []);
+
+  // Generate study plan when timeline or level changes
   useEffect(() => {
-    const handleLevelChange = () => {
-      const filteredLessons = allLessons.filter(lesson => lesson.level === currentLevel);
-      setLessons(filteredLessons);
+    if (!loading && contentCounts.kanji > 0) {
+      generateStudyPlan();
+    }
+  }, [selectedDays, currentLevel, contentCounts, loading]);
+
+  const generateStudyPlan = () => {
+    // Estimate content based on JLPT level
+    const levelMultipliers = {
+      'N5': { kanji: 0.05, vocabulary: 0.08, test: 0.1 },
+      'N4': { kanji: 0.15, vocabulary: 0.16, test: 0.2 },
+      'N3': { kanji: 0.30, vocabulary: 0.35, test: 0.4 },
+      'N2': { kanji: 0.50, vocabulary: 0.60, test: 0.7 },
+      'N1': { kanji: 1.0, vocabulary: 1.0, test: 1.0 }
     };
-    
-    window.addEventListener('jlpt-level-changed', handleLevelChange);
-    return () => window.removeEventListener('jlpt-level-changed', handleLevelChange);
-  }, [currentLevel]);
 
-  const handleStoryClick = (lessonId: number) => {
-    console.log('Story clicked:', lessonId);
-    // Map lesson IDs to story route IDs
-    const storyMapping: Record<number, string> = {
-      1: '1', // Story 1 - Meeting Tanaka-san
-      3: '2', // Story 2 - The Clock Tower  
-      4: '3', // Story 3 - Family Photo
-      6: '4', // Story 4 - Ramen Adventure
-    };
-    const storyId = storyMapping[lessonId];
-    if (storyId) {
-      console.log('Navigating to story:', storyId);
-      router.push(`/story/${storyId}`);
-    } else {
-      console.log('Story not found for lesson ID:', lessonId);
+    const multiplier = levelMultipliers[currentLevel];
+    const targetKanji = Math.ceil(contentCounts.kanji * multiplier.kanji);
+    const targetVocabulary = Math.ceil(contentCounts.vocabulary * multiplier.vocabulary);
+    const targetTestQuestions = Math.ceil(500 * multiplier.test); // Base 500 test questions
+
+    const dailyKanji = Math.ceil(targetKanji / selectedDays);
+    const dailyVocabulary = Math.ceil(targetVocabulary / selectedDays);
+    const dailyTestQuestions = Math.ceil(targetTestQuestions / selectedDays);
+
+    // Generate daily schedule
+    const schedule: DailyPlan[] = [];
+    const startDate = new Date();
+
+    for (let day = 1; day <= selectedDays; day++) {
+      const currentDate = new Date(startDate);
+      currentDate.setDate(startDate.getDate() + day - 1);
+      
+      schedule.push({
+        day,
+        date: currentDate.toLocaleDateString('en-US', { 
+          month: 'short', 
+          day: 'numeric' 
+        }),
+        kanji: Math.min(dailyKanji, Math.max(0, targetKanji - (day - 1) * dailyKanji)),
+        vocabulary: Math.min(dailyVocabulary, Math.max(0, targetVocabulary - (day - 1) * dailyVocabulary)),
+        testQuestions: Math.min(dailyTestQuestions, Math.max(0, targetTestQuestions - (day - 1) * dailyTestQuestions)),
+        completed: false
+      });
     }
+
+    setStudyPlan({
+      totalDays: selectedDays,
+      dailyKanji,
+      dailyVocabulary,
+      dailyTestQuestions,
+      schedule
+    });
   };
 
-  const toggleExpansion = (lessonId: number) => {
-    const newExpanded = new Set(expandedLessons);
-    if (newExpanded.has(lessonId)) {
-      newExpanded.delete(lessonId);
-    } else {
-      newExpanded.add(lessonId);
-    }
-    setExpandedLessons(newExpanded);
-  };
-
-  const getStatusColor = (status: string, type: string) => {
-    if (status === 'completed') {
-      return 'bg-green-500';
-    } else if (status === 'available') {
-      return 'bg-green-400';
-    } else {
-      return 'bg-gray-400';
-    }
-  };
-
-  const getStatusIcon = (status: string, type: string) => {
-    if (status === 'completed') {
-      return <CheckCircle className="h-6 w-6 text-white" />;
-    } else if (status === 'available') {
-      return <Play className="h-6 w-6 text-white" />;
-    } else {
-      return <Lock className="h-6 w-6 text-white" />;
-    }
-  };
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading study plan...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Learning Roadmap</h1>
-          <p className="text-gray-600">Follow your journey through Japanese stories and lessons</p>
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Study Roadmap
+          </h1>
+          <p className="text-xl text-gray-600 mb-2">
+            Create your personalized study timeline for JLPT {currentLevel}
+          </p>
+          <p className="text-lg text-gray-500">
+            Choose your timeline and get a day-by-day study plan
+          </p>
         </div>
 
-        {/* Stories Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {lessons.map((lesson, index) => {
-            const isClickable = lesson.status === 'available' && lesson.type === 'lesson';
-            const statusColor = getStatusColor(lesson.status, lesson.type);
+        {/* Timeline Selection */}
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            Select Your Timeline
+          </h2>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {timelineOptions.map((option) => {
+              const isSelected = selectedDays === option.days;
+              
+              return (
+                <button
+                  key={option.days}
+                  onClick={() => setSelectedDays(option.days)}
+                  className={`
+                    p-6 rounded-xl border-2 transition-all duration-200 hover:scale-105
+                    ${isSelected 
+                      ? 'bg-green-500 border-green-500 text-white shadow-lg' 
+                      : 'bg-white border-gray-200 text-gray-700 hover:border-green-300 hover:shadow-md'
+                    }
+                  `}
+                >
+                  <div className="text-center">
+                    <div className={`
+                      w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3
+                      ${isSelected ? 'bg-white/20' : 'bg-gray-100'}
+                    `}>
+                      <Clock className={`h-6 w-6 ${isSelected ? 'text-white' : 'text-gray-600'}`} />
+                    </div>
+                    <h3 className="text-lg font-bold mb-1">{option.label}</h3>
+                    <p className={`text-sm ${isSelected ? 'text-white/80' : 'text-gray-500'}`}>
+                      {option.description}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Study Plan Overview */}
+        {studyPlan && (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              Your {selectedDays}-Day Study Plan
+            </h2>
             
-            return (
-              <div
-                key={lesson.id}
-                onClick={() => {
-                  if (isClickable) {
-                    handleStoryClick(lesson.id);
-                  }
-                }}
-                className={`
-                  relative bg-white rounded-2xl shadow-sm border border-gray-200 border-b-4 border-b-gray-300 overflow-hidden
-                  transition-all duration-200 hover:shadow-md
-                  ${isClickable ? 'cursor-pointer hover:scale-105' : ''}
-                  ${lesson.status === 'locked' ? 'opacity-60' : ''}
-                `}
-              >
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden">
-                  {lesson.image ? (
-                    <Image
-                      src={lesson.image}
-                      alt={lesson.title}
-                      fill
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
-                      <span className="text-4xl">{lesson.icon}</span>
-                    </div>
-                  )}
-                  
-                  {/* Status Badge - Only show for locked lessons */}
-                  {lesson.status === 'locked' && (
-                    <div className={`absolute top-3 right-3 ${statusColor} rounded-full p-2 shadow-lg`}>
-                      {getStatusIcon(lesson.status, lesson.type)}
-                    </div>
-                  )}
-
-                  {/* Lesson Number */}
-                  <div className="absolute top-3 left-3 bg-black/20 backdrop-blur-sm text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
-                    {lesson.id}
-                  </div>
-
-                  {/* JLPT Level Badge */}
-                  <div className="absolute bottom-3 right-3 bg-gray-800 text-white rounded-full px-2 py-1 text-xs font-bold shadow-lg">
-                    {lesson.level}
-                  </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="text-center p-6 bg-gray-50 rounded-xl">
+                <div className="flex justify-center mb-3">
+                  <FileText className="h-8 w-8 text-gray-600" />
                 </div>
-
-                {/* Content */}
-                <div className="p-4">
-                  <div className="mb-2">
-                    <h3 className="font-bold text-gray-900 text-sm mb-1 line-clamp-2">
-                      {lesson.title}
-                    </h3>
-                    <p className="text-xs text-gray-600 line-clamp-1">
-                      {lesson.subtitle}
-                    </p>
-                  </div>
-
-                  {/* Description */}
-                  {lesson.description.length > 0 && (
-                    <p className="text-xs text-gray-500 line-clamp-3 mb-3">
-                      {lesson.description[0]}
-                    </p>
-                  )}
-
-                  {/* Type Badge */}
-                  <div className="flex justify-between items-center">
-                    <span className={`
-                      px-2 py-1 rounded-full text-xs font-medium
-                      ${lesson.type === 'lesson' ? 'bg-green-100 text-green-700' : 
-                        lesson.type === 'review' ? 'bg-green-100 text-green-700' : 
-                        'bg-green-100 text-green-700'}
-                    `}>
-                      {lesson.type.charAt(0).toUpperCase() + lesson.type.slice(1)}
-                    </span>
-                    
-                    {/* Status Text */}
-                    <span className={`
-                      text-xs font-medium
-                      ${lesson.status === 'completed' ? 'text-green-600' : 
-                        lesson.status === 'available' ? 'text-green-600' : 
-                        'text-gray-400'}
-                    `}>
-                      {lesson.status === 'completed' ? 'Complete' : 
-                       lesson.status === 'available' ? 'Available' : 
-                       'Locked'}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Expandable Content for Lessons */}
-                {lesson.type === 'lesson' && (lesson.kanji || lesson.vocabulary) && (
-                  <div className="border-t border-gray-100">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleExpansion(lesson.id);
-                      }}
-                      className="w-full p-3 text-xs text-gray-600 hover:bg-gray-50 flex items-center justify-center gap-2"
-                    >
-                      {expandedLessons.has(lesson.id) ? (
-                        <>
-                          <ChevronUp className="h-4 w-4" />
-                          Hide Details
-                        </>
-                      ) : (
-                        <>
-                          <ChevronDown className="h-4 w-4" />
-                          Show Details
-                        </>
-                      )}
-                    </button>
-                    
-                    {/* Expanded Content */}
-                    {expandedLessons.has(lesson.id) && (
-                      <div className="p-4 bg-gray-50 border-t border-gray-100">
-                        {/* Kanji Preview */}
-                        {lesson.kanji && lesson.kanji.length > 0 && (
-                          <div className="mb-3">
-                            <h4 className="text-xs font-semibold text-gray-700 mb-2">Kanji ({lesson.kanji.length})</h4>
-                            <div className="flex flex-wrap gap-1">
-                              {lesson.kanji.slice(0, 6).map((kanji, idx) => (
-                                <div
-                                  key={idx}
-                                  className="w-8 h-8 bg-white border border-gray-200 rounded flex items-center justify-center text-sm font-bold"
-                                >
-                                  {kanji.character}
-                                </div>
-                              ))}
-                              {lesson.kanji.length > 6 && (
-                                <div className="w-8 h-8 bg-gray-200 border border-gray-300 rounded flex items-center justify-center text-xs text-gray-600">
-                                  +{lesson.kanji.length - 6}
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Vocabulary Preview */}
-                        {lesson.vocabulary && lesson.vocabulary.length > 0 && (
-                          <div>
-                            <h4 className="text-xs font-semibold text-gray-700 mb-2">Vocabulary ({lesson.vocabulary.length})</h4>
-                            <div className="flex flex-wrap gap-1">
-                              {lesson.vocabulary.slice(0, 4).map((vocab, idx) => (
-                                <div
-                                  key={idx}
-                                  className="px-2 py-1 bg-white border border-gray-200 rounded text-xs"
-                                >
-                                  {vocab.word}
-                                </div>
-                              ))}
-                              {lesson.vocabulary.length > 4 && (
-                                <div className="px-2 py-1 bg-gray-200 border border-gray-300 rounded text-xs text-gray-600">
-                                  +{lesson.vocabulary.length - 4} more
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )}
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">Daily Kanji</h3>
+                <p className="text-2xl font-bold text-gray-900">{studyPlan.dailyKanji}</p>
+                <p className="text-sm text-gray-500">characters per day</p>
               </div>
-            );
-          })}
-        </div>
+              
+              <div className="text-center p-6 bg-gray-50 rounded-xl">
+                <div className="flex justify-center mb-3">
+                  <BookOpen className="h-8 w-8 text-gray-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">Daily Vocabulary</h3>
+                <p className="text-2xl font-bold text-gray-900">{studyPlan.dailyVocabulary}</p>
+                <p className="text-sm text-gray-500">words per day</p>
+              </div>
+              
+              <div className="text-center p-6 bg-gray-50 rounded-xl">
+                <div className="flex justify-center mb-3">
+                  <Target className="h-8 w-8 text-gray-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">Daily Practice</h3>
+                <p className="text-2xl font-bold text-gray-900">{studyPlan.dailyTestQuestions}</p>
+                <p className="text-sm text-gray-500">test questions per day</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Daily Timeline */}
+        {studyPlan && (
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-900">
+                Daily Study Schedule
+              </h2>
+              <div className="flex items-center text-sm text-gray-500">
+                <Calendar className="h-4 w-4 mr-1" />
+                {selectedDays} days total
+              </div>
+            </div>
+            
+            <div className="space-y-3 max-h-96 overflow-y-auto">
+              {studyPlan.schedule.slice(0, 14).map((day, index) => (
+                <div
+                  key={day.day}
+                  className={`
+                    flex items-center justify-between p-4 rounded-lg border transition-colors
+                    ${day.completed 
+                      ? 'bg-green-50 border-green-200' 
+                      : index === 0 
+                        ? 'bg-blue-50 border-blue-200' 
+                        : 'bg-gray-50 border-gray-200 hover:bg-gray-100'
+                    }
+                  `}
+                >
+                  <div className="flex items-center space-x-4">
+                    <div className={`
+                      w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm
+                      ${day.completed 
+                        ? 'bg-green-500 text-white' 
+                        : index === 0 
+                          ? 'bg-blue-500 text-white' 
+                          : 'bg-gray-200 text-gray-600'
+                      }
+                    `}>
+                      {day.completed ? <Check className="h-5 w-5" /> : day.day}
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900">
+                        Day {day.day}
+                        {index === 0 && !day.completed && (
+                          <span className="ml-2 text-sm text-blue-600 font-normal">Today</span>
+                        )}
+                      </h3>
+                      <p className="text-sm text-gray-500">{day.date}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-6 text-sm">
+                    <div className="text-center">
+                      <p className="font-semibold text-gray-900">{day.kanji}</p>
+                      <p className="text-gray-500">Kanji</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="font-semibold text-gray-900">{day.vocabulary}</p>
+                      <p className="text-gray-500">Vocab</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="font-semibold text-gray-900">{day.testQuestions}</p>
+                      <p className="text-gray-500">Tests</p>
+                    </div>
+                    <ChevronRight className="h-5 w-5 text-gray-400" />
+                  </div>
+                </div>
+              ))}
+              
+              {studyPlan.schedule.length > 14 && (
+                <div className="text-center py-4">
+                  <p className="text-gray-500">
+                    ... and {studyPlan.schedule.length - 14} more days
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -316,7 +316,7 @@ function SentencesPageContent() {
     }
 
     // Update progress in review system
-    ReviewSystem.updateItemProgress(currentItem.id, 'sentences', correct);
+    ReviewSystem.updateItemProgress(currentItem.id, 'sentences', correct, currentItem);
 
     // Auto-advance after 1.5 seconds
     setTimeout(() => {

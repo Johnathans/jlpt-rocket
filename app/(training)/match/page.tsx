@@ -263,7 +263,7 @@ function MatchPageContent() {
       
       setScore(score + 1);
       // Update review system for correct answer
-      ReviewSystem.updateItemProgress(currentItem.id, currentItem.type, true);
+      ReviewSystem.updateItemProgress(currentItem.id, currentItem.type, true, currentItem);
     } else {
       // Play Japanese audio immediately for incorrect answers if voice is enabled
       if (shouldPlayVoice()) {
@@ -286,7 +286,7 @@ function MatchPageContent() {
       };
       setWrongAnswers([...wrongAnswers, wrongAnswer]);
       // Update review system for incorrect answer
-      ReviewSystem.updateItemProgress(currentItem.id, currentItem.type, false);
+      ReviewSystem.updateItemProgress(currentItem.id, currentItem.type, false, currentItem);
     }
   };
 

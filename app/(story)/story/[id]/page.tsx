@@ -35,10 +35,10 @@ export default function StoryPage({ params }: StoryPageProps) {
         <div className="text-center">
           <h1 className="text-2xl font-bold text-black mb-4">Story not found</h1>
           <a 
-            href="/roadmap"
+            href="/stories"
             className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-semibold transition-all rounded-md shadow-sm"
           >
-            Back to Roadmap
+            Back to Stories
           </a>
         </div>
       </div>

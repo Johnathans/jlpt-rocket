@@ -17,14 +17,17 @@ import {
   CreditCard,
   FileText,
   GraduationCap,
-  Rocket
+  Rocket,
+  Zap
 } from 'lucide-react';
 import { ReviewSystem } from '@/lib/reviewSystem';
+import StreakModal from './StreakModal';
 
 export default function DashboardNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [reviewCount, setReviewCount] = useState(0);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isStreakModalOpen, setIsStreakModalOpen] = useState(false);
   const pathname = usePathname();
 
   // Load review count on client side
@@ -64,7 +67,8 @@ export default function DashboardNavbar() {
   }, [isProfileMenuOpen]);
 
   const menuItems = [
-    { href: '/roadmap', label: 'Roadmap', icon: null },
+    { href: '/roadmap', label: 'Roadmap', icon: Rocket },
+    { href: '/stories', label: 'Stories', icon: null },
     { href: '/vocabulary', label: 'Vocabulary', icon: Languages },
     { href: '/kanji', label: 'Kanji', icon: null },
     { href: '/sentences', label: 'Sentences', icon: Target },
@@ -114,16 +118,13 @@ export default function DashboardNavbar() {
 
             {/* Right Side Icon Menu */}
             <div className="hidden md:flex items-center gap-2">
-              {/* Fire Icon */}
-              <div className="flex items-center justify-center w-12 h-12 rounded-lg hover:bg-gray-50 transition-all duration-200">
-                <Image 
-                  src="/fire.png" 
-                  alt="Fire" 
-                  width={24} 
-                  height={24} 
-                  className="h-6 w-6 flex-shrink-0" 
-                />
-              </div>
+              {/* Lightning Bolt Icon */}
+              <button
+                onClick={() => setIsStreakModalOpen(true)}
+                className="flex items-center justify-center w-12 h-12 rounded-lg hover:bg-gray-50 transition-all duration-200"
+              >
+                <Zap className="h-6 w-6 flex-shrink-0 text-yellow-500" />
+              </button>
               
               {/* Progress Icon */}
               <Link
@@ -311,6 +312,12 @@ export default function DashboardNavbar() {
           )}
         </div>
       </nav>
+
+      {/* Streak Modal */}
+      <StreakModal 
+        isOpen={isStreakModalOpen} 
+        onClose={() => setIsStreakModalOpen(false)} 
+      />
     </>
   );
 }

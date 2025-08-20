@@ -7,86 +7,44 @@ import { ItemProgress, ReviewSystem } from '@/lib/reviewSystem';
 import { Calendar, Clock, Target, TrendingUp, BookOpen } from 'lucide-react';
 import { getVocabularyByLevel, getKanjiByLevel, getSentencesByLevel, JLPTLevel } from '@/lib/supabase-data';
 
-// Cache for fetched data to avoid repeated API calls
-const dataCache = {
-  vocabulary: new Map(),
-  kanji: new Map(),
-  sentences: new Map()
-};
-
-async function getItemDetails(progress: ItemProgress) {
-  try {
+function getItemDetails(progress: ItemProgress) {
+  // Use stored content data instead of API calls
+  if (progress.content) {
     if (progress.type === 'vocabulary') {
-      // Check cache first
-      if (dataCache.vocabulary.has(progress.id)) {
-        return dataCache.vocabulary.get(progress.id);
-      }
-      
-      // Fetch all vocabulary data for all levels if not cached
-      const levels: JLPTLevel[] = ['N5', 'N4', 'N3', 'N2', 'N1'];
-      for (const level of levels) {
-        const levelData = await getVocabularyByLevel(level);
-        levelData.forEach(item => {
-          dataCache.vocabulary.set(item.id, {
-            id: item.id,
-            word: item.word,
-            reading: item.reading,
-            meaning: item.meaning,
-            level: level
-          });
-        });
-      }
-      
-      return dataCache.vocabulary.get(progress.id);
+      return {
+        id: progress.id,
+        word: progress.content.word,
+        reading: progress.content.reading,
+        meaning: progress.content.meaning,
+        level: progress.content.level
+      };
     } else if (progress.type === 'kanji') {
-      // Check cache first
-      if (dataCache.kanji.has(progress.id)) {
-        return dataCache.kanji.get(progress.id);
-      }
-      
-      // Fetch all kanji data for all levels if not cached
-      const levels: JLPTLevel[] = ['N5', 'N4', 'N3', 'N2', 'N1'];
-      for (const level of levels) {
-        const levelData = await getKanjiByLevel(level);
-        levelData.forEach(item => {
-          dataCache.kanji.set(item.id, {
-            id: item.id,
-            kanji: item.character,
-            meaning: item.meaning,
-            level: level
-          });
-        });
-      }
-      
-      return dataCache.kanji.get(progress.id);
+      return {
+        id: progress.id,
+        kanji: progress.content.character,
+        meaning: progress.content.meaning,
+        level: progress.content.level
+      };
     } else if (progress.type === 'sentences') {
-      // Check cache first
-      if (dataCache.sentences.has(progress.id)) {
-        return dataCache.sentences.get(progress.id);
-      }
-      
-      // Fetch all sentences data for all levels if not cached
-      const levels: JLPTLevel[] = ['N5', 'N4', 'N3', 'N2', 'N1'];
-      for (const level of levels) {
-        const levelData = await getSentencesByLevel(level);
-        levelData.forEach(item => {
-          dataCache.sentences.set(item.id, {
-            id: item.id,
-            fullSentence: item.japanese_text,
-            fullReading: item.japanese_text, // Note: SentenceData doesn't have separate reading field
-            meaning: item.english_translation,
-            level: level
-          });
-        });
-      }
-      
-      return dataCache.sentences.get(progress.id);
+      return {
+        id: progress.id,
+        fullSentence: progress.content.sentence,
+        fullReading: progress.content.sentence,
+        meaning: progress.content.meaning,
+        level: progress.content.level
+      };
     }
-  } catch (error) {
-    console.error('Error fetching item details:', error);
-    return null;
   }
-  return null;
+  
+  // Fallback for items without stored content (legacy data)
+  return {
+    id: progress.id,
+    word: `${progress.type} ${progress.id}`,
+    kanji: `${progress.type} ${progress.id}`,
+    fullSentence: `${progress.type} ${progress.id}`,
+    meaning: 'Content not available',
+    level: 'Unknown'
+  };
 }
 
 export default function ReviewPage() {
@@ -104,17 +62,17 @@ export default function ReviewPage() {
   const itemsPerPage = 10;
 
   // Load data on mount and when page becomes visible
-  const refreshData = async () => {
+  const refreshData = () => {
     setLoading(true);
     loadReviewItems();
     setStats(getReviewStats());
     
-    // Fetch item details for all review items
+    // Get item details from stored content (no API calls needed)
     const detailsMap = new Map();
     const currentReviewItems = useReviewStore.getState().reviewItems;
     
     for (const item of currentReviewItems) {
-      const details = await getItemDetails(item);
+      const details = getItemDetails(item);
       if (details) {
         detailsMap.set(item.id, details);
       }
