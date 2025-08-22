@@ -1,30 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { List, BookOpen, Clock } from 'lucide-react';
 import TrainingHeader from '@/components/TrainingHeader';
-import { generateKanjiReadingQuestions, JLPTLevel } from '@/lib/supabase-data';
-import { n5KanjiReadingQuestions, KanjiTestQuestion } from '@/lib/n5-kanji-test-data';
+import { n5ContextualExpressions, ContextualExpressionQuestion } from '@/lib/n5-contextual-expressions-data';
 
-interface TestQuestion {
-  id: number;
-  sentence: string;
-  underlinedKanji: string;
-  kanjiPosition: number; // Position in sentence where kanji appears
-  options?: string[]; // Optional for fill-in-the-blank
-  correctAnswer: number | string; // Index for multiple choice, string for fill-in-the-blank
-  image?: string; // Optional image for listening mode
-  type: 'multiple-choice' | 'fill-in-blank';
-}
-
-// Enhanced TestQuestion interface to include explanations
-interface EnhancedTestQuestion extends TestQuestion {
-  explanations: {
-    option: string;
-    isCorrect: boolean;
-    reasoning: string;
-  }[];
-  englishTranslation: string;
+// Enhanced interface for contextual expressions with explanations
+interface EnhancedContextualQuestion extends ContextualExpressionQuestion {
+  // Already includes all needed fields from ContextualExpressionQuestion
 }
 
 // Shuffle array utility function
@@ -37,8 +20,8 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled;
 };
 
-// Convert N5 questions to match existing TestQuestion interface with randomized options
-const randomizeQuestions = (questions: KanjiTestQuestion[]): EnhancedTestQuestion[] => {
+// Convert N5 contextual questions with randomized options
+const randomizeQuestions = (questions: ContextualExpressionQuestion[]): EnhancedContextualQuestion[] => {
   return questions.map(q => {
     // Create array of options with their original indices
     const optionsWithIndex = q.options.map((option, index) => ({ option, originalIndex: index }));
@@ -49,46 +32,31 @@ const randomizeQuestions = (questions: KanjiTestQuestion[]): EnhancedTestQuestio
     // Find the new position of the correct answer
     const newCorrectAnswer = shuffledOptions.findIndex(item => item.originalIndex === q.correctAnswer);
     
-    // Reorder explanations to match shuffled options
-    const reorderedExplanations = shuffledOptions.map(item => 
-      q.explanations.find(exp => exp.option === item.option) || {
-        option: item.option,
-        isCorrect: item.originalIndex === q.correctAnswer,
-        reasoning: "No explanation available"
-      }
-    );
-    
     return {
-      id: q.id,
-      sentence: q.sentence,
-      underlinedKanji: q.underlinedKanji,
-      kanjiPosition: q.kanjiPosition,
+      ...q,
       options: shuffledOptions.map(item => item.option),
-      correctAnswer: newCorrectAnswer,
-      type: q.type as 'multiple-choice' | 'fill-in-blank',
-      explanations: reorderedExplanations,
-      englishTranslation: q.englishTranslation
+      correctAnswer: newCorrectAnswer
     };
   });
 };
 
-export default function KanjiReadingTestPage() {
-  const [kanjiReadingQuestions, setKanjiReadingQuestions] = useState<EnhancedTestQuestion[]>([]);
+export default function ContextualExpressionsTestPage() {
+  const [contextualQuestions, setContextualQuestions] = useState<EnhancedContextualQuestion[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<number | string | null>(null);
-  const [textAnswer, setTextAnswer] = useState('');
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
+  const [showFinalResult, setShowFinalResult] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [answers, setAnswers] = useState<(number | string | null)[]>([]);
+  const [answers, setAnswers] = useState<(number | null)[]>([]);
   const [score, setScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes for 185 questions
+  const [timeLeft, setTimeLeft] = useState(2700); // 45 minutes for 162 questions
 
   // Initialize questions on client side only
   useEffect(() => {
-    const randomizedQuestions = randomizeQuestions(n5KanjiReadingQuestions);
-    setKanjiReadingQuestions(randomizedQuestions);
+    const randomizedQuestions = randomizeQuestions(n5ContextualExpressions);
+    setContextualQuestions(randomizedQuestions);
     setAnswers(new Array(randomizedQuestions.length).fill(null));
     setIsLoaded(true);
   }, []);
@@ -101,28 +69,14 @@ export default function KanjiReadingTestPage() {
     }
   }, [timeLeft, isLoaded]);
 
-  // Don't render until questions are loaded to prevent hydration errors
-  if (!isLoaded || kanjiReadingQuestions.length === 0) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading questions...</p>
-        </div>
-      </div>
-    );
-  }
-
-  const question = kanjiReadingQuestions[currentQuestion];
-  const progress = ((currentQuestion + 1) / kanjiReadingQuestions.length) * 100;
-
-  // Format time as MM:SS
+  // Format time display
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
+  // Handle answer selection
   const handleAnswerSelect = (answerIndex: number) => {
     setSelectedAnswer(answerIndex);
     setShowResult(true);
@@ -138,84 +92,91 @@ export default function KanjiReadingTestPage() {
     }
   };
 
-  const handleTextSubmit = () => {
-    if (textAnswer.trim() === '') return;
-    
-    setSelectedAnswer(textAnswer);
-    setShowResult(true);
-    
-    // Update answers array
-    const newAnswers = [...answers];
-    newAnswers[currentQuestion] = textAnswer;
-    setAnswers(newAnswers);
-    
-    // Update score if correct
-    if (textAnswer === question.correctAnswer && answers[currentQuestion] === null) {
-      setScore(score + 1);
-    }
-  };
-
+  // Navigate to next question
   const handleNext = () => {
-    if (currentQuestion < kanjiReadingQuestions.length - 1) {
+    if (currentQuestion < contextualQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       const nextAnswer = answers[currentQuestion + 1];
       setSelectedAnswer(nextAnswer);
-      setTextAnswer(typeof nextAnswer === 'string' ? nextAnswer : '');
       setShowResult(nextAnswer !== null);
+      setShowExplanation(false);
     }
   };
 
+  // Navigate to previous question
   const handlePrevious = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(currentQuestion - 1);
       const prevAnswer = answers[currentQuestion - 1];
       setSelectedAnswer(prevAnswer);
-      setTextAnswer(typeof prevAnswer === 'string' ? prevAnswer : '');
       setShowResult(prevAnswer !== null);
+      setShowExplanation(false);
     }
   };
 
-  const renderSentenceWithUnderline = () => {
-    const { sentence, underlinedKanji, kanjiPosition } = question;
-    const before = sentence.substring(0, kanjiPosition);
-    const after = sentence.substring(kanjiPosition + underlinedKanji.length);
-    
-    if (question.type === 'fill-in-blank') {
-      return (
-        <div className="text-4xl font-japanese leading-relaxed text-center flex items-center justify-center gap-2">
-          <span>{before}</span>
-          <span className="inline-block w-32 text-center border-b-4 border-gray-400 pb-2">
-            {showResult && selectedAnswer !== null 
-              ? question.options?.[selectedAnswer as number] || ''
-              : '___'
-            }
-          </span>
-          <span>{after}</span>
-        </div>
-      );
-    }
-    
+  // Calculate final score
+  const calculateScore = () => {
+    let correctCount = 0;
+    answers.forEach((answer, index) => {
+      if (answer === contextualQuestions[index]?.correctAnswer) {
+        correctCount++;
+      }
+    });
+    setScore(correctCount);
+    setShowFinalResult(true);
+  };
+
+  // Show loading state
+  if (!isLoaded || contextualQuestions.length === 0) {
     return (
-      <p className="text-4xl font-japanese leading-relaxed text-center">
-        {before}
-        <span className="underline decoration-2 underline-offset-4 font-bold text-gray-900">
-          {underlinedKanji}
-        </span>
-        {after}
-      </p>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading contextual expressions test...</p>
+        </div>
+      </div>
     );
-  };
+  }
 
-  const toggleDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen);
-  };
+  const question = contextualQuestions[currentQuestion];
+  const progress = ((currentQuestion + 1) / contextualQuestions.length) * 100;
 
-  const goToQuestion = (questionIndex: number) => {
-    setCurrentQuestion(questionIndex);
-    setSelectedAnswer(answers[questionIndex]);
-    setShowResult(answers[questionIndex] !== null);
-    setIsDrawerOpen(false);
-  };
+  // Final results screen
+  if (showFinalResult) {
+    const percentage = Math.round((score / contextualQuestions.length) * 100);
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+            <div className="mb-8">
+              <div className="text-6xl font-bold text-blue-600 mb-2">{percentage}%</div>
+              <div className="text-xl text-gray-600 mb-4">
+                {score} out of {contextualQuestions.length} correct
+              </div>
+              <div className="text-lg text-gray-500">
+                Time remaining: {formatTime(timeLeft)}
+              </div>
+            </div>
+            
+            <div className="flex justify-center space-x-4">
+              <button
+                onClick={() => window.location.reload()}
+                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Retake Test
+              </button>
+              <button
+                onClick={() => window.history.back()}
+                className="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                Back to Menu
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 relative">
@@ -236,7 +197,7 @@ export default function KanjiReadingTestPage() {
               
               {/* Test Badge */}
               <div className="bg-white px-3 py-1 rounded-full border border-green-500">
-                <span className="text-black text-sm font-medium">Kanji Reading</span>
+                <span className="text-black text-sm font-medium">Contextual Expressions</span>
               </div>
             </div>
 
@@ -245,7 +206,7 @@ export default function KanjiReadingTestPage() {
               <div className="bg-gray-100 px-4 py-2 rounded-lg border border-gray-200">
                 <span className="text-gray-600 text-sm font-medium mr-2">Question</span>
                 <span className="text-gray-900 font-bold text-lg">
-                  {currentQuestion + 1}/{kanjiReadingQuestions.length}
+                  {currentQuestion + 1}/{contextualQuestions.length}
                 </span>
               </div>
             </div>
@@ -262,7 +223,7 @@ export default function KanjiReadingTestPage() {
 
               {/* Questions List Button */}
               <button
-                onClick={toggleDrawer}
+                onClick={() => setIsDrawerOpen(!isDrawerOpen)}
                 className="p-3 rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-100"
               >
                 <List className="h-6 w-6" />
@@ -278,25 +239,23 @@ export default function KanjiReadingTestPage() {
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
             {/* Question Section */}
             <div className="text-center space-y-6 mb-8">
-              {/* Question Image (if available) */}
-              {question.image && (
-                <div className="mb-6">
-                  <img 
-                    src={question.image} 
-                    alt="Question context image" 
-                    className="mx-auto rounded-lg shadow-md max-w-md w-full h-48 object-cover"
-                  />
-                </div>
-              )}
-              
               <div className="p-8">
-                {renderSentenceWithUnderline()}
+                <div className="text-4xl font-japanese leading-relaxed text-center flex flex-wrap items-baseline justify-center">
+                  {question.question.split('________').map((part, index, array) => (
+                    <React.Fragment key={index}>
+                      <span>{part}</span>
+                      {index < array.length - 1 && (
+                        <span className="inline-block w-20 border-b-2 border-gray-500 mx-2 mb-1"></span>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
               </div>
             </div>
 
             {/* Answer Options */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {question.options?.map((option, index) => {
+              {question.options.map((option, index) => {
                 const isSelected = selectedAnswer === index;
                 const isCorrect = index === question.correctAnswer;
                 const isWrong = showResult && isSelected && !isCorrect;
@@ -343,7 +302,7 @@ export default function KanjiReadingTestPage() {
               })}
             </div>
 
-            {/* Explanation button - moved below answer options */}
+            {/* Explanation button */}
             <div className="text-center mt-6">
               <button 
                 onClick={() => setShowExplanation(!showExplanation)}
@@ -359,18 +318,18 @@ export default function KanjiReadingTestPage() {
               <div className="mt-6 p-6 bg-gray-50 rounded-lg border border-gray-200">
                 <div className="space-y-4">
                   <div className="text-center">
-                    <p className="text-sm text-gray-600 mb-2">English Translation:</p>
-                    <p className="text-lg font-medium text-gray-900">{question.englishTranslation}</p>
+                    <p className="text-sm text-gray-600 mb-2">Context:</p>
+                    <p className="text-lg font-medium text-gray-900">{question.context}</p>
                   </div>
                   
                   <div className="border-t pt-4">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-3">Answer Explanations:</h4>
+                    <h4 className="text-sm font-semibold text-gray-900 mb-3">Answer Explanation:</h4>
                     <div className="space-y-3">
-                      {question.explanations.map((explanation, index) => (
+                      {question.options.map((option, index) => (
                         <div 
                           key={index}
                           className={`p-3 rounded-lg border ${
-                            explanation.isCorrect 
+                            index === question.correctAnswer 
                               ? 'bg-green-50 border-green-200' 
                               : 'bg-red-50 border-red-200'
                           }`}
@@ -378,7 +337,7 @@ export default function KanjiReadingTestPage() {
                           <div className="flex items-start gap-3">
                             <div className={`
                               w-6 h-6 rounded flex items-center justify-center text-xs font-bold
-                              ${explanation.isCorrect 
+                              ${index === question.correctAnswer 
                                 ? 'bg-green-500 text-white' 
                                 : 'bg-red-500 text-white'
                               }
@@ -387,16 +346,18 @@ export default function KanjiReadingTestPage() {
                             </div>
                             <div className="flex-1">
                               <div className="flex items-center gap-2 mb-1">
-                                <span className="font-japanese font-medium">{explanation.option}</span>
+                                <span className="font-japanese font-medium">{option}</span>
                                 <span className={`text-xs px-2 py-1 rounded ${
-                                  explanation.isCorrect 
+                                  index === question.correctAnswer 
                                     ? 'bg-green-100 text-green-800' 
                                     : 'bg-red-100 text-red-800'
                                 }`}>
-                                  {explanation.isCorrect ? 'CORRECT' : 'INCORRECT'}
+                                  {index === question.correctAnswer ? 'CORRECT' : 'INCORRECT'}
                                 </span>
                               </div>
-                              <p className="text-sm text-gray-700">{explanation.reasoning}</p>
+                              {index === question.correctAnswer && (
+                                <p className="text-sm text-gray-700">{question.explanation}</p>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -430,7 +391,7 @@ export default function KanjiReadingTestPage() {
               
               <button
                 onClick={handleNext}
-                disabled={currentQuestion === kanjiReadingQuestions.length - 1}
+                disabled={currentQuestion === contextualQuestions.length - 1}
                 className="flex items-center gap-2 px-6 py-3 bg-gray-200 text-gray-700 rounded-lg border border-gray-300 border-b-4 border-b-gray-400 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Next
@@ -443,10 +404,7 @@ export default function KanjiReadingTestPage() {
             {/* Right Side - Finish Button */}
             <div className="ml-auto">
               <button
-                onClick={() => {
-                  // Handle finish logic here
-                  console.log('Test finished!');
-                }}
+                onClick={calculateScore}
                 className="px-8 py-3 bg-green-500 text-white rounded-lg border border-green-600 border-b-4 border-b-green-700 hover:bg-green-600 transition-colors"
               >
                 Finish
@@ -462,7 +420,7 @@ export default function KanjiReadingTestPage() {
           {/* Overlay */}
           <div 
             className="fixed inset-0 bg-black bg-opacity-50 z-40"
-            onClick={toggleDrawer}
+            onClick={() => setIsDrawerOpen(false)}
           />
           
           {/* Drawer */}
@@ -471,7 +429,7 @@ export default function KanjiReadingTestPage() {
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-bold text-gray-900">Questions</h3>
                 <button
-                  onClick={toggleDrawer}
+                  onClick={() => setIsDrawerOpen(false)}
                   className="text-gray-500 hover:text-gray-700"
                 >
                   ✕
@@ -479,7 +437,7 @@ export default function KanjiReadingTestPage() {
               </div>
               
               <div className="space-y-2">
-                {kanjiReadingQuestions.map((q, index) => {
+                {contextualQuestions.map((q, index) => {
                   const isAnswered = answers[index] !== null;
                   const isCorrect = isAnswered && answers[index] === q.correctAnswer;
                   const isCurrent = index === currentQuestion;
@@ -487,7 +445,12 @@ export default function KanjiReadingTestPage() {
                   return (
                     <button
                       key={q.id}
-                      onClick={() => goToQuestion(index)}
+                      onClick={() => {
+                        setCurrentQuestion(index);
+                        setSelectedAnswer(answers[index]);
+                        setIsDrawerOpen(false);
+                        setShowExplanation(false);
+                      }}
                       className={`
                         w-full p-3 rounded-lg text-left transition-colors
                         ${isCurrent 
@@ -515,7 +478,7 @@ export default function KanjiReadingTestPage() {
                           {index + 1}
                         </div>
                         <span className="text-sm font-japanese truncate">
-                          {q.underlinedKanji}
+                          Question {index + 1}
                         </span>
                       </div>
                     </button>
@@ -528,7 +491,7 @@ export default function KanjiReadingTestPage() {
                 <div className="text-center">
                   <p className="text-sm text-gray-600">Score</p>
                   <p className="text-2xl font-bold text-gray-900">
-                    {score}/{kanjiReadingQuestions.length}
+                    {score}/{contextualQuestions.length}
                   </p>
                 </div>
               </div>
