@@ -315,3 +315,18 @@ export async function getContentCounts() {
     sentences: sentenceCounts.count || 0
   }
 }
+
+// Get content counts for a specific JLPT level
+export async function getContentCountsByLevel(level: JLPTLevel) {
+  const [kanjiCounts, vocabCounts, sentenceCounts] = await Promise.all([
+    supabase.from('kanji').select('*', { count: 'exact', head: true }).eq('jlpt_level', level),
+    supabase.from('vocabulary').select('*', { count: 'exact', head: true }).eq('jlpt_level', level),
+    supabase.from('sentences').select('*', { count: 'exact', head: true }).eq('jlpt_level', level)
+  ])
+
+  return {
+    kanji: kanjiCounts.count || 0,
+    vocabulary: vocabCounts.count || 0,
+    sentences: sentenceCounts.count || 0
+  }
+}

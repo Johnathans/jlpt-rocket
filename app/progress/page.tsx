@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { ReviewSystem } from '@/lib/reviewSystem';
+import { getContentCountsByLevel, JLPTLevel } from '@/lib/supabase-data';
 
 interface ReviewStats {
   kanji: { learning: number; mastered: number; total: number };
@@ -10,22 +11,44 @@ interface ReviewStats {
   sentences: { learning: number; mastered: number; total: number };
 }
 
-// Real data counts - these should match the actual data in the app
-const TOTAL_COUNTS = {
-  kanji: 6, // Based on kanjiData in the app
-  vocabulary: 6, // Based on vocabularyData in the app  
-  sentences: 5 // Based on sentencesData in the app
-};
+// Real data counts - loaded dynamically from Supabase
+interface ContentCounts {
+  kanji: number;
+  vocabulary: number;
+  sentences: number;
+}
 
 function ProgressPageContent() {
   const searchParams = useSearchParams();
   const selectedLevel = searchParams.get('level') || 'N5';
   
-  const [stats, setStats] = useState<ReviewStats>({
-    kanji: { learning: 0, mastered: 0, total: TOTAL_COUNTS.kanji },
-    vocabulary: { learning: 0, mastered: 0, total: TOTAL_COUNTS.vocabulary },
-    sentences: { learning: 0, mastered: 0, total: TOTAL_COUNTS.sentences }
+  const [contentCounts, setContentCounts] = useState<ContentCounts>({
+    kanji: 0,
+    vocabulary: 0,
+    sentences: 0
   });
+  
+  const [stats, setStats] = useState<ReviewStats>({
+    kanji: { learning: 0, mastered: 0, total: 0 },
+    vocabulary: { learning: 0, mastered: 0, total: 0 },
+    sentences: { learning: 0, mastered: 0, total: 0 }
+  });
+
+  // Load content counts from Supabase for the selected level
+  useEffect(() => {
+    const loadContentCounts = async () => {
+      try {
+        const counts = await getContentCountsByLevel(selectedLevel as JLPTLevel);
+        setContentCounts(counts);
+      } catch (error) {
+        console.error('Failed to load content counts:', error);
+        // Fallback to default values
+        setContentCounts({ kanji: 0, vocabulary: 0, sentences: 0 });
+      }
+    };
+    
+    loadContentCounts();
+  }, [selectedLevel]);
 
   // Load real progress data from review system
   useEffect(() => {
@@ -33,10 +56,22 @@ function ProgressPageContent() {
       const progressMap = ReviewSystem.getProgressData();
       
       const newStats = {
-        kanji: { learning: 0, mastered: 0, total: TOTAL_COUNTS.kanji },
-        vocabulary: { learning: 0, mastered: 0, total: TOTAL_COUNTS.vocabulary },
-        sentences: { learning: 0, mastered: 0, total: TOTAL_COUNTS.sentences }
+        kanji: { learning: 0, mastered: 0, total: contentCounts.kanji },
+        vocabulary: { learning: 0, mastered: 0, total: contentCounts.vocabulary },
+        sentences: { learning: 0, mastered: 0, total: contentCounts.sentences }
       };
+      
+      console.log('Progress data loaded:', {
+        progressMapSize: progressMap.size,
+        contentCounts,
+        progressEntries: Array.from(progressMap.entries()).map(([key, value]) => ({
+          key,
+          type: value.type,
+          masteryLevel: value.masteryLevel,
+          correctCount: value.correctCount,
+          incorrectCount: value.incorrectCount
+        }))
+      });
       
       // Count progress for each type
       progressMap.forEach((progress) => {
@@ -61,11 +96,14 @@ function ProgressPageContent() {
         }
       });
       
+      console.log('Calculated stats:', newStats);
       setStats(newStats);
     };
     
-    loadProgressData();
-  }, []);
+    if (contentCounts.kanji > 0 || contentCounts.vocabulary > 0 || contentCounts.sentences > 0) {
+      loadProgressData();
+    }
+  }, [contentCounts]);
   
   // Refresh data when page becomes visible (user returns from training)
   useEffect(() => {
@@ -74,9 +112,9 @@ function ProgressPageContent() {
         const progressMap = ReviewSystem.getProgressData();
         
         const newStats = {
-          kanji: { learning: 0, mastered: 0, total: TOTAL_COUNTS.kanji },
-          vocabulary: { learning: 0, mastered: 0, total: TOTAL_COUNTS.vocabulary },
-          sentences: { learning: 0, mastered: 0, total: TOTAL_COUNTS.sentences }
+          kanji: { learning: 0, mastered: 0, total: contentCounts.kanji },
+          vocabulary: { learning: 0, mastered: 0, total: contentCounts.vocabulary },
+          sentences: { learning: 0, mastered: 0, total: contentCounts.sentences }
         };
         
         progressMap.forEach((progress) => {
@@ -116,13 +154,25 @@ function ProgressPageContent() {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', handleFocus);
     };
-  }, []);
+  }, [contentCounts]);
 
   const categories = [
     { name: 'Kanji', data: stats.kanji },
     { name: 'Vocabulary', data: stats.vocabulary },
     { name: 'Sentences', data: stats.sentences }
   ];
+
+  // Debug logging for graph rendering
+  console.log('Graph rendering data:', {
+    categories: categories.map(cat => ({
+      name: cat.name,
+      mastered: cat.data.mastered,
+      learning: cat.data.learning,
+      total: cat.data.total,
+      masteredPercent: cat.data.total > 0 ? (cat.data.mastered / cat.data.total) * 100 : 0,
+      learningPercent: cat.data.total > 0 ? (cat.data.learning / cat.data.total) * 100 : 0
+    }))
+  });
 
   const maxTotal = Math.max(stats.kanji.total, stats.vocabulary.total, stats.sentences.total);
 
@@ -146,7 +196,7 @@ function ProgressPageContent() {
                     <div className="flex h-32 rounded overflow-hidden">
                       <div 
                         className="bg-green-500 flex items-center justify-center text-white text-lg font-bold"
-                        style={{ width: `${(category.data.mastered / maxTotal) * 100}%` }}
+                        style={{ width: `${category.data.total > 0 ? (category.data.mastered / category.data.total) * 100 : 0}%` }}
                       >
                         {category.data.mastered > 0 && (
                           <span className="px-3">{category.data.mastered}</span>
@@ -154,7 +204,7 @@ function ProgressPageContent() {
                       </div>
                       <div 
                         className="bg-green-300 flex items-center justify-center text-gray-800 text-lg font-bold"
-                        style={{ width: `${(category.data.learning / maxTotal) * 100}%` }}
+                        style={{ width: `${category.data.total > 0 ? (category.data.learning / category.data.total) * 100 : 0}%` }}
                       >
                         {category.data.learning > 0 && (
                           <span className="px-3">{category.data.learning}</span>
