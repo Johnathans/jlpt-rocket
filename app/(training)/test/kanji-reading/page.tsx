@@ -5,6 +5,8 @@ import { List, BookOpen, Clock } from 'lucide-react';
 import TrainingHeader from '@/components/TrainingHeader';
 import { generateKanjiReadingQuestions, JLPTLevel } from '@/lib/supabase-data';
 import { n5KanjiReadingQuestions, KanjiTestQuestion } from '@/lib/n5-kanji-test-data';
+import { n4KanjiQuestions, N4KanjiQuestion } from '@/lib/n4-kanji-data';
+import { n4VocabularyReadingQuestions, N4VocabularyReadingQuestion } from '@/lib/n4-vocabulary-reading-data';
 
 interface TestQuestion {
   id: number;
@@ -38,7 +40,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 };
 
 // Convert N5 questions to match existing TestQuestion interface with randomized options
-const randomizeQuestions = (questions: KanjiTestQuestion[]): EnhancedTestQuestion[] => {
+const randomizeN5Questions = (questions: KanjiTestQuestion[]): EnhancedTestQuestion[] => {
   return questions.map(q => {
     // Create array of options with their original indices
     const optionsWithIndex = q.options.map((option, index) => ({ option, originalIndex: index }));
@@ -72,6 +74,85 @@ const randomizeQuestions = (questions: KanjiTestQuestion[]): EnhancedTestQuestio
   });
 };
 
+// Convert N4 questions to match existing TestQuestion interface with randomized options
+const randomizeN4Questions = (questions: N4KanjiQuestion[]): EnhancedTestQuestion[] => {
+  return questions.map(q => {
+    // Create array of options with their original indices
+    const optionsWithIndex = q.options.map((option, index) => ({ option, originalIndex: index }));
+    
+    // Shuffle the options
+    const shuffledOptions = shuffleArray(optionsWithIndex);
+    
+    // Find the new position of the correct answer
+    const newCorrectAnswer = shuffledOptions.findIndex(item => item.originalIndex === q.correctAnswer);
+    
+    // Reorder explanations to match shuffled options
+    const reorderedExplanations = shuffledOptions.map(item => 
+      q.explanations.find(exp => exp.option === item.option) || {
+        option: item.option,
+        isCorrect: item.originalIndex === q.correctAnswer,
+        reasoning: "No explanation available"
+      }
+    );
+    
+    // Find the actual target kanji position by looking for asterisks in the original sentence
+    const cleanSentence = q.sentence.replace(/\*/g, '');
+    const asteriskMatch = q.sentence.match(/\*(.+?)\*/);
+    const targetKanji = asteriskMatch ? asteriskMatch[1] : q.kanji;
+    const kanjiPosition = cleanSentence.indexOf(targetKanji);
+    
+    return {
+      id: q.id,
+      sentence: cleanSentence,
+      underlinedKanji: targetKanji,
+      kanjiPosition: kanjiPosition,
+      options: shuffledOptions.map(item => item.option),
+      correctAnswer: newCorrectAnswer,
+      type: 'multiple-choice' as const,
+      explanations: reorderedExplanations,
+      englishTranslation: q.englishTranslation
+    };
+  });
+};
+
+// Convert N4 vocabulary reading questions to match existing TestQuestion interface
+const randomizeN4VocabularyQuestions = (questions: N4VocabularyReadingQuestion[]): EnhancedTestQuestion[] => {
+  return questions.map(q => {
+    // Create array of options with their original indices
+    const optionsWithIndex = q.options.map((option, index) => ({ option, originalIndex: index }));
+    
+    // Shuffle the options
+    const shuffledOptions = shuffleArray(optionsWithIndex);
+    
+    // Find the new position of the correct answer
+    const newCorrectAnswer = shuffledOptions.findIndex(item => item.originalIndex === q.correctAnswer);
+    
+    // Reorder explanations to match shuffled options
+    const reorderedExplanations = shuffledOptions.map(item => 
+      q.explanations.find(exp => exp.option === item.option) || {
+        option: item.option,
+        isCorrect: item.originalIndex === q.correctAnswer,
+        reasoning: "No explanation available"
+      }
+    );
+    
+    // For vocabulary questions, the kanji is already clean in the sentence
+    const kanjiPosition = q.sentence.indexOf(q.kanji);
+    
+    return {
+      id: q.id,
+      sentence: q.sentence,
+      underlinedKanji: q.kanji,
+      kanjiPosition: kanjiPosition,
+      options: shuffledOptions.map(item => item.option),
+      correctAnswer: newCorrectAnswer,
+      type: 'multiple-choice' as const,
+      explanations: reorderedExplanations,
+      englishTranslation: q.englishTranslation
+    };
+  });
+};
+
 export default function KanjiReadingTestPage() {
   const [kanjiReadingQuestions, setKanjiReadingQuestions] = useState<EnhancedTestQuestion[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -87,10 +168,37 @@ export default function KanjiReadingTestPage() {
 
   // Initialize questions on client side only
   useEffect(() => {
-    const randomizedQuestions = randomizeQuestions(n5KanjiReadingQuestions);
+    // Get user's JLPT level from the context localStorage key
+    const userLevel = localStorage.getItem('jlpt-current-level') || 'N5';
+    console.log('Current JLPT Level:', userLevel); // Debug log
+    
+    let randomizedQuestions: EnhancedTestQuestion[];
+    if (userLevel === 'N4') {
+      console.log('Loading N4 kanji questions:', n4KanjiQuestions.length); // Debug log
+      console.log('Loading N4 vocabulary reading questions:', n4VocabularyReadingQuestions.length); // Debug log
+      
+      // Combine N4 kanji questions with vocabulary reading questions
+      const kanjiQuestions = randomizeN4Questions(n4KanjiQuestions);
+      const vocabQuestions = randomizeN4VocabularyQuestions(n4VocabularyReadingQuestions);
+      randomizedQuestions = [...kanjiQuestions, ...vocabQuestions];
+      
+      console.log('Total N4 questions:', randomizedQuestions.length); // Debug log
+    } else {
+      console.log('Loading N5 kanji questions:', n5KanjiReadingQuestions.length); // Debug log
+      randomizedQuestions = randomizeN5Questions(n5KanjiReadingQuestions);
+    }
+    
     setKanjiReadingQuestions(randomizedQuestions);
     setAnswers(new Array(randomizedQuestions.length).fill(null));
     setIsLoaded(true);
+    
+    // Listen for JLPT level changes
+    const handleLevelChange = () => {
+      window.location.reload(); // Reload to pick up new level
+    };
+    
+    window.addEventListener('jlpt-level-changed', handleLevelChange);
+    return () => window.removeEventListener('jlpt-level-changed', handleLevelChange);
   }, []);
 
   // Timer countdown effect

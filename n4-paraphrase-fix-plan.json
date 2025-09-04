@@ -1,0 +1,882 @@
+{
+  "totalOriginalQuestions": 255,
+  "problematicQuestions": 156,
+  "replacementQuestions": 0,
+  "analysisResults": [
+    {
+      "filename": "n4-paraphrase-questions.md",
+      "totalQuestions": 5,
+      "issuesFound": 0,
+      "issues": []
+    },
+    {
+      "filename": "n4-paraphrase-questions-extended.md",
+      "totalQuestions": 65,
+      "issuesFound": 32,
+      "issues": [
+        {
+          "question": "Q2",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "この場所はとても静かで、勉強するのにいいです。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q8",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "髪を短く切ってもらいました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q11",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "注意して運転してください。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q13",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "皆で一緒に出発しましょう。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q14",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "おもちゃを触らないでください。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q15",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "割合よい成績でした。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q16",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "引き出しから本を取り出しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q18",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "承知いたしました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q19",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "パートの仕事を始めました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q21",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "関係のない話をしないでください。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q23",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "窓の方に向かって座ってください。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q24",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "机を立てて置いてください。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q26",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "辞典で言葉を調べました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q28",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "部屋に光が入ってきます。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q32",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "そんなことはかまいません。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q35",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "簡単な問題でした。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q38",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "時間が過ぎるのが早いです。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q39",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "友達にプレゼントをもらいました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q40",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "注射を打ってもらいました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q43",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "電車が込んでいます。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q47",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お土産を差し上げます。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q48",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "人口が増加しています。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q51",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "ピアノを習っています。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q54",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "先生がいらっしゃいました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q57",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "結果に驚きました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q58",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "非常に忙しいです。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q59",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "運転手になりたいです。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q60",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "辞書で調べてください。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q62",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "隅に置いてください。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q63",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "勉強を続けています。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q64",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お食事を召し上がってください。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q65",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "木綿のシャツを着ています。",
+          "needsReplacement": true
+        }
+      ]
+    },
+    {
+      "filename": "n4-paraphrase-questions-part2.md",
+      "totalQuestions": 35,
+      "issuesFound": 20,
+      "issues": [
+        {
+          "question": "Q1",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "パンにジャムを塗りました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q2",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "道を尋ねました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q6",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "それほど難しくありません。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q9",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "熱が出ました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q11",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "昼間は暑いです。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q12",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "仕事を行いました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q13",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "プレゼントをあげました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q16",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "以上で終わります。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q19",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "手紙を送りました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q20",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "舟で旅行しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q22",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "大分疲れました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q23",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お嬢さんは元気ですか。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q24",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "家を建てました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q25",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "このごろ忙しいです。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q26",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "高いビルです。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q27",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "じゃまをしないでください。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q28",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "うん、分かりました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q29",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "踊りを習っています。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q31",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "手袋をはめました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q32",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "時間を決めましょう。",
+          "needsReplacement": true
+        }
+      ]
+    },
+    {
+      "filename": "n4-paraphrase-questions-part3.md",
+      "totalQuestions": 50,
+      "issuesFound": 29,
+      "issues": [
+        {
+          "question": "Q2",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "あした がっこうに いきます。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q3",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "ともだちと でんわで はなしました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q6",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "あさ はやく おきました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q7",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "ばんごはんを つくりました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q9",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "しゅくだいを わすれました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q10",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "あたらしい ふくを かいました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q11",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "ともだちに てがみを おくりました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q14",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "でんしゃが おくれて います。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q17",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "ともだちと いっしょに あそびました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q18",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "あさごはんを たべませんでした。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q19",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "みずを のみました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q20",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "あめが やみました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q21",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "天気が いいです。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q22",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "友だちと 話しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q23",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "電車で 学校に いきました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q25",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "時間が ありません。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q26",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "映画を 見に いきました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q27",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "手紙を 書きました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q29",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "部屋を 掃除しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q31",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "家族と 食事しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q33",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "新しい 服を 着ました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q34",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "窓を 開けました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q36",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "病院に 行きました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q37",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "宿題を 終わりました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q38",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "母に 電話しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q39",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "早く 起きました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q40",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お茶を 飲みました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q46",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "会議に 参加しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q50",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "夜遅く 帰りました。",
+          "needsReplacement": true
+        }
+      ]
+    },
+    {
+      "filename": "n4-paraphrase-questions-part4.md",
+      "totalQuestions": 100,
+      "issuesFound": 59,
+      "issues": [
+        {
+          "question": "Q1",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "先生に 質問しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q2",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "公園で 遊びました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q4",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "道を 間違えました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q5",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "コーヒーを 注文しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q8",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "バスを 降りました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q9",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "料理を 作りました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q10",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "会社を 休みました.",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q12",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "靴を 履きました.",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q14",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "映画が 始まりました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q16",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "店で 買い物しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q18",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "部屋の 電気を 消しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q19",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "山に 登りました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q20",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お皿を 洗いました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q21",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "授業に 出席しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q22",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お箸で 食べました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q26",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "窓から 外を 見ました.",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q27",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お母さんに 手伝いました.",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q29",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お祭りに 参加しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q30",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "家を 出ました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q31",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お弁当を 作りました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q33",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お店が 閉まりました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q34",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "友だちと 別れました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q35",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お土産を 買いました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q36",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "会社に 着きました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q37",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お茶を 入れました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q38",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "道具を 使いました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q39",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お金を 払いました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q41",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お風呂を 沸かしました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q42",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "家事を 手伝いました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q43",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お客さんが 帰りました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q44",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "時計を 見ました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q46",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "友だちを 誘いました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q49",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お酒を 飲みました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q50",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お正月に 帰省しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q56",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お父さんが 帰って きました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q57",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お医者さんに 診て もらいました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q58",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お買い物に 出かけました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q59",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お掃除を 始めました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q60",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お仕事が 終わりました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q62",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お部屋を 片付けました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q63",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お水を 飲みました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q64",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お昼ご飯を 食べました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q65",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お兄さんと 話しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q67",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お弟さんと 遊びました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q69",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お祖父さんに 電話しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q70",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お手紙を 書きました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q71",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お洗濯を しました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q72",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お料理を 習いました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q73",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お薬を 飲みました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q75",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お靴を 脱ぎました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q76",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お風呂から 出ました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q77",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お店が 開きました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q81",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お茶碗を 洗いました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q82",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お箸を 使いました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q83",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お湯を 沸かしました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q90",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お醤油を かけました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q92",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お出汁を 取りました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q95",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お椀に 入れました。",
+          "needsReplacement": true
+        },
+        {
+          "question": "Q100",
+          "type": "VOCABULARY_FOCUSED",
+          "original": "お皿を 下げました。",
+          "needsReplacement": true
+        }
+      ]
+    }
+  ],
+  "grammarPatternsUsed": 16
+}
