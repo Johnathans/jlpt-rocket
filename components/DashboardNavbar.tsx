@@ -7,7 +7,6 @@ import { usePathname } from 'next/navigation';
 import { 
   Target,
   Languages,
-  Menu,
   RotateCcw,
   BarChart3,
   User,
@@ -18,17 +17,26 @@ import {
   FileText,
   GraduationCap,
   Rocket,
-  Zap
+  Zap,
+  X,
+  LogOut,
+  Menu
 } from 'lucide-react';
 import { ReviewSystem } from '@/lib/reviewSystem';
 import StreakModal from './StreakModal';
+import { useAuth } from '@/lib/auth';
 
 export default function DashboardNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [reviewCount, setReviewCount] = useState(0);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isStreakModalOpen, setIsStreakModalOpen] = useState(false);
+  const { user, signOut } = useAuth();
   const pathname = usePathname();
+
+  // Get user avatar from Google OAuth
+  const userAvatar = user?.user_metadata?.avatar_url || user?.user_metadata?.picture;
+  const userName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0];
 
   // Load review count on client side
   useEffect(() => {
@@ -173,13 +181,21 @@ export default function DashboardNavbar() {
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
                   className="flex items-center gap-1 p-3 rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900"
                 >
-                  <Image 
-                    src="/user.png" 
-                    alt="Profile" 
-                    width={24} 
-                    height={24} 
-                    className="h-6 w-6" 
-                  />
+                  {userAvatar ? (
+                    <img 
+                      src={userAvatar} 
+                      alt="Profile" 
+                      className="h-6 w-6 rounded-full object-cover"
+                    />
+                  ) : (
+                    <Image 
+                      src="/user.png" 
+                      alt="Profile" 
+                      width={24} 
+                      height={24} 
+                      className="h-6 w-6" 
+                    />
+                  )}
                   {isProfileMenuOpen ? (
                     <ChevronUp className="h-4 w-4" />
                   ) : (
@@ -222,6 +238,17 @@ export default function DashboardNavbar() {
                       <CreditCard className="h-5 w-5 text-green-500" />
                       Membership
                     </Link>
+                    <hr className="my-2 mx-2 border-gray-200" />
+                    <button
+                      onClick={() => {
+                        setIsProfileMenuOpen(false);
+                        signOut();
+                      }}
+                      className="w-full flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-700 transition-all duration-200 rounded-lg mx-2"
+                    >
+                      <LogOut className="h-5 w-5 text-gray-500" />
+                      Log Out
+                    </button>
                   </div>
                 )}
               </div>

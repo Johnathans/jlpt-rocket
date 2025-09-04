@@ -89,7 +89,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/dashboard`
+        redirectTo: `${window.location.origin}/auth/callback`
       }
     })
     return { error }
@@ -97,18 +97,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signOut = async () => {
     await supabase.auth.signOut()
+    // Redirect to home page after logout
+    window.location.href = '/'
   }
 
   const updateProfile = async (updates: { full_name?: string; jlpt_level?: string }) => {
     if (!user) return { error: new Error('No user logged in') }
 
-    const { error } = await supabase
-      .from('profiles')
-      .update({
-        ...updates,
-        updated_at: new Date().toISOString(),
-      })
-      .eq('id', user.id)
+    // Update user metadata in Supabase Auth instead of profiles table
+    const { error } = await supabase.auth.updateUser({
+      data: {
+        full_name: updates.full_name,
+        ...updates
+      }
+    })
 
     return { error }
   }
