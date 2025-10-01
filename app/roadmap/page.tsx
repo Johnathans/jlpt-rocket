@@ -1,9 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Calendar, Clock, BookOpen, FileText, Target, ChevronRight, Check } from 'lucide-react';
+import { Calendar, Clock, BookOpen, FileText, Target, ChevronRight, Check, Play, Zap } from 'lucide-react';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 import { getContentCounts } from '@/lib/supabase-data';
+import { StreakSystem } from '@/lib/streakSystem';
+import { ReviewSystem } from '@/lib/reviewSystem';
+import { useRouter } from 'next/navigation';
 
 interface DailyPlan {
   day: number;
@@ -12,6 +15,7 @@ interface DailyPlan {
   vocabulary: number;
   testQuestions: number;
   completed: boolean;
+  dateObj: Date;
 }
 
 interface StudyPlan {
@@ -31,17 +35,30 @@ const timelineOptions = [
 
 export default function RoadmapPage() {
   const { currentLevel } = useJLPTLevel();
+  const router = useRouter();
   const [selectedDays, setSelectedDays] = useState(90);
   const [studyPlan, setStudyPlan] = useState<StudyPlan | null>(null);
   const [contentCounts, setContentCounts] = useState({ kanji: 0, vocabulary: 0, sentences: 0 });
   const [loading, setLoading] = useState(true);
+  const [completedDays, setCompletedDays] = useState<Set<string>>(new Set());
+  const [showAllDays, setShowAllDays] = useState(false);
 
-  // Load content counts
+  // Load content counts and completed days
   useEffect(() => {
     const loadContentCounts = async () => {
       try {
         const counts = await getContentCounts();
         setContentCounts(counts);
+        
+        // Load completed days from streak system
+        const streakData = StreakSystem.getStreakData();
+        const completed = new Set<string>();
+        Object.keys(streakData.dailyStreaks).forEach(dateStr => {
+          if (streakData.dailyStreaks[dateStr]) {
+            completed.add(dateStr);
+          }
+        });
+        setCompletedDays(completed);
       } catch (error) {
         console.error('Error loading content counts:', error);
       } finally {
@@ -85,6 +102,7 @@ export default function RoadmapPage() {
     for (let day = 1; day <= selectedDays; day++) {
       const currentDate = new Date(startDate);
       currentDate.setDate(startDate.getDate() + day - 1);
+      const dateStr = currentDate.toISOString().split('T')[0];
       
       schedule.push({
         day,
@@ -95,7 +113,8 @@ export default function RoadmapPage() {
         kanji: Math.min(dailyKanji, Math.max(0, targetKanji - (day - 1) * dailyKanji)),
         vocabulary: Math.min(dailyVocabulary, Math.max(0, targetVocabulary - (day - 1) * dailyVocabulary)),
         testQuestions: Math.min(dailyTestQuestions, Math.max(0, targetTestQuestions - (day - 1) * dailyTestQuestions)),
-        completed: false
+        completed: completedDays.has(dateStr),
+        dateObj: currentDate
       });
     }
 
@@ -106,6 +125,36 @@ export default function RoadmapPage() {
       dailyTestQuestions,
       schedule
     });
+  };
+
+  const getTodayIndex = () => {
+    if (!studyPlan) return -1;
+    const today = new Date().toISOString().split('T')[0];
+    return studyPlan.schedule.findIndex(day => 
+      day.dateObj.toISOString().split('T')[0] === today
+    );
+  };
+
+  const handleStartKanji = (day: DailyPlan) => {
+    router.push(`/kanji?level=${currentLevel}`);
+  };
+
+  const handleStartVocabulary = (day: DailyPlan) => {
+    router.push(`/vocabulary?level=${currentLevel}`);
+  };
+
+  const handleStartTraining = (day: DailyPlan) => {
+    router.push(`/match?type=mixed&level=${currentLevel}`);
+  };
+
+  const getCompletedCount = () => {
+    if (!studyPlan) return 0;
+    return studyPlan.schedule.filter(day => day.completed).length;
+  };
+
+  const getProgressPercentage = () => {
+    if (!studyPlan) return 0;
+    return Math.round((getCompletedCount() / studyPlan.schedule.length) * 100);
   };
 
   if (loading) {
@@ -182,6 +231,29 @@ export default function RoadmapPage() {
               Your {selectedDays}-Day Study Plan
             </h2>
             
+            <div className="mb-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Progress Overview</h3>
+                  <p className="text-sm text-gray-600">
+                    {getCompletedCount()} of {studyPlan.schedule.length} days completed ({getProgressPercentage()}%)
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm text-gray-600">Current Streak</p>
+                  <p className="text-2xl font-bold text-orange-500">
+                    {StreakSystem.getStreakData().currentStreak} 🔥
+                  </p>
+                </div>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-3">
+                <div 
+                  className="bg-green-500 h-3 rounded-full transition-all duration-300"
+                  style={{ width: `${getProgressPercentage()}%` }}
+                ></div>
+              </div>
+            </div>
+            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="text-center p-6 bg-gray-50 rounded-xl">
                 <div className="flex justify-center mb-3">
@@ -227,16 +299,24 @@ export default function RoadmapPage() {
             </div>
             
             <div className="space-y-3 max-h-96 overflow-y-auto">
-              {studyPlan.schedule.slice(0, 14).map((day, index) => (
+              {(showAllDays ? studyPlan.schedule : studyPlan.schedule.slice(0, 14)).map((day, index) => {
+                const todayIndex = getTodayIndex();
+                const isToday = index === todayIndex;
+                const isPast = index < todayIndex;
+                const isFuture = index > todayIndex;
+                
+                return (
                 <div
                   key={day.day}
                   className={`
                     flex items-center justify-between p-4 rounded-lg border transition-colors
                     ${day.completed 
                       ? 'bg-green-50 border-green-200' 
-                      : index === 0 
+                      : isToday 
                         ? 'bg-blue-50 border-blue-200' 
-                        : 'bg-gray-50 border-gray-200 hover:bg-gray-100'
+                        : isPast
+                          ? 'bg-red-50 border-red-200'
+                          : 'bg-gray-50 border-gray-200 hover:bg-gray-100'
                     }
                   `}
                 >
@@ -245,9 +325,11 @@ export default function RoadmapPage() {
                       w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm
                       ${day.completed 
                         ? 'bg-green-500 text-white' 
-                        : index === 0 
+                        : isToday 
                           ? 'bg-blue-500 text-white' 
-                          : 'bg-gray-200 text-gray-600'
+                          : isPast
+                            ? 'bg-red-500 text-white'
+                            : 'bg-gray-200 text-gray-600'
                       }
                     `}>
                       {day.completed ? <Check className="h-5 w-5" /> : day.day}
@@ -255,37 +337,94 @@ export default function RoadmapPage() {
                     <div>
                       <h3 className="font-semibold text-gray-900">
                         Day {day.day}
-                        {index === 0 && !day.completed && (
+                        {isToday && !day.completed && (
                           <span className="ml-2 text-sm text-blue-600 font-normal">Today</span>
+                        )}
+                        {isPast && !day.completed && (
+                          <span className="ml-2 text-sm text-red-600 font-normal">Missed</span>
                         )}
                       </h3>
                       <p className="text-sm text-gray-500">{day.date}</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-6 text-sm">
-                    <div className="text-center">
-                      <p className="font-semibold text-gray-900">{day.kanji}</p>
-                      <p className="text-gray-500">Kanji</p>
+                  <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-4 text-sm">
+                      <div className="text-center">
+                        <p className="font-semibold text-gray-900">{day.kanji}</p>
+                        <p className="text-gray-500">Kanji</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="font-semibold text-gray-900">{day.vocabulary}</p>
+                        <p className="text-gray-500">Vocab</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="font-semibold text-gray-900">{day.testQuestions}</p>
+                        <p className="text-gray-500">Tests</p>
+                      </div>
                     </div>
-                    <div className="text-center">
-                      <p className="font-semibold text-gray-900">{day.vocabulary}</p>
-                      <p className="text-gray-500">Vocab</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="font-semibold text-gray-900">{day.testQuestions}</p>
-                      <p className="text-gray-500">Tests</p>
-                    </div>
-                    <ChevronRight className="h-5 w-5 text-gray-400" />
+                    
+                    {(isToday || isFuture) && !day.completed && (
+                      <div className="flex items-center space-x-2">
+                        <button
+                          onClick={() => handleStartKanji(day)}
+                          className="px-3 py-1 bg-blue-500 text-white text-xs rounded-md hover:bg-blue-600 transition-colors"
+                          title="Study Kanji"
+                        >
+                          <FileText className="h-3 w-3" />
+                        </button>
+                        <button
+                          onClick={() => handleStartVocabulary(day)}
+                          className="px-3 py-1 bg-green-500 text-white text-xs rounded-md hover:bg-green-600 transition-colors"
+                          title="Study Vocabulary"
+                        >
+                          <BookOpen className="h-3 w-3" />
+                        </button>
+                        <button
+                          onClick={() => handleStartTraining(day)}
+                          className="px-3 py-1 bg-purple-500 text-white text-xs rounded-md hover:bg-purple-600 transition-colors"
+                          title="Start Training"
+                        >
+                          <Zap className="h-3 w-3" />
+                        </button>
+                      </div>
+                    )}
+                    
+                    {day.completed && (
+                      <div className="text-green-600 text-sm font-medium">
+                        ✓ Completed
+                      </div>
+                    )}
+                    
+                    {isPast && !day.completed && (
+                      <div className="text-red-600 text-sm font-medium">
+                        Missed
+                      </div>
+                    )}
                   </div>
                 </div>
-              ))}
+              );
+              })}
               
-              {studyPlan.schedule.length > 14 && (
+              {!showAllDays && studyPlan.schedule.length > 14 && (
                 <div className="text-center py-4">
-                  <p className="text-gray-500">
-                    ... and {studyPlan.schedule.length - 14} more days
-                  </p>
+                  <button
+                    onClick={() => setShowAllDays(true)}
+                    className="px-4 py-2 text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                  >
+                    Show all {studyPlan.schedule.length} days
+                  </button>
+                </div>
+              )}
+              
+              {showAllDays && (
+                <div className="text-center py-4">
+                  <button
+                    onClick={() => setShowAllDays(false)}
+                    className="px-4 py-2 text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                  >
+                    Show less
+                  </button>
                 </div>
               )}
             </div>

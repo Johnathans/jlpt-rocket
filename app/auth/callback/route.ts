@@ -9,7 +9,12 @@ export async function GET(request: NextRequest) {
   if (code) {
     const cookieStore = cookies()
     const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
-    await supabase.auth.exchangeCodeForSession(code)
+    const { error } = await supabase.auth.exchangeCodeForSession(code)
+    
+    if (error) {
+      console.error('OAuth callback error:', error)
+      return NextResponse.redirect(`${requestUrl.origin}/?error=auth_failed`)
+    }
   }
 
   // URL to redirect to after sign in process completes
