@@ -185,12 +185,12 @@ export default function RoadmapPage() {
         </div>
 
         {/* Timeline Selection */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-8 mb-8">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">
             Select Your Timeline
           </h2>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {timelineOptions.map((option) => {
               const isSelected = selectedDays === option.days;
               
@@ -199,7 +199,7 @@ export default function RoadmapPage() {
                   key={option.days}
                   onClick={() => setSelectedDays(option.days)}
                   className={`
-                    p-6 rounded-xl border-2 transition-all duration-200 hover:scale-105
+                    p-3 sm:p-6 rounded-xl border-2 transition-all duration-200 hover:scale-105
                     ${isSelected 
                       ? 'bg-green-500 border-green-500 text-white shadow-lg' 
                       : 'bg-white border-gray-200 text-gray-700 hover:border-green-300 hover:shadow-md'
@@ -208,13 +208,13 @@ export default function RoadmapPage() {
                 >
                   <div className="text-center">
                     <div className={`
-                      w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3
+                      w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3
                       ${isSelected ? 'bg-white/20' : 'bg-gray-100'}
                     `}>
-                      <Clock className={`h-6 w-6 ${isSelected ? 'text-white' : 'text-gray-600'}`} />
+                      <Clock className={`h-4 w-4 sm:h-6 sm:w-6 ${isSelected ? 'text-white' : 'text-gray-600'}`} />
                     </div>
-                    <h3 className="text-lg font-bold mb-1">{option.label}</h3>
-                    <p className={`text-sm ${isSelected ? 'text-white/80' : 'text-gray-500'}`}>
+                    <h3 className="text-sm sm:text-lg font-bold mb-1">{option.label}</h3>
+                    <p className={`text-xs sm:text-sm ${isSelected ? 'text-white/80' : 'text-gray-500'}`}>
                       {option.description}
                     </p>
                   </div>
@@ -348,7 +348,7 @@ export default function RoadmapPage() {
                     </div>
                   </div>
                   
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-center gap-4">
                     <div className="flex items-center space-x-4 text-sm">
                       <div className="text-center">
                         <p className="font-semibold text-gray-900">{day.kanji}</p>
@@ -364,43 +364,45 @@ export default function RoadmapPage() {
                       </div>
                     </div>
                     
-                    {(isToday || isFuture) && !day.completed && (
-                      <div className="flex items-center space-x-2">
-                        <button
-                          onClick={() => handleStartKanji(day)}
-                          className="px-3 py-1 bg-blue-500 text-white text-xs rounded-md hover:bg-blue-600 transition-colors"
-                          title="Study Kanji"
-                        >
-                          <FileText className="h-3 w-3" />
-                        </button>
-                        <button
-                          onClick={() => handleStartVocabulary(day)}
-                          className="px-3 py-1 bg-green-500 text-white text-xs rounded-md hover:bg-green-600 transition-colors"
-                          title="Study Vocabulary"
-                        >
-                          <BookOpen className="h-3 w-3" />
-                        </button>
-                        <button
-                          onClick={() => handleStartTraining(day)}
-                          className="px-3 py-1 bg-purple-500 text-white text-xs rounded-md hover:bg-purple-600 transition-colors"
-                          title="Start Training"
-                        >
-                          <Zap className="h-3 w-3" />
-                        </button>
-                      </div>
-                    )}
-                    
-                    {day.completed && (
-                      <div className="text-green-600 text-sm font-medium">
-                        ✓ Completed
-                      </div>
-                    )}
-                    
-                    {isPast && !day.completed && (
-                      <div className="text-red-600 text-sm font-medium">
-                        Missed
-                      </div>
-                    )}
+                    <div className="flex items-center justify-between sm:justify-end gap-2">
+                      {(isToday || isFuture) && !day.completed && (
+                        <div className="flex items-center space-x-1 sm:space-x-2">
+                          <button
+                            onClick={() => handleStartKanji(day)}
+                            className="px-2 sm:px-3 py-1 bg-blue-500 text-white text-xs rounded-md hover:bg-blue-600 transition-colors"
+                            title="Study Kanji"
+                          >
+                            <FileText className="h-3 w-3" />
+                          </button>
+                          <button
+                            onClick={() => handleStartVocabulary(day)}
+                            className="px-2 sm:px-3 py-1 bg-green-500 text-white text-xs rounded-md hover:bg-green-600 transition-colors"
+                            title="Study Vocabulary"
+                          >
+                            <BookOpen className="h-3 w-3" />
+                          </button>
+                          <button
+                            onClick={() => handleStartTraining(day)}
+                            className="px-2 sm:px-3 py-1 bg-purple-500 text-white text-xs rounded-md hover:bg-purple-600 transition-colors"
+                            title="Start Training"
+                          >
+                            <Zap className="h-3 w-3" />
+                          </button>
+                        </div>
+                      )}
+                      
+                      {day.completed && (
+                        <div className="text-green-600 text-xs sm:text-sm font-medium">
+                          ✓ Completed
+                        </div>
+                      )}
+                      
+                      {isPast && !day.completed && (
+                        <div className="text-red-600 text-xs sm:text-sm font-medium">
+                          Missed
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               );
