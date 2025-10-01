@@ -65,13 +65,44 @@ function MatchPageContent() {
   // Load selected items from URL parameters
   useEffect(() => {
     const fetchTrainingItems = async () => {
-      const type = searchParams.get('type');
-      const itemIds = searchParams.get('items')?.split(',') || [];
+      // Check if this is a review session
+      const mode = searchParams.get('mode');
+      const isReviewMode = mode === 'review';
+      
+      let type: string | null = null;
+      let itemIds: string[] = [];
+      
+      if (isReviewMode) {
+        // Review mode: get ids and types from review page
+        const reviewIds = searchParams.get('ids')?.split(',') || [];
+        const reviewTypes = searchParams.get('types')?.split(',') || [];
+        
+        // For now, handle mixed types by taking the first type
+        // TODO: Support mixed type training sessions
+        type = reviewTypes[0] || null;
+        itemIds = reviewIds;
+      } else {
+        // Normal training mode
+        type = searchParams.get('type');
+        itemIds = searchParams.get('items')?.split(',') || [];
+      }
       
       if (type && itemIds.length > 0) {
         let selectedItems: TrainingItem[] = [];
         
-        if (type === 'vocabulary') {
+        if (isReviewMode) {
+          // Review mode: get items from ReviewSystem
+          const reviewItems = ReviewSystem.getItemsDueForReview();
+          selectedItems = reviewItems
+            .filter(item => itemIds.includes(item.id))
+            .map(item => ({
+              id: item.id,
+              character: item.content?.word || item.content?.character || item.content?.sentence || `Item ${item.id}`,
+              meaning: item.content?.meaning || 'No meaning available',
+              reading: item.content?.reading,
+              type: item.type
+            }));
+        } else if (type === 'vocabulary') {
           // Try to get vocabulary data from localStorage first (passed from vocabulary page)
           const storedVocabData = localStorage.getItem('selectedVocabularyData');
           if (storedVocabData) {
