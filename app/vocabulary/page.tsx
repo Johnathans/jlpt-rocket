@@ -7,6 +7,7 @@ import { ReviewSystem } from '@/lib/reviewSystem';
 import { useSearchParams } from 'next/navigation';
 import { getAllVocabulary, getVocabularyByLevel, getVocabularyCountByLevel, VocabularyData } from '@/lib/supabase-data';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
+import TrainingModeModal from '@/components/TrainingModeModal';
 
 interface VocabularyItem {
   id: string;
@@ -33,6 +34,7 @@ function VocabularyPageContent() {
   const [error, setError] = useState<string | null>(null);
   const [masteredVocab, setMasteredVocab] = useState<Set<string>>(new Set());
   const [selectedVocab, setSelectedVocab] = useState<Set<string>>(new Set());
+  const [showTrainingModal, setShowTrainingModal] = useState(false);
 
   // Calculate paginated data
   const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
@@ -185,49 +187,56 @@ function VocabularyPageContent() {
   };
 
   const toggleMastered = (id: string) => {
-    const newMasteredVocab = new Set(masteredVocab);
-    const isCurrentlyMastered = newMasteredVocab.has(id);
-    
-    if (isCurrentlyMastered) {
-      newMasteredVocab.delete(id);
+    const newMastered = new Set(masteredVocab);
+    if (newMastered.has(id)) {
+      newMastered.delete(id);
       // Reset progress in review system when unmarking as mastered
       ReviewSystem.resetItemProgress(id, 'vocabulary');
+      console.log(`Reset progress for vocabulary ${id}`);
     } else {
-      newMasteredVocab.add(id);
-      // Mark as mastered in review system (set to 100% mastery)
+      newMastered.add(id);
+      // Set as mastered in review system when marking as mastered
       ReviewSystem.setItemMastered(id, 'vocabulary');
+      console.log(`Set vocabulary ${id} as mastered`);
     }
-    
-    setMasteredVocab(newMasteredVocab);
+    setMasteredVocab(newMastered);
+  };
+
+  const handleStartTraining = () => {
+    setShowTrainingModal(true);
+  };
+
+  const getSelectedVocabData = () => {
+    return allVocabularyData.filter(vocab => selectedVocab.has(vocab.id));
   };
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
-        <div className="mb-6 flex justify-between items-center">
+        <div className="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <p className="text-sm text-gray-600">Select vocabulary to begin studying</p>
-        <div className="flex gap-3">
+        <div className="flex gap-2 sm:gap-3">
           <button
             onClick={selectAll}
-            className="px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-medium transition-colors rounded-md shadow-sm border-b-4 border-green-700 hover:border-green-800 text-base"
+            className="flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 bg-green-500 text-white hover:bg-green-600 font-medium transition-colors rounded-md shadow-sm border-b-4 border-green-700 hover:border-green-800 text-sm sm:text-base"
           >
             Select All
           </button>
           <button
             onClick={clearAll}
-            className="px-6 py-3 bg-gray-400 text-white hover:bg-gray-500 font-medium transition-colors rounded-md shadow-sm border-b-4 border-gray-600 hover:border-gray-700 text-base"
+            className="flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 bg-gray-400 text-white hover:bg-gray-500 font-medium transition-colors rounded-md shadow-sm border-b-4 border-gray-600 hover:border-gray-700 text-sm sm:text-base"
           >
             Clear All
           </button>
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {vocabularyData.map((item) => (
               <div
                 key={item.id}
                 onClick={() => toggleSelected(item.id)}
-                className={`border-t-4 border-l-6 border-r-6 border-b-8 border-gray-200 transition-all duration-200 hover:shadow-lg rounded-2xl p-6 relative cursor-pointer ${
+                className={`border-t-4 border-l-4 sm:border-l-6 border-r-4 sm:border-r-6 border-b-6 sm:border-b-8 border-gray-200 transition-all duration-200 hover:shadow-lg rounded-xl sm:rounded-2xl p-4 sm:p-6 relative cursor-pointer ${
                   selectedVocab.has(item.id)
                     ? 'bg-blue-50 border-blue-200 border-b-blue-500'
                     : 
@@ -238,50 +247,50 @@ function VocabularyPageContent() {
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
-                  <div className="text-center mb-4 pt-4">
-                    <div className="text-7xl font-bold text-black font-japanese mb-3">
+                  <div className="text-center mb-4 pt-2 sm:pt-4">
+                    <div className="text-4xl sm:text-7xl font-bold text-black font-japanese mb-2 sm:mb-3">
                       {item.word}
                     </div>
-                    <p className="text-xl text-gray-600 font-japanese mb-3">
+                    <p className="text-lg sm:text-xl text-gray-600 font-japanese mb-2 sm:mb-3">
                       {item.reading}
                     </p>
-                    <p className="text-xl text-gray-800 font-medium">
+                    <p className="text-base sm:text-xl text-gray-800 font-medium">
                       {item.meaning}
                     </p>
                   </div>
                 </div>
                 {/* Top left badge */}
-                <div className="absolute top-4 left-4">
-                  <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getLevelColor(item.level)}`}>
+                <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
+                  <span className={`px-2 sm:px-3 py-1 rounded-full text-xs font-semibold border ${getLevelColor(item.level)}`}>
                     {item.level}
                   </span>
                 </div>
 
                 {/* Top right audio button */}
-                <div className="absolute top-4 right-4">
+                <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         playAudio(item.word);
                       }}
-                      className="p-2 text-gray-500 hover:text-green-600 hover:bg-white/80 rounded-full transition-colors"
+                      className="p-1.5 sm:p-2 text-gray-500 hover:text-green-600 hover:bg-white/80 rounded-full transition-colors"
                     >
-                      <Volume2 className="h-4 w-4" />
+                      <Volume2 className="h-3 w-3 sm:h-4 sm:w-4" />
                     </button>
                   </div>
 
                 {/* Selected indicator */}
                 {selectedVocab.has(item.id) && (
-                  <div className="absolute top-4 right-16 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                  <div className="absolute top-2 sm:top-4 right-12 sm:right-16 w-5 h-5 sm:w-6 sm:h-6 bg-blue-500 rounded-full flex items-center justify-center">
                     <span className="text-white text-xs font-bold">✓</span>
                   </div>
                 )}
               </div>
 
               {/* Mastery Toggle Switch */}
-              <div className="absolute bottom-4 right-4 pt-2">
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-500">
+              <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 pt-2">
+              <div className="flex items-center gap-1 sm:gap-2">
+                <span className="text-xs text-gray-500 hidden sm:inline">
                   {masteredVocab.has(item.id) ? 'Mastered' : 'Learning'}
                 </span>
                 <button
@@ -289,13 +298,13 @@ function VocabularyPageContent() {
                     e.stopPropagation();
                     toggleMastered(item.id);
                   }}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ${
+                  className={`relative inline-flex h-5 w-9 sm:h-6 sm:w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ${
                     masteredVocab.has(item.id) ? 'bg-green-500' : 'bg-gray-300'
                   }`}
                 >
                   <span
-                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                      masteredVocab.has(item.id) ? 'translate-x-6' : 'translate-x-1'
+                    className={`inline-block h-3 w-3 sm:h-4 sm:w-4 transform rounded-full bg-white transition-transform ${
+                      masteredVocab.has(item.id) ? 'translate-x-5 sm:translate-x-6' : 'translate-x-1'
                     }`}
                   />
                 </button>
@@ -305,30 +314,28 @@ function VocabularyPageContent() {
         ))}
       </div>
 
-      {/* Pagination Controls */}
+      {/* Page Navigation */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-4 mt-8 mb-8">
+        <div className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4 mt-8">
           <button
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
-            className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
           >
             Previous
           </button>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center space-x-1 sm:space-x-2 overflow-x-auto">
             {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
               const pageNum = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
-              if (pageNum > totalPages) return null;
-              
               return (
                 <button
                   key={pageNum}
                   onClick={() => setCurrentPage(pageNum)}
-                  className={`px-3 py-2 rounded-lg ${
-                    pageNum === currentPage
+                  className={`px-2 sm:px-3 py-1 rounded-md transition-colors text-sm ${
+                    currentPage === pageNum
                       ? 'bg-green-500 text-white'
-                      : 'bg-white border border-gray-300 hover:bg-gray-50'
+                      : 'bg-white text-gray-700 hover:bg-gray-100'
                   }`}
                 >
                   {pageNum}
@@ -340,7 +347,7 @@ function VocabularyPageContent() {
           <button
             onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
           >
             Next
           </button>
@@ -362,23 +369,25 @@ function VocabularyPageContent() {
                   {selectedVocab.size} vocabulary selected
                 </span>
               </div>
-              <Link 
-                href={`/match?type=vocabulary&items=${Array.from(selectedVocab).join(',')}`}
-                className="px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-semibold transition-all rounded-lg shadow-sm border-b-4 border-green-600 hover:border-green-700 hover:translate-y-0.5 active:translate-y-0.5 inline-block"
-                onClick={() => {
-                  // Store selected vocabulary data in localStorage for the match page
-                  const selectedVocabData = allVocabularyData.filter(vocab => 
-                    selectedVocab.has(vocab.id.toString())
-                  );
-                  localStorage.setItem('selectedVocabularyData', JSON.stringify(selectedVocabData));
-                }}
+              <button
+                onClick={handleStartTraining}
+                className="px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-semibold transition-all rounded-lg shadow-sm border-b-4 border-green-600 hover:border-green-700 hover:translate-y-0.5 active:translate-y-0.5"
               >
                 Study Selected Vocabulary
-              </Link>
+              </button>
             </div>
           </div>
         </div>
       )}
+
+      {/* Training Mode Selection Modal */}
+      <TrainingModeModal
+        isOpen={showTrainingModal}
+        onClose={() => setShowTrainingModal(false)}
+        selectedItems={Array.from(selectedVocab)}
+        itemType="vocabulary"
+        selectedData={getSelectedVocabData()}
+      />
       </div>
     </div>
   );
