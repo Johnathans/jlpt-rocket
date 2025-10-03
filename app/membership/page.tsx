@@ -4,7 +4,7 @@ import { Crown, Check, CreditCard, Calendar, Gift } from 'lucide-react';
 
 export default function MembershipPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#f9f8ff' }}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         
         {/* Membership Header */}

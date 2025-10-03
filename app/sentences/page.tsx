@@ -400,7 +400,7 @@ function SentencesPageContent() {
     const progress = ((currentIndex + 1) / trainingItems.length) * 100;
 
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen" style={{ backgroundColor: '#f9f8ff' }}>
         {/* Training Header */}
         <div className="bg-white border-b border-gray-200 px-4 py-3">
           <div className="max-w-4xl mx-auto flex items-center justify-between">
@@ -503,7 +503,7 @@ function SentencesPageContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
+    <div className="min-h-screen pb-20" style={{ backgroundColor: '#f9f8ff' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
       <div className="mb-6 flex justify-between items-center">
         <p className="text-sm text-gray-600">Select sentences to begin studying</p>
@@ -701,7 +701,7 @@ function SentencesPageContent() {
 
 export default function SentencesPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f9f8ff' }}>Loading...</div>}>
       <SentencesPageContent />
     </Suspense>
   );

@@ -22,7 +22,7 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
   if (isTrainingMode) {
     // Clean layout for training modes
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen" style={{ backgroundColor: '#f9f8ff' }}>
         {children}
       </div>
     );
@@ -44,7 +44,7 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
   // Regular app layout with sidebar, categories, and streak
   return (
     <SidebarLayout>
-      <main className="bg-gray-50 relative">
+      <main className="relative" style={{ backgroundColor: '#f9f8ff' }}>
         <CategoryLinks />
         <StreakCounter />
         <div>
