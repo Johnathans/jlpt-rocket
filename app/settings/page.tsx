@@ -9,7 +9,7 @@ export default function SettingsPage() {
   const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#f9f8ff' }}>
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         
         {/* Settings Header */}

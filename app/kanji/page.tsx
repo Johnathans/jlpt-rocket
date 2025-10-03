@@ -238,7 +238,7 @@ function KanjiPageContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 pb-20">
+      <div className="min-h-screen pb-20" style={{ backgroundColor: '#f9f8ff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
           <div className="flex justify-center items-center h-64">
             <div className="text-center">
@@ -253,7 +253,7 @@ function KanjiPageContent() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 pb-20">
+      <div className="min-h-screen pb-20" style={{ backgroundColor: '#f9f8ff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
           <div className="flex justify-center items-center h-64">
             <div className="text-center">
@@ -274,7 +274,7 @@ function KanjiPageContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
+    <div className="min-h-screen pb-20" style={{ backgroundColor: '#f9f8ff' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
       <div className="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <p className="text-sm text-gray-600">Select kanji to begin studying ({kanjiData.length} available)</p>
@@ -477,7 +477,7 @@ function KanjiPageContent() {
 
 export default function KanjiPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f9f8ff' }}>Loading...</div>}>
       <KanjiPageContent />
     </Suspense>
   );

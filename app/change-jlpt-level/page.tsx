@@ -92,7 +92,7 @@ export default function ChangeJLPTLevelPage() {
   const selectedLevelData = selectedLevel ? jlptLevels.find(l => l.level === selectedLevel) : null;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen py-8" style={{ backgroundColor: '#f9f8ff' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">

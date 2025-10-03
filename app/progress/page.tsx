@@ -177,7 +177,7 @@ function ProgressPageContent() {
   const maxTotal = Math.max(stats.kanji.total, stats.vocabulary.total, stats.sentences.total);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ backgroundColor: '#f9f8ff' }}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
         <div className="bg-white rounded-lg shadow-sm p-8">
@@ -235,7 +235,7 @@ function ProgressPageContent() {
 
 export default function ProgressPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f9f8ff' }}>Loading...</div>}>
       <ProgressPageContent />
     </Suspense>
   );
