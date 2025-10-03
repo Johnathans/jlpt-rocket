@@ -57,7 +57,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-purple-50">
       {/* Hero Section */}
       <section className="py-12 sm:py-20 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
@@ -67,7 +67,7 @@ export default function HomePage() {
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
                 Master Japanese.
                 <span className="block">Pass Your JLPT.</span>
-                <span className="block text-green-600">Rocket to Success</span>
+                <span className="block" style={{ color: '#2a0d81' }}>Rocket to Success</span>
               </h1>
               <p className="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed">
                 Accelerate your Japanese learning with adaptive practice, spaced repetition, and real-time progress tracking.
@@ -76,7 +76,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center lg:justify-start">
                 <a 
                   href="/signup"
-                  className="px-8 py-4 bg-green-600 text-white text-lg font-semibold rounded-lg hover:bg-green-700 transition-all duration-200 shadow-lg hover:shadow-xl text-center"
+                  className="px-8 py-4 text-white text-lg font-semibold rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl text-center hover:opacity-90" style={{ backgroundColor: '#2a0d81' }}
                 >
                   Start Learning Free
                 </a>
@@ -90,11 +90,11 @@ export default function HomePage() {
               
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 text-sm text-gray-500">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#2a0d81' }}></div>
                   <span>Free forever plan</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#2a0d81' }}></div>
                   <span>No credit card required</span>
                 </div>
               </div>
@@ -102,13 +102,13 @@ export default function HomePage() {
             
             {/* Right Column - Interactive Kanji Grid */}
             <div className="relative order-first lg:order-last">
-              <div className="bg-white rounded-2xl p-4 sm:p-6 border border-gray-200 shadow-lg">
+              <div className="bg-white rounded-2xl p-4 sm:p-6 border border-purple-200 shadow-lg">
                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3">
                   {kanjiData.map((item, index) => (
                     <div
                       key={index}
                       onClick={() => handleCardClick(index)}
-                      className="aspect-square rounded-lg border-2 flex flex-col items-center justify-center text-center cursor-pointer hover:scale-105 border-green-200 hover:border-green-400 hover:shadow-md bg-green-50 perspective-1000"
+                      className="aspect-square rounded-lg border-2 flex flex-col items-center justify-center text-center cursor-pointer hover:scale-105 border-purple-200 hover:border-purple-400 hover:shadow-md bg-purple-50 perspective-1000"
                     >
                       <div className={`w-full h-full flex items-center justify-center transition-transform duration-700 transform-style-preserve-3d ${
                         flippedCard === index ? 'rotate-y-180' : ''
@@ -122,7 +122,7 @@ export default function HomePage() {
                         
                         {/* Back side - Reading and Meaning */}
                         <div className="absolute w-full h-full flex flex-col items-center justify-center backface-hidden rotate-y-180 p-1">
-                          <div className="text-xs sm:text-sm font-medium text-green-700 mb-1">
+                          <div className="text-xs sm:text-sm font-medium text-purple-700 mb-1">
                             {item.reading}
                           </div>
                           <div className="text-xs text-gray-700 leading-tight text-center">
@@ -152,24 +152,24 @@ export default function HomePage() {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12">
             <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl font-bold text-green-600">練</span>
+              <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl font-bold text-purple-600">練</span>
               </div>
               <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">Adaptive Practice</h3>
               <p className="text-gray-600 leading-relaxed">Smart algorithms adjust difficulty based on your performance, ensuring optimal learning pace</p>
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl font-bold text-green-600">進</span>
+              <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl font-bold text-purple-600">進</span>
               </div>
               <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">Progress Tracking</h3>
               <p className="text-gray-600 leading-relaxed">Detailed analytics show your strengths and areas for improvement across all JLPT skills</p>
             </div>
             
             <div className="text-center sm:col-span-2 lg:col-span-1">
-              <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl font-bold text-green-600">習</span>
+              <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span className="text-3xl font-bold text-purple-600">習</span>
               </div>
               <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">Mastery System</h3>
               <p className="text-gray-600 leading-relaxed">Spaced repetition ensures long-term retention of vocabulary, kanji, and grammar patterns</p>
@@ -179,7 +179,7 @@ export default function HomePage() {
       </section>
       
       {/* Pricing Section */}
-      <section className="py-16 sm:py-20 px-4 sm:px-6 bg-gray-100">
+      <section className="py-16 sm:py-20 px-4 sm:px-6 bg-purple-50">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h2>
@@ -209,13 +209,13 @@ export default function HomePage() {
                 key={index}
                 className={`relative bg-white rounded-2xl border-2 p-6 sm:p-8 text-center transition-all duration-200 hover:shadow-xl ${
                   plan.popular 
-                    ? 'border-green-300 shadow-lg transform scale-105' 
+                    ? 'border-purple-300 shadow-lg transform scale-105' 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-green-600 text-white px-6 py-2 rounded-full text-sm font-semibold">
+                    <span className="text-white px-6 py-2 rounded-full text-sm font-semibold" style={{ backgroundColor: '#2a0d81' }}>
                       Most Popular
                     </span>
                   </div>
@@ -233,7 +233,7 @@ export default function HomePage() {
                 <ul className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                   {plan.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-center justify-center gap-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
+                      <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: '#2a0d81' }}></div>
                       <span className="text-gray-600 text-sm sm:text-base">{feature}</span>
                     </li>
                   ))}
@@ -243,9 +243,10 @@ export default function HomePage() {
                   href="/signup"
                   className={`w-full inline-block px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-lg transition-all duration-200 ${
                     plan.popular
-                      ? 'bg-green-600 text-white hover:bg-green-700 shadow-lg hover:shadow-xl'
+                      ? 'text-white shadow-lg hover:shadow-xl hover:opacity-90'
                       : 'bg-gray-900 text-white hover:bg-black'
                   }`}
+                  style={plan.popular ? { backgroundColor: '#2a0d81' } : {}}
                 >
                   {plan.price === '$0' ? 'Get Started Free' : 'Upgrade to Pro'}
                 </a>
@@ -284,7 +285,7 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
               href="/signup"
-              className="inline-block px-8 py-4 bg-green-600 text-white text-lg font-semibold rounded-lg hover:bg-green-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+              className="inline-block px-8 py-4 text-white text-lg font-semibold rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl hover:opacity-90" style={{ backgroundColor: '#2a0d81' }}
             >
               Start Learning Free
             </a>

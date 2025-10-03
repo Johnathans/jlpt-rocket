@@ -78,15 +78,9 @@ export default function StoryLearningFlow({
 
   switch (currentPhase) {
     case 'modal':
-      return (
-        <StoryLearningModal
-          isOpen={true}
-          onClose={handleClose}
-          storyTitle={story.title}
-          storyItems={story.items}
-          onStartLearning={handleStartLearning}
-        />
-      );
+      // Skip modal and go directly to reading
+      handleStartLearning([]);
+      return null;
 
     case 'reading':
       return (
