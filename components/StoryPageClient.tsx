@@ -1,11 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import { ArrowLeft, BookOpen, Target } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import VocabKanjiGrid from '@/components/VocabKanjiGrid';
-import StoryPreviewModal from '@/components/StoryPreviewModal';
 
 interface StoryPageClientProps {
   story: {
@@ -30,7 +27,6 @@ interface StoryPageClientProps {
 
 export default function StoryPageClient({ story }: StoryPageClientProps) {
   const router = useRouter();
-  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="p-6">
@@ -88,13 +84,13 @@ export default function StoryPageClient({ story }: StoryPageClientProps) {
           
           {/* Action Buttons */}
           <div className="flex gap-4 mb-8">
-            <button
-              onClick={() => setShowModal(true)}
+            <Link
+              href={`/story/${story.id}/module`}
               className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-green-500 text-white hover:bg-green-600 font-semibold transition-all rounded-lg shadow-sm border-b-4 border-green-600 hover:border-green-700 hover:translate-y-0.5 active:translate-y-0.5"
             >
               <BookOpen className="h-5 w-5" />
               Start Story Module
-            </button>
+            </Link>
             <Link
               href={`/story/${story.id}/read`}
               className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-blue-500 text-white hover:bg-blue-600 font-semibold transition-all rounded-lg shadow-sm border-b-4 border-blue-600 hover:border-blue-700 hover:translate-y-0.5 active:translate-y-0.5"
@@ -105,29 +101,8 @@ export default function StoryPageClient({ story }: StoryPageClientProps) {
           </div>
         </div>
 
-        {/* Vocabulary and Kanji Grid */}
-        <VocabKanjiGrid items={story.vocabulary?.map(item => ({
-          ...item,
-          type: item.type as 'vocabulary' | 'kanji'
-        })) || []} />
       </div>
 
-      {/* Story Preview Modal */}
-      <StoryPreviewModal
-        story={{
-          ...story,
-          vocabulary: story.vocabulary?.map(item => ({
-            ...item,
-            type: item.type as 'vocabulary' | 'kanji'
-          }))
-        }}
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        onStartModule={() => {
-          setShowModal(false);
-          router.push(`/story/${story.id}/module`);
-        }}
-      />
     </div>
   );
 }

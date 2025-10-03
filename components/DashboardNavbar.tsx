@@ -31,6 +31,7 @@ export default function DashboardNavbar() {
   const [reviewCount, setReviewCount] = useState(0);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isStreakModalOpen, setIsStreakModalOpen] = useState(false);
+  const [isNavDropdownOpen, setIsNavDropdownOpen] = useState(false);
   const { user, signOut } = useAuth();
   const pathname = usePathname();
 
@@ -61,66 +62,94 @@ export default function DashboardNavbar() {
     };
   }, []);
 
-  // Close profile dropdown when clicking outside
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Element;
       if (isProfileMenuOpen && !target.closest('.profile-dropdown')) {
         setIsProfileMenuOpen(false);
       }
+      if (isNavDropdownOpen && !target.closest('.nav-dropdown')) {
+        setIsNavDropdownOpen(false);
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isProfileMenuOpen]);
+  }, [isProfileMenuOpen, isNavDropdownOpen]);
 
   const menuItems = [
     { href: '/roadmap', label: 'Roadmap', icon: Rocket },
-    { href: '/stories', label: 'Stories', icon: null },
+    { href: '/stories', label: 'Stories', icon: FileText },
     { href: '/vocabulary', label: 'Vocabulary', icon: Languages },
-    { href: '/kanji', label: 'Kanji', icon: null },
+    { href: '/kanji', label: 'Kanji', icon: Languages },
     { href: '/sentences', label: 'Sentences', icon: Target },
     { href: '/test', label: 'Test', icon: FileText },
   ];
 
+  // Get current page label for dropdown button
+  const currentPage = menuItems.find(item => item.href === pathname);
+  const currentPageLabel = currentPage ? currentPage.label : 'Navigation';
+
   return (
     <>
       {/* Top Navigation Bar */}
-      <nav className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-lg z-50">
+      <nav className="fixed top-0 left-0 right-0 border-b border-gray-200 shadow-lg z-50" style={{ backgroundColor: '#2a0d81' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo Section */}
             <div className="flex items-center">
               <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-                <Rocket className="h-6 w-6 text-green-500 flex-shrink-0" />
-                <span className="text-2xl text-gray-900">
+                <Rocket className="h-6 w-6 text-white flex-shrink-0" />
+                <span className="text-2xl text-white">
                   <span className="font-light">Rocket</span>
                   <span className="font-black ml-1">JLPT</span>
                 </span>
               </Link>
             </div>
 
-            {/* Desktop Navigation Links */}
+            {/* Desktop Navigation Dropdown - Aligned Left */}
             <div className="hidden md:flex flex-1 justify-start">
-              <div className="ml-10 flex items-center space-x-8">
-                {menuItems.map((item) => {
-                  const isActive = pathname === item.href;
-                  
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={`py-4 px-4 text-base font-medium transition-all duration-200 rounded-lg ${
-                        isActive
-                          ? 'text-black bg-green-100'
-                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                  );
-                })}
-
+              <div className="ml-8 relative nav-dropdown">
+                <button
+                  onClick={() => setIsNavDropdownOpen(!isNavDropdownOpen)}
+                  className="flex items-center gap-2 py-4 px-4 text-base font-medium transition-all duration-200 rounded-lg text-white hover:bg-white hover:bg-opacity-10"
+                >
+                  <span>{currentPageLabel}</span>
+                  {isNavDropdownOpen ? (
+                    <ChevronUp className="h-4 w-4" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4" />
+                  )}
+                </button>
+                
+                {/* Navigation Dropdown Menu */}
+                {isNavDropdownOpen && (
+                  <div className="absolute left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
+                    {menuItems.map((item) => {
+                      const Icon = item.icon;
+                      const isActive = pathname === item.href;
+                      
+                      return (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className={`flex items-center gap-3 px-4 py-3 text-base font-medium transition-all duration-200 rounded-lg mx-2 ${
+                            isActive
+                              ? 'bg-purple-50 text-purple-700 border border-purple-200'
+                              : 'text-gray-700 hover:bg-purple-50 hover:text-purple-700'
+                          }`}
+                          onClick={() => setIsNavDropdownOpen(false)}
+                        >
+                          {Icon && <Icon className={`h-5 w-5 ${
+                            isActive ? 'text-purple-600' : 'text-purple-500'
+                          }`} />}
+                          {item.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -129,9 +158,9 @@ export default function DashboardNavbar() {
               {/* Lightning Bolt Icon */}
               <button
                 onClick={() => setIsStreakModalOpen(true)}
-                className="flex items-center justify-center w-12 h-12 rounded-lg hover:bg-gray-50 transition-all duration-200"
+                className="flex items-center justify-center w-12 h-12 rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-200"
               >
-                <Zap className="h-6 w-6 flex-shrink-0 text-yellow-500" />
+                <Zap className="h-6 w-6 flex-shrink-0 text-white" />
               </button>
               
               {/* Progress Icon */}
@@ -139,17 +168,11 @@ export default function DashboardNavbar() {
                 href="/progress"
                 className={`p-3 rounded-lg transition-all duration-200 ${
                   pathname === '/progress'
-                    ? 'bg-green-100 text-black'
-                    : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                    ? 'bg-white bg-opacity-20 text-white'
+                    : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-gray-200'
                 }`}
               >
-                <Image 
-                  src="/chart-bars.png" 
-                  alt="Progress" 
-                  width={24} 
-                  height={24} 
-                  className="h-6 w-6" 
-                />
+                <BarChart3 className="h-6 w-6" />
               </Link>
 
               {/* Review Icon with Badge */}
@@ -157,19 +180,13 @@ export default function DashboardNavbar() {
                 href="/review"
                 className={`relative p-3 rounded-lg transition-all duration-200 ${
                   pathname === '/review'
-                    ? 'bg-green-100 text-black'
-                    : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                    ? 'bg-white bg-opacity-20 text-white'
+                    : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-gray-200'
                 }`}
               >
-                <Image 
-                  src="/rewind.png" 
-                  alt="Review" 
-                  width={24} 
-                  height={24} 
-                  className="h-6 w-6" 
-                />
+                <RotateCcw className="h-6 w-6" />
                 {reviewCount > 0 && (
-                  <span className="absolute -top-1 -right-1 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold" style={{ backgroundColor: '#FB4141' }}>
+                  <span className="absolute -top-1 -right-1 bg-white text-purple-800 text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
                     {reviewCount > 99 ? '99+' : reviewCount}
                   </span>
                 )}
@@ -179,7 +196,7 @@ export default function DashboardNavbar() {
               <div className="relative profile-dropdown">
                 <button 
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                  className="flex items-center gap-1 p-3 rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                  className="flex items-center gap-1 p-3 rounded-lg transition-all duration-200 text-white hover:bg-white hover:bg-opacity-10 hover:text-gray-200"
                 >
                   {userAvatar ? (
                     <img 
@@ -258,7 +275,7 @@ export default function DashboardNavbar() {
             <div className="md:hidden flex items-center">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 text-sm font-medium text-white hover:text-gray-200 hover:bg-white hover:bg-opacity-10"
               >
                 <Menu className="h-5 w-5" />
               </button>
@@ -279,8 +296,8 @@ export default function DashboardNavbar() {
                       href={item.href}
                       className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium ${
                         isActive
-                          ? 'bg-blue-50 text-blue-700'
-                          : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                          ? 'bg-white bg-opacity-20 text-white'
+                          : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-gray-200'
                       }`}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
@@ -295,18 +312,12 @@ export default function DashboardNavbar() {
                   href="/progress"
                   className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium ${
                     pathname === '/progress'
-                      ? 'bg-gray-600 text-white'
-                      : 'text-gray-300 hover:bg-gray-600 hover:text-white'
+                      ? 'bg-white bg-opacity-20 text-white'
+                      : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-gray-200'
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <Image 
-                    src="/chart-bars.png" 
-                    alt="Progress" 
-                    width={20} 
-                    height={20} 
-                    className="h-5 w-5 flex-shrink-0" 
-                  />
+                  <BarChart3 className="h-5 w-5 flex-shrink-0" />
                   <span>Progress</span>
                 </Link>
 
@@ -315,21 +326,15 @@ export default function DashboardNavbar() {
                   href="/review"
                   className={`relative flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium ${
                     pathname === '/review'
-                      ? 'bg-gray-600 text-white'
-                      : 'text-gray-300 hover:bg-gray-600 hover:text-white'
+                      ? 'bg-white bg-opacity-20 text-white'
+                      : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-gray-200'
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <Image 
-                    src="/rewind.png" 
-                    alt="Review" 
-                    width={20} 
-                    height={20} 
-                    className="h-5 w-5 flex-shrink-0" 
-                  />
+                  <RotateCcw className="h-5 w-5 flex-shrink-0" />
                   <span>Review</span>
                   {reviewCount > 0 && (
-                    <span className="text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold ml-1" style={{ backgroundColor: '#FB4141' }}>
+                    <span className="bg-white text-purple-800 text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold ml-1">
                       {reviewCount > 99 ? '99+' : reviewCount}
                     </span>
                   )}
