@@ -281,7 +281,7 @@ function KanjiPageContent() {
         <div className="flex gap-2 sm:gap-3">
           <button
             onClick={selectAll}
-            className="flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 bg-green-500 text-white hover:bg-green-600 font-medium transition-colors rounded-md shadow-sm border-b-4 border-green-700 hover:border-green-800 text-sm sm:text-base"
+            className="flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 bg-white text-purple-700 hover:bg-purple-50 font-medium transition-colors rounded-md shadow-sm border-b-4 border-purple-300 hover:border-purple-400 text-sm sm:text-base"
           >
             Select All
           </button>
@@ -301,11 +301,10 @@ function KanjiPageContent() {
             onClick={() => toggleSelected(item.id)}
             className={`border-t-4 border-l-4 sm:border-l-6 border-r-4 sm:border-r-6 border-b-6 sm:border-b-8 border-gray-200 transition-all duration-200 hover:shadow-lg rounded-xl sm:rounded-2xl p-4 sm:p-6 relative cursor-pointer ${
               selectedKanji.has(item.id)
-                ? 'bg-blue-50 border-blue-200 border-b-blue-500'
-                : 
-              masteredKanji.has(item.id)
-                ? 'bg-green-50 border-green-200 border-b-green-500'
-                : 'bg-white border-gray-200 border-b-gray-400 hover:border-gray-300 hover:border-b-gray-600'
+                ? 'bg-purple-50 border-purple-200 border-b-purple-500'
+                : masteredKanji.has(item.id)
+                  ? 'bg-green-50 border-green-200 border-b-green-500'
+                  : 'bg-white border-gray-200 border-b-gray-400 hover:border-gray-300 hover:border-b-gray-600'
             }`}
           >
             <div className="text-center mb-4">
@@ -343,7 +342,7 @@ function KanjiPageContent() {
 
             {/* Selected indicator */}
             {selectedKanji.has(item.id) && (
-              <div className="absolute top-4 right-16 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+              <div className="absolute top-4 right-16 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center">
                 <span className="text-white text-xs font-bold">✓</span>
               </div>
             )}
@@ -453,7 +452,7 @@ function KanjiPageContent() {
               </div>
               <button
                 onClick={handleStartTraining}
-                className="px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-semibold transition-all rounded-lg shadow-sm border-b-4 border-green-600 hover:border-green-700 hover:translate-y-0.5 active:translate-y-0.5"
+                className="px-6 py-3 bg-purple-700 text-white hover:bg-purple-800 font-semibold transition-all rounded-lg shadow-sm border-b-4 border-purple-800 hover:border-purple-900 hover:translate-y-0.5 active:translate-y-0.5"
               >
                 Study Selected Kanji
               </button>
