@@ -225,34 +225,34 @@ export default function DashboardNavbar() {
                   <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-200 py-3 z-50">
                     <Link
                       href="/profile"
-                      className="flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-700 hover:bg-green-50 hover:text-green-700 transition-all duration-200 rounded-lg mx-2"
+                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-all duration-200 rounded-lg mx-2"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      <User className="h-5 w-5 text-green-500" />
+                      <User className="h-5 w-5 text-purple-500" />
                       Profile
                     </Link>
                     <Link
                       href="/change-jlpt-level"
-                      className="flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-700 hover:bg-green-50 hover:text-green-700 transition-all duration-200 rounded-lg mx-2"
+                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-all duration-200 rounded-lg mx-2"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      <GraduationCap className="h-5 w-5 text-green-500" />
+                      <GraduationCap className="h-5 w-5 text-purple-500" />
                       Change JLPT Level
                     </Link>
                     <Link
                       href="/settings"
-                      className="flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-700 hover:bg-green-50 hover:text-green-700 transition-all duration-200 rounded-lg mx-2"
+                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-all duration-200 rounded-lg mx-2"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      <Settings className="h-5 w-5 text-green-500" />
+                      <Settings className="h-5 w-5 text-purple-500" />
                       Settings
                     </Link>
                     <Link
                       href="/membership"
-                      className="flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-700 hover:bg-green-50 hover:text-green-700 transition-all duration-200 rounded-lg mx-2"
+                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-all duration-200 rounded-lg mx-2"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      <CreditCard className="h-5 w-5 text-green-500" />
+                      <CreditCard className="h-5 w-5 text-purple-500" />
                       Membership
                     </Link>
                     <hr className="my-2 mx-2 border-gray-200" />
@@ -261,7 +261,7 @@ export default function DashboardNavbar() {
                         setIsProfileMenuOpen(false);
                         signOut();
                       }}
-                      className="w-full flex items-center gap-3 px-6 py-3 text-lg font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-700 transition-all duration-200 rounded-lg mx-2"
+                      className="w-full flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-700 transition-all duration-200 rounded-lg mx-2"
                     >
                       <LogOut className="h-5 w-5 text-gray-500" />
                       Log Out

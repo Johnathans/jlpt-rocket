@@ -469,7 +469,7 @@ function SentencesPageContent() {
                         : option === selectedAnswer
                         ? 'bg-red-100 border-red-500 text-red-800'
                         : 'bg-gray-100 border-gray-300 text-gray-600'
-                      : 'bg-white border-gray-300 hover:border-blue-400 hover:bg-blue-50 active:scale-95'
+                      : 'bg-white border-gray-300 hover:border-purple-400 hover:bg-purple-50 active:scale-95'
                   }`}
                 >
                   {option}
@@ -510,7 +510,7 @@ function SentencesPageContent() {
         <div className="flex gap-3">
           <button
             onClick={selectAll}
-            className="px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-medium transition-colors rounded-md shadow-sm border-b-4 border-green-700 hover:border-green-800 text-base"
+            className="px-6 py-3 bg-white text-purple-700 hover:bg-purple-50 font-medium transition-colors rounded-md shadow-sm border-b-4 border-purple-300 hover:border-purple-400 text-base"
           >
             Select All
           </button>
@@ -543,7 +543,7 @@ function SentencesPageContent() {
             onClick={() => toggleSelected(item.id)}
             className={`border-t-4 border-l-6 border-r-6 border-b-8 border-gray-200 transition-all duration-200 hover:shadow-lg rounded-2xl p-6 relative cursor-pointer ${
               selectedSentences.has(item.id)
-                ? 'bg-blue-50 border-blue-200 border-b-blue-500'
+                ? 'bg-purple-50 border-purple-200 border-b-purple-500'
                 : 
               masteredSentences.has(item.id)
                 ? 'bg-green-50 border-green-200 border-b-green-500'
@@ -557,7 +557,7 @@ function SentencesPageContent() {
               </span>
               <div className="flex items-center gap-2">
                 {selectedSentences.has(item.id) && (
-                  <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                  <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center">
                     <span className="text-white text-xs font-bold">✓</span>
                   </div>
                 )}
@@ -686,7 +686,7 @@ function SentencesPageContent() {
               </div>
               <Link 
                 href={`/cloze?type=sentences&items=${Array.from(selectedSentences).join(',')}`}
-                className="px-6 py-3 bg-green-500 text-white hover:bg-green-600 font-semibold transition-all rounded-lg shadow-sm border-b-4 border-green-600 hover:border-green-700 hover:translate-y-0.5 active:translate-y-0.5 inline-block"
+                className="px-6 py-3 bg-purple-700 text-white hover:bg-purple-800 font-semibold transition-all rounded-lg shadow-sm border-b-4 border-purple-800 hover:border-purple-900 hover:translate-y-0.5 active:translate-y-0.5 inline-block"
               >
                 Study Selected Sentences
               </Link>
