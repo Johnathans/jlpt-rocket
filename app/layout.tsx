@@ -15,6 +15,9 @@ const notoSansJP = Noto_Sans_JP({
 export const metadata: Metadata = {
   title: 'Rocket JLPT - Master Japanese with JLPT Preparation',
   description: 'Comprehensive JLPT preparation with adaptive practice, progress tracking, and mastery-based learning for all levels N5 to N1.',
+  verification: {
+    google: 'QTXmBhJNtHqoEMr5xvi4txr4HOtyartnb9jeFyoSf9Q',
+  },
   icons: {
     icon: [
       { url: '/icon.svg', type: 'image/svg+xml' },
