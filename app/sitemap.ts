@@ -47,6 +47,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly' as const,
       priority: 0.4,
     },
+    {
+      url: `${baseUrl}/schools`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
   ];
 
   // JLPT Kanji level pages
