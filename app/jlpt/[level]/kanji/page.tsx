@@ -140,39 +140,93 @@ export default function KanjiLevelPage() {
       {/* Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
-            <Link href="/" className="hover:text-pink-600 transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-gray-900">JLPT {level} Kanji</span>
-          </div>
-          
-          {/* Title with gradient accent */}
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-3">
-              <h1 className="text-4xl font-bold text-gray-900">
-                {level} Kanji
-              </h1>
-              <span className="px-3 py-1 text-sm font-medium bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-full">
-                {filteredKanji.length} characters
-              </span>
-            </div>
-            <p className="text-lg text-gray-600">
-              Complete reference for JLPT {level} kanji characters with meanings and readings
-            </p>
-          </div>
+          <div className="flex items-start justify-between gap-8">
+            <div className="flex-1">
+              {/* Breadcrumb */}
+              <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
+                <Link href="/" className="hover:text-pink-600 transition-colors">Home</Link>
+                <span>/</span>
+                <span className="text-gray-900">JLPT {level} Kanji</span>
+              </div>
+              
+              {/* Title with gradient accent */}
+              <div className="mb-8">
+                <div className="flex items-center gap-3 mb-3">
+                  <h1 className="text-4xl font-bold text-gray-900">
+                    {level} Kanji
+                  </h1>
+                  <span className="px-3 py-1 text-sm font-medium bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-full">
+                    {filteredKanji.length} characters
+                  </span>
+                </div>
+                <p className="text-lg text-gray-600">
+                  Complete reference for JLPT {level} kanji characters with meanings and readings
+                </p>
+              </div>
 
-          {/* Search Bar */}
-          <div className="flex items-center gap-4">
-            <div className="relative flex-1 max-w-lg">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search by character or meaning..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-shadow"
-              />
+              {/* Search Bar */}
+              <div className="flex items-center gap-4">
+                <div className="relative flex-1 max-w-lg">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Search by character or meaning..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-shadow"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Progress Meter - Desktop Only */}
+            <div className="hidden xl:flex flex-col items-center gap-4">
+              <div className="relative w-44 h-44">
+                {/* Background circles */}
+                <svg className="w-44 h-44 transform -rotate-90">
+                  {/* Background segments */}
+                  {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+                    <circle
+                      key={`bg-${i}`}
+                      cx="88"
+                      cy="88"
+                      r="76"
+                      fill="none"
+                      stroke="#e5e7eb"
+                      strokeWidth="16"
+                      strokeDasharray="59.69 417.83"
+                      strokeDashoffset={-i * 59.69}
+                      strokeLinecap="round"
+                    />
+                  ))}
+                  {/* Progress segments - showing 30% (2.4 segments out of 8) */}
+                  {[0, 1, 2].map((i) => (
+                    <circle
+                      key={`progress-${i}`}
+                      cx="88"
+                      cy="88"
+                      r="76"
+                      fill="none"
+                      stroke={i < 2 ? "#ec4899" : "#f97316"}
+                      strokeWidth="16"
+                      strokeDasharray="59.69 417.83"
+                      strokeDashoffset={-i * 59.69}
+                      strokeLinecap="round"
+                      className="transition-all duration-500"
+                    />
+                  ))}
+                </svg>
+                {/* Center text */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-4xl font-bold text-gray-900">0%</span>
+                </div>
+              </div>
+              <Link 
+                href="/login"
+                className="text-sm text-gray-600 hover:text-pink-600 transition-colors font-medium"
+              >
+                Login to track progress
+              </Link>
             </div>
           </div>
         </div>
