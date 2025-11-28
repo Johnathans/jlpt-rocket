@@ -211,14 +211,14 @@ function VocabularyPageContent() {
   };
 
   return (
-    <div className="min-h-screen pb-20" style={{ backgroundColor: '#f9f8ff' }}>
+    <div className="min-h-screen pb-20" style={{ backgroundColor: '#f9fafb' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
         <div className="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <p className="text-sm text-gray-600">Select vocabulary to begin studying</p>
         <div className="flex gap-2 sm:gap-3">
           <button
             onClick={selectAll}
-            className="flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 bg-white text-purple-700 hover:bg-purple-50 font-medium transition-colors rounded-md shadow-sm border-b-4 border-purple-300 hover:border-purple-400 text-sm sm:text-base"
+            className="flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 bg-white text-pink-600 hover:bg-pink-50 font-medium transition-colors rounded-md shadow-sm border-b-4 border-pink-300 hover:border-pink-400 text-sm sm:text-base"
           >
             Select All
           </button>
@@ -238,7 +238,7 @@ function VocabularyPageContent() {
                 onClick={() => toggleSelected(item.id)}
                 className={`border-t-4 border-l-4 sm:border-l-6 border-r-4 sm:border-r-6 border-b-6 sm:border-b-8 border-gray-200 transition-all duration-200 hover:shadow-lg rounded-xl sm:rounded-2xl p-4 sm:p-6 relative cursor-pointer ${
                   selectedVocab.has(item.id)
-                    ? 'bg-purple-50 border-purple-200 border-b-purple-500'
+                    ? 'bg-pink-50 border-pink-200 border-b-pink-500'
                     : 
                   masteredVocab.has(item.id)
                     ? 'bg-green-50 border-green-200 border-b-green-500'
@@ -281,7 +281,7 @@ function VocabularyPageContent() {
 
                 {/* Selected indicator */}
                 {selectedVocab.has(item.id) && (
-                  <div className="absolute top-2 sm:top-4 right-12 sm:right-16 w-5 h-5 sm:w-6 sm:h-6 bg-purple-500 rounded-full flex items-center justify-center">
+                  <div className="absolute top-2 sm:top-4 right-12 sm:right-16 w-5 h-5 sm:w-6 sm:h-6 bg-pink-500 rounded-full flex items-center justify-center">
                     <span className="text-white text-xs font-bold">✓</span>
                   </div>
                 )}
@@ -298,7 +298,7 @@ function VocabularyPageContent() {
                     e.stopPropagation();
                     toggleMastered(item.id);
                   }}
-                  className={`relative inline-flex h-5 w-9 sm:h-6 sm:w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ${
+                  className={`relative inline-flex h-5 w-9 sm:h-6 sm:w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 ${
                     masteredVocab.has(item.id) ? 'bg-green-500' : 'bg-gray-300'
                   }`}
                 >
@@ -371,7 +371,7 @@ function VocabularyPageContent() {
               </div>
               <button
                 onClick={handleStartTraining}
-                className="px-6 py-3 bg-purple-700 text-white hover:bg-purple-800 font-semibold transition-all rounded-lg shadow-sm border-b-4 border-purple-800 hover:border-purple-900 hover:translate-y-0.5 active:translate-y-0.5"
+                className="px-6 py-3 bg-pink-500 text-white hover:bg-pink-600 font-semibold transition-all rounded-lg shadow-sm hover:translate-y-0.5 active:translate-y-0.5"
               >
                 Study Selected Vocabulary
               </button>
@@ -395,7 +395,7 @@ function VocabularyPageContent() {
 
 export default function VocabularyPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f9f8ff' }}>Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f9fafb' }}>Loading...</div>}>
       <VocabularyPageContent />
     </Suspense>
   );

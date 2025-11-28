@@ -3,40 +3,39 @@ import { Rocket, Heart, Mail, Github, Twitter } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-gray-200 mt-16">
-      <div className="w-full px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-white border-t border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Logo and Description */}
           <div className="col-span-1 md:col-span-2">
-            <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-              <Rocket className="h-6 w-6 text-green-500" />
+            <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity mb-4">
+              <Rocket className="h-6 w-6 text-pink-500" />
               <span className="text-xl text-gray-900">
                 <span className="font-light">Rocket</span>
                 <span className="font-black ml-1">JLPT</span>
               </span>
             </Link>
-            <p className="text-gray-600 mb-4 max-w-md">
-              Master Japanese reading with graded stories featuring furigana pronunciation guides. 
-              Your journey from beginner to advanced starts here.
+            <p className="text-gray-600 mb-6 max-w-md">
+              Master Japanese with comprehensive JLPT preparation. Adaptive practice, progress tracking, and mastery-based learning for all levels.
             </p>
             <div className="flex items-center gap-4">
               <a 
                 href="#" 
-                className="text-gray-400 hover:text-green-500 transition-colors"
+                className="text-gray-400 hover:text-pink-500 transition-colors"
                 aria-label="Twitter"
               >
                 <Twitter className="h-5 w-5" />
               </a>
               <a 
                 href="#" 
-                className="text-gray-400 hover:text-green-500 transition-colors"
+                className="text-gray-400 hover:text-pink-500 transition-colors"
                 aria-label="GitHub"
               >
                 <Github className="h-5 w-5" />
               </a>
               <a 
                 href="#" 
-                className="text-gray-400 hover:text-green-500 transition-colors"
+                className="text-gray-400 hover:text-pink-500 transition-colors"
                 aria-label="Email"
               >
                 <Mail className="h-5 w-5" />
@@ -51,22 +50,22 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/" className="text-gray-600 hover:text-green-600 transition-colors">
+                <Link href="/" className="text-gray-600 hover:text-pink-500 transition-colors">
                   Stories
                 </Link>
               </li>
               <li>
-                <Link href="/vocabulary" className="text-gray-600 hover:text-green-600 transition-colors">
+                <Link href="/vocabulary" className="text-gray-600 hover:text-pink-500 transition-colors">
                   Vocabulary
                 </Link>
               </li>
               <li>
-                <Link href="/kanji" className="text-gray-600 hover:text-green-600 transition-colors">
+                <Link href="/kanji" className="text-gray-600 hover:text-pink-500 transition-colors">
                   Kanji
                 </Link>
               </li>
               <li>
-                <Link href="/profile" className="text-gray-600 hover:text-green-600 transition-colors">
+                <Link href="/profile" className="text-gray-600 hover:text-pink-500 transition-colors">
                   Progress
                 </Link>
               </li>
@@ -80,22 +79,22 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/about" className="text-gray-600 hover:text-green-600 transition-colors">
+                <Link href="/about" className="text-gray-600 hover:text-pink-500 transition-colors">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/help" className="text-gray-600 hover:text-green-600 transition-colors">
+                <Link href="/help" className="text-gray-600 hover:text-pink-500 transition-colors">
                   Help Center
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-600 hover:text-green-600 transition-colors">
+                <Link href="/contact" className="text-gray-600 hover:text-pink-500 transition-colors">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-gray-600 hover:text-green-600 transition-colors">
+                <Link href="/privacy" className="text-gray-600 hover:text-pink-500 transition-colors">
                   Privacy Policy
                 </Link>
               </li>
@@ -111,7 +110,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-1 text-sm text-gray-500 mt-4 md:mt-0">
               <span>Made with</span>
-              <Heart className="h-4 w-4 text-red-500" />
+              <Heart className="h-4 w-4 text-pink-500" />
               <span>for Japanese learners</span>
             </div>
           </div>

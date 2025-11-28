@@ -83,7 +83,7 @@ export default function TestPage() {
   };
 
   return (
-    <div className="min-h-screen py-8" style={{ backgroundColor: '#f9f8ff' }}>
+    <div className="min-h-screen py-8" style={{ backgroundColor: '#f9fafb' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -109,7 +109,7 @@ export default function TestPage() {
                   relative p-8 rounded-2xl border-2 transition-all duration-200 hover:scale-105
                   ${isSelected 
                     ? 'bg-green-500 border-green-500 text-white shadow-lg' 
-                    : 'bg-white border-gray-200 text-gray-700 hover:border-green-300 hover:shadow-md'
+                    : 'bg-white border-gray-200 text-gray-700 hover:border-pink-300 hover:shadow-md'
                   }
                 `}
               >
@@ -187,7 +187,7 @@ export default function TestPage() {
                     
                     <button
                       onClick={() => handleStartTest(test.id)}
-                      className="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                      className="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
                     >
                       {test.accuracy === null ? 'Start' : 'Retake'}
                     </button>

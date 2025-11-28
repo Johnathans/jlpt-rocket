@@ -393,7 +393,7 @@ function ClozePageContent() {
           <p className="text-gray-600 mb-6">Please select some sentences to practice with.</p>
           <button
             onClick={() => router.push('/sentences')}
-            className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-pink-500 transition-colors"
           >
             Go to Sentences
           </button>

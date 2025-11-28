@@ -75,9 +75,9 @@ export default function ProfilePage() {
   // Show loading state if auth is still loading
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f9f8ff' }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f9fafb' }}>
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading profile...</p>
         </div>
       </div>
@@ -87,10 +87,10 @@ export default function ProfilePage() {
   // Show login prompt if no user
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f9f8ff' }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f9fafb' }}>
         <div className="text-center">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Please sign in to view your profile</h2>
-          <a href="/login" className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+          <a href="/login" className="px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600">
             Sign In
           </a>
         </div>
@@ -98,7 +98,7 @@ export default function ProfilePage() {
     );
   }
   return (
-    <div className="min-h-screen py-8" style={{ backgroundColor: '#f9f8ff' }}>
+    <div className="min-h-screen py-8" style={{ backgroundColor: '#f9fafb' }}>
       {/* Success Toast */}
       {showSuccessToast && (
         <div className="fixed top-4 right-4 z-50 bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-2 animate-in slide-in-from-top-2">
@@ -151,7 +151,7 @@ export default function ProfilePage() {
                     <button
                       onClick={handleSaveProfile}
                       disabled={isSaving || !editName.trim()}
-                      className="px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-pink-500 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isSaving ? 'Saving...' : 'Save'}
                     </button>

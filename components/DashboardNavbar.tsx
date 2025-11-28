@@ -94,14 +94,14 @@ export default function DashboardNavbar() {
   return (
     <>
       {/* Top Navigation Bar */}
-      <nav className="fixed top-0 left-0 right-0 border-b border-gray-200 shadow-lg z-50" style={{ backgroundColor: '#2a0d81' }}>
+      <nav className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-sm z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo Section */}
             <div className="flex items-center">
               <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-                <Rocket className="h-6 w-6 text-white flex-shrink-0" />
-                <span className="text-2xl text-white">
+                <Rocket className="h-6 w-6 text-pink-500 flex-shrink-0" />
+                <span className="text-2xl text-gray-900">
                   <span className="font-light">Rocket</span>
                   <span className="font-black ml-1">JLPT</span>
                 </span>
@@ -113,7 +113,7 @@ export default function DashboardNavbar() {
               <div className="ml-8 relative nav-dropdown">
                 <button
                   onClick={() => setIsNavDropdownOpen(!isNavDropdownOpen)}
-                  className="flex items-center gap-2 py-4 px-4 text-base font-medium transition-all duration-200 rounded-lg text-white hover:bg-white hover:bg-opacity-10"
+                  className="flex items-center gap-2 py-4 px-4 text-base font-medium transition-all duration-200 rounded-lg text-gray-900 hover:bg-gray-50"
                 >
                   <span>{currentPageLabel}</span>
                   {isNavDropdownOpen ? (
@@ -136,13 +136,13 @@ export default function DashboardNavbar() {
                           href={item.href}
                           className={`flex items-center gap-3 px-4 py-3 text-base font-medium transition-all duration-200 rounded-lg mx-2 ${
                             isActive
-                              ? 'bg-purple-50 text-purple-700 border border-purple-200'
-                              : 'text-gray-700 hover:bg-purple-50 hover:text-purple-700'
+                              ? 'bg-pink-50 text-pink-600 border border-pink-200'
+                              : 'text-gray-700 hover:bg-gray-50 hover:text-pink-600'
                           }`}
                           onClick={() => setIsNavDropdownOpen(false)}
                         >
                           {Icon && <Icon className={`h-5 w-5 ${
-                            isActive ? 'text-purple-600' : 'text-purple-500'
+                            isActive ? 'text-pink-600' : 'text-pink-500'
                           }`} />}
                           {item.label}
                         </Link>
@@ -158,9 +158,9 @@ export default function DashboardNavbar() {
               {/* Lightning Bolt Icon */}
               <button
                 onClick={() => setIsStreakModalOpen(true)}
-                className="flex items-center justify-center w-12 h-12 rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-200"
+                className="flex items-center justify-center w-12 h-12 rounded-lg hover:bg-gray-50 transition-all duration-200"
               >
-                <Zap className="h-6 w-6 flex-shrink-0 text-white" />
+                <Zap className="h-6 w-6 flex-shrink-0 text-orange-500" />
               </button>
               
               {/* Progress Icon */}
@@ -168,8 +168,8 @@ export default function DashboardNavbar() {
                 href="/progress"
                 className={`p-3 rounded-lg transition-all duration-200 ${
                   pathname === '/progress'
-                    ? 'bg-white bg-opacity-20 text-white'
-                    : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-gray-200'
+                    ? 'bg-pink-50 text-pink-600'
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-pink-600'
                 }`}
               >
                 <BarChart3 className="h-6 w-6" />
@@ -180,13 +180,13 @@ export default function DashboardNavbar() {
                 href="/review"
                 className={`relative p-3 rounded-lg transition-all duration-200 ${
                   pathname === '/review'
-                    ? 'bg-white bg-opacity-20 text-white'
-                    : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-gray-200'
+                    ? 'bg-pink-50 text-pink-600'
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-pink-600'
                 }`}
               >
                 <RotateCcw className="h-6 w-6" />
                 {reviewCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-white text-purple-800 text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                  <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
                     {reviewCount > 99 ? '99+' : reviewCount}
                   </span>
                 )}
@@ -196,7 +196,7 @@ export default function DashboardNavbar() {
               <div className="relative profile-dropdown">
                 <button 
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                  className="flex items-center gap-1 p-3 rounded-lg transition-all duration-200 text-white hover:bg-white hover:bg-opacity-10 hover:text-gray-200"
+                  className="flex items-center gap-1 p-3 rounded-lg transition-all duration-200 text-gray-900 hover:bg-gray-50"
                 >
                   {userAvatar ? (
                     <img 
@@ -225,34 +225,34 @@ export default function DashboardNavbar() {
                   <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-200 py-3 z-50">
                     <Link
                       href="/profile"
-                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-all duration-200 rounded-lg mx-2"
+                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-pink-600 transition-all duration-200 rounded-lg mx-2"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      <User className="h-5 w-5 text-purple-500" />
+                      <User className="h-5 w-5 text-pink-500" />
                       Profile
                     </Link>
                     <Link
                       href="/change-jlpt-level"
-                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-all duration-200 rounded-lg mx-2"
+                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-pink-600 transition-all duration-200 rounded-lg mx-2"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      <GraduationCap className="h-5 w-5 text-purple-500" />
+                      <GraduationCap className="h-5 w-5 text-pink-500" />
                       Change JLPT Level
                     </Link>
                     <Link
                       href="/settings"
-                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-all duration-200 rounded-lg mx-2"
+                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-pink-600 transition-all duration-200 rounded-lg mx-2"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      <Settings className="h-5 w-5 text-purple-500" />
+                      <Settings className="h-5 w-5 text-pink-500" />
                       Settings
                     </Link>
                     <Link
                       href="/membership"
-                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-all duration-200 rounded-lg mx-2"
+                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-pink-600 transition-all duration-200 rounded-lg mx-2"
                       onClick={() => setIsProfileMenuOpen(false)}
                     >
-                      <CreditCard className="h-5 w-5 text-purple-500" />
+                      <CreditCard className="h-5 w-5 text-pink-500" />
                       Membership
                     </Link>
                     <hr className="my-2 mx-2 border-gray-200" />
@@ -275,7 +275,7 @@ export default function DashboardNavbar() {
             <div className="md:hidden flex items-center">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 text-sm font-medium text-white hover:text-gray-200 hover:bg-white hover:bg-opacity-10"
+                className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 text-sm font-medium text-gray-900 hover:bg-gray-50"
               >
                 <Menu className="h-5 w-5" />
               </button>
@@ -296,8 +296,8 @@ export default function DashboardNavbar() {
                       href={item.href}
                       className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium ${
                         isActive
-                          ? 'bg-white bg-opacity-20 text-white'
-                          : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-gray-200'
+                          ? 'bg-pink-50 text-pink-600'
+                          : 'text-gray-700 hover:bg-gray-50 hover:text-pink-600'
                       }`}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
@@ -312,8 +312,8 @@ export default function DashboardNavbar() {
                   href="/progress"
                   className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium ${
                     pathname === '/progress'
-                      ? 'bg-white bg-opacity-20 text-white'
-                      : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-gray-200'
+                      ? 'bg-pink-50 text-pink-600'
+                      : 'text-gray-700 hover:bg-gray-50 hover:text-pink-600'
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -326,15 +326,15 @@ export default function DashboardNavbar() {
                   href="/review"
                   className={`relative flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium ${
                     pathname === '/review'
-                      ? 'bg-white bg-opacity-20 text-white'
-                      : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-gray-200'
+                      ? 'bg-pink-50 text-pink-600'
+                      : 'text-gray-700 hover:bg-gray-50 hover:text-pink-600'
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <RotateCcw className="h-5 w-5 flex-shrink-0" />
                   <span>Review</span>
                   {reviewCount > 0 && (
-                    <span className="bg-white text-purple-800 text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold ml-1">
+                    <span className="bg-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold ml-1">
                       {reviewCount > 99 ? '99+' : reviewCount}
                     </span>
                   )}

@@ -159,9 +159,9 @@ export default function RoadmapPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f9f8ff' }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f9fafb' }}>
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderBottomColor: '#6436d1' }}></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderBottomColor: '#ec4899' }}></div>
           <p className="text-gray-600">Loading study plan...</p>
         </div>
       </div>
@@ -169,7 +169,7 @@ export default function RoadmapPage() {
   }
 
   return (
-    <div className="min-h-screen py-8" style={{ backgroundColor: '#f9f8ff' }}>
+    <div className="min-h-screen py-8" style={{ backgroundColor: '#f9fafb' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Timeline Selection */}
@@ -193,17 +193,17 @@ export default function RoadmapPage() {
                       : 'bg-white hover:shadow-md'
                     }
                   `}
-                  style={isSelected ? { borderColor: '#6436d1' } : { borderColor: '#f9f8ff' }}
+                  style={isSelected ? { borderColor: '#ec4899' } : { borderColor: '#f9fafb' }}
                 >
                   <div className="text-center">
                     <div 
                       className="w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3"
-                      style={{ backgroundColor: '#f9f8ff' }}
+                      style={{ backgroundColor: '#f9fafb' }}
                     >
-                      <Clock className="h-4 w-4 sm:h-6 sm:w-6" style={{ color: '#6436d1' }} />
+                      <Clock className="h-4 w-4 sm:h-6 sm:w-6" style={{ color: '#ec4899' }} />
                     </div>
-                    <h3 className="text-sm sm:text-lg font-bold mb-1" style={isSelected ? { color: '#6436d1' } : {}}>{option.label}</h3>
-                    <p className="text-xs sm:text-sm" style={{ color: '#6436d1' }}>
+                    <h3 className="text-sm sm:text-lg font-bold mb-1" style={isSelected ? { color: '#ec4899' } : {}}>{option.label}</h3>
+                    <p className="text-xs sm:text-sm" style={{ color: '#ec4899' }}>
                       {option.description}
                     </p>
                   </div>
@@ -231,47 +231,47 @@ export default function RoadmapPage() {
                 <div className="text-right">
                   <p className="text-sm text-gray-600">Current Streak</p>
                   <div className="flex items-center justify-center gap-1">
-                    <span className="text-2xl font-bold" style={{ color: '#6436d1' }}>
+                    <span className="text-2xl font-bold" style={{ color: '#ec4899' }}>
                       {StreakSystem.getStreakData().currentStreak}
                     </span>
-                    <Flame className="h-5 w-5" style={{ color: '#6436d1' }} />
+                    <Flame className="h-5 w-5" style={{ color: '#ec4899' }} />
                   </div>
                 </div>
               </div>
-              <div className="w-full rounded-full h-3" style={{ backgroundColor: '#f9f8ff' }}>
+              <div className="w-full rounded-full h-3" style={{ backgroundColor: '#f9fafb' }}>
                 <div 
                   className="h-3 rounded-full transition-all duration-300"
-                  style={{ backgroundColor: '#6436d1', width: `${getProgressPercentage()}%` }}
+                  style={{ backgroundColor: '#ec4899', width: `${getProgressPercentage()}%` }}
                 ></div>
               </div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="text-center p-6 rounded-xl" style={{ backgroundColor: '#f9f8ff' }}>
+              <div className="text-center p-6 rounded-xl" style={{ backgroundColor: '#f9fafb' }}>
                 <div className="flex justify-center mb-3">
-                  <FileText className="h-8 w-8" style={{ color: '#6436d1' }} />
+                  <FileText className="h-8 w-8" style={{ color: '#ec4899' }} />
                 </div>
-                <h3 className="text-lg font-semibold mb-1" style={{ color: '#6436d1' }}>Daily Kanji</h3>
-                <p className="text-2xl font-bold" style={{ color: '#6436d1' }}>{studyPlan.dailyKanji}</p>
-                <p className="text-sm" style={{ color: '#6436d1' }}>characters per day</p>
+                <h3 className="text-lg font-semibold mb-1" style={{ color: '#ec4899' }}>Daily Kanji</h3>
+                <p className="text-2xl font-bold" style={{ color: '#ec4899' }}>{studyPlan.dailyKanji}</p>
+                <p className="text-sm" style={{ color: '#ec4899' }}>characters per day</p>
               </div>
               
-              <div className="text-center p-6 rounded-xl" style={{ backgroundColor: '#f9f8ff' }}>
+              <div className="text-center p-6 rounded-xl" style={{ backgroundColor: '#f9fafb' }}>
                 <div className="flex justify-center mb-3">
-                  <BookOpen className="h-8 w-8" style={{ color: '#6436d1' }} />
+                  <BookOpen className="h-8 w-8" style={{ color: '#ec4899' }} />
                 </div>
-                <h3 className="text-lg font-semibold mb-1" style={{ color: '#6436d1' }}>Daily Vocabulary</h3>
-                <p className="text-2xl font-bold" style={{ color: '#6436d1' }}>{studyPlan.dailyVocabulary}</p>
-                <p className="text-sm" style={{ color: '#6436d1' }}>words per day</p>
+                <h3 className="text-lg font-semibold mb-1" style={{ color: '#ec4899' }}>Daily Vocabulary</h3>
+                <p className="text-2xl font-bold" style={{ color: '#ec4899' }}>{studyPlan.dailyVocabulary}</p>
+                <p className="text-sm" style={{ color: '#ec4899' }}>words per day</p>
               </div>
               
-              <div className="text-center p-6 rounded-xl" style={{ backgroundColor: '#f9f8ff' }}>
+              <div className="text-center p-6 rounded-xl" style={{ backgroundColor: '#f9fafb' }}>
                 <div className="flex justify-center mb-3">
-                  <Target className="h-8 w-8" style={{ color: '#6436d1' }} />
+                  <Target className="h-8 w-8" style={{ color: '#ec4899' }} />
                 </div>
-                <h3 className="text-lg font-semibold mb-1" style={{ color: '#6436d1' }}>Daily Practice</h3>
-                <p className="text-2xl font-bold" style={{ color: '#6436d1' }}>{studyPlan.dailyTestQuestions}</p>
-                <p className="text-sm" style={{ color: '#6436d1' }}>test questions per day</p>
+                <h3 className="text-lg font-semibold mb-1" style={{ color: '#ec4899' }}>Daily Practice</h3>
+                <p className="text-2xl font-bold" style={{ color: '#ec4899' }}>{studyPlan.dailyTestQuestions}</p>
+                <p className="text-sm" style={{ color: '#ec4899' }}>test questions per day</p>
               </div>
             </div>
           </div>
@@ -318,37 +318,37 @@ export default function RoadmapPage() {
                               : 'text-gray-600'
                         }
                       `}
-                      style={day.completed || isToday || isPast ? { backgroundColor: '#6436d1' } : { backgroundColor: '#f9f8ff' }}
+                      style={day.completed || isToday || isPast ? { backgroundColor: '#ec4899' } : { backgroundColor: '#f9fafb' }}
                     >
                       {day.completed ? <Check className="h-5 w-5" /> : day.day}
                     </div>
                     <div>
-                      <h3 className="font-semibold" style={{ color: '#6436d1' }}>
+                      <h3 className="font-semibold" style={{ color: '#ec4899' }}>
                         Day {day.day}
                         {isToday && !day.completed && (
-                          <span className="ml-2 text-sm font-normal" style={{ color: '#6436d1' }}>Today</span>
+                          <span className="ml-2 text-sm font-normal" style={{ color: '#ec4899' }}>Today</span>
                         )}
                         {isPast && !day.completed && (
-                          <span className="ml-2 text-sm font-normal" style={{ color: '#6436d1' }}>Missed</span>
+                          <span className="ml-2 text-sm font-normal" style={{ color: '#ec4899' }}>Missed</span>
                         )}
                       </h3>
-                      <p className="text-sm" style={{ color: '#6436d1' }}>{day.date}</p>
+                      <p className="text-sm" style={{ color: '#ec4899' }}>{day.date}</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center gap-4">
                     <div className="flex items-center space-x-4 text-sm">
                       <div className="text-center">
-                        <p className="font-semibold" style={{ color: '#6436d1' }}>{day.kanji}</p>
-                        <p style={{ color: '#6436d1' }}>Kanji</p>
+                        <p className="font-semibold" style={{ color: '#ec4899' }}>{day.kanji}</p>
+                        <p style={{ color: '#ec4899' }}>Kanji</p>
                       </div>
                       <div className="text-center">
-                        <p className="font-semibold" style={{ color: '#6436d1' }}>{day.vocabulary}</p>
-                        <p style={{ color: '#6436d1' }}>Vocab</p>
+                        <p className="font-semibold" style={{ color: '#ec4899' }}>{day.vocabulary}</p>
+                        <p style={{ color: '#ec4899' }}>Vocab</p>
                       </div>
                       <div className="text-center">
-                        <p className="font-semibold" style={{ color: '#6436d1' }}>{day.testQuestions}</p>
-                        <p style={{ color: '#6436d1' }}>Tests</p>
+                        <p className="font-semibold" style={{ color: '#ec4899' }}>{day.testQuestions}</p>
+                        <p style={{ color: '#ec4899' }}>Tests</p>
                       </div>
                     </div>
                     
@@ -358,7 +358,7 @@ export default function RoadmapPage() {
                           <button
                             onClick={() => handleStartKanji(day)}
                             className="px-2 sm:px-3 py-1 text-white text-xs rounded-md transition-colors"
-                            style={{ backgroundColor: '#6436d1' }}
+                            style={{ backgroundColor: '#ec4899' }}
                             title="Study Kanji"
                           >
                             <FileText className="h-3 w-3" />
@@ -366,7 +366,7 @@ export default function RoadmapPage() {
                           <button
                             onClick={() => handleStartVocabulary(day)}
                             className="px-2 sm:px-3 py-1 text-white text-xs rounded-md transition-colors"
-                            style={{ backgroundColor: '#6436d1' }}
+                            style={{ backgroundColor: '#ec4899' }}
                             title="Study Vocabulary"
                           >
                             <BookOpen className="h-3 w-3" />
@@ -374,7 +374,7 @@ export default function RoadmapPage() {
                           <button
                             onClick={() => handleStartTraining(day)}
                             className="px-2 sm:px-3 py-1 text-white text-xs rounded-md transition-colors"
-                            style={{ backgroundColor: '#6436d1' }}
+                            style={{ backgroundColor: '#ec4899' }}
                             title="Start Training"
                           >
                             <Zap className="h-3 w-3" />
@@ -383,13 +383,13 @@ export default function RoadmapPage() {
                       )}
                       
                       {day.completed && (
-                        <div className="text-xs sm:text-sm font-medium" style={{ color: '#6436d1' }}>
+                        <div className="text-xs sm:text-sm font-medium" style={{ color: '#ec4899' }}>
                           ✓ Completed
                         </div>
                       )}
                       
                       {isPast && !day.completed && (
-                        <div className="text-xs sm:text-sm font-medium" style={{ color: '#6436d1' }}>
+                        <div className="text-xs sm:text-sm font-medium" style={{ color: '#ec4899' }}>
                           Missed
                         </div>
                       )}
@@ -403,7 +403,7 @@ export default function RoadmapPage() {
                 <div className="text-center py-4">
                   <button
                     onClick={() => setShowAllDays(true)}
-                    className="px-4 py-2 text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                    className="px-4 py-2 text-pink-600 hover:text-pink-700 font-medium transition-colors"
                   >
                     Show all {studyPlan.schedule.length} days
                   </button>
@@ -414,7 +414,7 @@ export default function RoadmapPage() {
                 <div className="text-center py-4">
                   <button
                     onClick={() => setShowAllDays(false)}
-                    className="px-4 py-2 text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                    className="px-4 py-2 text-pink-600 hover:text-pink-700 font-medium transition-colors"
                   >
                     Show less
                   </button>
