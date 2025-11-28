@@ -1,6 +1,24 @@
 'use client';
 
+import { useEffect } from 'react';
+
 export default function PrivacyPage() {
+  useEffect(() => {
+    document.title = 'Privacy Policy - Rocket JLPT | Your Data & Privacy';
+    
+    const updateMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = name;
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    updateMetaTag('description', 'Read Rocket JLPT\'s privacy policy to understand how we collect, use, and protect your personal information and learning data.');
+    updateMetaTag('keywords', 'rocket jlpt privacy policy, data protection, user privacy, jlpt data security');
+  }, []);
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}

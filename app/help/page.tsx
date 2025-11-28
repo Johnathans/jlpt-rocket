@@ -1,11 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Search, BookOpen, CreditCard, Settings, HelpCircle, ChevronDown } from 'lucide-react';
 
 export default function HelpPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  useEffect(() => {
+    document.title = 'Help Center - Rocket JLPT | FAQs & Support';
+    
+    const updateMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = name;
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    updateMetaTag('description', 'Find answers to common questions about Rocket JLPT. Browse FAQs, tutorials, and guides to get the most out of your Japanese learning experience.');
+    updateMetaTag('keywords', 'rocket jlpt help, jlpt faq, japanese learning help, jlpt study guide, support center');
+  }, []);
 
   const faqs = [
     {

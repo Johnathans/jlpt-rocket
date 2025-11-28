@@ -1,9 +1,26 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { Rocket, Target, Users, Zap } from 'lucide-react';
 
 export default function AboutPage() {
+  useEffect(() => {
+    document.title = 'About Us - Rocket JLPT | Japanese Learning Platform';
+    
+    const updateMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = name;
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    updateMetaTag('description', 'Learn about Rocket JLPT\'s mission to make Japanese language learning accessible and effective for JLPT exam preparation. Built by learners for learners.');
+    updateMetaTag('keywords', 'about rocket jlpt, japanese learning platform, jlpt preparation, language learning mission');
+  }, []);
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
