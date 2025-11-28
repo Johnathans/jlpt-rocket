@@ -346,27 +346,40 @@ export default function PublicNavbar() {
                 <ChevronDown className={`h-4 w-4 transition-transform ${mobileResourcesOpen ? 'rotate-180' : ''}`} />
               </button>
               {mobileResourcesOpen && (
-                <div className="bg-gray-50 py-2">
-                  <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">JLPT Kanji</div>
-                  <Link href="/jlpt/n5/kanji" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>N5 Kanji</Link>
-                  <Link href="/jlpt/n4/kanji" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>N4 Kanji</Link>
-                  <Link href="/jlpt/n3/kanji" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>N3 Kanji</Link>
-                  <Link href="/jlpt/n2/kanji" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>N2 Kanji</Link>
-                  <Link href="/jlpt/n1/kanji" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>N1 Kanji</Link>
+                <div className="bg-gray-50 py-3 px-4">
+                  {/* JLPT Kanji - Grid Layout */}
+                  <div className="mb-4">
+                    <div className="text-xs font-semibold text-gray-500 uppercase mb-2">JLPT Kanji</div>
+                    <div className="grid grid-cols-5 gap-2">
+                      <Link href="/jlpt/n5/kanji" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N5</Link>
+                      <Link href="/jlpt/n4/kanji" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N4</Link>
+                      <Link href="/jlpt/n3/kanji" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N3</Link>
+                      <Link href="/jlpt/n2/kanji" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N2</Link>
+                      <Link href="/jlpt/n1/kanji" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N1</Link>
+                    </div>
+                  </div>
                   
-                  <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase mt-3">How to Pass JLPT</div>
-                  <Link href="/how-to-pass/n5" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Pass N5</Link>
-                  <Link href="/how-to-pass/n4" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Pass N4</Link>
-                  <Link href="/how-to-pass/n3" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Pass N3</Link>
-                  <Link href="/how-to-pass/n2" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Pass N2</Link>
-                  <Link href="/how-to-pass/n1" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Pass N1</Link>
+                  {/* How to Pass - Grid Layout */}
+                  <div className="mb-4">
+                    <div className="text-xs font-semibold text-gray-500 uppercase mb-2">How to Pass</div>
+                    <div className="grid grid-cols-5 gap-2">
+                      <Link href="/how-to-pass/n5" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N5</Link>
+                      <Link href="/how-to-pass/n4" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N4</Link>
+                      <Link href="/how-to-pass/n3" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N3</Link>
+                      <Link href="/how-to-pass/n2" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N2</Link>
+                      <Link href="/how-to-pass/n1" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N1</Link>
+                    </div>
+                  </div>
                   
-                  <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase mt-3">Japanese Alphabets</div>
-                  <Link href="/jlpt/hiragana" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Hiragana</Link>
-                  <Link href="/jlpt/katakana" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Katakana</Link>
-                  
-                  <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase mt-3">Study in Japan</div>
-                  <Link href="/schools" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Language Schools</Link>
+                  {/* Other Resources - 2 Column Grid */}
+                  <div>
+                    <div className="text-xs font-semibold text-gray-500 uppercase mb-2">More Resources</div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <Link href="/jlpt/hiragana" className="py-2 px-3 bg-white rounded text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>Hiragana</Link>
+                      <Link href="/jlpt/katakana" className="py-2 px-3 bg-white rounded text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>Katakana</Link>
+                      <Link href="/schools" className="py-2 px-3 bg-white rounded text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-600 col-span-2" onClick={() => setIsMobileMenuOpen(false)}>Language Schools</Link>
+                    </div>
+                  </div>
                 </div>
               )}
 
