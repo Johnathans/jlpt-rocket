@@ -1,8 +1,25 @@
 'use client';
 
+import { useEffect } from 'react';
 import { Mail, MessageSquare, Send } from 'lucide-react';
 
 export default function ContactPage() {
+  useEffect(() => {
+    document.title = 'Contact Us - Rocket JLPT | Get in Touch';
+    
+    const updateMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = name;
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    updateMetaTag('description', 'Get in touch with Rocket JLPT. Contact our support team for help, questions, or feedback about your Japanese learning journey.');
+    updateMetaTag('keywords', 'contact rocket jlpt, customer support, jlpt help, japanese learning support');
+  }, []);
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
