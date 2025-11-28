@@ -11,6 +11,10 @@ export default function robots(): MetadataRoute.Robots {
           '/',
           '/login',
           '/signup',
+          '/about',
+          '/help',
+          '/contact',
+          '/privacy',
           '/jlpt/',
         ],
         disallow: [
