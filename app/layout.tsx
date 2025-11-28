@@ -13,26 +13,28 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: 'Rocket JLPT',
-  description: 'Master JLPT with graded reading stories and furigana support',
+  title: 'Rocket JLPT - Master Japanese with JLPT Preparation',
+  description: 'Comprehensive JLPT preparation with adaptive practice, progress tracking, and mastery-based learning for all levels N5 to N1.',
   icons: {
     icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
       { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon.png', type: 'image/png' },
     ],
-    shortcut: '/favicon.ico',
-    apple: '/favicon.png',
+    shortcut: '/icon.svg',
+    apple: '/apple-touch-icon.svg',
   },
   openGraph: {
-    title: 'Rocket JLPT',
-    description: 'Master JLPT with graded reading stories and furigana support',
-    images: ['/favicon.png'],
+    title: 'Rocket JLPT - Master Japanese with JLPT Preparation',
+    description: 'Comprehensive JLPT preparation with adaptive practice, progress tracking, and mastery-based learning for all levels N5 to N1.',
+    images: ['/icon.svg'],
+    siteName: 'Rocket JLPT',
+    type: 'website',
   },
   twitter: {
-    card: 'summary',
-    title: 'Rocket JLPT',
-    description: 'Master JLPT with graded reading stories and furigana support',
-    images: ['/favicon.png'],
+    card: 'summary_large_image',
+    title: 'Rocket JLPT - Master Japanese with JLPT Preparation',
+    description: 'Comprehensive JLPT preparation with adaptive practice, progress tracking, and mastery-based learning for all levels N5 to N1.',
+    images: ['/icon.svg'],
   },
 };
 
