@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, MapPin, Calendar, Users, Star, ExternalLink, Filter } from 'lucide-react';
+import { Search, MapPin, Calendar, ExternalLink, Filter, GraduationCap } from 'lucide-react';
 
 interface School {
   id: number;
@@ -13,9 +13,8 @@ interface School {
   description: string;
   features: string[];
   jlptLevels: string[];
-  studentCapacity: string;
+  type: string;
   duration: string;
-  rating: number;
   image: string;
   website: string;
 }
@@ -45,97 +44,259 @@ export default function SchoolsPage() {
   const schools: School[] = [
     {
       id: 1,
-      name: "Tokyo Central Japanese Language School",
-      location: "Shinjuku, Tokyo",
+      name: "ISI Japanese Language School",
+      location: "Takadanobaba, Tokyo",
       city: "Tokyo",
       region: "Kanto",
-      description: "Specialized JLPT preparation courses with experienced instructors. Located in the heart of Tokyo with excellent access to cultural experiences.",
-      features: ["JLPT Focused Curriculum", "Small Class Sizes", "Cultural Activities", "Job Placement Support"],
+      description: "One of Japan's largest language school groups with multiple campuses. Offers comprehensive JLPT preparation courses with experienced instructors and strong university placement support.",
+      features: ["Multiple Campuses", "University Pathway", "JLPT Preparation", "Dormitory Available"],
       jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
-      studentCapacity: "500+ students",
+      type: "Language School",
       duration: "3-24 months",
-      rating: 4.8,
-      image: "/schools/tokyo-central.jpg",
-      website: "https://example.com"
+      image: "/schools/isi.jpg",
+      website: "https://www.isi-global.com"
     },
     {
       id: 2,
-      name: "Osaka International Academy",
-      location: "Namba, Osaka",
-      city: "Osaka",
-      region: "Kansai",
-      description: "Comprehensive Japanese language programs with strong focus on JLPT exam preparation and practical conversation skills.",
-      features: ["JLPT Test Center", "Dormitory Available", "Part-time Job Support", "University Pathway"],
+      name: "KCP International Japanese Language School",
+      location: "Shinjuku, Tokyo",
+      city: "Tokyo",
+      region: "Kanto",
+      description: "Established in 1983, KCP offers intensive Japanese language programs with focus on JLPT preparation. Known for small class sizes and personalized attention.",
+      features: ["Small Class Sizes", "Cultural Activities", "JLPT Focused", "Experienced Teachers"],
       jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
-      studentCapacity: "400+ students",
-      duration: "6-24 months",
-      rating: 4.7,
-      image: "/schools/osaka-international.jpg",
-      website: "https://example.com"
+      type: "Language School",
+      duration: "3-24 months",
+      image: "/schools/kcp.jpg",
+      website: "https://www.kcpinternational.com"
     },
     {
       id: 3,
-      name: "Kyoto Language Institute",
-      location: "Kawaramachi, Kyoto",
-      city: "Kyoto",
+      name: "Osaka YMCA International School",
+      location: "Tennoji, Osaka",
+      city: "Osaka",
       region: "Kansai",
-      description: "Traditional and modern teaching methods in historic Kyoto. Excellent JLPT pass rates and cultural immersion opportunities.",
-      features: ["Traditional Culture Classes", "Tea Ceremony", "Calligraphy", "JLPT Intensive Courses"],
-      jlptLevels: ["N5", "N4", "N3", "N2"],
-      studentCapacity: "300+ students",
-      duration: "3-18 months",
-      rating: 4.9,
-      image: "/schools/kyoto-language.jpg",
-      website: "https://example.com"
+      description: "Part of the global YMCA network, offering Japanese language education since 1969. Strong emphasis on practical communication skills and JLPT preparation.",
+      features: ["Established 1969", "YMCA Network", "Practical Japanese", "JLPT Courses"],
+      jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
+      type: "Language School",
+      duration: "3-24 months",
+      image: "/schools/osaka-ymca.jpg",
+      website: "https://www.osakay.ymca.or.jp"
     },
     {
       id: 4,
-      name: "Fukuoka Japanese Language Center",
-      location: "Tenjin, Fukuoka",
-      city: "Fukuoka",
-      region: "Kyushu",
-      description: "Affordable tuition with high-quality JLPT preparation. Friendly atmosphere and lower cost of living compared to Tokyo.",
-      features: ["Affordable Tuition", "Homestay Programs", "Business Japanese", "JLPT Mock Tests"],
+      name: "Kyoto Minsai Japanese Language School",
+      location: "Shimogyo-ku, Kyoto",
+      city: "Kyoto",
+      region: "Kansai",
+      description: "Located in historic Kyoto, offering Japanese language education with cultural immersion. Specializes in JLPT preparation and university entrance exam support.",
+      features: ["Cultural Immersion", "University Prep", "Traditional Setting", "JLPT Support"],
       jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
-      studentCapacity: "250+ students",
+      type: "Language School",
       duration: "6-24 months",
-      rating: 4.6,
-      image: "/schools/fukuoka-center.jpg",
-      website: "https://example.com"
+      image: "/schools/kyoto-minsai.jpg",
+      website: "https://www.kyotominsai.co.jp"
     },
     {
       id: 5,
-      name: "Yokohama Japanese Academy",
-      location: "Minato Mirai, Yokohama",
-      city: "Yokohama",
-      region: "Kanto",
-      description: "Modern facilities with cutting-edge teaching technology. Strong track record of JLPT success and university admissions.",
-      features: ["Modern Facilities", "Online Learning Support", "Career Counseling", "Scholarship Available"],
+      name: "Fukuoka Foreign Language College",
+      location: "Hakata, Fukuoka",
+      city: "Fukuoka",
+      region: "Kyushu",
+      description: "Comprehensive language education in Fukuoka with affordable tuition. Offers JLPT preparation courses and support for students seeking employment in Japan.",
+      features: ["Affordable Tuition", "Job Support", "JLPT Preparation", "Multicultural Environment"],
       jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
-      studentCapacity: "350+ students",
-      duration: "3-24 months",
-      rating: 4.7,
-      image: "/schools/yokohama-academy.jpg",
-      website: "https://example.com"
+      type: "Language School",
+      duration: "6-24 months",
+      image: "/schools/fukuoka-flc.jpg",
+      website: "https://www.fflc.ac.jp"
     },
     {
       id: 6,
-      name: "Sapporo Language School",
-      location: "Susukino, Sapporo",
+      name: "ARC Academy Tokyo",
+      location: "Shinjuku & Shibuya, Tokyo",
+      city: "Tokyo",
+      region: "Kanto",
+      description: "Modern language school with two Tokyo campuses. Known for innovative teaching methods and strong JLPT pass rates. Offers flexible course schedules.",
+      features: ["Two Campuses", "Flexible Schedule", "Modern Methods", "High Pass Rates"],
+      jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
+      type: "Language School",
+      duration: "3-24 months",
+      image: "/schools/arc-academy.jpg",
+      website: "https://www.arc.ac.jp"
+    },
+    {
+      id: 7,
+      name: "Sendagaya Japanese Institute",
+      location: "Takadanobaba, Tokyo",
+      city: "Tokyo",
+      region: "Kanto",
+      description: "Established in 1975, one of Tokyo's most respected language schools. Comprehensive JLPT preparation with focus on all four language skills.",
+      features: ["Established 1975", "Comprehensive Curriculum", "JLPT Specialist", "Career Support"],
+      jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
+      type: "Language School",
+      duration: "3-24 months",
+      image: "/schools/sendagaya.jpg",
+      website: "https://www.sendagaya.ac.jp"
+    },
+    {
+      id: 8,
+      name: "Yokohama Design College",
+      location: "Nishi-ku, Yokohama",
+      city: "Yokohama",
+      region: "Kanto",
+      description: "Combines Japanese language education with creative courses. Offers JLPT preparation alongside opportunities to explore Japanese design and culture.",
+      features: ["Creative Courses", "Cultural Programs", "JLPT Preparation", "Design Focus"],
+      jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
+      type: "Language School",
+      duration: "6-24 months",
+      image: "/schools/yokohama-design.jpg",
+      website: "https://www.ydc.ac.jp"
+    },
+    {
+      id: 9,
+      name: "Nagoya International School",
+      location: "Nakamura-ku, Nagoya",
+      city: "Nagoya",
+      region: "Chubu",
+      description: "Central Japan's leading language school offering comprehensive Japanese programs. Strong focus on JLPT preparation and business Japanese.",
+      features: ["Business Japanese", "JLPT Courses", "Central Location", "Internship Support"],
+      jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
+      type: "Language School",
+      duration: "6-24 months",
+      image: "/schools/nagoya-intl.jpg",
+      website: "https://www.nis-japan.com"
+    },
+    {
+      id: 10,
+      name: "Sapporo International Japanese Language School",
+      location: "Chuo-ku, Sapporo",
       city: "Sapporo",
       region: "Hokkaido",
-      description: "Experience Japanese language learning in beautiful Hokkaido. Small class sizes and personalized attention for JLPT preparation.",
-      features: ["Small Classes", "Winter Sports", "Nature Activities", "Personalized Learning"],
-      jlptLevels: ["N5", "N4", "N3", "N2"],
-      studentCapacity: "150+ students",
-      duration: "6-18 months",
-      rating: 4.8,
-      image: "/schools/sapporo-language.jpg",
-      website: "https://example.com"
+      description: "Experience Japanese language learning in Hokkaido's capital. Offers JLPT preparation in a welcoming environment with lower cost of living.",
+      features: ["Affordable Living", "Small Classes", "JLPT Focus", "Nature Access"],
+      jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
+      type: "Language School",
+      duration: "6-24 months",
+      image: "/schools/sapporo-intl.jpg",
+      website: "https://www.sijs.jp"
+    },
+    {
+      id: 11,
+      name: "Intercultural Institute of Japan",
+      location: "Akihabara, Tokyo",
+      city: "Tokyo",
+      region: "Kanto",
+      description: "Specializes in intensive Japanese language programs with strong JLPT preparation. Located in Akihabara with easy access to Tokyo's cultural attractions.",
+      features: ["Intensive Courses", "Central Tokyo", "JLPT Specialist", "Cultural Access"],
+      jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
+      type: "Language School",
+      duration: "3-24 months",
+      image: "/schools/iij.jpg",
+      website: "https://www.incul.com"
+    },
+    {
+      id: 12,
+      name: "Kyushu Sangyo University Japanese Language School",
+      location: "Higashi-ku, Fukuoka",
+      city: "Fukuoka",
+      region: "Kyushu",
+      description: "University-affiliated language school offering pathway to undergraduate programs. Strong JLPT preparation with academic focus.",
+      features: ["University Pathway", "Academic Focus", "JLPT Preparation", "Campus Facilities"],
+      jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
+      type: "University Program",
+      duration: "6-24 months",
+      image: "/schools/kyushu-sangyo.jpg",
+      website: "https://www.kyusan-u.ac.jp"
+    },
+    {
+      id: 13,
+      name: "Akamonkai Japanese Language School",
+      location: "Nippori, Tokyo",
+      city: "Tokyo",
+      region: "Kanto",
+      description: "Large-scale language school with over 2,000 students from 50+ countries. Comprehensive JLPT preparation with proven track record.",
+      features: ["Large International Community", "JLPT Specialist", "University Guidance", "Scholarship Programs"],
+      jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
+      type: "Language School",
+      duration: "3-24 months",
+      image: "/schools/akamonkai.jpg",
+      website: "https://www.akamonkai.ac.jp"
+    },
+    {
+      id: 14,
+      name: "Yoshida Institute of Japanese Language",
+      location: "Sumida-ku, Tokyo",
+      city: "Tokyo",
+      region: "Kanto",
+      description: "Established school focusing on practical Japanese and JLPT preparation. Known for supportive learning environment and experienced faculty.",
+      features: ["Practical Focus", "Experienced Faculty", "JLPT Courses", "Student Support"],
+      jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
+      type: "Language School",
+      duration: "3-24 months",
+      image: "/schools/yoshida.jpg",
+      website: "https://www.yoshida-edu.ac.jp"
+    },
+    {
+      id: 15,
+      name: "Hokkaido Japanese Language Academy",
+      location: "Chuo-ku, Sapporo",
+      city: "Sapporo",
+      region: "Hokkaido",
+      description: "Experience authentic Japanese culture in Hokkaido while preparing for JLPT. Offers comprehensive language programs in a beautiful natural setting.",
+      features: ["Cultural Immersion", "Nature Activities", "JLPT Preparation", "Affordable Tuition"],
+      jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
+      type: "Language School",
+      duration: "6-24 months",
+      image: "/schools/hokkaido-jla.jpg",
+      website: "https://www.hjla.jp"
+    },
+    {
+      id: 16,
+      name: "Tokyo Galaxy Japanese Language School",
+      location: "Shinjuku, Tokyo",
+      city: "Tokyo",
+      region: "Kanto",
+      description: "Modern language school in central Tokyo offering intensive JLPT preparation. Features multimedia classrooms and interactive learning methods.",
+      features: ["Modern Facilities", "Interactive Learning", "Central Location", "JLPT Focus"],
+      jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
+      type: "Language School",
+      duration: "3-24 months",
+      image: "/schools/tokyo-galaxy.jpg",
+      website: "https://www.tokyogalaxy.ac.jp"
+    },
+    {
+      id: 17,
+      name: "Kansai Language Institute",
+      location: "Kita-ku, Osaka",
+      city: "Osaka",
+      region: "Kansai",
+      description: "Well-established school in Osaka offering comprehensive Japanese programs. Strong emphasis on JLPT preparation and cultural understanding.",
+      features: ["Established School", "Cultural Programs", "JLPT Specialist", "Career Support"],
+      jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
+      type: "Language School",
+      duration: "6-24 months",
+      image: "/schools/kansai-language.jpg",
+      website: "https://www.kli.ac.jp"
+    },
+    {
+      id: 18,
+      name: "Tokyo International Japanese School",
+      location: "Shinjuku, Tokyo",
+      city: "Tokyo",
+      region: "Kanto",
+      description: "International environment with students from diverse backgrounds. Offers structured JLPT preparation courses with experienced instructors.",
+      features: ["International Environment", "Structured Curriculum", "JLPT Courses", "Dormitory Available"],
+      jlptLevels: ["N5", "N4", "N3", "N2", "N1"],
+      type: "Language School",
+      duration: "3-24 months",
+      image: "/schools/tokyo-intl.jpg",
+      website: "https://www.tijs.jp"
     }
   ];
 
-  const regions = ['all', 'Kanto', 'Kansai', 'Kyushu', 'Hokkaido'];
+  const regions = ['all', 'Kanto', 'Kansai', 'Chubu', 'Kyushu', 'Hokkaido'];
   const jlptLevels = ['all', 'N5', 'N4', 'N3', 'N2', 'N1'];
 
   const filteredSchools = schools.filter(school => {
@@ -236,27 +397,21 @@ export default function SchoolsPage() {
 
                   {/* School Info */}
                   <div className="flex-1">
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-2">{school.name}</h3>
-                        <div className="flex items-center gap-4 text-sm text-gray-600">
-                          <span className="flex items-center gap-1">
-                            <MapPin className="h-4 w-4" />
-                            {school.location}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Users className="h-4 w-4" />
-                            {school.studentCapacity}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Calendar className="h-4 w-4" />
-                            {school.duration}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1 bg-orange-50 px-3 py-1 rounded-full">
-                        <Star className="h-4 w-4 text-orange-500 fill-orange-500" />
-                        <span className="font-semibold text-gray-900">{school.rating}</span>
+                    <div className="mb-3">
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{school.name}</h3>
+                      <div className="flex items-center gap-4 text-sm text-gray-600">
+                        <span className="flex items-center gap-1">
+                          <MapPin className="h-4 w-4" />
+                          {school.location}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <GraduationCap className="h-4 w-4" />
+                          {school.type}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Calendar className="h-4 w-4" />
+                          {school.duration}
+                        </span>
                       </div>
                     </div>
 

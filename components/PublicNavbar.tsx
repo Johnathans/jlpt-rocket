@@ -81,12 +81,12 @@ export default function PublicNavbar() {
                       </div>
                     </div>
 
-                    {/* Kana Column */}
+                    {/* Kana & Schools Column */}
                     <div>
                       <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">
                         Japanese Alphabets
                       </h3>
-                      <div className="space-y-2">
+                      <div className="space-y-2 mb-6">
                         <Link
                           href="/jlpt/hiragana"
                           className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
@@ -100,6 +100,19 @@ export default function PublicNavbar() {
                         >
                           <div className="font-medium">Katakana</div>
                           <div className="text-xs text-gray-500">104 characters with audio</div>
+                        </Link>
+                      </div>
+
+                      <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">
+                        Study in Japan
+                      </h3>
+                      <div className="space-y-2">
+                        <Link
+                          href="/schools"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">Language Schools</div>
+                          <div className="text-xs text-gray-500">Find JLPT schools in Japan</div>
                         </Link>
                       </div>
 
