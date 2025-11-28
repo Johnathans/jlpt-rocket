@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useAuth } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, Rocket } from 'lucide-react';
 
 export default function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -79,9 +79,42 @@ export default function SignupForm() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-purple-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md">
-          <div className="bg-white py-10 px-8 shadow-xl rounded-2xl border border-purple-100">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md lg:max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            {/* Left Column - Image and Links (Desktop Only) */}
+            <div className="hidden lg:flex flex-col items-center justify-center bg-white rounded-lg border border-gray-200 p-12">
+              <div className="w-full max-w-sm mb-8">
+                <img 
+                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&auto=format&fit=crop&q=80" 
+                  alt="Happy person using laptop" 
+                  className="w-full h-auto rounded-lg shadow-md"
+                />
+              </div>
+              
+              <h3 className="text-xl font-semibold text-gray-900 mb-6">Helpful Resources</h3>
+              <div className="space-y-4 w-full">
+                <a href="#" className="flex items-center gap-3 text-gray-700 hover:text-pink-500 transition-colors group">
+                  <div className="w-2 h-2 bg-orange-500 rounded-full group-hover:bg-pink-500 transition-colors"></div>
+                  <span className="text-base">Getting Started Guide</span>
+                </a>
+                <a href="#" className="flex items-center gap-3 text-gray-700 hover:text-pink-500 transition-colors group">
+                  <div className="w-2 h-2 bg-orange-500 rounded-full group-hover:bg-pink-500 transition-colors"></div>
+                  <span className="text-base">JLPT Study Tips</span>
+                </a>
+                <a href="#" className="flex items-center gap-3 text-gray-700 hover:text-pink-500 transition-colors group">
+                  <div className="w-2 h-2 bg-orange-500 rounded-full group-hover:bg-pink-500 transition-colors"></div>
+                  <span className="text-base">How to Use Rocket JLPT</span>
+                </a>
+                <a href="#" className="flex items-center gap-3 text-gray-700 hover:text-pink-500 transition-colors group">
+                  <div className="w-2 h-2 bg-orange-500 rounded-full group-hover:bg-pink-500 transition-colors"></div>
+                  <span className="text-base">FAQ & Support</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Right Column - Success Message */}
+            <div className="bg-white py-12 px-8 lg:px-12 shadow-sm rounded-lg border border-gray-200">
             <div className="text-center">
               <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-6">
                 <Mail className="h-6 w-6 text-green-600" />
@@ -92,10 +125,11 @@ export default function SignupForm() {
               </p>
               <p className="text-sm text-gray-600">
                 Already confirmed?{' '}
-                <Link href="/login" className="font-medium hover:opacity-80" style={{ color: '#2a0d81' }}>
+                <Link href="/login" className="font-medium text-pink-500 hover:text-pink-600">
                   Sign in here
                 </Link>
               </p>
+            </div>
             </div>
           </div>
         </div>
@@ -104,27 +138,56 @@ export default function SignupForm() {
   }
 
   return (
-    <div className="min-h-screen bg-purple-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md">
-        <div className="bg-white py-10 px-8 shadow-xl rounded-2xl border border-purple-100">
-          {/* Logo and Header */}
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center mb-6">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md lg:max-w-6xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+          {/* Left Column - Image and Links (Desktop Only) */}
+          <div className="hidden lg:flex flex-col items-center justify-center bg-white rounded-lg border border-gray-200 p-12">
+            <div className="w-full max-w-sm mb-8">
               <img 
-                src="/6110736_rocket_spaceship_icon (2).png" 
-                alt="Rocket JLPT Logo" 
-                className="h-12 w-12"
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&auto=format&fit=crop&q=80" 
+                alt="Happy person using laptop" 
+                className="w-full h-auto rounded-lg shadow-md"
               />
-              <span className="text-2xl text-gray-900 ml-3">
-                <span className="font-black">Rocket</span>
-                <span className="font-medium ml-1">JLPT</span>
+            </div>
+            
+            <h3 className="text-xl font-semibold text-gray-900 mb-6">Helpful Resources</h3>
+            <div className="space-y-4 w-full">
+              <a href="#" className="flex items-center gap-3 text-gray-700 hover:text-pink-500 transition-colors group">
+                <div className="w-2 h-2 bg-orange-500 rounded-full group-hover:bg-pink-500 transition-colors"></div>
+                <span className="text-base">Getting Started Guide</span>
+              </a>
+              <a href="#" className="flex items-center gap-3 text-gray-700 hover:text-pink-500 transition-colors group">
+                <div className="w-2 h-2 bg-orange-500 rounded-full group-hover:bg-pink-500 transition-colors"></div>
+                <span className="text-base">JLPT Study Tips</span>
+              </a>
+              <a href="#" className="flex items-center gap-3 text-gray-700 hover:text-pink-500 transition-colors group">
+                <div className="w-2 h-2 bg-orange-500 rounded-full group-hover:bg-pink-500 transition-colors"></div>
+                <span className="text-base">How to Use Rocket JLPT</span>
+              </a>
+              <a href="#" className="flex items-center gap-3 text-gray-700 hover:text-pink-500 transition-colors group">
+                <div className="w-2 h-2 bg-orange-500 rounded-full group-hover:bg-pink-500 transition-colors"></div>
+                <span className="text-base">FAQ & Support</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Right Column - Signup Form */}
+          <div className="bg-white py-12 px-8 lg:px-12 shadow-sm rounded-lg border border-gray-200">
+          {/* Logo and Header */}
+          <div className="text-center mb-10">
+            <div className="flex items-center justify-center mb-6">
+              <Rocket className="h-8 w-8 text-pink-500" />
+              <span className="text-3xl text-gray-900 ml-3">
+                <span className="font-light">Rocket</span>
+                <span className="font-black ml-1">JLPT</span>
               </span>
             </div>
             
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">
               Create your account
             </h2>
-            <p className="text-gray-600">
+            <p className="text-lg text-gray-600">
               Start your Japanese learning journey today
             </p>
           </div>
@@ -139,7 +202,7 @@ export default function SignupForm() {
           {/* Google Sign Up Button */}
           <button
             onClick={handleGoogleSignup}
-            className="w-full flex justify-center items-center gap-3 px-4 py-3 border border-gray-300 border-b-4 border-b-gray-400 rounded-lg shadow-sm text-gray-700 bg-white hover:bg-gray-50 hover:border-b-gray-500 font-medium transition-all duration-200 active:translate-y-0.5 mb-6"
+            className="w-full flex justify-center items-center gap-3 px-6 py-4 border border-gray-300 rounded-md text-base text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-400 font-semibold transition-all duration-200 mb-6"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -159,9 +222,9 @@ export default function SignupForm() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 lg:space-y-7">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="name" className="block text-base font-medium text-gray-700 mb-2">
                 Full name
               </label>
               <div className="relative">
@@ -176,7 +239,7 @@ export default function SignupForm() {
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors ${
+                  className={`block w-full pl-10 pr-3 py-3.5 text-base border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-500 transition-colors ${
                     errors.name ? 'border-red-300' : 'border-gray-300'
                   }`}
                   placeholder="Enter your full name"
@@ -186,7 +249,7 @@ export default function SignupForm() {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-base font-medium text-gray-700 mb-2">
                 Email address
               </label>
               <div className="relative">
@@ -201,7 +264,7 @@ export default function SignupForm() {
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className={`block w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors ${
+                  className={`block w-full pl-10 pr-3 py-3.5 text-base border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-500 transition-colors ${
                     errors.email ? 'border-red-300' : 'border-gray-300'
                   }`}
                   placeholder="Enter your email"
@@ -211,7 +274,7 @@ export default function SignupForm() {
             </div>
             
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="password" className="block text-base font-medium text-gray-700 mb-2">
                 Password
               </label>
               <div className="relative">
@@ -226,7 +289,7 @@ export default function SignupForm() {
                   required
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className={`block w-full pl-10 pr-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors ${
+                  className={`block w-full pl-10 pr-10 py-3.5 text-base border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-500 transition-colors ${
                     errors.password ? 'border-red-300' : 'border-gray-300'
                   }`}
                   placeholder="Enter your password"
@@ -247,7 +310,7 @@ export default function SignupForm() {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="confirmPassword" className="block text-base font-medium text-gray-700 mb-2">
                 Confirm password
               </label>
               <div className="relative">
@@ -262,7 +325,7 @@ export default function SignupForm() {
                   required
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  className={`block w-full pl-10 pr-10 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors ${
+                  className={`block w-full pl-10 pr-10 py-3.5 text-base border rounded-md focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-500 transition-colors ${
                     errors.confirmPassword ? 'border-red-300' : 'border-gray-300'
                   }`}
                   placeholder="Confirm your password"
@@ -288,15 +351,15 @@ export default function SignupForm() {
                 name="terms"
                 type="checkbox"
                 required
-                className="h-4 w-4 focus:ring-purple-500 border-gray-300 rounded" style={{ accentColor: '#2a0d81' }}
+                className="h-4 w-4 focus:ring-pink-500 border-gray-300 rounded" style={{ accentColor: '#ec4899' }}
               />
               <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
                 I agree to the{' '}
-                <Link href="/terms" className="hover:opacity-80" style={{ color: '#2a0d81' }}>
+                <Link href="/terms" className="text-pink-500 hover:text-pink-600">
                   Terms of Service
                 </Link>{' '}
                 and{' '}
-                <Link href="/privacy" className="hover:opacity-80" style={{ color: '#2a0d81' }}>
+                <Link href="/privacy" className="text-pink-500 hover:text-pink-600">
                   Privacy Policy
                 </Link>
               </label>
@@ -305,7 +368,7 @@ export default function SignupForm() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center py-3 px-4 border border-transparent border-b-4 rounded-lg shadow-sm text-sm font-medium text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 active:translate-y-0.5" style={{ backgroundColor: '#2a0d81', borderBottomColor: '#1e0a5c' }}
+              className="w-full flex justify-center py-4 px-6 border border-transparent rounded-md text-lg font-semibold text-white bg-pink-500 hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
             >
               {isLoading ? (
                 <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
@@ -319,11 +382,12 @@ export default function SignupForm() {
             <div className="text-center">
               <span className="text-sm text-gray-600">
                 Already have an account?{' '}
-                <Link href="/login" className="font-medium hover:opacity-80" style={{ color: '#2a0d81' }}>
+                <Link href="/login" className="font-medium text-pink-500 hover:text-pink-600">
                   Sign in
                 </Link>
               </span>
             </div>
+          </div>
           </div>
         </div>
       </div>

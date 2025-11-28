@@ -4,7 +4,7 @@ import { Crown, Check, CreditCard, Calendar, Gift } from 'lucide-react';
 
 export default function MembershipPage() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#f9f8ff' }}>
+    <div className="min-h-screen" style={{ backgroundColor: '#f9fafb' }}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         
         {/* Membership Header */}
@@ -50,7 +50,7 @@ export default function MembershipPage() {
             </div>
           </div>
 
-          <button className="w-full px-6 py-3 bg-blue-600 text-white hover:bg-blue-700 font-medium transition-colors rounded-lg shadow-sm border-b-4 border-b-blue-700 hover:border-b-blue-800 text-sm">
+          <button className="w-full px-6 py-3 bg-pink-500 text-white hover:bg-pink-600 font-medium transition-colors rounded-lg shadow-sm border-b-4 border-b-pink-600 hover:border-b-pink-700 text-sm">
             Upgrade to Premium
           </button>
         </div>
@@ -73,28 +73,28 @@ export default function MembershipPage() {
             
             <div className="space-y-2 mb-6">
               <div className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-blue-600" />
+                <Check className="h-4 w-4 text-pink-600" />
                 <span className="text-sm text-blue-800">Unlimited stories</span>
               </div>
               <div className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-blue-600" />
+                <Check className="h-4 w-4 text-pink-600" />
                 <span className="text-sm text-blue-800">Advanced vocabulary & kanji practice</span>
               </div>
               <div className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-blue-600" />
+                <Check className="h-4 w-4 text-pink-600" />
                 <span className="text-sm text-blue-800">Detailed progress analytics</span>
               </div>
               <div className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-blue-600" />
+                <Check className="h-4 w-4 text-pink-600" />
                 <span className="text-sm text-blue-800">Offline mode</span>
               </div>
               <div className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-blue-600" />
+                <Check className="h-4 w-4 text-pink-600" />
                 <span className="text-sm text-blue-800">Priority support</span>
               </div>
             </div>
 
-            <button className="w-full px-6 py-4 bg-blue-600 text-white hover:bg-blue-700 font-bold transition-colors rounded-lg shadow-sm border-b-4 border-b-blue-700 hover:border-b-blue-800 text-base">
+            <button className="w-full px-6 py-4 bg-pink-500 text-white hover:bg-pink-600 font-bold transition-colors rounded-lg shadow-sm border-b-4 border-b-pink-600 hover:border-b-pink-700 text-base">
               Start Premium Trial
             </button>
           </div>
@@ -140,7 +140,7 @@ export default function MembershipPage() {
           <h2 className="text-xl font-bold text-gray-900 mb-6">Account Actions</h2>
           
           <div className="space-y-4">
-            <button className="w-full px-6 py-3 bg-blue-600 text-white hover:bg-blue-700 font-medium transition-colors rounded-lg shadow-sm border-b-4 border-b-blue-700 hover:border-b-blue-800 text-sm text-left">
+            <button className="w-full px-6 py-3 bg-pink-500 text-white hover:bg-pink-600 font-medium transition-colors rounded-lg shadow-sm border-b-4 border-b-pink-600 hover:border-b-pink-700 text-sm text-left">
               View Billing History
             </button>
             

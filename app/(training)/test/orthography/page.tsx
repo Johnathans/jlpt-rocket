@@ -148,7 +148,7 @@ export default function OrthographyTestPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="bg-white rounded-lg shadow-lg p-8 text-center">
             <div className="mb-8">
-              <div className="text-6xl font-bold text-blue-600 mb-2">{percentage}%</div>
+              <div className="text-6xl font-bold text-pink-600 mb-2">{percentage}%</div>
               <div className="text-xl text-gray-600 mb-4">
                 {score} out of {orthographyQuestions.length} correct
               </div>
@@ -160,7 +160,7 @@ export default function OrthographyTestPage() {
             <div className="flex justify-center space-x-4">
               <button
                 onClick={() => window.location.reload()}
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors"
               >
                 Retake Test
               </button>
@@ -282,7 +282,7 @@ export default function OrthographyTestPage() {
                       ${!showResult 
                         ? 'bg-white hover:shadow-md border-b-gray-300' 
                         : shouldShowCorrect
-                        ? 'bg-green-50 border-green-300 border-b-green-400 text-green-800'
+                        ? 'bg-green-50 border-pink-300 border-b-green-400 text-green-800'
                         : isWrong
                         ? 'bg-red-50 border-red-300 border-b-red-400 text-red-800'
                         : 'bg-gray-50 border-gray-300 border-b-gray-400 text-gray-500'

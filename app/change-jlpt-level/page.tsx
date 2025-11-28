@@ -92,7 +92,7 @@ export default function ChangeJLPTLevelPage() {
   const selectedLevelData = selectedLevel ? jlptLevels.find(l => l.level === selectedLevel) : null;
 
   return (
-    <div className="min-h-screen py-8" style={{ backgroundColor: '#f9f8ff' }}>
+    <div className="min-h-screen py-8" style={{ backgroundColor: '#f9fafb' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -120,14 +120,14 @@ export default function ChangeJLPTLevelPage() {
                 className={`
                   relative p-8 rounded-2xl border-2 transition-all duration-200 hover:scale-105
                   ${isSelected 
-                    ? 'bg-green-500 border-green-500 text-white shadow-lg' 
-                    : 'bg-white border-gray-200 text-gray-700 hover:border-green-300 hover:shadow-md'
+                    ? 'bg-pink-500 border-pink-500 text-white shadow-lg' 
+                    : 'bg-white border-gray-200 text-gray-700 hover:border-pink-300 hover:shadow-md'
                   }
-                  ${isCurrent && !isSelected ? 'ring-2 ring-green-400' : ''}
+                  ${isCurrent && !isSelected ? 'ring-2 ring-pink-400' : ''}
                 `}
               >
                 {isCurrent && !isSelected && (
-                  <div className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                  <div className="absolute -top-2 -right-2 bg-pink-500 text-white text-xs px-2 py-1 rounded-full font-bold">
                     Current
                   </div>
                 )}
@@ -200,7 +200,7 @@ export default function ChangeJLPTLevelPage() {
                 <button
                   onClick={handleConfirmLevel}
                   disabled={isChanging}
-                  className="px-8 py-4 bg-green-500 text-white font-bold text-lg rounded-xl hover:bg-green-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-8 py-4 bg-pink-500 text-white font-bold text-lg rounded-xl hover:bg-pink-600 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isChanging ? 'Switching...' : `Switch to ${selectedLevel}`}
                 </button>

@@ -1,0 +1,288 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Rocket } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
+
+interface KanjiDetail {
+  character: string;
+  meaning: string;
+  onyomi: string;
+  kunyomi: string;
+  strokes: number;
+  level: string;
+  radical?: string;
+}
+
+export default function KanjiDetailPage() {
+  const params = useParams();
+  const kanjiChar = decodeURIComponent(params.kanji as string);
+  const level = (params.level as string).toUpperCase();
+  
+  const [kanji, setKanji] = useState<KanjiDetail | null>(null);
+  const [examples, setExamples] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchKanjiDetail = async () => {
+      try {
+        setLoading(true);
+        
+        // Fetch kanji details
+        const { data: kanjiData, error: kanjiError } = await supabase
+          .from('kanji')
+          .select('*')
+          .eq('character', kanjiChar)
+          .single();
+
+        if (kanjiError) throw kanjiError;
+
+        setKanji(kanjiData);
+
+        // Fetch vocabulary examples that contain this kanji
+        const { data: vocabData, error: vocabError } = await supabase
+          .from('vocabulary')
+          .select('word, reading, meaning, level')
+          .ilike('word', `%${kanjiChar}%`)
+          .limit(10);
+
+        if (!vocabError && vocabData) {
+          setExamples(vocabData);
+        }
+      } catch (error) {
+        console.error('Error fetching kanji:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchKanjiDetail();
+  }, [kanjiChar]);
+
+  const playAudio = (text: string) => {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ja-JP';
+      utterance.rate = 0.8;
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading kanji...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!kanji) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        {/* Navbar */}
+        <nav className="bg-white border-b border-gray-200 shadow-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16">
+              <Link href="/" className="flex items-center space-x-2">
+                <Rocket className="h-6 w-6 text-pink-500" />
+                <span className="text-2xl text-gray-900">
+                  <span className="font-light">Rocket</span>
+                  <span className="font-black ml-1">JLPT</span>
+                </span>
+              </Link>
+              <div className="flex items-center gap-4">
+                <Link href="/login" className="text-gray-700 hover:text-pink-600 font-medium">
+                  Sign In
+                </Link>
+                <Link href="/signup" className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
+                  Get Started
+                </Link>
+              </div>
+            </div>
+          </div>
+        </nav>
+        
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Kanji not found</h2>
+            <Link href={`/jlpt/${level.toLowerCase()}/kanji`} className="text-pink-600 hover:text-pink-700">
+              Back to {level} Kanji
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Navbar */}
+      <nav className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <Link href="/" className="flex items-center space-x-2">
+              <Rocket className="h-6 w-6 text-pink-500" />
+              <span className="text-2xl text-gray-900">
+                <span className="font-light">Rocket</span>
+                <span className="font-black ml-1">JLPT</span>
+              </span>
+            </Link>
+            <div className="flex items-center gap-4">
+              <Link href="/login" className="text-gray-700 hover:text-pink-600 font-medium">
+                Sign In
+              </Link>
+              <Link href="/signup" className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
+                Get Started
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <Link 
+            href={`/jlpt/${level.toLowerCase()}/kanji`}
+            className="inline-flex items-center gap-2 text-pink-600 hover:text-pink-700 mb-4 font-medium"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to {level} Kanji
+          </Link>
+        </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Main Kanji Card */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Left: Large Kanji Display */}
+            <div className="text-center md:border-r border-gray-200">
+              <div className="text-9xl font-bold text-gray-900 mb-4 font-japanese">
+                {kanji.character}
+              </div>
+              <button
+                onClick={() => playAudio(kanji.character)}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-pink-50 text-pink-600 rounded-lg hover:bg-pink-100 transition-colors"
+              >
+                <Volume2 className="h-5 w-5" />
+                Play Audio
+              </button>
+            </div>
+
+            {/* Right: Kanji Information */}
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                  {kanji.meaning}
+                </h2>
+                <span className="inline-block px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm font-semibold">
+                  JLPT {kanji.level}
+                </span>
+              </div>
+
+              <div className="space-y-4">
+                {/* Readings */}
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <BookOpen className="h-5 w-5 text-gray-600" />
+                    <h3 className="font-semibold text-gray-900">On'yomi (音読み)</h3>
+                  </div>
+                  <p className="text-2xl font-japanese text-gray-900">
+                    {kanji.onyomi || 'None'}
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <BookOpen className="h-5 w-5 text-gray-600" />
+                    <h3 className="font-semibold text-gray-900">Kun'yomi (訓読み)</h3>
+                  </div>
+                  <p className="text-2xl font-japanese text-gray-900">
+                    {kanji.kunyomi || 'None'}
+                  </p>
+                </div>
+
+                {/* Stroke Count */}
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Layers className="h-5 w-5 text-gray-600" />
+                    <h3 className="font-semibold text-gray-900">Stroke Count</h3>
+                  </div>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {kanji.strokes} strokes
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Vocabulary Examples */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
+          <div className="flex items-center gap-2 mb-6">
+            <TrendingUp className="h-6 w-6 text-pink-600" />
+            <h2 className="text-2xl font-bold text-gray-900">Vocabulary Examples</h2>
+          </div>
+
+          {examples.length > 0 ? (
+            <div className="grid gap-4">
+              {examples.map((example, index) => (
+                <div
+                  key={index}
+                  className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2 flex-wrap">
+                      <span className="text-2xl font-bold text-gray-900 font-japanese">
+                        {example.word}
+                      </span>
+                      <span className="text-lg text-gray-600 font-japanese">
+                        {example.reading}
+                      </span>
+                      <span className="px-2 py-1 bg-gray-200 text-gray-700 rounded text-xs font-semibold">
+                        {example.level}
+                      </span>
+                    </div>
+                    <p className="text-gray-700">{example.meaning}</p>
+                  </div>
+                  <button
+                    onClick={() => playAudio(example.word)}
+                    className="p-2 text-gray-500 hover:text-pink-600 hover:bg-white rounded-lg transition-colors flex-shrink-0"
+                  >
+                    <Volume2 className="h-5 w-5" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-gray-500">
+              No vocabulary examples available
+            </div>
+          )}
+        </div>
+
+        {/* Study This Kanji CTA */}
+        <div className="bg-gradient-to-r from-pink-500 to-orange-500 rounded-xl shadow-lg p-8 text-center text-white">
+          <h2 className="text-3xl font-bold mb-4">
+            Master {kanji.character} and {kanji.level === 'N5' ? '79' : kanji.level === 'N4' ? '166' : '1000+'} More Kanji
+          </h2>
+          <p className="text-xl mb-6 text-white/90">
+            Track your progress, practice with flashcards, and ace your JLPT exam
+          </p>
+          <Link
+            href="/signup"
+            className="inline-block px-8 py-4 bg-white text-pink-600 font-semibold text-lg rounded-lg hover:bg-gray-50 transition-colors shadow-sm"
+          >
+            Start Learning Free
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}

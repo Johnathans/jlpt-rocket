@@ -9,13 +9,13 @@ export default function SettingsPage() {
   const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#f9f8ff' }}>
+    <div className="min-h-screen" style={{ backgroundColor: '#f9fafb' }}>
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         
         {/* Settings Header */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-6">
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+            <div className="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center">
               <Settings className="h-6 w-6 text-white" />
             </div>
             <div>
@@ -103,7 +103,7 @@ export default function SettingsPage() {
           <h2 className="text-xl font-bold text-gray-900 mb-6">Account Settings</h2>
           
           <div className="space-y-4">
-            <button className="w-full px-6 py-3 bg-blue-600 text-white hover:bg-blue-700 font-medium transition-colors rounded-lg shadow-sm border-b-4 border-b-blue-700 hover:border-b-blue-800 text-sm text-left flex items-center gap-3">
+            <button className="w-full px-6 py-3 bg-pink-500 text-white hover:bg-pink-600 font-medium transition-colors rounded-lg shadow-sm border-b-4 border-b-pink-600 hover:border-b-pink-700 text-sm text-left flex items-center gap-3">
               <Globe className="h-4 w-4" />
               Language & Region
             </button>

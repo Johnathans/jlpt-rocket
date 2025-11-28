@@ -196,7 +196,7 @@ export default function ParaphraseTestPage() {
                       ${!showResult 
                         ? 'bg-white hover:shadow-md border-b-gray-300' 
                         : shouldShowCorrect
-                        ? 'bg-green-50 border-green-300 border-b-green-400 text-green-800'
+                        ? 'bg-green-50 border-pink-300 border-b-green-400 text-green-800'
                         : isWrong
                         ? 'bg-red-50 border-red-300 border-b-red-400 text-red-800'
                         : 'bg-gray-50 border-gray-300 border-b-gray-400 text-gray-500'
