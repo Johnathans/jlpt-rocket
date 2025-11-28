@@ -35,9 +35,9 @@ export default function PublicNavbar() {
               
               {/* Mega Menu Dropdown */}
               {isResourcesOpen && (
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[600px] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50">
-                  <div className="grid grid-cols-2 gap-6">
-                    {/* JLPT Levels Column */}
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[800px] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50">
+                  <div className="grid grid-cols-3 gap-6">
+                    {/* JLPT Kanji Column */}
                     <div>
                       <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">
                         JLPT Kanji
@@ -77,6 +77,50 @@ export default function PublicNavbar() {
                         >
                           <div className="font-medium">N1 Kanji</div>
                           <div className="text-xs text-gray-500">~1,200 expert characters</div>
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* How to Pass Column */}
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">
+                        How to Pass JLPT
+                      </h3>
+                      <div className="space-y-2">
+                        <Link
+                          href="/how-to-pass/n5"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">Pass N5</div>
+                          <div className="text-xs text-gray-500">Beginner guide</div>
+                        </Link>
+                        <Link
+                          href="/how-to-pass/n4"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">Pass N4</div>
+                          <div className="text-xs text-gray-500">Elementary guide</div>
+                        </Link>
+                        <Link
+                          href="/how-to-pass/n3"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">Pass N3</div>
+                          <div className="text-xs text-gray-500">Intermediate guide</div>
+                        </Link>
+                        <Link
+                          href="/how-to-pass/n2"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">Pass N2</div>
+                          <div className="text-xs text-gray-500">Advanced guide</div>
+                        </Link>
+                        <Link
+                          href="/how-to-pass/n1"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">Pass N1</div>
+                          <div className="text-xs text-gray-500">Expert guide</div>
                         </Link>
                       </div>
                     </div>
