@@ -2,11 +2,11 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
-import { CheckCircle, Clock, BookOpen, Target, TrendingUp, Award, ArrowRight } from 'lucide-react';
+import { CheckCircle, Clock, BookOpen, Target, Award, ArrowRight } from 'lucide-react';
 
-export default function HowToPassN4Page() {
+export default function HowToPassN5Page() {
   useEffect(() => {
-    document.title = 'How to Pass JLPT N4: Complete Study Guide 2025 - Rocket JLPT';
+    document.title = 'How to Pass JLPT N5: Beginner Study Guide 2025 - Rocket JLPT';
     
     const updateMetaTag = (name: string, content: string) => {
       let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
@@ -18,15 +18,15 @@ export default function HowToPassN4Page() {
       meta.content = content;
     };
 
-    updateMetaTag('description', 'Complete guide to passing JLPT N4 in 2025. Learn test structure, study strategies, required vocabulary, kanji, and grammar. Get proven tips to ace the N4 exam.');
-    updateMetaTag('keywords', 'jlpt n4, how to pass n4, jlpt n4 study guide, n4 exam tips, japanese proficiency test');
+    updateMetaTag('description', 'Complete beginner guide to passing JLPT N5 in 2025. Learn basic Japanese, hiragana, katakana, 80 kanji, and 800 vocabulary words. Start your Japanese journey.');
+    updateMetaTag('keywords', 'jlpt n5, how to pass n5, jlpt n5 study guide, beginner japanese, learn japanese');
 
-    // Add Article structured data for AI Overviews
+    // Add Article structured data
     const structuredData = {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "How to Pass JLPT N4: Complete Study Guide 2025",
-      "description": "Complete guide to passing JLPT N4 in 2025. Learn test structure, study strategies, required vocabulary, kanji, and grammar.",
+      "headline": "How to Pass JLPT N5: Beginner Study Guide 2025",
+      "description": "Complete beginner guide to passing JLPT N5. Learn hiragana, katakana, basic kanji, and essential vocabulary.",
       "author": {
         "@type": "Organization",
         "name": "Rocket JLPT"
@@ -43,7 +43,7 @@ export default function HowToPassN4Page() {
       "dateModified": "2025-11-27",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://rocketjlpt.com/how-to-pass/n4"
+        "@id": "https://rocketjlpt.com/how-to-pass/n5"
       }
     };
 
@@ -51,9 +51,9 @@ export default function HowToPassN4Page() {
     const howToSchema = {
       "@context": "https://schema.org",
       "@type": "HowTo",
-      "name": "How to Pass JLPT N4",
-      "description": "Step-by-step guide to passing the JLPT N4 exam",
-      "totalTime": "P6M",
+      "name": "How to Pass JLPT N5",
+      "description": "Step-by-step guide for absolute beginners to pass the JLPT N5 exam",
+      "totalTime": "P3M",
       "estimatedCost": {
         "@type": "MonetaryAmount",
         "currency": "USD",
@@ -62,28 +62,28 @@ export default function HowToPassN4Page() {
       "step": [
         {
           "@type": "HowToStep",
-          "name": "Master Kanji",
-          "text": "Learn approximately 300 kanji characters including radicals and compound words"
+          "name": "Master Hiragana and Katakana",
+          "text": "Learn all 46 hiragana and 46 katakana characters with proper pronunciation"
         },
         {
           "@type": "HowToStep",
-          "name": "Build Vocabulary",
-          "text": "Master 1,500 vocabulary words through context and spaced repetition"
+          "name": "Learn Basic Kanji",
+          "text": "Master 80 fundamental kanji characters used in everyday situations"
         },
         {
           "@type": "HowToStep",
-          "name": "Study Grammar",
-          "text": "Learn essential grammar patterns including particles, verb conjugations, and sentence structures"
+          "name": "Build Core Vocabulary",
+          "text": "Learn 800 essential vocabulary words for daily conversations"
         },
         {
           "@type": "HowToStep",
-          "name": "Practice Listening",
-          "text": "Improve listening comprehension through daily practice with Japanese audio content"
+          "name": "Study Basic Grammar",
+          "text": "Understand fundamental sentence structures and basic particles"
         },
         {
           "@type": "HowToStep",
-          "name": "Take Practice Tests",
-          "text": "Complete multiple full-length practice tests under timed conditions"
+          "name": "Practice Daily",
+          "text": "Complete practice exercises and listen to beginner Japanese content"
         }
       ]
     };
@@ -113,22 +113,22 @@ export default function HowToPassN4Page() {
             <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
               <Link href="/" className="hover:text-pink-600">Home</Link>
               <span>/</span>
-              <Link href="/how-to-pass/n4" className="text-gray-900">How to Pass N4</Link>
+              <Link href="/how-to-pass/n5" className="text-gray-900">How to Pass N5</Link>
             </div>
             <h1 className="text-5xl font-bold text-gray-900 mb-4">
-              How to Pass JLPT N4: Complete Study Guide
+              How to Pass JLPT N5: Beginner's Guide
             </h1>
             <p className="text-xl text-gray-600 mb-6">
-              Master the elementary level of Japanese proficiency with our comprehensive N4 preparation guide.
+              Start your Japanese learning journey with our complete N5 preparation guide for absolute beginners.
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-600">
               <span className="flex items-center gap-2">
                 <Clock className="h-4 w-4" />
-                15 min read
+                12 min read
               </span>
               <span className="flex items-center gap-2">
                 <Target className="h-4 w-4" />
-                Elementary Level
+                Beginner Level
               </span>
               <span>Updated November 2025</span>
             </div>
@@ -142,14 +142,14 @@ export default function HowToPassN4Page() {
           {/* Article Content */}
           <div className="lg:col-span-2">
             <article className="prose prose-lg max-w-none">
-              {/* What is JLPT N4 Section */}
+              {/* What is JLPT N5 Section */}
               <div className="bg-white rounded-lg border border-gray-200 p-8 mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">What is JLPT N4?</h2>
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">What is JLPT N5?</h2>
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  The <strong>JLPT N4</strong> is the second level of the Japanese Language Proficiency Test, designed for elementary-level learners. It tests your ability to understand basic Japanese used in everyday situations.
+                  The <strong>JLPT N5</strong> is the entry-level test of the Japanese Language Proficiency Test, perfect for absolute beginners. It assesses your ability to understand basic Japanese used in everyday situations.
                 </p>
                 <p className="text-gray-700 leading-relaxed">
-                  At the N4 level, you should be able to read and comprehend passages on familiar daily topics written in basic vocabulary and kanji, and listen to slow-paced conversations about everyday situations.
+                  At the N5 level, you should be able to read and understand typical expressions and sentences written in hiragana, katakana, and basic kanji, and comprehend slow-paced conversations about familiar topics.
                 </p>
               </div>
 
@@ -162,19 +162,23 @@ export default function HowToPassN4Page() {
                 <ul className="space-y-2 text-gray-700">
                   <li className="flex items-start gap-2">
                     <CheckCircle className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
-                    <span>Master <strong>~300 kanji</strong> and <strong>~1,500 vocabulary words</strong></span>
+                    <span>Master <strong>hiragana, katakana, and ~80 kanji</strong></span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
-                    <span>Study time: <strong>550-787 hours</strong> depending on background</span>
+                    <span>Learn <strong>~800 vocabulary words</strong> for daily life</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
-                    <span>Passing score: <strong>90/180 points</strong> with sectional minimums</span>
+                    <span>Study time: <strong>325-462 hours</strong> depending on background</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
-                    <span>Test duration: <strong>95 minutes</strong> total</span>
+                    <span>Passing score: <strong>80/180 points</strong> with sectional minimums</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="h-5 w-5 text-pink-600 flex-shrink-0 mt-0.5" />
+                    <span>Test duration: <strong>105 minutes</strong> total</span>
                   </li>
                 </ul>
               </div>
@@ -186,14 +190,14 @@ export default function HowToPassN4Page() {
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-3">Section 1: Language Knowledge (Vocabulary/Grammar) & Reading</h3>
-                    <p className="text-gray-700 mb-3"><strong>Time:</strong> 60 minutes</p>
+                    <p className="text-gray-700 mb-3"><strong>Time:</strong> 70 minutes</p>
                     <p className="text-gray-700 mb-3"><strong>Minimum Score:</strong> 38/120 points</p>
                     <p className="text-gray-700 mb-3">This section tests:</p>
                     <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                      <li>Vocabulary knowledge and usage</li>
-                      <li>Grammar patterns and sentence structure</li>
-                      <li>Reading comprehension of short passages</li>
-                      <li>Understanding of basic daily topics</li>
+                      <li>Hiragana and katakana recognition</li>
+                      <li>Basic vocabulary and kanji</li>
+                      <li>Simple grammar patterns</li>
+                      <li>Reading short, simple sentences</li>
                     </ul>
                   </div>
 
@@ -203,10 +207,10 @@ export default function HowToPassN4Page() {
                     <p className="text-gray-700 mb-3"><strong>Minimum Score:</strong> 19/60 points</p>
                     <p className="text-gray-700 mb-3">This section tests:</p>
                     <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                      <li>Understanding slow-paced conversations</li>
-                      <li>Comprehension of daily life situations</li>
-                      <li>Following simple instructions and announcements</li>
-                      <li>Identifying key information from dialogues</li>
+                      <li>Understanding very slow, clearly spoken conversations</li>
+                      <li>Comprehension of basic greetings and introductions</li>
+                      <li>Following simple instructions</li>
+                      <li>Identifying numbers, time, and dates</li>
                     </ul>
                   </div>
                 </div>
@@ -220,21 +224,20 @@ export default function HowToPassN4Page() {
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-3 flex items-center gap-2">
                       <BookOpen className="h-5 w-5 text-pink-600" />
-                      Kanji: ~300 Characters
+                      Hiragana & Katakana: 92 Characters
                     </h3>
                     <p className="text-gray-700 mb-3">
-                      The N4 requires knowledge of approximately <strong>300 kanji characters</strong>, building on the 100 kanji from N5. These include:
+                      Before starting N5 preparation, you <strong>must master</strong> both Japanese syllabaries:
                     </p>
                     <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                      <li>All N5 kanji (numbers, time, family, basic verbs)</li>
-                      <li>Kanji for common places (restaurant, workplace, school)</li>
-                      <li>Kanji for weather, nature, and animals</li>
-                      <li>Kanji for hobbies and daily activities</li>
-                      <li>Basic compound kanji words</li>
+                      <li><strong>Hiragana (46 characters):</strong> Used for native Japanese words and grammar</li>
+                      <li><strong>Katakana (46 characters):</strong> Used for foreign loanwords and emphasis</li>
+                      <li>Combined characters (が, ぎ, etc.) and small characters (きゃ, しゅ, etc.)</li>
+                      <li>Proper stroke order and pronunciation</li>
                     </ul>
                     <div className="mt-4 p-4 bg-pink-50 rounded-lg">
                       <p className="text-sm text-gray-700">
-                        <strong>Pro Tip:</strong> Learn kanji radicals and component meanings. This helps you memorize characters more efficiently and recognize new words.
+                        <strong>Pro Tip:</strong> Spend 1-2 weeks mastering hiragana and katakana before moving to kanji. This foundation is crucial!
                       </p>
                     </div>
                   </div>
@@ -242,33 +245,48 @@ export default function HowToPassN4Page() {
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900 mb-3 flex items-center gap-2">
                       <BookOpen className="h-5 w-5 text-orange-600" />
-                      Vocabulary: ~1,500 Words
+                      Kanji: ~80 Characters
                     </h3>
                     <p className="text-gray-700 mb-3">
-                      Master approximately <strong>1,500 vocabulary words</strong>, including:
+                      Learn approximately <strong>80 basic kanji</strong>, including:
                     </p>
                     <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                      <li>Basic nouns, verbs, and adjectives</li>
-                      <li>Commonly used expressions and phrases</li>
-                      <li>Adverbs and conjunctions</li>
-                      <li>Katakana loanwords for everyday items</li>
-                      <li>Workplace and school-related vocabulary</li>
+                      <li>Numbers (一, 二, 三, 四, 五, 六, 七, 八, 九, 十, 百, 千, 万)</li>
+                      <li>Time and dates (日, 月, 火, 水, 木, 金, 土, 年, 時, 分)</li>
+                      <li>Family members (父, 母, 兄, 弟, 姉, 妹, 子)</li>
+                      <li>Common verbs (見る, 行く, 来る, 食べる, 飲む, 書く, 読む)</li>
+                      <li>Basic nouns (人, 山, 川, 田, 車, 学校, 先生)</li>
                     </ul>
                   </div>
 
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">Grammar: Essential Patterns</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3">Vocabulary: ~800 Words</h3>
                     <p className="text-gray-700 mb-3">
-                      Key grammar points to master:
+                      Essential vocabulary categories:
                     </p>
                     <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                      <li>Particle usage (は, が, を, に, で, へ, と, から, まで)</li>
-                      <li>Verb conjugations (past, present, negative, te-form)</li>
-                      <li>Adjective types (い-adjectives and な-adjectives)</li>
-                      <li>Polite and casual speech forms</li>
-                      <li>Conditional expressions (たら, ば, と, なら)</li>
-                      <li>Desire and intention (たい, つもり, よう)</li>
-                      <li>Giving and receiving verbs (あげる, くれる, もらう)</li>
+                      <li>Greetings and basic phrases (おはよう, こんにちは, ありがとう)</li>
+                      <li>Numbers, time, and dates</li>
+                      <li>Family and personal pronouns</li>
+                      <li>Food and drinks (ご飯, 水, お茶, パン)</li>
+                      <li>Common adjectives (大きい, 小さい, 新しい, 古い)</li>
+                      <li>Basic verbs in present and past tense</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3">Grammar: Foundation Patterns</h3>
+                    <p className="text-gray-700 mb-3">
+                      Core grammar points to master:
+                    </p>
+                    <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                      <li>Basic particles (は, が, を, に, で, へ, の)</li>
+                      <li>です/だ and ます forms</li>
+                      <li>Present and past tense (positive and negative)</li>
+                      <li>Question formation with か</li>
+                      <li>Basic adjectives (い-adjectives and な-adjectives)</li>
+                      <li>Location words (ここ, そこ, あそこ)</li>
+                      <li>Counting and numbers</li>
                     </ul>
                   </div>
                 </div>
@@ -276,74 +294,61 @@ export default function HowToPassN4Page() {
 
               {/* Study Strategy */}
               <div className="bg-white rounded-lg border border-gray-200 p-8 mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Proven Study Strategies</h2>
+                <h2 className="text-3xl font-bold text-gray-900 mb-6">Beginner Study Strategies</h2>
                 
                 <div className="space-y-6">
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">1. Create a Study Schedule</h3>
-                    <p className="text-gray-700 mb-3">
-                      Consistency is key. Aim for <strong>1-2 hours daily</strong> over 6-12 months:
-                    </p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3">1. Start with the Basics (Weeks 1-2)</h3>
                     <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                      <li><strong>Months 1-3:</strong> Focus on vocabulary and kanji foundation</li>
-                      <li><strong>Months 4-6:</strong> Deep dive into grammar patterns</li>
-                      <li><strong>Months 7-9:</strong> Practice reading comprehension</li>
-                      <li><strong>Months 10-12:</strong> Intensive listening practice and mock tests</li>
+                      <li>Master hiragana completely (1 week)</li>
+                      <li>Master katakana completely (1 week)</li>
+                      <li>Practice writing each character 20+ times</li>
+                      <li>Use flashcards and mobile apps for daily review</li>
+                      <li>Read simple words and practice pronunciation</li>
                     </ul>
                   </div>
 
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">2. Master Kanji Systematically</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3">2. Build Your Foundation (Months 1-2)</h3>
                     <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                      <li>Learn 5-10 new kanji per day</li>
-                      <li>Review previous kanji daily using spaced repetition</li>
-                      <li>Write each kanji multiple times to memorize stroke order</li>
-                      <li>Learn common compound words for each kanji</li>
-                      <li>Use mnemonics and radical breakdowns</li>
+                      <li>Learn 5-10 new vocabulary words daily</li>
+                      <li>Study 2-3 new kanji per week</li>
+                      <li>Focus on high-frequency words first</li>
+                      <li>Practice basic sentence patterns</li>
+                      <li>Listen to beginner Japanese podcasts</li>
                     </ul>
                   </div>
 
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">3. Build Vocabulary Through Context</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3">3. Practice Grammar (Month 3)</h3>
                     <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                      <li>Learn words in example sentences, not isolation</li>
-                      <li>Group vocabulary by themes (food, travel, work)</li>
-                      <li>Use flashcards with spaced repetition (Anki, Quizlet)</li>
-                      <li>Practice writing sentences with new vocabulary</li>
-                      <li>Read simple Japanese texts (manga, children's books)</li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">4. Practice Grammar in Real Contexts</h3>
-                    <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                      <li>Study one grammar point thoroughly before moving on</li>
+                      <li>Study one grammar point per day</li>
                       <li>Create your own example sentences</li>
-                      <li>Do grammar exercises from JLPT prep books</li>
-                      <li>Identify grammar patterns while reading</li>
-                      <li>Practice transforming sentences (positive ↔ negative, past ↔ present)</li>
+                      <li>Do textbook exercises (Genki I, Minna no Nihongo)</li>
+                      <li>Practice verb conjugations daily</li>
+                      <li>Review particles and their usage</li>
                     </ul>
                   </div>
 
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">5. Improve Listening Skills</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3">4. Develop Listening Skills</h3>
                     <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                      <li>Listen to Japanese podcasts for beginners</li>
-                      <li>Watch anime with Japanese subtitles</li>
-                      <li>Practice with JLPT listening exercises</li>
-                      <li>Shadow native speakers to improve pronunciation</li>
+                      <li>Watch Japanese children's shows with subtitles</li>
+                      <li>Listen to slow Japanese podcasts (JapanesePod101 Absolute Beginner)</li>
+                      <li>Practice with JLPT N5 listening exercises</li>
+                      <li>Repeat after native speakers (shadowing)</li>
                       <li>Listen to the same content multiple times</li>
                     </ul>
                   </div>
 
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">6. Take Practice Tests</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3">5. Take Practice Tests (Final Month)</h3>
                     <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                      <li>Start practice tests 2-3 months before the exam</li>
-                      <li>Simulate real test conditions (timing, no breaks)</li>
-                      <li>Review mistakes thoroughly and understand why</li>
-                      <li>Track your progress and identify weak areas</li>
-                      <li>Take at least 3-5 full practice tests</li>
+                      <li>Start with individual section practice</li>
+                      <li>Take at least 3 full practice tests</li>
+                      <li>Time yourself to simulate real conditions</li>
+                      <li>Review every mistake thoroughly</li>
+                      <li>Focus on weak areas in final weeks</li>
                     </ul>
                   </div>
                 </div>
@@ -351,7 +356,7 @@ export default function HowToPassN4Page() {
 
               {/* Common Mistakes */}
               <div className="bg-white rounded-lg border border-gray-200 p-8 mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Common Mistakes to Avoid</h2>
+                <h2 className="text-3xl font-bold text-gray-900 mb-6">Common Beginner Mistakes</h2>
                 
                 <div className="space-y-4">
                   <div className="flex gap-4">
@@ -359,8 +364,8 @@ export default function HowToPassN4Page() {
                       <span className="text-red-600 font-bold">✗</span>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900 mb-1">Neglecting Listening Practice</h4>
-                      <p className="text-gray-700">Many students focus only on reading and fail the listening section. Practice listening daily.</p>
+                      <h4 className="font-semibold text-gray-900 mb-1">Skipping Hiragana/Katakana</h4>
+                      <p className="text-gray-700">Don't rely on romaji. Master both syllabaries before moving forward.</p>
                     </div>
                   </div>
 
@@ -369,8 +374,8 @@ export default function HowToPassN4Page() {
                       <span className="text-red-600 font-bold">✗</span>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900 mb-1">Cramming Before the Test</h4>
-                      <p className="text-gray-700">Language learning requires consistent practice over time. Start studying at least 6 months in advance.</p>
+                      <h4 className="font-semibold text-gray-900 mb-1">Learning Too Fast</h4>
+                      <p className="text-gray-700">Quality over quantity. Make sure you truly understand each concept before moving on.</p>
                     </div>
                   </div>
 
@@ -379,8 +384,8 @@ export default function HowToPassN4Page() {
                       <span className="text-red-600 font-bold">✗</span>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900 mb-1">Ignoring Weak Areas</h4>
-                      <p className="text-gray-700">You need to pass both sectional minimums. Don't rely on one strong section to carry you.</p>
+                      <h4 className="font-semibold text-gray-900 mb-1">Ignoring Pronunciation</h4>
+                      <p className="text-gray-700">Bad pronunciation habits are hard to fix later. Listen and repeat from day one.</p>
                     </div>
                   </div>
 
@@ -389,8 +394,8 @@ export default function HowToPassN4Page() {
                       <span className="text-red-600 font-bold">✗</span>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900 mb-1">Not Reviewing Mistakes</h4>
-                      <p className="text-gray-700">Simply doing practice tests isn't enough. Analyze every mistake and understand the correct answer.</p>
+                      <h4 className="font-semibold text-gray-900 mb-1">Not Practicing Writing</h4>
+                      <p className="text-gray-700">Writing by hand helps memory retention. Don't just type or use apps.</p>
                     </div>
                   </div>
 
@@ -399,49 +404,56 @@ export default function HowToPassN4Page() {
                       <span className="text-red-600 font-bold">✗</span>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900 mb-1">Learning Kanji Without Context</h4>
-                      <p className="text-gray-700">Memorizing kanji in isolation is inefficient. Always learn them with vocabulary words and example sentences.</p>
+                      <h4 className="font-semibold text-gray-900 mb-1">Studying Alone Without Context</h4>
+                      <p className="text-gray-700">Always learn vocabulary and grammar in context, not isolated lists.</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Test Day Tips */}
+              {/* Resources */}
               <div className="bg-white rounded-lg border border-gray-200 p-8 mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Test Day Tips</h2>
+                <h2 className="text-3xl font-bold text-gray-900 mb-6">Recommended Study Resources</h2>
                 
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span><strong>Arrive early:</strong> Get to the test center 30 minutes before start time</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span><strong>Bring required items:</strong> Test voucher, photo ID, pencils, eraser, watch</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span><strong>Manage your time:</strong> Don't spend too long on difficult questions</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span><strong>Read carefully:</strong> Many questions test subtle differences in meaning</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <span><strong>Stay calm:</strong> If you don't know an answer, make an educated guess and move on</span>
-                  </li>
-                </ul>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Textbooks:</h4>
+                    <ul className="list-disc pl-6 space-y-1 text-gray-700">
+                      <li>Genki I (Beginner)</li>
+                      <li>Minna no Nihongo I</li>
+                      <li>Japanese from Zero! 1-2</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Apps & Websites:</h4>
+                    <ul className="list-disc pl-6 space-y-1 text-gray-700">
+                      <li>Rocket JLPT (comprehensive N5 study)</li>
+                      <li>Anki (flashcards with spaced repetition)</li>
+                      <li>WaniKani (kanji learning)</li>
+                      <li>JapanesePod101 (listening practice)</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Practice Tests:</h4>
+                    <ul className="list-disc pl-6 space-y-1 text-gray-700">
+                      <li>Official JLPT Practice Workbooks</li>
+                      <li>Shin Kanzen Master N5</li>
+                      <li>TRY! JLPT N5</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
 
               {/* Final Section */}
               <div className="bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg border border-pink-200 p-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to Start Your N4 Journey?</h2>
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">Begin Your Japanese Journey Today!</h2>
                 <p className="text-gray-700 mb-6">
-                  Passing JLPT N4 requires dedication and consistent practice, but with the right approach, it's absolutely achievable. Remember: focus on building a strong foundation, practice regularly, and don't neglect any section of the test.
+                  JLPT N5 is the perfect starting point for your Japanese learning adventure. With consistent daily practice and the right approach, you can pass N5 in 3-6 months. Remember: every expert was once a beginner!
                 </p>
                 <p className="text-gray-700 font-semibold">
-                  Start your preparation today with Rocket JLPT's comprehensive study tools and track your progress every step of the way!
+                  Start with hiragana and katakana today, and you'll be reading Japanese in just a few weeks!
                 </p>
               </div>
             </article>
@@ -452,9 +464,9 @@ export default function HowToPassN4Page() {
             <div className="sticky top-8 space-y-6">
               {/* CTA Box */}
               <div className="bg-gradient-to-br from-pink-500 to-orange-500 rounded-lg p-6 text-white">
-                <h3 className="text-2xl font-bold mb-3">Start Studying N4 Today</h3>
+                <h3 className="text-2xl font-bold mb-3">Start Learning N5 Today</h3>
                 <p className="mb-6 text-pink-50">
-                  Get access to 300+ kanji, 1,500+ vocabulary words, and comprehensive grammar lessons.
+                  Master hiragana, katakana, 80 kanji, and 800 vocabulary words with interactive lessons.
                 </p>
                 <Link
                   href="/signup"
@@ -472,17 +484,10 @@ export default function HowToPassN4Page() {
                 <h3 className="font-bold text-gray-900 mb-4">Quick Links</h3>
                 <div className="space-y-3">
                   <Link
-                    href="/jlpt/n4/kanji"
+                    href="/jlpt/n5/kanji"
                     className="flex items-center justify-between text-gray-700 hover:text-pink-600 transition-colors"
                   >
-                    <span>N4 Kanji List</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                  <Link
-                    href="/schools"
-                    className="flex items-center justify-between text-gray-700 hover:text-pink-600 transition-colors"
-                  >
-                    <span>Language Schools</span>
+                    <span>N5 Kanji List</span>
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link
@@ -499,6 +504,13 @@ export default function HowToPassN4Page() {
                     <span>Katakana Chart</span>
                     <ArrowRight className="h-4 w-4" />
                   </Link>
+                  <Link
+                    href="/schools"
+                    className="flex items-center justify-between text-gray-700 hover:text-pink-600 transition-colors"
+                  >
+                    <span>Language Schools</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </div>
               </div>
 
@@ -507,10 +519,10 @@ export default function HowToPassN4Page() {
                 <h3 className="font-bold text-gray-900 mb-4">Other JLPT Levels</h3>
                 <div className="space-y-2">
                   <Link
-                    href="/how-to-pass/n5"
+                    href="/how-to-pass/n4"
                     className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
                   >
-                    How to Pass N5
+                    How to Pass N4
                   </Link>
                   <Link
                     href="/how-to-pass/n3"
