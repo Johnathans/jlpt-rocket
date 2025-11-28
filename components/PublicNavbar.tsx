@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { Rocket, ChevronDown, Menu, X } from 'lucide-react';
 
@@ -8,6 +8,43 @@ export default function PublicNavbar() {
   const [isResourcesOpen, setIsResourcesOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
+  const [mobileToolsOpen, setMobileToolsOpen] = useState(false);
+  const resourcesTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const toolsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleResourcesEnter = () => {
+    if (resourcesTimeoutRef.current) {
+      clearTimeout(resourcesTimeoutRef.current);
+    }
+    setIsResourcesOpen(true);
+  };
+
+  const handleResourcesLeave = () => {
+    resourcesTimeoutRef.current = setTimeout(() => {
+      setIsResourcesOpen(false);
+    }, 200);
+  };
+
+  const handleToolsEnter = () => {
+    if (toolsTimeoutRef.current) {
+      clearTimeout(toolsTimeoutRef.current);
+    }
+    setIsToolsOpen(true);
+  };
+
+  const handleToolsLeave = () => {
+    toolsTimeoutRef.current = setTimeout(() => {
+      setIsToolsOpen(false);
+    }, 200);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (resourcesTimeoutRef.current) clearTimeout(resourcesTimeoutRef.current);
+      if (toolsTimeoutRef.current) clearTimeout(toolsTimeoutRef.current);
+    };
+  }, []);
 
   return (
     <nav className="bg-white border-b border-gray-200 shadow-sm">
@@ -25,8 +62,8 @@ export default function PublicNavbar() {
             {/* Resources Mega Menu */}
             <div 
               className="relative"
-              onMouseEnter={() => setIsResourcesOpen(true)}
-              onMouseLeave={() => setIsResourcesOpen(false)}
+              onMouseEnter={handleResourcesEnter}
+              onMouseLeave={handleResourcesLeave}
             >
               <button className="flex items-center gap-1 text-gray-700 hover:text-pink-600 font-medium transition-colors">
                 Resources
@@ -181,8 +218,8 @@ export default function PublicNavbar() {
             {/* Tools Mega Menu */}
             <div 
               className="relative"
-              onMouseEnter={() => setIsToolsOpen(true)}
-              onMouseLeave={() => setIsToolsOpen(false)}
+              onMouseEnter={handleToolsEnter}
+              onMouseLeave={handleToolsLeave}
             >
               <button className="flex items-center gap-1 text-gray-700 hover:text-pink-600 font-medium transition-colors">
                 Tools
@@ -300,27 +337,62 @@ export default function PublicNavbar() {
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-gray-200 py-4">
             <div className="space-y-2">
-              <Link
-                href="/jlpt/n5/kanji"
-                className="block px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600"
-                onClick={() => setIsMobileMenuOpen(false)}
+              {/* Resources Section */}
+              <button
+                onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}
+                className="w-full flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 font-medium"
               >
-                N5 Kanji
-              </Link>
-              <Link
-                href="/jlpt/hiragana"
-                className="block px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600"
-                onClick={() => setIsMobileMenuOpen(false)}
+                Resources
+                <ChevronDown className={`h-4 w-4 transition-transform ${mobileResourcesOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {mobileResourcesOpen && (
+                <div className="bg-gray-50 py-2">
+                  <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">JLPT Kanji</div>
+                  <Link href="/jlpt/n5/kanji" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>N5 Kanji</Link>
+                  <Link href="/jlpt/n4/kanji" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>N4 Kanji</Link>
+                  <Link href="/jlpt/n3/kanji" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>N3 Kanji</Link>
+                  <Link href="/jlpt/n2/kanji" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>N2 Kanji</Link>
+                  <Link href="/jlpt/n1/kanji" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>N1 Kanji</Link>
+                  
+                  <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase mt-3">How to Pass JLPT</div>
+                  <Link href="/how-to-pass/n5" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Pass N5</Link>
+                  <Link href="/how-to-pass/n4" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Pass N4</Link>
+                  <Link href="/how-to-pass/n3" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Pass N3</Link>
+                  <Link href="/how-to-pass/n2" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Pass N2</Link>
+                  <Link href="/how-to-pass/n1" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Pass N1</Link>
+                  
+                  <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase mt-3">Japanese Alphabets</div>
+                  <Link href="/jlpt/hiragana" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Hiragana</Link>
+                  <Link href="/jlpt/katakana" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Katakana</Link>
+                  
+                  <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase mt-3">Study in Japan</div>
+                  <Link href="/schools" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Language Schools</Link>
+                </div>
+              )}
+
+              {/* Tools Section */}
+              <button
+                onClick={() => setMobileToolsOpen(!mobileToolsOpen)}
+                className="w-full flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 font-medium"
               >
-                Hiragana
-              </Link>
-              <Link
-                href="/jlpt/katakana"
-                className="block px-4 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Katakana
-              </Link>
+                Tools
+                <ChevronDown className={`h-4 w-4 transition-transform ${mobileToolsOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {mobileToolsOpen && (
+                <div className="bg-gray-50 py-2">
+                  <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">Practice Tools</div>
+                  <Link href="/signup" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Flashcards</Link>
+                  <Link href="/signup" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Multiple Choice</Link>
+                  <Link href="/signup" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Writing Practice</Link>
+                  <Link href="/signup" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Reading Stories</Link>
+                  
+                  <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase mt-3">Study Features</div>
+                  <Link href="/signup" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Progress Tracking</Link>
+                  <Link href="/signup" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Study Roadmap</Link>
+                  <Link href="/signup" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Practice Tests</Link>
+                </div>
+              )}
+
               <div className="border-t border-gray-200 my-2"></div>
               <Link
                 href="/login"
