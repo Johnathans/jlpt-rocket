@@ -51,7 +51,7 @@ export default function HomePage() {
                   href="/signup"
                   className="px-8 py-3.5 bg-pink-500 text-white text-base font-semibold rounded-md transition-all duration-200 hover:bg-pink-600"
                 >
-                  Start Learning Free
+                  Start Learning Today
                 </Link>
                 <Link 
                   href="/login"
@@ -67,7 +67,7 @@ export default function HomePage() {
                   <svg className="w-4 h-4 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  <span>Free forever plan</span>
+                  <span>Save 20% annually</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <svg className="w-4 h-4 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
@@ -79,7 +79,7 @@ export default function HomePage() {
                   <svg className="w-4 h-4 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  <span>Mobile friendly</span>
+                  <span>Cancel anytime</span>
                 </div>
               </div>
             </div>
@@ -222,26 +222,28 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h2>
-            <p className="text-lg text-gray-600">Choose the plan that fits your learning journey</p>
+            <p className="text-lg text-gray-600">Save 20% with annual billing</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-3xl mx-auto">
             {[
               { 
-                name: 'Free Forever', 
-                price: '$0', 
+                name: 'Monthly', 
+                price: '$9.99', 
                 period: '/month',
-                description: 'Perfect for getting started',
+                description: 'Billed monthly',
                 popular: false,
-                features: ['Basic kanji & vocabulary', 'Limited daily practice', 'Progress tracking', 'Mobile access']
+                savings: null,
+                features: ['All JLPT levels (N5-N1)', 'Unlimited practice', 'Advanced analytics', 'Priority support', 'Offline mode']
               },
               { 
-                name: 'Pro', 
-                price: '$9', 
+                name: 'Annual', 
+                price: '$7.99', 
                 period: '/month',
-                description: 'Unlock your full potential',
+                description: 'Billed $95.88 annually',
                 popular: true,
-                features: ['All JLPT levels (N5-N1)', 'Unlimited practice', 'Advanced analytics', 'Priority support', 'Offline mode']
+                savings: 'Save 20%',
+                features: ['All JLPT levels (N5-N1)', 'Unlimited practice', 'Advanced analytics', 'Priority support', 'Offline mode', '2 months FREE']
               }
             ].map((plan, index) => (
               <div
@@ -255,7 +257,7 @@ export default function HomePage() {
                 {plan.popular && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                     <span className="bg-gradient-to-r from-pink-500 to-orange-500 text-white px-4 py-1.5 rounded-full text-xs font-semibold">
-                      Most Popular
+                      {plan.savings} - Best Value
                     </span>
                   </div>
                 )}
@@ -288,7 +290,7 @@ export default function HomePage() {
                       : 'bg-gray-900 text-white hover:bg-gray-800'
                   }`}
                 >
-                  {plan.price === '$0' ? 'Get Started Free' : 'Upgrade to Pro'}
+                  {plan.popular ? 'Get Annual Plan' : 'Get Monthly Plan'}
                 </a>
               </div>
             ))}
@@ -333,7 +335,7 @@ export default function HomePage() {
               href="/signup"
               className="inline-block px-8 py-3.5 bg-pink-500 text-white text-base font-semibold rounded-md transition-all duration-200 hover:bg-pink-600"
             >
-              Start Learning Free
+              Start Learning Today
             </a>
             <a 
               href="/login"
