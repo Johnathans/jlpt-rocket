@@ -54,8 +54,8 @@ export default function VocabularyLevelPage() {
   useEffect(() => {
     if (!levelData) return;
 
-    // Set page title and meta tags
-    document.title = `JLPT ${levelData.name} Vocabulary List - ${levelData.count} ${levelData.difficulty} Japanese Words | Rocket JLPT`;
+    // Set page title and meta tags (optimized for SEO - under 60 chars)
+    document.title = `${levelData.name} Vocabulary - ${levelData.count} Words | Rocket JLPT`;
     
     const updateMetaTag = (name: string, content: string) => {
       let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
@@ -67,8 +67,8 @@ export default function VocabularyLevelPage() {
       meta.content = content;
     };
 
-    updateMetaTag('description', `Complete JLPT ${levelData.name} vocabulary list with ${levelData.count} ${levelData.description} Japanese words. Includes kanji, hiragana readings, English meanings, and audio pronunciation.`);
-    updateMetaTag('keywords', `jlpt ${level} vocabulary, ${level} words, japanese vocabulary ${levelData.description}, jlpt ${level} word list`);
+    updateMetaTag('description', `Complete JLPT ${levelData.name} vocabulary list: ${levelData.count} ${levelData.description} Japanese words with readings, meanings, and audio. Master ${levelData.difficulty.toLowerCase()} vocabulary for the JLPT exam.`);
+    updateMetaTag('keywords', `jlpt ${level} vocabulary, ${level} words, japanese vocabulary ${levelData.description}, jlpt ${level} word list, ${level} vocab`);
 
     // Add structured data
     const script = document.createElement('script');
