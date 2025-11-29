@@ -17,6 +17,7 @@ export default function robots(): MetadataRoute.Robots {
           '/privacy',
           '/schools',
           '/jlpt/',
+          '/how-to-pass/',
         ],
         disallow: [
           '/kanji',

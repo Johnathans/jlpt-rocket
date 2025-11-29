@@ -64,6 +64,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
+  // JLPT Vocabulary level pages
+  const vocabularyPages = jlptLevels.map(level => ({
+    url: `${baseUrl}/jlpt/${level}/vocabulary`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.9,
+  }));
+
   // Kana pages
   const kanaPages = [
     {
@@ -80,6 +88,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // How to Pass pages
+  const howToPassPages = jlptLevels.map(level => ({
+    url: `${baseUrl}/how-to-pass/${level}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.9,
+  }));
+
   // Combine all pages
-  return [...staticPages, ...kanjiPages, ...kanaPages];
+  return [...staticPages, ...kanjiPages, ...vocabularyPages, ...kanaPages, ...howToPassPages];
 }

@@ -72,8 +72,8 @@ export default function PublicNavbar() {
               
               {/* Mega Menu Dropdown */}
               {isResourcesOpen && (
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[800px] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50">
-                  <div className="grid grid-cols-3 gap-6">
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[1000px] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50">
+                  <div className="grid grid-cols-4 gap-6">
                     {/* JLPT Kanji Column */}
                     <div>
                       <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">
@@ -114,6 +114,50 @@ export default function PublicNavbar() {
                         >
                           <div className="font-medium">N1 Kanji</div>
                           <div className="text-xs text-gray-500">~1,200 expert characters</div>
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* JLPT Vocabulary Column */}
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">
+                        JLPT Vocabulary
+                      </h3>
+                      <div className="space-y-2">
+                        <Link
+                          href="/jlpt/n5/vocabulary"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">N5 Vocabulary</div>
+                          <div className="text-xs text-gray-500">~680 basic words</div>
+                        </Link>
+                        <Link
+                          href="/jlpt/n4/vocabulary"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">N4 Vocabulary</div>
+                          <div className="text-xs text-gray-500">~640 elementary words</div>
+                        </Link>
+                        <Link
+                          href="/jlpt/n3/vocabulary"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">N3 Vocabulary</div>
+                          <div className="text-xs text-gray-500">~1,700 intermediate words</div>
+                        </Link>
+                        <Link
+                          href="/jlpt/n2/vocabulary"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">N2 Vocabulary</div>
+                          <div className="text-xs text-gray-500">~1,800 advanced words</div>
+                        </Link>
+                        <Link
+                          href="/jlpt/n1/vocabulary"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">N1 Vocabulary</div>
+                          <div className="text-xs text-gray-500">~3,400 expert words</div>
                         </Link>
                       </div>
                     </div>
@@ -356,6 +400,18 @@ export default function PublicNavbar() {
                       <Link href="/jlpt/n3/kanji" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N3</Link>
                       <Link href="/jlpt/n2/kanji" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N2</Link>
                       <Link href="/jlpt/n1/kanji" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N1</Link>
+                    </div>
+                  </div>
+                  
+                  {/* JLPT Vocabulary - Grid Layout */}
+                  <div className="mb-4">
+                    <div className="text-xs font-semibold text-gray-500 uppercase mb-2">JLPT Vocabulary</div>
+                    <div className="grid grid-cols-5 gap-2">
+                      <Link href="/jlpt/n5/vocabulary" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N5</Link>
+                      <Link href="/jlpt/n4/vocabulary" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N4</Link>
+                      <Link href="/jlpt/n3/vocabulary" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N3</Link>
+                      <Link href="/jlpt/n2/vocabulary" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N2</Link>
+                      <Link href="/jlpt/n1/vocabulary" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N1</Link>
                     </div>
                   </div>
                   
