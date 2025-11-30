@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Rocket, Pen, ChevronLeft, ChevronRight, Copy } from 'lucide-react';
+import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Pen, ChevronLeft, ChevronRight, Copy } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import PublicNavbar from '@/components/PublicNavbar';
 
 interface KanjiDetail {
   character: string;
@@ -205,28 +206,7 @@ export default function KanjiDetailPage() {
   if (!kanji) {
     return (
       <div className="min-h-screen bg-gray-50">
-        {/* Navbar */}
-        <nav className="bg-white border-b border-gray-200 shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              <Link href="/" className="flex items-center space-x-2">
-                <Rocket className="h-6 w-6 text-pink-500" />
-                <span className="text-2xl text-gray-900">
-                  <span className="font-light">Rocket</span>
-                  <span className="font-black ml-1">JLPT</span>
-                </span>
-              </Link>
-              <div className="flex items-center gap-4">
-                <Link href="/login" className="text-gray-700 hover:text-pink-600 font-medium">
-                  Sign In
-                </Link>
-                <Link href="/signup" className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
-                  Get Started
-                </Link>
-              </div>
-            </div>
-          </div>
-        </nav>
+        <PublicNavbar />
         
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
@@ -242,28 +222,7 @@ export default function KanjiDetailPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navbar */}
-      <nav className="bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/" className="flex items-center space-x-2">
-              <Rocket className="h-6 w-6 text-pink-500" />
-              <span className="text-2xl text-gray-900">
-                <span className="font-light">Rocket</span>
-                <span className="font-black ml-1">JLPT</span>
-              </span>
-            </Link>
-            <div className="flex items-center gap-4">
-              <Link href="/login" className="text-gray-700 hover:text-pink-600 font-medium">
-                Sign In
-              </Link>
-              <Link href="/signup" className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
-                Get Started
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <PublicNavbar />
 
       {/* Navigation - in gray area matching navbar width */}
       <div className="bg-gray-50 pt-6 pb-2">
