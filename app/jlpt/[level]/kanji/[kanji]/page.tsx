@@ -233,7 +233,7 @@ export default function KanjiDetailPage() {
               className="inline-flex items-center gap-2 text-pink-600 hover:text-pink-700 font-medium transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
-              Back to {level} Kanji
+              Back to {level} Kanji List
             </Link>
             
             {/* Previous/Next Navigation */}

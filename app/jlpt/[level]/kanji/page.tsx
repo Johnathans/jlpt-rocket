@@ -61,23 +61,61 @@ export default function KanjiLevelPage() {
   const pageUrl = `https://rocketjlpt.com/jlpt/${level.toLowerCase()}/kanji`;
 
   // Structured data for SEO
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "EducationalOccupationalProgram",
-    "name": `JLPT ${level} Kanji Reference`,
-    "description": pageDescription,
-    "provider": {
-      "@type": "Organization",
-      "name": "Rocket JLPT",
-      "url": "https://rocketjlpt.com"
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOccupationalProgram",
+      "name": `JLPT ${level} Kanji Reference`,
+      "description": pageDescription,
+      "provider": {
+        "@type": "Organization",
+        "name": "Rocket JLPT",
+        "url": "https://rocketjlpt.com"
+      },
+      "educationalLevel": `JLPT ${level}`,
+      "inLanguage": "ja",
+      "about": {
+        "@type": "Thing",
+        "name": "Japanese Kanji"
+      },
+      "url": pageUrl
     },
-    "educationalLevel": `JLPT ${level}`,
-    "inLanguage": "ja",
-    "about": {
-      "@type": "Thing",
-      "name": "Japanese Kanji"
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": `JLPT ${level} Kanji List`,
+      "description": `Complete collection of ${filteredKanji.length || info?.count} kanji for JLPT ${level}`,
+      "numberOfItems": filteredKanji.length,
+      "itemListElement": filteredKanji.slice(0, 10).map((kanji, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+          "@type": "Thing",
+          "name": kanji.character,
+          "description": kanji.meaning,
+          "url": `https://rocketjlpt.com/jlpt/${level.toLowerCase()}/kanji/${encodeURIComponent(kanji.character)}`
+        }
+      }))
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://rocketjlpt.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": `JLPT ${level} Kanji`,
+          "item": pageUrl
+        }
+      ]
     }
-  };
+  ];
 
   useEffect(() => {
     // Set document title and meta tags
@@ -123,14 +161,15 @@ export default function KanjiLevelPage() {
     }
     canonical.href = pageUrl;
 
-    // Add structured data
-    let script = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement;
-    if (!script) {
-      script = document.createElement('script');
-      script.type = 'application/ld+json';
-      document.head.appendChild(script);
-    }
+    // Add structured data (remove old one first)
+    const oldScripts = document.querySelectorAll('script[type="application/ld+json"]');
+    oldScripts.forEach(s => s.remove());
+    
+    // Add new structured data
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
     script.textContent = JSON.stringify(structuredData);
+    document.head.appendChild(script);
   }, [level, filteredKanji.length]);
 
   return (
