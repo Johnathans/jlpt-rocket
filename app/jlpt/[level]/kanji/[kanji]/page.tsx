@@ -317,89 +317,73 @@ export default function KanjiDetailPage() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* SEO-friendly heading with kanji character */}
+        <div className="mb-8">
+          <h1 className="text-5xl font-bold text-gray-900">
+            {kanji.character} - {kanji.meaning}
+          </h1>
+        </div>
+
         {/* Main Kanji Card */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
-          {/* SEO-friendly heading with kanji character */}
-          <h1 className="text-4xl font-bold text-gray-900 mb-6 text-center">
-            {kanji.character} - {kanji.meaning} | JLPT {kanji.jlpt_level} Kanji
-          </h1>
-          
-          {/* SEO text with keywords */}
-          <p className="text-lg text-gray-700 mb-8 text-center leading-relaxed">
-            Learn the Japanese kanji <span className="font-bold font-japanese text-2xl">{kanji.character}</span> ({kanji.meaning}). 
-            This {kanji.jlpt_level} level kanji has {kanji.stroke_count} strokes. 
-            The on'yomi reading{kanji.on_reading && kanji.on_reading.length > 1 ? 's are' : ' is'} <span className="font-japanese font-semibold">{kanji.on_reading?.join(', ') || 'none'}</span> and 
-            the kun'yomi reading{kanji.kun_reading && kanji.kun_reading.length > 1 ? 's are' : ' is'} <span className="font-japanese font-semibold">{kanji.kun_reading?.join(', ') || 'none'}</span>.
-          </p>
-
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-3 gap-8">
             {/* Left: Large Kanji Display */}
-            <div className="text-center md:border-r border-gray-200">
-              <div className="text-9xl font-bold text-gray-900 mb-4 font-japanese">
+            <div className="text-center flex flex-col items-center justify-center gap-4">
+              <div className="text-9xl font-bold text-gray-900 font-japanese">
                 {kanji.character}
               </div>
+              <span className="inline-block px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg text-sm font-semibold">
+                JLPT {kanji.jlpt_level}
+              </span>
               <button
                 onClick={() => playAudio(kanji.character)}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-pink-50 text-pink-600 rounded-lg hover:bg-pink-100 transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg hover:shadow-lg transition-all duration-200 font-medium"
               >
                 <Volume2 className="h-5 w-5" />
                 Play Pronunciation
               </button>
             </div>
 
-            {/* Right: Kanji Information */}
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                  Meaning: {kanji.meaning}
-                </h2>
-                <span className="inline-block px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm font-semibold">
-                  JLPT {kanji.jlpt_level}
-                </span>
+            {/* Middle & Right: Readings in 2 columns */}
+            <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
+              {/* On'yomi Reading */}
+              <div className="bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg p-6 border border-pink-200">
+                <div className="flex items-center gap-2 mb-3">
+                  <BookOpen className="h-5 w-5 text-pink-600" />
+                  <h2 className="text-xl font-bold text-gray-900">On'yomi (音読み)</h2>
+                </div>
+                <p className="text-3xl font-japanese text-gray-900 mb-2">
+                  {kanji.on_reading && kanji.on_reading.length > 0 ? kanji.on_reading.join('、 ') : 'None'}
+                </p>
+                <p className="text-sm text-gray-600">
+                  Chinese-derived pronunciation
+                </p>
               </div>
 
-              <div className="space-y-4">
-                {/* Readings */}
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <BookOpen className="h-5 w-5 text-gray-600" />
-                    <h3 className="text-lg font-semibold text-gray-900">On'yomi Reading (音読み)</h3>
-                  </div>
-                  <p className="text-2xl font-japanese text-gray-900">
-                    {kanji.on_reading && kanji.on_reading.length > 0 ? kanji.on_reading.join('、 ') : 'None'}
-                  </p>
-                  <p className="text-sm text-gray-600 mt-2">
-                    Chinese-derived pronunciation used in compound words
-                  </p>
+              {/* Kun'yomi Reading */}
+              <div className="bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg p-6 border border-pink-200">
+                <div className="flex items-center gap-2 mb-3">
+                  <BookOpen className="h-5 w-5 text-pink-600" />
+                  <h2 className="text-xl font-bold text-gray-900">Kun'yomi (訓読み)</h2>
                 </div>
+                <p className="text-3xl font-japanese text-gray-900 mb-2">
+                  {kanji.kun_reading && kanji.kun_reading.length > 0 ? kanji.kun_reading.join('、 ') : 'None'}
+                </p>
+                <p className="text-sm text-gray-600">
+                  Native Japanese pronunciation
+                </p>
+              </div>
 
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <BookOpen className="h-5 w-5 text-gray-600" />
-                    <h3 className="text-lg font-semibold text-gray-900">Kun'yomi Reading (訓読み)</h3>
-                  </div>
-                  <p className="text-2xl font-japanese text-gray-900">
-                    {kanji.kun_reading && kanji.kun_reading.length > 0 ? kanji.kun_reading.join('、 ') : 'None'}
-                  </p>
-                  <p className="text-sm text-gray-600 mt-2">
-                    Native Japanese pronunciation
-                  </p>
+              {/* Stroke Count */}
+              <div className="md:col-span-2 bg-gray-50 rounded-lg p-6 border border-gray-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <Layers className="h-5 w-5 text-gray-600" />
+                  <h3 className="text-lg font-semibold text-gray-900">Stroke Count</h3>
                 </div>
-
-                {/* Stroke Count */}
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Layers className="h-5 w-5 text-gray-600" />
-                    <h3 className="text-lg font-semibold text-gray-900">Stroke Count</h3>
-                  </div>
-                  <p className="text-2xl font-bold text-gray-900">
-                    {kanji.stroke_count} strokes
-                  </p>
-                  <p className="text-sm text-gray-600 mt-2">
-                    Number of brush strokes to write {kanji.character}
-                  </p>
-                </div>
+                <p className="text-2xl font-bold text-gray-900">
+                  {kanji.stroke_count} strokes
+                </p>
               </div>
             </div>
           </div>
