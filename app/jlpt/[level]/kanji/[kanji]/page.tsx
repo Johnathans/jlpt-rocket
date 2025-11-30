@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Pen, ChevronLeft, ChevronRight, Copy } from 'lucide-react';
+import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Pen, ChevronLeft, ChevronRight, Copy, Zap } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import PublicNavbar from '@/components/PublicNavbar';
 
@@ -15,6 +15,7 @@ interface KanjiDetail {
   stroke_count: number;
   jlpt_level: string;
   radical?: string;
+  frequency_rank?: number;
 }
 
 export default function KanjiDetailPage() {
@@ -27,6 +28,7 @@ export default function KanjiDetailPage() {
   const [loading, setLoading] = useState(true);
   const [allKanji, setAllKanji] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
+  const [vocabCount, setVocabCount] = useState<number>(0);
 
   // SEO: Update meta tags dynamically
   useEffect(() => {
@@ -155,7 +157,7 @@ export default function KanjiDetailPage() {
         // Fetch kanji details
         const { data: kanjiData, error: kanjiError } = await supabase
           .from('kanji')
-          .select('character, meaning, on_reading, kun_reading, stroke_count, jlpt_level, radical')
+          .select('character, meaning, on_reading, kun_reading, stroke_count, jlpt_level, radical, frequency_rank')
           .eq('character', kanjiChar)
           .single();
 
@@ -172,6 +174,16 @@ export default function KanjiDetailPage() {
 
         if (!vocabError && vocabData) {
           setExamples(vocabData);
+        }
+        
+        // Fetch total count of vocabulary words using this kanji for usefulness metric
+        const { count, error: countError } = await supabase
+          .from('vocabulary')
+          .select('*', { count: 'exact', head: true })
+          .contains('kanji_used', [kanjiChar]);
+        
+        if (!countError && count !== null) {
+          setVocabCount(count);
         }
       } catch (error) {
         console.error('Error fetching kanji:', error);
@@ -347,15 +359,51 @@ export default function KanjiDetailPage() {
                 </p>
               </div>
 
-              {/* Stroke Count */}
-              <div className="md:col-span-2 bg-gray-50 rounded-lg p-6 border border-gray-200">
-                <div className="flex items-center gap-2 mb-2">
-                  <Layers className="h-5 w-5 text-gray-600" />
-                  <h3 className="text-lg font-semibold text-gray-900">Stroke Count</h3>
+              {/* Stroke Count & Usefulness */}
+              <div className="md:col-span-2 grid grid-cols-2 gap-4">
+                {/* Stroke Count */}
+                <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Layers className="h-5 w-5 text-gray-600" />
+                    <h3 className="text-lg font-semibold text-gray-900">Stroke Count</h3>
+                  </div>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {kanji.stroke_count} strokes
+                  </p>
                 </div>
-                <p className="text-2xl font-bold text-gray-900">
-                  {kanji.stroke_count} strokes
-                </p>
+                
+                {/* Usefulness Meter */}
+                <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Zap className="h-5 w-5 text-gray-600" />
+                    <h3 className="text-lg font-semibold text-gray-900">Usefulness</h3>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1">
+                      <span className="text-xs text-gray-500 w-8">Low</span>
+                      <div className="flex-1 flex gap-1">
+                        {[...Array(10)].map((_, i) => {
+                          const threshold = (i + 1) * 5; // Each box represents 5 words
+                          const isActive = vocabCount >= threshold;
+                          return (
+                            <div
+                              key={i}
+                              className={`flex-1 h-8 rounded transition-all duration-300 ${
+                                isActive 
+                                  ? 'bg-gradient-to-r from-pink-500 to-orange-500' 
+                                  : 'bg-gray-200'
+                              }`}
+                            />
+                          );
+                        })}
+                      </div>
+                      <span className="text-xs text-gray-500 w-8 text-right">High</span>
+                    </div>
+                    <p className="text-sm text-gray-600 text-center">
+                      Used in {vocabCount} word{vocabCount !== 1 ? 's' : ''} across JLPT N5-N1
+                    </p>
+                  </div>
+                </div>
               </div>
               </div>
             </div>
