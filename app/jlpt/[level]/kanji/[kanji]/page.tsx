@@ -320,6 +320,19 @@ export default function KanjiDetailPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Main Kanji Card */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
+          {/* SEO-friendly heading with kanji character */}
+          <h1 className="text-4xl font-bold text-gray-900 mb-6 text-center">
+            {kanji.character} - {kanji.meaning} | JLPT {kanji.jlpt_level} Kanji
+          </h1>
+          
+          {/* SEO text with keywords */}
+          <p className="text-lg text-gray-700 mb-8 text-center leading-relaxed">
+            Learn the Japanese kanji <span className="font-bold font-japanese text-2xl">{kanji.character}</span> ({kanji.meaning}). 
+            This {kanji.jlpt_level} level kanji has {kanji.stroke_count} strokes. 
+            The on'yomi reading{kanji.on_reading && kanji.on_reading.length > 1 ? 's are' : ' is'} <span className="font-japanese font-semibold">{kanji.on_reading?.join(', ') || 'none'}</span> and 
+            the kun'yomi reading{kanji.kun_reading && kanji.kun_reading.length > 1 ? 's are' : ' is'} <span className="font-japanese font-semibold">{kanji.kun_reading?.join(', ') || 'none'}</span>.
+          </p>
+
           <div className="grid md:grid-cols-2 gap-8">
             {/* Left: Large Kanji Display */}
             <div className="text-center md:border-r border-gray-200">
@@ -331,7 +344,7 @@ export default function KanjiDetailPage() {
                 className="inline-flex items-center gap-2 px-4 py-2 bg-pink-50 text-pink-600 rounded-lg hover:bg-pink-100 transition-colors"
               >
                 <Volume2 className="h-5 w-5" />
-                Play Audio
+                Play Pronunciation
               </button>
             </div>
 
@@ -339,7 +352,7 @@ export default function KanjiDetailPage() {
             <div className="space-y-6">
               <div>
                 <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                  {kanji.meaning}
+                  Meaning: {kanji.meaning}
                 </h2>
                 <span className="inline-block px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm font-semibold">
                   JLPT {kanji.jlpt_level}
@@ -351,20 +364,26 @@ export default function KanjiDetailPage() {
                 <div className="bg-gray-50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <BookOpen className="h-5 w-5 text-gray-600" />
-                    <h3 className="font-semibold text-gray-900">On'yomi (音読み)</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">On'yomi Reading (音読み)</h3>
                   </div>
                   <p className="text-2xl font-japanese text-gray-900">
                     {kanji.on_reading && kanji.on_reading.length > 0 ? kanji.on_reading.join('、 ') : 'None'}
+                  </p>
+                  <p className="text-sm text-gray-600 mt-2">
+                    Chinese-derived pronunciation used in compound words
                   </p>
                 </div>
 
                 <div className="bg-gray-50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <BookOpen className="h-5 w-5 text-gray-600" />
-                    <h3 className="font-semibold text-gray-900">Kun'yomi (訓読み)</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">Kun'yomi Reading (訓読み)</h3>
                   </div>
                   <p className="text-2xl font-japanese text-gray-900">
                     {kanji.kun_reading && kanji.kun_reading.length > 0 ? kanji.kun_reading.join('、 ') : 'None'}
+                  </p>
+                  <p className="text-sm text-gray-600 mt-2">
+                    Native Japanese pronunciation
                   </p>
                 </div>
 
@@ -372,10 +391,13 @@ export default function KanjiDetailPage() {
                 <div className="bg-gray-50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Layers className="h-5 w-5 text-gray-600" />
-                    <h3 className="font-semibold text-gray-900">Stroke Count</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">Stroke Count</h3>
                   </div>
                   <p className="text-2xl font-bold text-gray-900">
                     {kanji.stroke_count} strokes
+                  </p>
+                  <p className="text-sm text-gray-600 mt-2">
+                    Number of brush strokes to write {kanji.character}
                   </p>
                 </div>
               </div>
@@ -385,9 +407,15 @@ export default function KanjiDetailPage() {
 
         {/* Stroke Order Diagram */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
-          <div className="flex items-center gap-2 mb-6">
-            <Pen className="h-6 w-6 text-pink-600" />
-            <h2 className="text-2xl font-bold text-gray-900">Stroke Order</h2>
+          <div className="mb-6">
+            <div className="flex items-center gap-2 mb-3">
+              <Pen className="h-6 w-6 text-pink-600" />
+              <h2 className="text-2xl font-bold text-gray-900">How to Write {kanji.character} - Stroke Order Diagram</h2>
+            </div>
+            <p className="text-gray-700">
+              Learn the correct stroke order for writing the kanji {kanji.character} ({kanji.meaning}). 
+              Follow the numbered sequence to write this {kanji.stroke_count}-stroke character correctly.
+            </p>
           </div>
           
           <div className="flex justify-center items-center bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg p-8 border border-pink-200">
@@ -430,9 +458,15 @@ export default function KanjiDetailPage() {
 
         {/* Vocabulary Examples */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
-          <div className="flex items-center gap-2 mb-6">
-            <TrendingUp className="h-6 w-6 text-pink-600" />
-            <h2 className="text-2xl font-bold text-gray-900">Vocabulary Examples</h2>
+          <div className="mb-6">
+            <div className="flex items-center gap-2 mb-3">
+              <TrendingUp className="h-6 w-6 text-pink-600" />
+              <h2 className="text-2xl font-bold text-gray-900">Words Using {kanji.character} - Vocabulary Examples</h2>
+            </div>
+            <p className="text-gray-700">
+              Common Japanese words and vocabulary that use the kanji {kanji.character}. 
+              Each example includes the reading (pronunciation) and English meaning.
+            </p>
           </div>
 
           {examples.length > 0 ? (
