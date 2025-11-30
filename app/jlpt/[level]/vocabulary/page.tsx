@@ -138,49 +138,89 @@ export default function VocabularyLevelPage() {
     <div className="min-h-screen bg-gray-50">
       <PublicNavbar />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-            <Link href="/" className="hover:text-pink-600">Home</Link>
-            <span>/</span>
-            <Link href={`/jlpt/${level}/kanji`} className="hover:text-pink-600">JLPT {levelData.name}</Link>
-            <span>/</span>
-            <span className="text-gray-900">Vocabulary</span>
-          </div>
-          
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-orange-500 rounded-lg flex items-center justify-center">
-              <BookOpen className="h-6 w-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-4xl font-bold text-gray-900">JLPT {levelData.name} Vocabulary</h1>
-              <p className="text-gray-600 mt-1">
-                Complete list of {vocabulary.length} essential {levelData.description} words
-              </p>
-            </div>
-          </div>
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="flex items-start justify-between gap-8">
+            <div className="flex-1">
+              {/* Breadcrumb */}
+              <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
+                <Link href="/" className="hover:text-pink-600 transition-colors">Home</Link>
+                <span>/</span>
+                <Link href={`/jlpt/${level}/kanji`} className="hover:text-pink-600 transition-colors">JLPT {levelData.name}</Link>
+                <span>/</span>
+                <span className="text-gray-900">Vocabulary</span>
+              </div>
+              
+              {/* Title with gradient accent */}
+              <div className="mb-8">
+                <div className="flex items-center gap-3 mb-3">
+                  <h1 className="text-4xl font-bold text-gray-900">
+                    {levelData.name} Vocabulary
+                  </h1>
+                  <span className="px-3 py-1 text-sm font-medium bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-full">
+                    {vocabulary.length} words
+                  </span>
+                </div>
+                <p className="text-lg text-gray-600">
+                  Complete list of essential {levelData.description} vocabulary for JLPT {levelData.name}
+                </p>
+              </div>
 
-          {/* Description */}
-          <div className="bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg border border-pink-200 p-6 mb-6">
-            <p className="text-gray-700 leading-relaxed">
-              Master the {levelData.description} vocabulary needed for JLPT {levelData.name}. This comprehensive list includes all {vocabulary.length} words you need to know, 
-              complete with readings and English meanings. Perfect for {levelData.difficulty.toLowerCase()} learners.
-            </p>
-          </div>
+              {/* Search Bar */}
+              <div className="flex items-center gap-4">
+                <div className="relative flex-1 max-w-lg">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Search by word, reading, or meaning..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-shadow"
+                  />
+                </div>
+              </div>
+            </div>
 
-          {/* Search Bar */}
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search vocabulary by word, reading, or meaning..."
-              className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-            />
+            {/* Progress Meter - Desktop Only */}
+            <div className="hidden xl:flex flex-col items-center gap-4">
+              <div className="relative w-44 h-44">
+                {/* Background circles */}
+                <svg className="w-44 h-44 transform -rotate-90">
+                  {/* Background segments */}
+                  {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+                    <circle
+                      key={`bg-${i}`}
+                      cx="88"
+                      cy="88"
+                      r="76"
+                      fill="none"
+                      stroke="#e5e7eb"
+                      strokeWidth="16"
+                      strokeDasharray="59.69 417.83"
+                      strokeDashoffset={-i * 59.69}
+                      strokeLinecap="round"
+                    />
+                  ))}
+                  {/* Progress segments - showing 0% */}
+                </svg>
+                {/* Center text */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-4xl font-bold text-gray-900">0%</span>
+                </div>
+              </div>
+              <Link 
+                href="/login"
+                className="text-sm text-gray-600 hover:text-pink-600 transition-colors font-medium"
+              >
+                Login to track progress
+              </Link>
+            </div>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Stats Bar */}
         <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
