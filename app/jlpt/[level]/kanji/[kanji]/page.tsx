@@ -233,19 +233,33 @@ export default function KanjiDetailPage() {
           <div className="flex justify-center items-center bg-gray-50 rounded-lg p-8">
             <div className="relative w-full max-w-md aspect-square">
               {/* KanjiVG SVG - fully customizable */}
-              <img
-                src={`https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/0${kanji.character.codePointAt(0)?.toString(16).padStart(5, '0')}.svg`}
-                alt={`Stroke order for ${kanji.character}`}
-                className="w-full h-full"
-                style={{
-                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
-                }}
-                onError={(e) => {
-                  // Fallback if SVG not found
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.parentElement!.innerHTML = '<p class="text-gray-500 text-center">Stroke order diagram not available</p>';
-                }}
-              />
+              {(() => {
+                const codePoint = kanji.character.codePointAt(0)?.toString(16).padStart(5, '0');
+                const svgUrl = `https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${codePoint}.svg`;
+                console.log('Kanji:', kanji.character, 'Code point:', codePoint, 'URL:', svgUrl);
+                
+                return (
+                  <img
+                    src={svgUrl}
+                    alt={`Stroke order for ${kanji.character}`}
+                    className="w-full h-full"
+                    style={{
+                      filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
+                    }}
+                    onError={(e) => {
+                      console.error('Failed to load stroke order:', svgUrl);
+                      e.currentTarget.style.display = 'none';
+                      const parent = e.currentTarget.parentElement;
+                      if (parent) {
+                        parent.innerHTML = '<p class="text-gray-500 text-center">Stroke order diagram not available</p>';
+                      }
+                    }}
+                    onLoad={() => {
+                      console.log('Stroke order loaded successfully:', svgUrl);
+                    }}
+                  />
+                );
+              })()}
             </div>
           </div>
           
