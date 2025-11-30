@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Rocket, Pen, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Rocket, Pen, ChevronLeft, ChevronRight, Copy } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 interface KanjiDetail {
@@ -265,9 +265,9 @@ export default function KanjiDetailPage() {
         </div>
       </nav>
 
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      {/* Navigation - in gray area matching navbar width */}
+      <div className="bg-gray-50 pt-6 pb-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <Link 
               href={`/jlpt/${level.toLowerCase()}/kanji`}
@@ -278,20 +278,20 @@ export default function KanjiDetailPage() {
             </Link>
             
             {/* Previous/Next Navigation */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               {currentIndex > 0 ? (
                 <Link
                   href={`/jlpt/${level.toLowerCase()}/kanji/${encodeURIComponent(allKanji[currentIndex - 1])}`}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg hover:shadow-lg transition-all duration-200 font-medium"
+                  className="inline-flex items-center gap-2 text-pink-600 hover:text-pink-700 font-medium transition-colors"
                 >
                   <ChevronLeft className="h-4 w-4" />
                   Previous
                 </Link>
               ) : (
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-400 rounded-lg cursor-not-allowed font-medium">
+                <span className="inline-flex items-center gap-2 text-gray-400 font-medium cursor-not-allowed">
                   <ChevronLeft className="h-4 w-4" />
                   Previous
-                </div>
+                </span>
               )}
               
               <span className="text-sm text-gray-600 font-medium">
@@ -301,52 +301,65 @@ export default function KanjiDetailPage() {
               {currentIndex < allKanji.length - 1 ? (
                 <Link
                   href={`/jlpt/${level.toLowerCase()}/kanji/${encodeURIComponent(allKanji[currentIndex + 1])}`}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg hover:shadow-lg transition-all duration-200 font-medium"
+                  className="inline-flex items-center gap-2 text-pink-600 hover:text-pink-700 font-medium transition-colors"
                 >
                   Next
                   <ChevronRight className="h-4 w-4" />
                 </Link>
               ) : (
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-400 rounded-lg cursor-not-allowed font-medium">
+                <span className="inline-flex items-center gap-2 text-gray-400 font-medium cursor-not-allowed">
                   Next
                   <ChevronRight className="h-4 w-4" />
-                </div>
+                </span>
               )}
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* SEO-friendly heading with kanji character */}
-        <div className="mb-8">
-          <h1 className="text-5xl font-bold text-gray-900">
-            {kanji.character} - {kanji.meaning}
-          </h1>
-        </div>
-
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-8">
         {/* Main Kanji Card */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Left: Large Kanji Display */}
-            <div className="text-center flex flex-col items-center justify-center gap-4">
-              <div className="text-9xl font-bold text-gray-900 font-japanese">
+            <div className="text-center flex flex-col items-center justify-between">
+              <div className="text-[12rem] font-bold text-gray-900 font-japanese leading-none">
                 {kanji.character}
               </div>
-              <span className="inline-block px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg text-sm font-semibold">
-                JLPT {kanji.jlpt_level}
-              </span>
-              <button
-                onClick={() => playAudio(kanji.character)}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg hover:shadow-lg transition-all duration-200 font-medium"
-              >
-                <Volume2 className="h-5 w-5" />
-                Play Pronunciation
-              </button>
+              <div className="flex flex-col items-center gap-3">
+                <span className="inline-block px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg text-sm font-semibold">
+                  JLPT {kanji.jlpt_level}
+                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => playAudio(kanji.character)}
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+                  >
+                    <Volume2 className="h-4 w-4" />
+                    Play Pronunciation
+                  </button>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(kanji.character);
+                    }}
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+                    title="Copy kanji"
+                  >
+                    <Copy className="h-4 w-4" />
+                    Copy
+                  </button>
+                </div>
+              </div>
             </div>
 
             {/* Middle & Right: Readings in 2 columns */}
-            <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
+            <div className="lg:col-span-2">
+              {/* SEO-friendly heading with kanji character */}
+              <h1 className="text-4xl font-bold text-gray-900 mb-6">
+                {kanji.character} - {kanji.meaning}
+              </h1>
+              
+              <div className="grid md:grid-cols-2 gap-6">
               {/* On'yomi Reading */}
               <div className="bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg p-6 border border-pink-200">
                 <div className="flex items-center gap-2 mb-3">
@@ -384,6 +397,7 @@ export default function KanjiDetailPage() {
                 <p className="text-2xl font-bold text-gray-900">
                   {kanji.stroke_count} strokes
                 </p>
+              </div>
               </div>
             </div>
           </div>
