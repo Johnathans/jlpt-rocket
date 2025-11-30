@@ -3,16 +3,16 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Rocket } from 'lucide-react';
+import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Rocket, Pen } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 interface KanjiDetail {
   character: string;
   meaning: string;
-  onyomi: string;
-  kunyomi: string;
-  strokes: number;
-  level: string;
+  on_reading: string[];
+  kun_reading: string[];
+  stroke_count: number;
+  jlpt_level: string;
   radical?: string;
 }
 
@@ -33,7 +33,7 @@ export default function KanjiDetailPage() {
         // Fetch kanji details
         const { data: kanjiData, error: kanjiError } = await supabase
           .from('kanji')
-          .select('*')
+          .select('character, meaning, on_reading, kun_reading, stroke_count, jlpt_level, radical')
           .eq('character', kanjiChar)
           .single();
 
@@ -44,8 +44,8 @@ export default function KanjiDetailPage() {
         // Fetch vocabulary examples that contain this kanji
         const { data: vocabData, error: vocabError } = await supabase
           .from('vocabulary')
-          .select('word, reading, meaning, level')
-          .ilike('word', `%${kanjiChar}%`)
+          .select('word, reading, meaning, jlpt_level')
+          .contains('kanji_used', [kanjiChar])
           .limit(10);
 
         if (!vocabError && vocabData) {
@@ -182,7 +182,7 @@ export default function KanjiDetailPage() {
                   {kanji.meaning}
                 </h2>
                 <span className="inline-block px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm font-semibold">
-                  JLPT {kanji.level}
+                  JLPT {kanji.jlpt_level}
                 </span>
               </div>
 
@@ -194,7 +194,7 @@ export default function KanjiDetailPage() {
                     <h3 className="font-semibold text-gray-900">On'yomi (音読み)</h3>
                   </div>
                   <p className="text-2xl font-japanese text-gray-900">
-                    {kanji.onyomi || 'None'}
+                    {kanji.on_reading && kanji.on_reading.length > 0 ? kanji.on_reading.join('、 ') : 'None'}
                   </p>
                 </div>
 
@@ -204,7 +204,7 @@ export default function KanjiDetailPage() {
                     <h3 className="font-semibold text-gray-900">Kun'yomi (訓読み)</h3>
                   </div>
                   <p className="text-2xl font-japanese text-gray-900">
-                    {kanji.kunyomi || 'None'}
+                    {kanji.kun_reading && kanji.kun_reading.length > 0 ? kanji.kun_reading.join('、 ') : 'None'}
                   </p>
                 </div>
 
@@ -215,12 +215,43 @@ export default function KanjiDetailPage() {
                     <h3 className="font-semibold text-gray-900">Stroke Count</h3>
                   </div>
                   <p className="text-2xl font-bold text-gray-900">
-                    {kanji.strokes} strokes
+                    {kanji.stroke_count} strokes
                   </p>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Stroke Order Diagram */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
+          <div className="flex items-center gap-2 mb-6">
+            <Pen className="h-6 w-6 text-pink-600" />
+            <h2 className="text-2xl font-bold text-gray-900">Stroke Order</h2>
+          </div>
+          
+          <div className="flex justify-center items-center bg-gray-50 rounded-lg p-8">
+            <div className="relative w-full max-w-md aspect-square">
+              {/* KanjiVG SVG - fully customizable */}
+              <img
+                src={`https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/0${kanji.character.codePointAt(0)?.toString(16).padStart(5, '0')}.svg`}
+                alt={`Stroke order for ${kanji.character}`}
+                className="w-full h-full"
+                style={{
+                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
+                }}
+                onError={(e) => {
+                  // Fallback if SVG not found
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.parentElement!.innerHTML = '<p class="text-gray-500 text-center">Stroke order diagram not available</p>';
+                }}
+              />
+            </div>
+          </div>
+          
+          <p className="text-sm text-gray-600 text-center mt-4">
+            Follow the numbered strokes to learn the correct writing order
+          </p>
         </div>
 
         {/* Vocabulary Examples */}
@@ -246,7 +277,7 @@ export default function KanjiDetailPage() {
                         {example.reading}
                       </span>
                       <span className="px-2 py-1 bg-gray-200 text-gray-700 rounded text-xs font-semibold">
-                        {example.level}
+                        {example.jlpt_level}
                       </span>
                     </div>
                     <p className="text-gray-700">{example.meaning}</p>
@@ -270,7 +301,7 @@ export default function KanjiDetailPage() {
         {/* Study This Kanji CTA */}
         <div className="bg-gradient-to-r from-pink-500 to-orange-500 rounded-xl shadow-lg p-8 text-center text-white">
           <h2 className="text-3xl font-bold mb-4">
-            Master {kanji.character} and {kanji.level === 'N5' ? '79' : kanji.level === 'N4' ? '166' : '1000+'} More Kanji
+            Master {kanji.character} and {kanji.jlpt_level === 'N5' ? '79' : kanji.jlpt_level === 'N4' ? '166' : '1000+'} More Kanji
           </h2>
           <p className="text-xl mb-6 text-white/90">
             Track your progress, practice with flashcards, and ace your JLPT exam
