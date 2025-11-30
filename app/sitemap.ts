@@ -1,6 +1,10 @@
 import { MetadataRoute } from 'next';
+import { createClient } from '@supabase/supabase-js';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://rocketjlpt.com';
   
   // Static public pages
@@ -96,6 +100,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
+  // Individual Kanji pages (dynamic from database)
+  let individualKanjiPages: MetadataRoute.Sitemap = [];
+  try {
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    const { data: kanjiData } = await supabase
+      .from('kanji')
+      .select('character, jlpt_level')
+      .order('frequency_rank', { ascending: true });
+    
+    if (kanjiData) {
+      individualKanjiPages = kanjiData.map(kanji => ({
+        url: `${baseUrl}/jlpt/${kanji.jlpt_level.toLowerCase()}/kanji/${encodeURIComponent(kanji.character)}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7, // Individual kanji pages get good priority
+      }));
+    }
+  } catch (error) {
+    console.error('Error fetching kanji for sitemap:', error);
+  }
+
   // Combine all pages
-  return [...staticPages, ...kanjiPages, ...vocabularyPages, ...kanaPages, ...howToPassPages];
+  return [
+    ...staticPages, 
+    ...kanjiPages, 
+    ...vocabularyPages, 
+    ...kanaPages, 
+    ...howToPassPages,
+    ...individualKanjiPages // Add all 2,211 individual kanji pages
+  ];
 }
