@@ -389,22 +389,22 @@ export default function CountersPage() {
       const ones = num % 10;
       const tens = Math.floor(num / 10);
       
-      // Get the pattern for 10
+      // Get the pattern for 10 to extract the counter suffix
       const tenRule = counter.rules.find(r => r.number === 10);
       if (!tenRule) return { japanese: '範囲外', romaji: 'Out of range' };
       
-      // Build the number
+      // Build the tens prefix
       const tensPrefix = tens === 1 ? 'じゅう' : ['', '', 'に', 'さん', 'よん', 'ご', 'ろく', 'なな', 'はち', 'きゅう'][tens] + 'じゅう';
       
       if (ones === 0) {
-        return { japanese: tensPrefix, romaji: `${tens}0` };
+        // For multiples of 10, use the 10 pattern
+        return { japanese: tensPrefix + tenRule.japanese.replace(/^.*じゅう/, ''), romaji: `${num}` };
       }
       
       const onesRule = counter.rules.find(r => r.number === ones);
       if (onesRule) {
-        // Extract the counter suffix from the ones reading
-        const baseReading = onesRule.japanese;
-        return { japanese: tensPrefix + baseReading, romaji: `${num}` };
+        // Combine tens prefix with the ones counter reading
+        return { japanese: tensPrefix + onesRule.japanese, romaji: `${num}` };
       }
     }
     
