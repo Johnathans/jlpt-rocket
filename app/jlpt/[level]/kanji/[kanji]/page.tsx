@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Rocket, Pen } from 'lucide-react';
+import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Rocket, Pen, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 interface KanjiDetail {
@@ -24,11 +24,26 @@ export default function KanjiDetailPage() {
   const [kanji, setKanji] = useState<KanjiDetail | null>(null);
   const [examples, setExamples] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [allKanji, setAllKanji] = useState<string[]>([]);
+  const [currentIndex, setCurrentIndex] = useState<number>(-1);
 
   useEffect(() => {
     const fetchKanjiDetail = async () => {
       try {
         setLoading(true);
+        
+        // Fetch all kanji for this level to enable prev/next navigation
+        const { data: allKanjiData } = await supabase
+          .from('kanji')
+          .select('character')
+          .eq('jlpt_level', level)
+          .order('frequency_rank', { ascending: true });
+        
+        if (allKanjiData) {
+          const kanjiChars = allKanjiData.map(k => k.character);
+          setAllKanji(kanjiChars);
+          setCurrentIndex(kanjiChars.indexOf(kanjiChar));
+        }
         
         // Fetch kanji details
         const { data: kanjiData, error: kanjiError } = await supabase
@@ -59,7 +74,7 @@ export default function KanjiDetailPage() {
     };
 
     fetchKanjiDetail();
-  }, [kanjiChar]);
+  }, [kanjiChar, level]);
 
   const playAudio = (text: string) => {
     if ('speechSynthesis' in window) {
@@ -147,13 +162,52 @@ export default function KanjiDetailPage() {
       {/* Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <Link 
-            href={`/jlpt/${level.toLowerCase()}/kanji`}
-            className="inline-flex items-center gap-2 text-pink-600 hover:text-pink-700 mb-4 font-medium"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to {level} Kanji
-          </Link>
+          <div className="flex items-center justify-between">
+            <Link 
+              href={`/jlpt/${level.toLowerCase()}/kanji`}
+              className="inline-flex items-center gap-2 text-pink-600 hover:text-pink-700 font-medium transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back to {level} Kanji
+            </Link>
+            
+            {/* Previous/Next Navigation */}
+            <div className="flex items-center gap-3">
+              {currentIndex > 0 ? (
+                <Link
+                  href={`/jlpt/${level.toLowerCase()}/kanji/${encodeURIComponent(allKanji[currentIndex - 1])}`}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg hover:shadow-lg transition-all duration-200 font-medium"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  Previous
+                </Link>
+              ) : (
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-400 rounded-lg cursor-not-allowed font-medium">
+                  <ChevronLeft className="h-4 w-4" />
+                  Previous
+                </div>
+              )}
+              
+              <span className="text-sm text-gray-600 font-medium">
+                {currentIndex + 1} / {allKanji.length}
+              </span>
+              
+              {currentIndex < allKanji.length - 1 ? (
+                <Link
+                  href={`/jlpt/${level.toLowerCase()}/kanji/${encodeURIComponent(allKanji[currentIndex + 1])}`}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg hover:shadow-lg transition-all duration-200 font-medium"
+                >
+                  Next
+                  <ChevronRight className="h-4 w-4" />
+                </Link>
+              ) : (
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-400 rounded-lg cursor-not-allowed font-medium">
+                  Next
+                  <ChevronRight className="h-4 w-4" />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -230,8 +284,8 @@ export default function KanjiDetailPage() {
             <h2 className="text-2xl font-bold text-gray-900">Stroke Order</h2>
           </div>
           
-          <div className="flex justify-center items-center bg-gray-50 rounded-lg p-8">
-            <div className="relative w-full max-w-md aspect-square">
+          <div className="flex justify-center items-center bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg p-8 border border-pink-200">
+            <div className="relative w-full max-w-lg aspect-square bg-white rounded-lg p-6 shadow-sm">
               {/* KanjiVG SVG - fully customizable */}
               {(() => {
                 const codePoint = kanji.character.codePointAt(0)?.toString(16).padStart(5, '0');
