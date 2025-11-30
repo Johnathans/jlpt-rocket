@@ -281,6 +281,13 @@ export default function PublicNavbar() {
                       </h3>
                       <div className="space-y-2">
                         <Link
+                          href="/tools/counters"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">Counter Practice</div>
+                          <div className="text-xs text-gray-500">Master Japanese counters</div>
+                        </Link>
+                        <Link
                           href="/signup"
                           className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
                         >
@@ -450,6 +457,7 @@ export default function PublicNavbar() {
               {mobileToolsOpen && (
                 <div className="bg-gray-50 py-2">
                   <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase">Practice Tools</div>
+                  <Link href="/tools/counters" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Counter Practice</Link>
                   <Link href="/signup" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Flashcards</Link>
                   <Link href="/signup" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Multiple Choice</Link>
                   <Link href="/signup" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Writing Practice</Link>
