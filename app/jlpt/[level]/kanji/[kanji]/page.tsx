@@ -27,6 +27,112 @@ export default function KanjiDetailPage() {
   const [allKanji, setAllKanji] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
 
+  // SEO: Update meta tags dynamically
+  useEffect(() => {
+    if (kanji) {
+      const pageTitle = `${kanji.character} (${kanji.meaning}) - JLPT ${kanji.jlpt_level} Kanji | Rocket JLPT`;
+      const pageDescription = `Learn ${kanji.character} (${kanji.meaning}): JLPT ${kanji.jlpt_level} kanji with ${kanji.stroke_count} strokes. On'yomi: ${kanji.on_reading?.join(', ') || 'N/A'}, Kun'yomi: ${kanji.kun_reading?.join(', ') || 'N/A'}. Includes stroke order, readings, and vocabulary examples.`;
+      const pageUrl = `https://www.rocketjlpt.com/jlpt/${level.toLowerCase()}/kanji/${encodeURIComponent(kanjiChar)}`;
+      
+      // Update title
+      document.title = pageTitle;
+      
+      // Update meta tags
+      const updateMetaTag = (name: string, content: string) => {
+        let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+        if (!meta) {
+          meta = document.createElement('meta');
+          meta.name = name;
+          document.head.appendChild(meta);
+        }
+        meta.content = content;
+      };
+      
+      const updateOGTag = (property: string, content: string) => {
+        let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
+        if (!meta) {
+          meta = document.createElement('meta');
+          meta.setAttribute('property', property);
+          document.head.appendChild(meta);
+        }
+        meta.content = content;
+      };
+      
+      // Standard meta tags
+      updateMetaTag('description', pageDescription);
+      updateMetaTag('keywords', `${kanji.character}, kanji, JLPT ${kanji.jlpt_level}, ${kanji.meaning}, Japanese kanji, stroke order, kanji readings, on'yomi, kun'yomi`);
+      
+      // Open Graph tags
+      updateOGTag('og:title', pageTitle);
+      updateOGTag('og:description', pageDescription);
+      updateOGTag('og:url', pageUrl);
+      updateOGTag('og:type', 'article');
+      updateOGTag('og:site_name', 'Rocket JLPT');
+      
+      // Twitter Card tags
+      updateMetaTag('twitter:card', 'summary_large_image');
+      updateMetaTag('twitter:title', pageTitle);
+      updateMetaTag('twitter:description', pageDescription);
+      
+      // Canonical URL
+      let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+      if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.rel = 'canonical';
+        document.head.appendChild(canonical);
+      }
+      canonical.href = pageUrl;
+      
+      // JSON-LD Structured Data
+      let script = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement;
+      if (!script) {
+        script = document.createElement('script');
+        script.type = 'application/ld+json';
+        document.head.appendChild(script);
+      }
+      
+      const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "EducationalOccupationalCredential",
+        "name": `JLPT ${kanji.jlpt_level} Kanji: ${kanji.character}`,
+        "description": pageDescription,
+        "educationalLevel": `JLPT ${kanji.jlpt_level}`,
+        "competencyRequired": `Japanese Language Proficiency Test ${kanji.jlpt_level}`,
+        "about": {
+          "@type": "Thing",
+          "name": kanji.character,
+          "description": kanji.meaning,
+          "inLanguage": "ja"
+        },
+        "teaches": [
+          {
+            "@type": "DefinedTerm",
+            "name": "On'yomi Reading",
+            "description": kanji.on_reading?.join(', ') || 'None'
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Kun'yomi Reading",
+            "description": kanji.kun_reading?.join(', ') || 'None'
+          },
+          {
+            "@type": "DefinedTerm",
+            "name": "Stroke Count",
+            "description": `${kanji.stroke_count} strokes`
+          }
+        ],
+        "provider": {
+          "@type": "Organization",
+          "name": "Rocket JLPT",
+          "url": "https://www.rocketjlpt.com"
+        },
+        "url": pageUrl
+      };
+      
+      script.textContent = JSON.stringify(structuredData);
+    }
+  }, [kanji, kanjiChar, level]);
+
   useEffect(() => {
     const fetchKanjiDetail = async () => {
       try {
