@@ -111,7 +111,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     
     if (kanjiData) {
       individualKanjiPages = kanjiData.map(kanji => ({
-        url: `${baseUrl}/jlpt/${kanji.jlpt_level.toLowerCase()}/kanji/${encodeURIComponent(kanji.character)}`,
+        url: `${baseUrl}/jlpt/${kanji.jlpt_level.toLowerCase()}/kanji/${kanji.character}`,
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
         priority: 0.7, // Individual kanji pages get good priority
