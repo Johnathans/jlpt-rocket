@@ -58,6 +58,7 @@ export async function getKanjiByLevel(level: JLPTLevel): Promise<KanjiData[]> {
     .select('*')
     .eq('jlpt_level', level)
     .order('frequency_rank', { ascending: true })
+    .limit(2000) // N1 has 1232 kanji, so 2000 is safe for any level
 
   if (error) {
     console.error('Error fetching kanji:', error)
@@ -106,6 +107,7 @@ export async function getVocabularyByLevel(level: JLPTLevel): Promise<Vocabulary
     .select('*')
     .eq('jlpt_level', level)
     .order('frequency_rank', { ascending: true })
+    .limit(5000) // N1 has 3427 vocabulary, so 5000 is safe for any level
 
   if (error) {
     console.error('Error fetching vocabulary:', error)
@@ -120,6 +122,7 @@ export async function getAllVocabulary(): Promise<VocabularyData[]> {
     .from('vocabulary')
     .select('*')
     .order('frequency_rank', { ascending: true })
+    .limit(10000) // Total is 8245, so 10000 is safe
 
   if (error) {
     console.error('Error fetching all vocabulary:', error)
