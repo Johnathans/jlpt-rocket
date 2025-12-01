@@ -1,0 +1,212 @@
+[
+  {
+    "pattern": "です",
+    "meaning": "This means 'is', 'am' or 'are' (depending on the situation). It's the polite copula.",
+    "jlpt_level": "N5",
+    "formation": "Noun + です",
+    "examples": [
+      {
+        "japanese": "私はマイクです。",
+        "romaji": "Watashi wa Maiku desu.",
+        "english": "I am Mike."
+      },
+      {
+        "japanese": "これはペンです。",
+        "romaji": "Kore wa pen desu.",
+        "english": "This is a pen."
+      }
+    ]
+  },
+  {
+    "pattern": "も",
+    "meaning": "This means 'too', 'and' or 'also'. Used to indicate similarity or addition.",
+    "jlpt_level": "N5",
+    "formation": "Noun + も",
+    "examples": [
+      {
+        "japanese": "彼はサッカーが好きです。私もサッカーが好きです。",
+        "romaji": "Kare wa sakkaa ga suki desu. Watashi mo sakkaa ga suki desu.",
+        "english": "He likes soccer. I like soccer, too."
+      }
+    ]
+  },
+  {
+    "pattern": "で",
+    "meaning": "This means 'at' or 'in', and is used when specifying where something happens.",
+    "jlpt_level": "N5",
+    "formation": "Location + で",
+    "examples": [
+      {
+        "japanese": "エミは学校で数学を勉強します。",
+        "romaji": "Emi wa gakkou de suugaku wo benkyou shimasu.",
+        "english": "Emi studies math at school."
+      }
+    ]
+  },
+  {
+    "pattern": "に/へ",
+    "meaning": "This means 'to' and indicates destination or direction of movement.",
+    "jlpt_level": "N5",
+    "formation": "Location + に/へ + motion verb",
+    "examples": [
+      {
+        "japanese": "リエ子はローマに行きました。",
+        "romaji": "Rieko wa Rooma ni ikimashita.",
+        "english": "Rieko went to Rome."
+      }
+    ]
+  },
+  {
+    "pattern": "を",
+    "meaning": "This denotes the direct object of an action.",
+    "jlpt_level": "N5",
+    "formation": "Noun + を + action verb",
+    "examples": [
+      {
+        "japanese": "あの猫は魚を食べた。",
+        "romaji": "Ano neko wa sakana wo tabeta.",
+        "english": "That cat ate the fish."
+      }
+    ]
+  },
+  {
+    "pattern": "は",
+    "meaning": "This denotes the topic of a sentence. Often translated as subject, but technically marks what the sentence is about.",
+    "jlpt_level": "N5",
+    "formation": "Noun + は",
+    "examples": [
+      {
+        "japanese": "彼女は嬉しいです。",
+        "romaji": "Kanojo wa ureshii desu.",
+        "english": "She is happy."
+      }
+    ]
+  },
+  {
+    "pattern": "～ませんか",
+    "meaning": "This means 'Won't you ~?' or 'Shall we ~?'. It's a polite invitation or suggestion.",
+    "jlpt_level": "N5",
+    "formation": "Verb stem + ませんか",
+    "examples": [
+      {
+        "japanese": "ケーキを食べませんか？",
+        "romaji": "Keeki wo tabemasen ka?",
+        "english": "Won't you have some cake?"
+      },
+      {
+        "japanese": "映画を見ませんか？",
+        "romaji": "Eiga wo mimasen ka?",
+        "english": "Shall we watch a movie?"
+      }
+    ]
+  },
+  {
+    "pattern": "～があります",
+    "meaning": "This means 'there is/are'. Used for non-living things.",
+    "jlpt_level": "N5",
+    "formation": "Location + に + Noun + があります",
+    "examples": [
+      {
+        "japanese": "つくえの上にボールがあります。",
+        "romaji": "Tsukue no ue ni booru ga arimasu.",
+        "english": "There is a ball on the desk."
+      }
+    ]
+  },
+  {
+    "pattern": "～がいます",
+    "meaning": "This means 'there is/are'. Used for living things (people, animals).",
+    "jlpt_level": "N5",
+    "formation": "Location + に + Living thing + がいます",
+    "examples": [
+      {
+        "japanese": "あそこの木の下に、二人子供がいます。",
+        "romaji": "Asoko no ki no shita ni, futari kodomo ga imasu.",
+        "english": "There are two children under the tree over there."
+      }
+    ]
+  },
+  {
+    "pattern": "と",
+    "meaning": "This is a particle used to link nouns in a complete list, meaning 'and'.",
+    "jlpt_level": "N5",
+    "formation": "Noun + と + Noun (+ と + Noun...)",
+    "examples": [
+      {
+        "japanese": "そのサラダはレタスとにんじんとラディッシュから作りました。",
+        "romaji": "Sono sarada wa retasu to ninjin to radisshu kara tsukurimashita.",
+        "english": "The salad was made from lettuce, carrot, and radish."
+      }
+    ]
+  },
+  {
+    "pattern": "～ましょう",
+    "meaning": "This is a polite volitional phrase, meaning 'let's' or 'I'll'.",
+    "jlpt_level": "N5",
+    "formation": "Verb stem + ましょう",
+    "examples": [
+      {
+        "japanese": "食べましょう。",
+        "romaji": "Tabemashou.",
+        "english": "Let's eat!"
+      }
+    ]
+  },
+  {
+    "pattern": "～てください",
+    "meaning": "This is used to make polite requests, meaning 'please do...'.",
+    "jlpt_level": "N5",
+    "formation": "Verb て-form + ください",
+    "examples": [
+      {
+        "japanese": "日本語で話してください。",
+        "romaji": "Nihongo de hanashite kudasai.",
+        "english": "Please speak in Japanese."
+      }
+    ]
+  },
+  {
+    "pattern": "～てもいいです",
+    "meaning": "This is used to ask for or grant permission, meaning 'may I...' or 'it's okay to...'.",
+    "jlpt_level": "N5",
+    "formation": "Verb て-form + もいいです",
+    "examples": [
+      {
+        "japanese": "料理してもいいですか。",
+        "romaji": "Ryouri shite mo ii desu ka.",
+        "english": "May I cook?"
+      }
+    ]
+  },
+  {
+    "pattern": "～てはいけません",
+    "meaning": "This is used to prohibit or forbid something, meaning 'must not...' or 'cannot...'.",
+    "jlpt_level": "N5",
+    "formation": "Verb て-form + はいけません",
+    "examples": [
+      {
+        "japanese": "ここに車を停めてはいけません。",
+        "romaji": "Koko ni kuruma wo tomete wa ikemasen.",
+        "english": "You must not park the car here."
+      }
+    ]
+  },
+  {
+    "pattern": "～ている",
+    "meaning": "Indicates an ongoing action (progressive tense) or a current state.",
+    "jlpt_level": "N5",
+    "formation": "Verb て-form + いる",
+    "examples": [
+      {
+        "japanese": "私は読んでいます。",
+        "romaji": "Watashi wa yonde imasu.",
+        "english": "I am reading."
+      },
+      {
+        "japanese": "ドアが開いています。",
+        "romaji": "Doa ga aite imasu.",
+        "english": "The door is open."
+      }
+    ]
+  }
+]

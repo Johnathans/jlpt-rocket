@@ -107,7 +107,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const { data: kanjiData } = await supabase
       .from('kanji')
       .select('character, jlpt_level')
-      .order('frequency_rank', { ascending: true });
+      .order('frequency_rank', { ascending: true })
+      .range(0, 2999); // Fetch all 2,211 kanji (up to 3000 rows)
     
     if (kanjiData) {
       individualKanjiPages = kanjiData.map(kanji => ({

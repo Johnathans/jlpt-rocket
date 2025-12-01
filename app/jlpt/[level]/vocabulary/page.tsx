@@ -89,6 +89,7 @@ export default function VocabularyLevelPage() {
     async function loadVocabulary() {
       try {
         const data = await getVocabularyByLevel(levelData.name.toUpperCase() as any);
+        console.log(`Fetched ${data.length} vocabulary words for level ${levelData.name}`);
         setVocabulary(data);
       } catch (error) {
         console.error('Error loading vocabulary:', error);

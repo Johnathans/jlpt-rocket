@@ -2,6 +2,52 @@ import { supabase } from './supabase'
 
 export type JLPTLevel = 'N5' | 'N4' | 'N3' | 'N2' | 'N1'
 
+// Helper function to fetch all data with pagination
+async function fetchAllWithPagination<T>(
+  tableName: string,
+  filters: { column: string; value: any }[] = [],
+  orderBy?: { column: string; ascending: boolean }
+): Promise<T[]> {
+  const pageSize = 1000;
+  let allData: T[] = [];
+  let page = 0;
+  let hasMore = true;
+
+  while (hasMore) {
+    let query = supabase
+      .from(tableName)
+      .select('*')
+      .range(page * pageSize, (page + 1) * pageSize - 1);
+
+    // Apply filters
+    filters.forEach(filter => {
+      query = query.eq(filter.column, filter.value);
+    });
+
+    // Apply ordering
+    if (orderBy) {
+      query = query.order(orderBy.column, { ascending: orderBy.ascending });
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      console.error(`Error fetching ${tableName}:`, error);
+      throw error;
+    }
+
+    if (data && data.length > 0) {
+      allData = [...allData, ...data];
+      hasMore = data.length === pageSize; // Continue if we got a full page
+      page++;
+    } else {
+      hasMore = false;
+    }
+  }
+
+  return allData as T[];
+}
+
 export interface KanjiData {
   id: string
   character: string
@@ -53,34 +99,19 @@ export interface SentenceData {
 
 // Kanji data functions
 export async function getKanjiByLevel(level: JLPTLevel): Promise<KanjiData[]> {
-  const { data, error } = await supabase
-    .from('kanji')
-    .select('*')
-    .eq('jlpt_level', level)
-    .order('frequency_rank', { ascending: true })
-    .limit(2000) // N1 has 1232 kanji, so 2000 is safe for any level
-
-  if (error) {
-    console.error('Error fetching kanji:', error)
-    throw error
-  }
-
-  return data || []
+  return fetchAllWithPagination<KanjiData>(
+    'kanji',
+    [{ column: 'jlpt_level', value: level }],
+    { column: 'frequency_rank', ascending: true }
+  );
 }
 
 export async function getAllKanji(): Promise<KanjiData[]> {
-  const { data, error } = await supabase
-    .from('kanji')
-    .select('*')
-    .order('frequency_rank', { ascending: true })
-    .limit(3000) // Increase limit to get all kanji (2211 total)
-
-  if (error) {
-    console.error('Error fetching all kanji:', error)
-    throw error
-  }
-
-  return data || []
+  return fetchAllWithPagination<KanjiData>(
+    'kanji',
+    [],
+    { column: 'frequency_rank', ascending: true }
+  );
 }
 
 export async function getRandomKanji(level: JLPTLevel, count: number = 10): Promise<KanjiData[]> {
@@ -102,34 +133,19 @@ export async function getRandomKanji(level: JLPTLevel, count: number = 10): Prom
 
 // Vocabulary data functions
 export async function getVocabularyByLevel(level: JLPTLevel): Promise<VocabularyData[]> {
-  const { data, error } = await supabase
-    .from('vocabulary')
-    .select('*')
-    .eq('jlpt_level', level)
-    .order('frequency_rank', { ascending: true })
-    .limit(5000) // N1 has 3427 vocabulary, so 5000 is safe for any level
-
-  if (error) {
-    console.error('Error fetching vocabulary:', error)
-    throw error
-  }
-
-  return data || []
+  return fetchAllWithPagination<VocabularyData>(
+    'vocabulary',
+    [{ column: 'jlpt_level', value: level }],
+    { column: 'frequency_rank', ascending: true }
+  );
 }
 
 export async function getAllVocabulary(): Promise<VocabularyData[]> {
-  const { data, error } = await supabase
-    .from('vocabulary')
-    .select('*')
-    .order('frequency_rank', { ascending: true })
-    .limit(10000) // Total is 8245, so 10000 is safe
-
-  if (error) {
-    console.error('Error fetching all vocabulary:', error)
-    throw error
-  }
-
-  return data || []
+  return fetchAllWithPagination<VocabularyData>(
+    'vocabulary',
+    [],
+    { column: 'frequency_rank', ascending: true }
+  );
 }
 
 export async function getVocabularyCountByLevel(level: JLPTLevel): Promise<number> {

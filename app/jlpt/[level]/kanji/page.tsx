@@ -29,6 +29,7 @@ export default function KanjiLevelPage() {
       try {
         setLoading(true);
         const data = await getKanjiByLevel(level as any);
+        console.log(`Fetched ${data.length} kanji for level ${level}`);
         setKanjiList(data as any);
       } catch (error) {
         console.error('Error fetching kanji:', error);
