@@ -237,48 +237,50 @@ export default function KanjiDetailPage() {
       <PublicNavbar />
 
       {/* Navigation - in gray area matching navbar width */}
-      <div className="bg-gray-50 pt-6 pb-2">
+      <div className="bg-gray-50 pt-6 pb-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <Link 
               href={`/jlpt/${level.toLowerCase()}/kanji`}
-              className="inline-flex items-center gap-2 text-pink-600 hover:text-pink-700 font-medium transition-colors"
+              className="inline-flex items-center gap-2 text-pink-600 hover:text-pink-700 font-medium transition-colors text-sm sm:text-base"
             >
               <ArrowLeft className="h-4 w-4" />
               Back to {level} Kanji List
             </Link>
             
             {/* Previous/Next Navigation */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               {currentIndex > 0 ? (
                 <Link
                   href={`/jlpt/${level.toLowerCase()}/kanji/${encodeURIComponent(allKanji[currentIndex - 1])}`}
-                  className="inline-flex items-center gap-2 text-pink-600 hover:text-pink-700 font-medium transition-colors"
+                  className="inline-flex items-center gap-1 sm:gap-2 text-pink-600 hover:text-pink-700 font-medium transition-colors text-sm sm:text-base"
                 >
                   <ChevronLeft className="h-4 w-4" />
-                  Previous
+                  <span className="hidden sm:inline">Previous</span>
+                  <span className="sm:hidden">Prev</span>
                 </Link>
               ) : (
-                <span className="inline-flex items-center gap-2 text-gray-400 font-medium cursor-not-allowed">
+                <span className="inline-flex items-center gap-1 sm:gap-2 text-gray-400 font-medium cursor-not-allowed text-sm sm:text-base">
                   <ChevronLeft className="h-4 w-4" />
-                  Previous
+                  <span className="hidden sm:inline">Previous</span>
+                  <span className="sm:hidden">Prev</span>
                 </span>
               )}
               
-              <span className="text-sm text-gray-600 font-medium">
+              <span className="text-xs sm:text-sm text-gray-600 font-medium px-2">
                 {currentIndex + 1} / {allKanji.length}
               </span>
               
               {currentIndex < allKanji.length - 1 ? (
                 <Link
                   href={`/jlpt/${level.toLowerCase()}/kanji/${encodeURIComponent(allKanji[currentIndex + 1])}`}
-                  className="inline-flex items-center gap-2 text-pink-600 hover:text-pink-700 font-medium transition-colors"
+                  className="inline-flex items-center gap-1 sm:gap-2 text-pink-600 hover:text-pink-700 font-medium transition-colors text-sm sm:text-base"
                 >
                   Next
                   <ChevronRight className="h-4 w-4" />
                 </Link>
               ) : (
-                <span className="inline-flex items-center gap-2 text-gray-400 font-medium cursor-not-allowed">
+                <span className="inline-flex items-center gap-1 sm:gap-2 text-gray-400 font-medium cursor-not-allowed text-sm sm:text-base">
                   Next
                   <ChevronRight className="h-4 w-4" />
                 </span>
@@ -290,30 +292,31 @@ export default function KanjiDetailPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-8">
         {/* Main Kanji Card */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
-          <div className="grid lg:grid-cols-3 gap-8">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+          <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Left: Large Kanji Display */}
-            <div className="text-center flex flex-col items-center justify-between">
-              <div className="text-[12rem] font-bold text-gray-900 font-japanese leading-none">
+            <div className="text-center flex flex-col items-center justify-between gap-4">
+              <div className="text-[8rem] sm:text-[10rem] lg:text-[12rem] font-bold text-gray-900 font-japanese leading-none">
                 {kanji.character}
               </div>
-              <div className="flex flex-col items-center gap-3">
+              <div className="flex flex-col items-center gap-3 w-full">
                 <span className="inline-block px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg text-sm font-semibold">
                   JLPT {kanji.jlpt_level}
                 </span>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-col sm:flex-row items-center gap-2 w-full">
                   <button
                     onClick={() => playAudio(kanji.character)}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium text-sm w-full sm:w-auto"
                   >
                     <Volume2 className="h-4 w-4" />
-                    Play Pronunciation
+                    <span className="hidden sm:inline">Play Pronunciation</span>
+                    <span className="sm:hidden">Play</span>
                   </button>
                   <button
                     onClick={() => {
                       navigator.clipboard.writeText(kanji.character);
                     }}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium text-sm w-full sm:w-auto"
                     title="Copy kanji"
                   >
                     <Copy className="h-4 w-4" />
@@ -326,69 +329,69 @@ export default function KanjiDetailPage() {
             {/* Middle & Right: Readings in 2 columns */}
             <div className="lg:col-span-2">
               {/* SEO-friendly heading with kanji character */}
-              <h1 className="text-4xl font-bold text-gray-900 mb-6">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
                 {kanji.character} - {kanji.meaning}
               </h1>
               
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
               {/* On'yomi Reading */}
-              <div className="bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg p-6 border border-pink-200">
-                <div className="flex items-center gap-2 mb-3">
-                  <BookOpen className="h-5 w-5 text-pink-600" />
-                  <h2 className="text-xl font-bold text-gray-900">On'yomi (音読み)</h2>
+              <div className="bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg p-4 sm:p-6 border border-pink-200">
+                <div className="flex items-center gap-2 mb-2 sm:mb-3">
+                  <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-pink-600" />
+                  <h2 className="text-lg sm:text-xl font-bold text-gray-900">On'yomi (音読み)</h2>
                 </div>
-                <p className="text-3xl font-japanese text-gray-900 mb-2">
+                <p className="text-2xl sm:text-3xl font-japanese text-gray-900 mb-2 break-words">
                   {kanji.on_reading && kanji.on_reading.length > 0 ? kanji.on_reading.join('、 ') : 'None'}
                 </p>
-                <p className="text-sm text-gray-600">
+                <p className="text-xs sm:text-sm text-gray-600">
                   Chinese-derived pronunciation
                 </p>
               </div>
 
               {/* Kun'yomi Reading */}
-              <div className="bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg p-6 border border-pink-200">
-                <div className="flex items-center gap-2 mb-3">
-                  <BookOpen className="h-5 w-5 text-pink-600" />
-                  <h2 className="text-xl font-bold text-gray-900">Kun'yomi (訓読み)</h2>
+              <div className="bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg p-4 sm:p-6 border border-pink-200">
+                <div className="flex items-center gap-2 mb-2 sm:mb-3">
+                  <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-pink-600" />
+                  <h2 className="text-lg sm:text-xl font-bold text-gray-900">Kun'yomi (訓読み)</h2>
                 </div>
-                <p className="text-3xl font-japanese text-gray-900 mb-2">
+                <p className="text-2xl sm:text-3xl font-japanese text-gray-900 mb-2 break-words">
                   {kanji.kun_reading && kanji.kun_reading.length > 0 ? kanji.kun_reading.join('、 ') : 'None'}
                 </p>
-                <p className="text-sm text-gray-600">
+                <p className="text-xs sm:text-sm text-gray-600">
                   Native Japanese pronunciation
                 </p>
               </div>
 
               {/* Stroke Count & Usefulness */}
-              <div className="md:col-span-2 grid grid-cols-2 gap-4">
+              <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Stroke Count */}
-                <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                <div className="bg-gray-50 rounded-lg p-4 sm:p-6 border border-gray-200">
                   <div className="flex items-center gap-2 mb-2">
-                    <Layers className="h-5 w-5 text-gray-600" />
-                    <h3 className="text-lg font-semibold text-gray-900">Stroke Count</h3>
+                    <Layers className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900">Stroke Count</h3>
                   </div>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-xl sm:text-2xl font-bold text-gray-900">
                     {kanji.stroke_count} strokes
                   </p>
                 </div>
                 
                 {/* Usefulness Meter */}
-                <div className="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                <div className="bg-gray-50 rounded-lg p-4 sm:p-6 border border-gray-200">
                   <div className="flex items-center gap-2 mb-3">
-                    <Zap className="h-5 w-5 text-gray-600" />
-                    <h3 className="text-lg font-semibold text-gray-900">Usefulness</h3>
+                    <Zap className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900">Usefulness</h3>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center gap-1">
-                      <span className="text-xs text-gray-500 w-8">Low</span>
-                      <div className="flex-1 flex gap-1">
+                      <span className="text-xs text-gray-500 w-6 sm:w-8">Low</span>
+                      <div className="flex-1 flex gap-0.5 sm:gap-1">
                         {[...Array(10)].map((_, i) => {
                           const threshold = (i + 1) * 5; // Each box represents 5 words
                           const isActive = vocabCount >= threshold;
                           return (
                             <div
                               key={i}
-                              className={`flex-1 h-8 rounded transition-all duration-300 ${
+                              className={`flex-1 h-6 sm:h-8 rounded transition-all duration-300 ${
                                 isActive 
                                   ? 'bg-gradient-to-r from-pink-500 to-orange-500' 
                                   : 'bg-gray-200'
@@ -397,9 +400,9 @@ export default function KanjiDetailPage() {
                           );
                         })}
                       </div>
-                      <span className="text-xs text-gray-500 w-8 text-right">High</span>
+                      <span className="text-xs text-gray-500 w-6 sm:w-8 text-right">High</span>
                     </div>
-                    <p className="text-sm text-gray-600 text-center">
+                    <p className="text-xs sm:text-sm text-gray-600 text-center">
                       Used in {vocabCount} word{vocabCount !== 1 ? 's' : ''} across JLPT N5-N1
                     </p>
                   </div>
@@ -411,11 +414,11 @@ export default function KanjiDetailPage() {
         </div>
 
         {/* Stroke Order Diagram */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
-          <div className="mb-6">
-            <div className="flex items-center gap-2 mb-3">
-              <Pen className="h-6 w-6 text-pink-600" />
-              <h2 className="text-2xl font-bold text-gray-900">How to Write {kanji.character} - Stroke Order Diagram</h2>
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+          <div className="mb-4 sm:mb-6">
+            <div className="flex items-start gap-2 mb-3">
+              <Pen className="h-5 w-5 sm:h-6 sm:w-6 text-pink-600 flex-shrink-0 mt-1" />
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">How to Write {kanji.character} - Stroke Order Diagram</h2>
             </div>
             <p className="text-gray-700">
               Learn the correct stroke order for writing the kanji {kanji.character} ({kanji.meaning}). 
@@ -423,8 +426,8 @@ export default function KanjiDetailPage() {
             </p>
           </div>
           
-          <div className="flex justify-center items-center bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg p-8 border border-pink-200">
-            <div className="relative w-full max-w-lg aspect-square bg-white rounded-lg p-6 shadow-sm">
+          <div className="flex justify-center items-center bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg p-4 sm:p-6 lg:p-8 border border-pink-200">
+            <div className="relative w-full max-w-lg aspect-square bg-white rounded-lg p-3 sm:p-4 lg:p-6 shadow-sm">
               {/* KanjiVG SVG - fully customizable */}
               {(() => {
                 const codePoint = kanji.character.codePointAt(0)?.toString(16).padStart(5, '0');
@@ -462,11 +465,11 @@ export default function KanjiDetailPage() {
         </div>
 
         {/* Vocabulary Examples */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
-          <div className="mb-6">
-            <div className="flex items-center gap-2 mb-3">
-              <TrendingUp className="h-6 w-6 text-pink-600" />
-              <h2 className="text-2xl font-bold text-gray-900">Words Using {kanji.character} - Vocabulary Examples</h2>
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+          <div className="mb-4 sm:mb-6">
+            <div className="flex items-start gap-2 mb-3">
+              <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-pink-600 flex-shrink-0 mt-1" />
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Words Using {kanji.character} - Vocabulary Examples</h2>
             </div>
             <p className="text-gray-700">
               Common Japanese words and vocabulary that use the kanji {kanji.character}. 
@@ -479,27 +482,27 @@ export default function KanjiDetailPage() {
               {examples.map((example, index) => (
                 <div
                   key={index}
-                  className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                  className="flex items-start gap-2 sm:gap-4 p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                 >
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2 flex-wrap">
-                      <span className="text-2xl font-bold text-gray-900 font-japanese">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 sm:gap-3 mb-2 flex-wrap">
+                      <span className="text-xl sm:text-2xl font-bold text-gray-900 font-japanese break-words">
                         {example.word}
                       </span>
-                      <span className="text-lg text-gray-600 font-japanese">
+                      <span className="text-base sm:text-lg text-gray-600 font-japanese break-words">
                         {example.reading}
                       </span>
                       <span className="px-2 py-1 bg-gray-200 text-gray-700 rounded text-xs font-semibold">
                         {example.jlpt_level}
                       </span>
                     </div>
-                    <p className="text-gray-700">{example.meaning}</p>
+                    <p className="text-sm sm:text-base text-gray-700">{example.meaning}</p>
                   </div>
                   <button
                     onClick={() => playAudio(example.word)}
                     className="p-2 text-gray-500 hover:text-pink-600 hover:bg-white rounded-lg transition-colors flex-shrink-0"
                   >
-                    <Volume2 className="h-5 w-5" />
+                    <Volume2 className="h-4 w-4 sm:h-5 sm:w-5" />
                   </button>
                 </div>
               ))}
@@ -512,16 +515,16 @@ export default function KanjiDetailPage() {
         </div>
 
         {/* Study This Kanji CTA */}
-        <div className="bg-gradient-to-r from-pink-500 to-orange-500 rounded-xl shadow-lg p-8 text-center text-white">
-          <h2 className="text-3xl font-bold mb-4">
+        <div className="bg-gradient-to-r from-pink-500 to-orange-500 rounded-xl shadow-lg p-6 sm:p-8 text-center text-white">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">
             Master {kanji.character} and {kanji.jlpt_level === 'N5' ? '79' : kanji.jlpt_level === 'N4' ? '166' : '1000+'} More Kanji
           </h2>
-          <p className="text-xl mb-6 text-white/90">
+          <p className="text-base sm:text-xl mb-4 sm:mb-6 text-white/90">
             Track your progress, practice with flashcards, and ace your JLPT exam
           </p>
           <Link
             href="/signup"
-            className="inline-block px-8 py-4 bg-white text-pink-600 font-semibold text-lg rounded-lg hover:bg-gray-50 transition-colors shadow-sm"
+            className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-white text-pink-600 font-semibold text-base sm:text-lg rounded-lg hover:bg-gray-50 transition-colors shadow-sm"
           >
             Start Learning Free
           </Link>
