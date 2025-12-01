@@ -1,12 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import { Search, BookOpen, FileText, MessageSquare } from 'lucide-react';
+import { BookOpen, FileText, MessageSquare, Star } from 'lucide-react';
 import Link from 'next/link';
 
 export default function HomePage() {
-  const [searchQuery, setSearchQuery] = useState('');
-
   const jlptLevels = [
     { level: 'N5', description: 'Beginner' },
     { level: 'N4', description: 'Elementary' },
@@ -21,12 +18,36 @@ export default function HomePage() {
     { type: 'sentences', icon: MessageSquare, label: 'Sentences', path: '/sentences' }
   ];
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      // Implement search functionality
-      console.log('Searching for:', searchQuery);
+  const successStories = [
+    {
+      name: 'Sarah Chen',
+      level: 'N2',
+      score: '165/180',
+      image: 'https://i.pravatar.cc/150?img=1',
+      quote: 'Passed N2 on my first try! The adaptive practice really helped.'
+    },
+    {
+      name: 'Michael Torres',
+      level: 'N1',
+      score: '152/180',
+      image: 'https://i.pravatar.cc/150?img=13',
+      quote: 'Finally conquered N1 after 6 months of consistent practice.'
+    },
+    {
+      name: 'Yuki Tanaka',
+      level: 'N3',
+      score: '171/180',
+      image: 'https://i.pravatar.cc/150?img=5',
+      quote: 'The progress tracking kept me motivated throughout my journey.'
     }
+  ];
+
+  const levelImages = {
+    'N5': 'https://i.pravatar.cc/150?img=12',
+    'N4': 'https://i.pravatar.cc/150?img=27',
+    'N3': 'https://i.pravatar.cc/150?img=31',
+    'N2': 'https://i.pravatar.cc/150?img=44',
+    'N1': 'https://i.pravatar.cc/150?img=68'
   };
 
   return (
@@ -84,48 +105,99 @@ export default function HomePage() {
               </div>
             </div>
             
-            {/* Right Column - Search & Quick Access */}
-            <div className="space-y-5">
-              {/* Search Bar */}
-              <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-                <form onSubmit={handleSearch} className="relative">
-                  <div className="relative">
-                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Search kanji, vocabulary, or sentences..."
-                      className="w-full pl-12 pr-4 py-3 text-base border border-gray-300 rounded-md focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-200 transition-all duration-200"
-                    />
-                  </div>
-                </form>
+            {/* Right Column - Learning Paths */}
+            <div className="space-y-4">
+              {/* Header */}
+              <div className="text-center lg:text-left mb-2">
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">Choose Your Learning Path</h3>
+                <p className="text-sm text-gray-600">Study at your own pace</p>
               </div>
               
-              {/* Quick Access Cards */}
-              <div className="grid grid-cols-3 gap-4">
-                {contentTypes.map((content) => {
-                  const IconComponent = content.icon;
-                  return (
-                    <Link
-                      key={content.type}
-                      href={content.path}
-                      className="relative bg-white rounded-lg p-6 border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-200 group text-center overflow-hidden"
-                    >
-                      {/* Gradient bottom border */}
-                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                      
-                      <div className="relative">
-                        <div className="w-12 h-12 bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:from-pink-100 group-hover:to-orange-100 transition-colors duration-200">
-                          <IconComponent className="h-6 w-6 text-pink-500 group-hover:text-pink-600 transition-colors" />
-                        </div>
-                        <span className="text-sm font-semibold text-gray-900 group-hover:text-pink-600 transition-colors">
-                          {content.label}
-                        </span>
+              {/* Learning Path Cards */}
+              <div className="space-y-4">
+                <div className="bg-white rounded-lg shadow-sm p-5 border border-gray-200 hover:shadow-md transition-all duration-200">
+                  <div className="flex items-start gap-4">
+                    {/* Avatar */}
+                    <div className="relative flex-shrink-0">
+                      <img
+                        src="https://i.pravatar.cc/150?img=1"
+                        alt="Beginner learner"
+                        className="w-14 h-14 rounded-full object-cover border-2 border-pink-100"
+                      />
+                      <div className="absolute -bottom-1 -right-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                        N5
                       </div>
-                    </Link>
-                  );
-                })}
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-gray-900 text-sm mb-1">Beginner Path</h4>
+                      <p className="text-sm text-gray-600 leading-relaxed">Start with basic hiragana, katakana, and 79 essential kanji</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-lg shadow-sm p-5 border border-gray-200 hover:shadow-md transition-all duration-200">
+                  <div className="flex items-start gap-4">
+                    {/* Avatar */}
+                    <div className="relative flex-shrink-0">
+                      <img
+                        src="https://i.pravatar.cc/150?img=27"
+                        alt="Intermediate learner"
+                        className="w-14 h-14 rounded-full object-cover border-2 border-pink-100"
+                      />
+                      <div className="absolute -bottom-1 -right-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                        N3
+                      </div>
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-gray-900 text-sm mb-1">Intermediate Path</h4>
+                      <p className="text-sm text-gray-600 leading-relaxed">Build fluency with 367 kanji and advanced grammar patterns</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-lg shadow-sm p-5 border border-gray-200 hover:shadow-md transition-all duration-200">
+                  <div className="flex items-start gap-4">
+                    {/* Avatar */}
+                    <div className="relative flex-shrink-0">
+                      <img
+                        src="https://i.pravatar.cc/150?img=68"
+                        alt="Advanced learner"
+                        className="w-14 h-14 rounded-full object-cover border-2 border-pink-100"
+                      />
+                      <div className="absolute -bottom-1 -right-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                        N1
+                      </div>
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-gray-900 text-sm mb-1">Advanced Path</h4>
+                      <p className="text-sm text-gray-600 leading-relaxed">Master 1,232 kanji and achieve near-native proficiency</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Content Stats */}
+              <div className="bg-gradient-to-r from-pink-50 to-orange-50 rounded-lg p-5 border border-pink-100">
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <div className="text-2xl font-bold text-gray-900">2.2K</div>
+                    <div className="text-xs text-gray-600 mt-1">Kanji</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-gray-900">8.2K</div>
+                    <div className="text-xs text-gray-600 mt-1">Vocab</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-gray-900">5</div>
+                    <div className="text-xs text-gray-600 mt-1">Levels</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -135,48 +207,73 @@ export default function HomePage() {
       {/* JLPT Levels Section */}
       <section className="py-20 sm:py-24 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Choose Your JLPT Level</h2>
-            <p className="text-lg text-gray-600">Start learning at your level and progress at your own pace</p>
-          </div>
-          
-          {/* JLPT Level Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
-            {jlptLevels.map((level) => (
-              <div
-                key={level.level}
-                className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-all duration-200 hover:border-gray-300"
-              >
-                <div className="text-center mb-5">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-pink-50 mb-3">
-                    <span className="text-xl font-bold text-pink-500">
-                      {level.level}
-                    </span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Side - Student Image */}
+            <div className="order-2 lg:order-1">
+              <div className="relative">
+                {/* Large Student Photo */}
+                <div className="relative rounded-2xl overflow-hidden mb-6">
+                  <img
+                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&auto=format&fit=crop&q=80"
+                    alt="Student studying Japanese"
+                    className="w-full h-[400px] object-cover"
+                  />
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                  
+                  {/* Text overlay on image */}
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <p className="text-white text-xl font-bold mb-2">Start Your JLPT Journey Today</p>
+                    <p className="text-white/90 text-sm">Comprehensive study materials for all levels</p>
                   </div>
-                  <h3 className="text-base font-semibold text-gray-900 mb-1">{level.level}</h3>
-                  <p className="text-sm text-gray-600">{level.description}</p>
                 </div>
                 
-                {/* Content Type Options */}
-                <div className="space-y-1.5">
-                  {contentTypes.map((content) => {
-                    const IconComponent = content.icon;
-                    return (
-                      <Link
-                        key={content.type}
-                        href={`${content.path}?level=${level.level}`}
-                        className="flex items-center gap-2.5 p-2.5 rounded-md hover:bg-gray-50 transition-colors duration-200 group"
-                      >
-                        <IconComponent className="h-4 w-4 text-gray-400 group-hover:text-pink-500" />
-                        <span className="text-sm font-medium text-gray-700 group-hover:text-pink-500">
-                          {content.label}
-                        </span>
-                      </Link>
-                    );
-                  })}
+                {/* Feature Cards */}
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="bg-white rounded-lg p-4 text-center border border-gray-200 shadow-sm">
+                    <div className="text-2xl font-bold text-pink-500">8K+</div>
+                    <div className="text-xs text-gray-600 mt-1">Vocabulary</div>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 text-center border border-gray-200 shadow-sm">
+                    <div className="text-2xl font-bold text-pink-500">2K+</div>
+                    <div className="text-xs text-gray-600 mt-1">Kanji</div>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 text-center border border-gray-200 shadow-sm">
+                    <div className="text-2xl font-bold text-pink-500">N5-N1</div>
+                    <div className="text-xs text-gray-600 mt-1">All Levels</div>
+                  </div>
                 </div>
               </div>
-            ))}
+            </div>
+            
+            {/* Right Side - Level Selection */}
+            <div className="order-1 lg:order-2">
+              <div className="text-center lg:text-left mb-8">
+                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Choose Your Level</h2>
+                <p className="text-lg text-gray-600">Start learning at your level and progress at your own pace</p>
+              </div>
+              
+              {/* Level Cards Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {jlptLevels.map((level) => (
+                  <Link
+                    key={level.level}
+                    href={`/jlpt/${level.level.toLowerCase()}`}
+                    className="group bg-white rounded-lg p-6 border border-gray-200 border-b-4 border-b-pink-500 hover:border-b-pink-600 hover:shadow-lg transition-all duration-200"
+                  >
+                    <div className="text-center">
+                      <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-pink-500 to-orange-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <span className="text-2xl font-bold text-white">{level.level}</span>
+                      </div>
+                      <h3 className="font-bold text-gray-900 mb-1 group-hover:text-pink-500 transition-colors">
+                        {level.description}
+                      </h3>
+                      <p className="text-xs text-gray-500">JLPT {level.level}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
