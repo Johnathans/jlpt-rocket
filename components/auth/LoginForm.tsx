@@ -46,16 +46,16 @@ export default function LoginForm() {
       <div className="w-full max-w-md lg:max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left Column - Image and Links (Desktop Only) */}
-          <div className="hidden lg:flex flex-col items-center justify-center bg-white rounded-lg border border-gray-200 p-12">
-            <div className="w-full max-w-sm mb-8">
+          <div className="hidden lg:flex flex-col items-center justify-start bg-white rounded-lg border border-gray-200 p-8">
+            <div className="w-full max-w-md mb-6 mt-4">
               <img 
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&auto=format&fit=crop&q=80" 
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&auto=format&fit=crop&q=80" 
                 alt="Happy person using laptop" 
-                className="w-full h-auto rounded-lg shadow-md"
+                className="w-full h-auto rounded-lg shadow-lg"
               />
             </div>
             
-            <h3 className="text-xl font-semibold text-gray-900 mb-6">Helpful Resources</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-6 mt-2">Helpful Resources</h3>
             <div className="space-y-4 w-full">
               <a href="#" className="flex items-center gap-3 text-gray-700 hover:text-pink-500 transition-colors group">
                 <div className="w-2 h-2 bg-orange-500 rounded-full group-hover:bg-pink-500 transition-colors"></div>
@@ -106,7 +106,7 @@ export default function LoginForm() {
           {/* Google Sign In Button */}
           <button
             onClick={handleGoogleLogin}
-            className="w-full flex justify-center items-center gap-3 px-6 py-4 border border-gray-300 rounded-md text-base text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-400 font-semibold transition-all duration-200 mb-6"
+            className="w-full flex justify-center items-center gap-3 px-6 py-4 border border-gray-300 border-b-4 border-b-gray-400 rounded-md text-base text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-400 hover:border-b-gray-500 font-semibold transition-all duration-200 mb-6"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -205,7 +205,7 @@ export default function LoginForm() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center py-4 px-6 border border-transparent rounded-md text-lg font-semibold text-white bg-pink-500 hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+              className="w-full flex justify-center py-4 px-6 border border-transparent border-b-4 border-b-pink-700 rounded-md text-lg font-semibold text-white bg-pink-500 hover:bg-pink-600 hover:border-b-pink-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
             >
               {isLoading ? (
                 <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
