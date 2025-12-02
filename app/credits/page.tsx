@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { ExternalLink, Heart } from 'lucide-react';
+import PublicNavbar from '@/components/PublicNavbar';
 
 export default function CreditsPage() {
   useEffect(() => {
@@ -50,6 +51,7 @@ export default function CreditsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <PublicNavbar />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Header */}
