@@ -135,6 +135,11 @@ export default function Footer() {
                   Privacy Policy
                 </Link>
               </li>
+              <li>
+                <Link href="/credits" className="text-gray-600 hover:text-pink-500 transition-colors">
+                  Credits
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
