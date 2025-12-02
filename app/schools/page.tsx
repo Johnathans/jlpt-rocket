@@ -390,25 +390,22 @@ export default function SchoolsPage() {
             <div key={school.id} className="bg-white rounded-lg border border-gray-200 hover:border-pink-300 hover:shadow-lg transition-all overflow-hidden">
               <div className="p-6">
                 <div className="flex flex-col lg:flex-row gap-6">
-                  {/* School Website Screenshot */}
-                  <div className="lg:w-64 h-48 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 relative">
-                    <img
-                      src={`https://api.screenshotmachine.com/?key=demo&url=${encodeURIComponent(school.website)}&dimension=400x300`}
-                      alt={`${school.name} website`}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      onError={(e) => {
-                        // Fallback to gradient if screenshot fails
-                        const target = e.target as HTMLImageElement;
-                        target.style.display = 'none';
-                        if (target.parentElement) {
-                          target.parentElement.classList.add('bg-gradient-to-br', 'from-pink-100', 'to-orange-100', 'flex', 'items-center', 'justify-center');
-                          const icon = document.createElement('div');
-                          icon.innerHTML = '<svg class="h-16 w-16 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>';
-                          target.parentElement.appendChild(icon);
-                        }
-                      }}
-                    />
+                  {/* School Placeholder */}
+                  <div className="lg:w-64 h-48 bg-gradient-to-br from-pink-500 to-orange-500 rounded-lg flex items-center justify-center flex-shrink-0 relative overflow-hidden">
+                    {/* Decorative pattern */}
+                    <div className="absolute inset-0 opacity-10">
+                      <div className="absolute top-0 left-0 w-32 h-32 bg-white rounded-full -translate-x-16 -translate-y-16"></div>
+                      <div className="absolute bottom-0 right-0 w-40 h-40 bg-white rounded-full translate-x-20 translate-y-20"></div>
+                    </div>
+                    {/* School initials */}
+                    <div className="relative z-10 text-center">
+                      <div className="text-5xl font-bold text-white mb-2">
+                        {school.name.split(' ').slice(0, 2).map(word => word[0]).join('')}
+                      </div>
+                      <div className="text-white text-sm font-medium opacity-90">
+                        {school.city}
+                      </div>
+                    </div>
                   </div>
 
                   {/* School Info */}
