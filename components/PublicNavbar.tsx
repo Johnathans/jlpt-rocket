@@ -72,8 +72,8 @@ export default function PublicNavbar() {
               
               {/* Mega Menu Dropdown */}
               {isResourcesOpen && (
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[1200px] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50">
-                  <div className="grid grid-cols-5 gap-6">
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[1000px] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50">
+                  <div className="grid grid-cols-4 gap-6">
                     {/* JLPT Kanji Column */}
                     <div>
                       <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">
@@ -206,50 +206,6 @@ export default function PublicNavbar() {
                       </div>
                     </div>
 
-                    {/* How to Pass Column */}
-                    <div>
-                      <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">
-                        How to Pass JLPT
-                      </h3>
-                      <div className="space-y-2">
-                        <Link
-                          href="/how-to-pass/n5"
-                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
-                        >
-                          <div className="font-medium">Pass N5</div>
-                          <div className="text-xs text-gray-500">Beginner guide</div>
-                        </Link>
-                        <Link
-                          href="/how-to-pass/n4"
-                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
-                        >
-                          <div className="font-medium">Pass N4</div>
-                          <div className="text-xs text-gray-500">Elementary guide</div>
-                        </Link>
-                        <Link
-                          href="/how-to-pass/n3"
-                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
-                        >
-                          <div className="font-medium">Pass N3</div>
-                          <div className="text-xs text-gray-500">Intermediate guide</div>
-                        </Link>
-                        <Link
-                          href="/how-to-pass/n2"
-                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
-                        >
-                          <div className="font-medium">Pass N2</div>
-                          <div className="text-xs text-gray-500">Advanced guide</div>
-                        </Link>
-                        <Link
-                          href="/how-to-pass/n1"
-                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
-                        >
-                          <div className="font-medium">Pass N1</div>
-                          <div className="text-xs text-gray-500">Expert guide</div>
-                        </Link>
-                      </div>
-                    </div>
-
                     {/* Kana & Schools Column */}
                     <div>
                       <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">
@@ -316,8 +272,8 @@ export default function PublicNavbar() {
               
               {/* Mega Menu Dropdown */}
               {isToolsOpen && (
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[600px] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50">
-                  <div className="grid grid-cols-2 gap-6">
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[800px] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50">
+                  <div className="grid grid-cols-3 gap-6">
                     {/* Practice Tools Column */}
                     <div>
                       <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">
@@ -372,6 +328,50 @@ export default function PublicNavbar() {
                         >
                           <div className="font-medium">Reading Stories</div>
                           <div className="text-xs text-gray-500">Graded reading practice</div>
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* How to Pass JLPT Column */}
+                    <div>
+                      <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">
+                        How to Pass JLPT
+                      </h3>
+                      <div className="space-y-2">
+                        <Link
+                          href="/how-to-pass/n5"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">Pass N5</div>
+                          <div className="text-xs text-gray-500">Beginner guide</div>
+                        </Link>
+                        <Link
+                          href="/how-to-pass/n4"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">Pass N4</div>
+                          <div className="text-xs text-gray-500">Elementary guide</div>
+                        </Link>
+                        <Link
+                          href="/how-to-pass/n3"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">Pass N3</div>
+                          <div className="text-xs text-gray-500">Intermediate guide</div>
+                        </Link>
+                        <Link
+                          href="/how-to-pass/n2"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">Pass N2</div>
+                          <div className="text-xs text-gray-500">Advanced guide</div>
+                        </Link>
+                        <Link
+                          href="/how-to-pass/n1"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">Pass N1</div>
+                          <div className="text-xs text-gray-500">Expert guide</div>
                         </Link>
                       </div>
                     </div>
@@ -492,18 +492,6 @@ export default function PublicNavbar() {
                     </div>
                   </div>
                   
-                  {/* How to Pass - Grid Layout */}
-                  <div className="mb-4">
-                    <div className="text-xs font-semibold text-gray-500 uppercase mb-2">How to Pass</div>
-                    <div className="grid grid-cols-5 gap-2">
-                      <Link href="/how-to-pass/n5" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N5</Link>
-                      <Link href="/how-to-pass/n4" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N4</Link>
-                      <Link href="/how-to-pass/n3" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N3</Link>
-                      <Link href="/how-to-pass/n2" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N2</Link>
-                      <Link href="/how-to-pass/n1" className="text-center py-2 px-1 bg-white rounded text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>N1</Link>
-                    </div>
-                  </div>
-                  
                   {/* Other Resources - 2 Column Grid */}
                   <div>
                     <div className="text-xs font-semibold text-gray-500 uppercase mb-2">More Resources</div>
@@ -534,6 +522,13 @@ export default function PublicNavbar() {
                   <Link href="/signup" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Multiple Choice</Link>
                   <Link href="/signup" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Writing Practice</Link>
                   <Link href="/signup" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Reading Stories</Link>
+                  
+                  <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase mt-3">How to Pass JLPT</div>
+                  <Link href="/how-to-pass/n5" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Pass N5</Link>
+                  <Link href="/how-to-pass/n4" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Pass N4</Link>
+                  <Link href="/how-to-pass/n3" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Pass N3</Link>
+                  <Link href="/how-to-pass/n2" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Pass N2</Link>
+                  <Link href="/how-to-pass/n1" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Pass N1</Link>
                   
                   <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase mt-3">Study Features</div>
                   <Link href="/signup" className="block px-6 py-2 text-sm text-gray-700 hover:bg-pink-50" onClick={() => setIsMobileMenuOpen(false)}>Progress Tracking</Link>
