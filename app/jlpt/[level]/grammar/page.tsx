@@ -359,6 +359,89 @@ export default function GrammarLevelPage() {
 
   const info = levelInfo[level as keyof typeof levelInfo];
 
+  // SEO metadata
+  useEffect(() => {
+    if (!info) return;
+
+    const pageTitle = `JLPT ${level} Grammar - ${grammarList.length} Patterns | Rocket JLPT`;
+    const pageDescription = `Complete JLPT ${level} grammar reference with ${grammarList.length} patterns. Learn Japanese grammar with meanings, usage examples, and translations for ${level} level.`;
+    const pageUrl = `https://rocketjlpt.com/jlpt/${level.toLowerCase()}/grammar`;
+
+    // Set document title
+    document.title = pageTitle;
+
+    // Update meta tags
+    const updateMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = name;
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    const updateOGTag = (property: string, content: string) => {
+      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('property', property);
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    updateMetaTag('description', pageDescription);
+    updateMetaTag('keywords', `jlpt ${level.toLowerCase()} grammar, ${level} grammar patterns, japanese grammar ${level}, jlpt ${level.toLowerCase()} grammar list, ${level} grammar reference`);
+    updateOGTag('og:title', pageTitle);
+    updateOGTag('og:description', pageDescription);
+    updateOGTag('og:url', pageUrl);
+    updateOGTag('og:type', 'website');
+    updateMetaTag('twitter:card', 'summary_large_image');
+    updateMetaTag('twitter:title', pageTitle);
+    updateMetaTag('twitter:description', pageDescription);
+
+    // Add canonical link
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = pageUrl;
+
+    // Add structured data
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "EducationalOccupationalProgram",
+      "name": `JLPT ${level} Grammar Reference`,
+      "description": pageDescription,
+      "provider": {
+        "@type": "Organization",
+        "name": "Rocket JLPT",
+        "url": "https://rocketjlpt.com"
+      },
+      "educationalLevel": `JLPT ${level}`,
+      "inLanguage": "ja",
+      "about": {
+        "@type": "Thing",
+        "name": "Japanese Grammar"
+      },
+      "numberOfItems": grammarList.length,
+      "url": pageUrl
+    };
+
+    // Remove old structured data
+    const oldScripts = document.querySelectorAll('script[type="application/ld+json"]');
+    oldScripts.forEach(s => s.remove());
+
+    // Add new structured data
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+  }, [level, grammarList.length, info]);
+
   return (
     <div className="min-h-screen bg-gray-50">
       <PublicNavbar />
