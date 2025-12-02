@@ -14,9 +14,15 @@ export default function PublicNavbar() {
   const toolsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleResourcesEnter = () => {
+    // Clear both timeouts to prevent overlap
     if (resourcesTimeoutRef.current) {
       clearTimeout(resourcesTimeoutRef.current);
     }
+    if (toolsTimeoutRef.current) {
+      clearTimeout(toolsTimeoutRef.current);
+    }
+    // Close tools immediately and open resources
+    setIsToolsOpen(false);
     setIsResourcesOpen(true);
   };
 
@@ -27,9 +33,15 @@ export default function PublicNavbar() {
   };
 
   const handleToolsEnter = () => {
+    // Clear both timeouts to prevent overlap
     if (toolsTimeoutRef.current) {
       clearTimeout(toolsTimeoutRef.current);
     }
+    if (resourcesTimeoutRef.current) {
+      clearTimeout(resourcesTimeoutRef.current);
+    }
+    // Close resources immediately and open tools
+    setIsResourcesOpen(false);
     setIsToolsOpen(true);
   };
 
