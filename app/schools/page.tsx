@@ -390,9 +390,25 @@ export default function SchoolsPage() {
             <div key={school.id} className="bg-white rounded-lg border border-gray-200 hover:border-pink-300 hover:shadow-lg transition-all overflow-hidden">
               <div className="p-6">
                 <div className="flex flex-col lg:flex-row gap-6">
-                  {/* School Image Placeholder */}
-                  <div className="lg:w-64 h-48 bg-gradient-to-br from-pink-100 to-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <MapPin className="h-16 w-16 text-pink-400" />
+                  {/* School Website Screenshot */}
+                  <div className="lg:w-64 h-48 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 relative">
+                    <img
+                      src={`https://image.thum.io/get/width/400/crop/300/noanimate/${school.website}`}
+                      alt={`${school.name} website`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      onError={(e) => {
+                        // Fallback to gradient if screenshot fails
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        if (target.parentElement) {
+                          target.parentElement.classList.add('bg-gradient-to-br', 'from-pink-100', 'to-orange-100', 'flex', 'items-center', 'justify-center');
+                          const icon = document.createElement('div');
+                          icon.innerHTML = '<svg class="h-16 w-16 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>';
+                          target.parentElement.appendChild(icon);
+                        }
+                      }}
+                    />
                   </div>
 
                   {/* School Info */}
