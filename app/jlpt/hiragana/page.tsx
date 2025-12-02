@@ -234,7 +234,22 @@ export default function HiraganaPage() {
                       strokeLinecap="round"
                     />
                   ))}
-                  {/* Progress segments - showing 0% */}
+                  {/* Progress segments - showing 30% (2.4 segments out of 8) */}
+                  {[0, 1, 2].map((i) => (
+                    <circle
+                      key={`progress-${i}`}
+                      cx="88"
+                      cy="88"
+                      r="76"
+                      fill="none"
+                      stroke={i < 2 ? "#ec4899" : "#f97316"}
+                      strokeWidth="16"
+                      strokeDasharray="59.69 417.83"
+                      strokeDashoffset={-i * 59.69}
+                      strokeLinecap="round"
+                      className="transition-all duration-500"
+                    />
+                  ))}
                 </svg>
                 {/* Center text */}
                 <div className="absolute inset-0 flex items-center justify-center">
