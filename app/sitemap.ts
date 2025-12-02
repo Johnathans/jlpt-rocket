@@ -76,6 +76,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.9,
   }));
 
+  // JLPT Grammar level pages
+  const grammarPages = jlptLevels.map(level => ({
+    url: `${baseUrl}/jlpt/${level}/grammar`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.9,
+  }));
+
   // Kana pages
   const kanaPages = [
     {
@@ -126,7 +134,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...staticPages, 
     ...kanjiPages, 
-    ...vocabularyPages, 
+    ...vocabularyPages,
+    ...grammarPages, 
     ...kanaPages, 
     ...howToPassPages,
     ...individualKanjiPages // Add all 2,211 individual kanji pages
