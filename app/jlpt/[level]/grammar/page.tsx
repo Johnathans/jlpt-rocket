@@ -487,6 +487,56 @@ export default function GrammarLevelPage() {
                 </div>
               </div>
             </div>
+
+            {/* Progress Meter - Desktop Only */}
+            <div className="hidden xl:flex flex-col items-center gap-4">
+              <div className="relative w-44 h-44">
+                {/* Background circles */}
+                <svg className="w-44 h-44 transform -rotate-90">
+                  {/* Background segments */}
+                  {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+                    <circle
+                      key={`bg-${i}`}
+                      cx="88"
+                      cy="88"
+                      r="76"
+                      fill="none"
+                      stroke="#e5e7eb"
+                      strokeWidth="16"
+                      strokeDasharray="59.69 417.83"
+                      strokeDashoffset={-i * 59.69}
+                      strokeLinecap="round"
+                    />
+                  ))}
+                  {/* Progress segments - showing 30% (2.4 segments out of 8) */}
+                  {[0, 1, 2].map((i) => (
+                    <circle
+                      key={`progress-${i}`}
+                      cx="88"
+                      cy="88"
+                      r="76"
+                      fill="none"
+                      stroke={i < 2 ? "#ec4899" : "#f97316"}
+                      strokeWidth="16"
+                      strokeDasharray="59.69 417.83"
+                      strokeDashoffset={-i * 59.69}
+                      strokeLinecap="round"
+                      className="transition-all duration-500"
+                    />
+                  ))}
+                </svg>
+                {/* Center text */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-4xl font-bold text-gray-900">0%</span>
+                </div>
+              </div>
+              <Link 
+                href="/login"
+                className="text-sm text-gray-600 hover:text-pink-600 transition-colors font-medium"
+              >
+                Login to track progress
+              </Link>
+            </div>
           </div>
         </div>
       </div>
