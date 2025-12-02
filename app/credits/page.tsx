@@ -1,13 +1,55 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { ExternalLink, Heart } from 'lucide-react';
-import PublicNavbar from '@/components/PublicNavbar';
 
 export default function CreditsPage() {
+  useEffect(() => {
+    document.title = 'Credits & Attributions - Rocket JLPT';
+    
+    const updateMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = name;
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    const updateOGTag = (property: string, content: string) => {
+      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('property', property);
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    updateMetaTag('description', 'Credits and attributions for the data sources used in Rocket JLPT, including Jonathan Waller\'s JLPT Resources, KanjiVG, and Yomitan JLPT Vocabulary.');
+    updateMetaTag('keywords', 'jlpt credits, data sources, jonathan waller jlpt, kanjivg, attributions, jlpt resources');
+    updateOGTag('og:title', 'Credits & Attributions - Rocket JLPT');
+    updateOGTag('og:description', 'Credits and attributions for the data sources used in Rocket JLPT, including Jonathan Waller\'s JLPT Resources, KanjiVG, and Yomitan JLPT Vocabulary.');
+    updateOGTag('og:url', 'https://rocketjlpt.com/credits');
+    updateOGTag('og:type', 'website');
+    updateMetaTag('twitter:card', 'summary');
+    updateMetaTag('twitter:title', 'Credits & Attributions - Rocket JLPT');
+    updateMetaTag('twitter:description', 'Credits and attributions for the data sources used in Rocket JLPT.');
+
+    // Add canonical link
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://rocketjlpt.com/credits';
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50">
-      <PublicNavbar />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Header */}
