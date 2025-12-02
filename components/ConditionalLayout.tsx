@@ -17,7 +17,7 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
   const isPublicJLPTPage = pathname?.startsWith('/jlpt/');
   const isHowToPassPage = pathname?.startsWith('/how-to-pass/');
   const isToolsPage = pathname?.startsWith('/tools/');
-  const isSupportPage = pathname === '/about' || pathname === '/help' || pathname === '/contact' || pathname === '/privacy' || pathname === '/schools';
+  const isSupportPage = pathname === '/about' || pathname === '/help' || pathname === '/contact' || pathname === '/privacy' || pathname === '/schools' || pathname === '/credits';
   const isMarketingPage = pathname === '/' || pathname === '/login' || pathname === '/signup' || isSupportPage;
   
   // Only show footer on marketing and how-to-pass pages
