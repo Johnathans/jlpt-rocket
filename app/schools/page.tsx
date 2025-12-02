@@ -393,7 +393,7 @@ export default function SchoolsPage() {
                   {/* School Website Screenshot */}
                   <div className="lg:w-64 h-48 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 relative">
                     <img
-                      src={`https://image.thum.io/get/width/400/crop/300/noanimate/${school.website}`}
+                      src={`https://api.screenshotmachine.com/?key=demo&url=${encodeURIComponent(school.website)}&dimension=400x300`}
                       alt={`${school.name} website`}
                       className="w-full h-full object-cover"
                       loading="lazy"
