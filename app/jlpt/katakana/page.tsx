@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, Volume2 } from 'lucide-react';
+import { Search, Volume2, GraduationCap } from 'lucide-react';
 import PublicNavbar from '@/components/PublicNavbar';
 
 interface KanaItem {
@@ -198,7 +198,7 @@ export default function KatakanaPage() {
                 </p>
               </div>
 
-              {/* Search Bar */}
+              {/* Search Bar and Practice Button */}
               <div className="flex items-center gap-4">
                 <div className="relative flex-1 max-w-lg">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -210,6 +210,13 @@ export default function KatakanaPage() {
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-shadow"
                   />
                 </div>
+                <Link
+                  href="/signup"
+                  className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:border-pink-500 hover:text-pink-600 hover:bg-pink-50 transition-all whitespace-nowrap"
+                >
+                  <GraduationCap className="h-5 w-5" />
+                  Practice Katakana
+                </Link>
               </div>
             </div>
 
