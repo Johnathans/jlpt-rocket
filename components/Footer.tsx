@@ -60,7 +60,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a 
-                href="https://discord.gg/rocketjlpt" 
+                href="https://discord.gg/wBSyFt7p" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-900 hover:text-pink-500 transition-colors"
@@ -71,7 +71,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a 
-                href="mailto:hello@rocketjlpt.com" 
+                href="mailto:rocketjlpt@gmail.com" 
                 className="text-gray-900 hover:text-pink-500 transition-colors"
                 aria-label="Email"
               >

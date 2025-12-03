@@ -46,10 +46,10 @@ export default function ContactPage() {
                 For general inquiries and support
               </p>
               <a 
-                href="mailto:hello@rocketjlpt.com" 
+                href="mailto:rocketjlpt@gmail.com" 
                 className="text-pink-600 hover:text-pink-700 font-medium"
               >
-                hello@rocketjlpt.com
+                rocketjlpt@gmail.com
               </a>
             </div>
 
@@ -62,10 +62,10 @@ export default function ContactPage() {
                 Need help with your account or have technical issues?
               </p>
               <a 
-                href="mailto:support@rocketjlpt.com" 
+                href="mailto:rocketjlpt@gmail.com" 
                 className="text-pink-600 hover:text-pink-700 font-medium"
               >
-                support@rocketjlpt.com
+                rocketjlpt@gmail.com
               </a>
             </div>
 
