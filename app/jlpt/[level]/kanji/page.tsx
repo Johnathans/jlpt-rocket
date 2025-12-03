@@ -28,9 +28,35 @@ export default function KanjiLevelPage() {
     const fetchKanji = async () => {
       try {
         setLoading(true);
+        
+        // Try to get from localStorage first (client-side cache)
+        const cacheKey = `kanji_${level}_cache`;
+        const cachedData = localStorage.getItem(cacheKey);
+        const cacheTimestamp = localStorage.getItem(`${cacheKey}_timestamp`);
+        
+        // Cache for 1 hour
+        const CACHE_DURATION = 1000 * 60 * 60;
+        const isCacheValid = cacheTimestamp && (Date.now() - parseInt(cacheTimestamp)) < CACHE_DURATION;
+        
+        if (cachedData && isCacheValid) {
+          console.log(`Using cached kanji for level ${level}`);
+          setKanjiList(JSON.parse(cachedData));
+          setLoading(false);
+          return;
+        }
+        
+        // Fetch from server
         const data = await getKanjiByLevel(level as any);
         console.log(`Fetched ${data.length} kanji for level ${level}`);
         setKanjiList(data as any);
+        
+        // Store in localStorage
+        try {
+          localStorage.setItem(cacheKey, JSON.stringify(data));
+          localStorage.setItem(`${cacheKey}_timestamp`, Date.now().toString());
+        } catch (e) {
+          console.warn('Failed to cache data in localStorage:', e);
+        }
       } catch (error) {
         console.error('Error fetching kanji:', error);
       } finally {

@@ -88,9 +88,34 @@ export default function VocabularyLevelPage() {
 
     async function loadVocabulary() {
       try {
+        // Try to get from localStorage first (client-side cache)
+        const cacheKey = `vocabulary_${levelData.name}_cache`;
+        const cachedData = localStorage.getItem(cacheKey);
+        const cacheTimestamp = localStorage.getItem(`${cacheKey}_timestamp`);
+        
+        // Cache for 1 hour
+        const CACHE_DURATION = 1000 * 60 * 60;
+        const isCacheValid = cacheTimestamp && (Date.now() - parseInt(cacheTimestamp)) < CACHE_DURATION;
+        
+        if (cachedData && isCacheValid) {
+          console.log(`Using cached vocabulary for level ${levelData.name}`);
+          setVocabulary(JSON.parse(cachedData));
+          setLoading(false);
+          return;
+        }
+        
+        // Fetch from server
         const data = await getVocabularyByLevel(levelData.name.toUpperCase() as any);
         console.log(`Fetched ${data.length} vocabulary words for level ${levelData.name}`);
         setVocabulary(data);
+        
+        // Store in localStorage
+        try {
+          localStorage.setItem(cacheKey, JSON.stringify(data));
+          localStorage.setItem(`${cacheKey}_timestamp`, Date.now().toString());
+        } catch (e) {
+          console.warn('Failed to cache data in localStorage:', e);
+        }
       } catch (error) {
         console.error('Error loading vocabulary:', error);
       } finally {

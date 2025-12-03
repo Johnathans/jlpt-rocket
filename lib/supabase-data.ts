@@ -2,6 +2,30 @@ import { supabase } from './supabase'
 
 export type JLPTLevel = 'N5' | 'N4' | 'N3' | 'N2' | 'N1'
 
+// Simple in-memory cache
+const cache = new Map<string, { data: any; timestamp: number }>();
+const CACHE_TTL = 1000 * 60 * 60; // 1 hour
+
+function getCached<T>(key: string): T | null {
+  const cached = cache.get(key);
+  if (!cached) return null;
+  
+  const isExpired = Date.now() - cached.timestamp > CACHE_TTL;
+  if (isExpired) {
+    cache.delete(key);
+    return null;
+  }
+  
+  return cached.data as T;
+}
+
+function setCache<T>(key: string, data: T): void {
+  cache.set(key, {
+    data,
+    timestamp: Date.now(),
+  });
+}
+
 // Helper function to fetch all data with pagination
 async function fetchAllWithPagination<T>(
   tableName: string,
@@ -99,11 +123,18 @@ export interface SentenceData {
 
 // Kanji data functions
 export async function getKanjiByLevel(level: JLPTLevel): Promise<KanjiData[]> {
-  return fetchAllWithPagination<KanjiData>(
+  const cacheKey = `kanji_${level}`;
+  const cached = getCached<KanjiData[]>(cacheKey);
+  if (cached) return cached;
+  
+  const data = await fetchAllWithPagination<KanjiData>(
     'kanji',
     [{ column: 'jlpt_level', value: level }],
     { column: 'frequency_rank', ascending: true }
   );
+  
+  setCache(cacheKey, data);
+  return data;
 }
 
 export async function getAllKanji(): Promise<KanjiData[]> {
@@ -133,11 +164,18 @@ export async function getRandomKanji(level: JLPTLevel, count: number = 10): Prom
 
 // Vocabulary data functions
 export async function getVocabularyByLevel(level: JLPTLevel): Promise<VocabularyData[]> {
-  return fetchAllWithPagination<VocabularyData>(
+  const cacheKey = `vocabulary_${level}`;
+  const cached = getCached<VocabularyData[]>(cacheKey);
+  if (cached) return cached;
+  
+  const data = await fetchAllWithPagination<VocabularyData>(
     'vocabulary',
     [{ column: 'jlpt_level', value: level }],
     { column: 'frequency_rank', ascending: true }
   );
+  
+  setCache(cacheKey, data);
+  return data;
 }
 
 export async function getAllVocabulary(): Promise<VocabularyData[]> {
