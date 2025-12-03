@@ -84,7 +84,7 @@ export default function PublicNavbar() {
               
               {/* Mega Menu Dropdown */}
               {isResourcesOpen && (
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[1000px] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50">
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[1000px] max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50">
                   <div className="grid grid-cols-4 gap-6">
                     {/* JLPT Kanji Column */}
                     <div>
@@ -284,7 +284,7 @@ export default function PublicNavbar() {
               
               {/* Mega Menu Dropdown */}
               {isToolsOpen && (
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[800px] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50">
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[800px] max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50">
                   <div className="grid grid-cols-3 gap-6">
                     {/* Practice Tools Column */}
                     <div>
