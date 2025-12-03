@@ -70,7 +70,7 @@ export default function PublicNavbar() {
             </span>
           </Link>
           
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-6">
             {/* Resources Mega Menu */}
             <div 
               className="relative"
@@ -84,7 +84,7 @@ export default function PublicNavbar() {
               
               {/* Mega Menu Dropdown */}
               {isResourcesOpen && (
-                <div className="absolute top-full right-0 mt-2 w-[1000px] max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[1000px] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50" style={{ maxWidth: 'calc(100vw - 2rem)' }}>
                   <div className="grid grid-cols-4 gap-6">
                     {/* JLPT Kanji Column */}
                     <div>
@@ -284,7 +284,7 @@ export default function PublicNavbar() {
               
               {/* Mega Menu Dropdown */}
               {isToolsOpen && (
-                <div className="absolute top-full right-0 mt-2 w-[800px] max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[800px] bg-white rounded-lg shadow-xl border border-gray-200 p-6 z-50" style={{ maxWidth: 'calc(100vw - 2rem)' }}>
                   <div className="grid grid-cols-3 gap-6">
                     {/* Practice Tools Column */}
                     <div>
@@ -444,7 +444,7 @@ export default function PublicNavbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-gray-700 hover:text-pink-600 p-2"
@@ -456,7 +456,7 @@ export default function PublicNavbar() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 py-4">
+          <div className="lg:hidden border-t border-gray-200 py-4">
             <div className="space-y-2">
               {/* Resources Section */}
               <button

@@ -87,23 +87,28 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/" className="text-gray-600 hover:text-pink-500 transition-colors">
-                  Stories
+                <Link href="/jlpt/hiragana" className="text-gray-600 hover:text-pink-500 transition-colors">
+                  Hiragana
                 </Link>
               </li>
               <li>
-                <Link href="/vocabulary" className="text-gray-600 hover:text-pink-500 transition-colors">
-                  Vocabulary
+                <Link href="/jlpt/katakana" className="text-gray-600 hover:text-pink-500 transition-colors">
+                  Katakana
                 </Link>
               </li>
               <li>
-                <Link href="/kanji" className="text-gray-600 hover:text-pink-500 transition-colors">
+                <Link href="/jlpt/n5/kanji" className="text-gray-600 hover:text-pink-500 transition-colors">
                   Kanji
                 </Link>
               </li>
               <li>
-                <Link href="/profile" className="text-gray-600 hover:text-pink-500 transition-colors">
-                  Progress
+                <Link href="/jlpt/n5/vocabulary" className="text-gray-600 hover:text-pink-500 transition-colors">
+                  Vocabulary
+                </Link>
+              </li>
+              <li>
+                <Link href="/jlpt/n5/grammar" className="text-gray-600 hover:text-pink-500 transition-colors">
+                  Grammar
                 </Link>
               </li>
             </ul>
