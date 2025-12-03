@@ -238,6 +238,13 @@ export default function PublicNavbar() {
                           <div className="font-medium">Katakana</div>
                           <div className="text-xs text-gray-500">104 characters with audio</div>
                         </Link>
+                        <Link
+                          href="/jlpt/particles"
+                          className="block px-3 py-2 text-gray-700 hover:bg-pink-50 hover:text-pink-600 rounded-md transition-colors"
+                        >
+                          <div className="font-medium">Particles</div>
+                          <div className="text-xs text-gray-500">136 particles (N5-N1)</div>
+                        </Link>
                       </div>
 
                       <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">
@@ -510,7 +517,8 @@ export default function PublicNavbar() {
                     <div className="grid grid-cols-2 gap-2">
                       <Link href="/jlpt/hiragana" className="py-2 px-3 bg-white rounded text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>Hiragana</Link>
                       <Link href="/jlpt/katakana" className="py-2 px-3 bg-white rounded text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>Katakana</Link>
-                      <Link href="/schools" className="py-2 px-3 bg-white rounded text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-600 col-span-2" onClick={() => setIsMobileMenuOpen(false)}>Language Schools</Link>
+                      <Link href="/jlpt/particles" className="py-2 px-3 bg-white rounded text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>Particles</Link>
+                      <Link href="/schools" className="py-2 px-3 bg-white rounded text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-600" onClick={() => setIsMobileMenuOpen(false)}>Schools</Link>
                     </div>
                   </div>
                 </div>
