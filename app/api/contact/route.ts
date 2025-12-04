@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     // For now, we'll use a simple email service
     // You can integrate with services like Resend, SendGrid, or AWS SES
     
-    // If using Resend (recommended for Next.js):
+    // Send email via Resend
     if (process.env.RESEND_API_KEY) {
       const resendResponse = await fetch('https://api.resend.com/emails', {
         method: 'POST',
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
           'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
         },
         body: JSON.stringify({
-          from: 'Rocket JLPT <noreply@rocketjlpt.com>',
+          from: 'JLPT Rocket <noreply@rocketjlpt.com>',
           to: CONTACT_EMAIL,
           reply_to: email,
           subject: `[${type.toUpperCase()}] Contact Form - ${name}`,
@@ -45,16 +45,21 @@ export async function POST(request: NextRequest) {
                 <p style="white-space: pre-wrap;">${message}</p>
               </div>
               <p style="color: #6b7280; font-size: 12px; margin-top: 20px;">
-                This message was sent from the Rocket JLPT contact form.
+                This message was sent from the JLPT Rocket contact form.
               </p>
             </div>
           `,
         }),
       });
 
+      const resendData = await resendResponse.json();
+
       if (!resendResponse.ok) {
-        throw new Error('Failed to send email via Resend');
+        console.error('Resend API error:', resendData);
+        throw new Error(`Failed to send email via Resend: ${resendData.message || 'Unknown error'}`);
       }
+
+      console.log('Email sent successfully via Resend:', resendData.id);
     } else {
       // Fallback: Log to console if no email service is configured
       console.log('Contact Form Submission:', {
@@ -65,8 +70,12 @@ export async function POST(request: NextRequest) {
         timestamp: new Date().toISOString(),
       });
       
-      // In production, you should integrate a proper email service
       console.warn('No email service configured. Set RESEND_API_KEY environment variable.');
+      
+      return NextResponse.json(
+        { error: 'Email service not configured' },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json(
