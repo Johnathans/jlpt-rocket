@@ -31,7 +31,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a 
-                href="https://instagram.com/rocketjlpt" 
+                href="https://www.instagram.com/rocketjlpt/" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-900 hover:text-pink-500 transition-colors"
