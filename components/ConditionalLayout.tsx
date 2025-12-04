@@ -6,6 +6,7 @@ import PublicNavbar from '@/components/PublicNavbar';
 import StreakCounter from '@/components/StreakCounter';
 import CategoryLinks from '@/components/CategoryLinks';
 import Footer from '@/components/Footer';
+import ContactBubble from '@/components/ContactBubble';
 
 interface ConditionalLayoutProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
   const isPublicJLPTPage = pathname?.startsWith('/jlpt/');
   const isHowToPassPage = pathname?.startsWith('/how-to-pass/');
   const isToolsPage = pathname?.startsWith('/tools/');
+  const isPracticeSheetsPage = pathname?.startsWith('/practice-sheets/');
   const isSupportPage = pathname === '/about' || pathname === '/help' || pathname === '/contact' || pathname === '/privacy' || pathname === '/schools' || pathname === '/credits';
   const isMarketingPage = pathname === '/' || pathname === '/login' || pathname === '/signup' || isSupportPage;
   
@@ -24,8 +26,13 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
   const shouldShowFooter = isMarketingPage || isHowToPassPage;
 
   // Public JLPT pages and tools pages have their own navbar
-  if (isPublicJLPTPage || isToolsPage) {
-    return <>{children}</>;
+  if (isPublicJLPTPage || isToolsPage || isPracticeSheetsPage) {
+    return (
+      <>
+        {children}
+        <ContactBubble />
+      </>
+    );
   }
 
   // How to Pass pages - always public
@@ -37,6 +44,7 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
           {children}
         </main>
         <Footer />
+        <ContactBubble />
       </div>
     );
   }
@@ -59,6 +67,7 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
           {children}
         </main>
         {shouldShowFooter && <Footer />}
+        <ContactBubble />
       </div>
     );
   }
