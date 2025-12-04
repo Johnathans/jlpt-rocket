@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Resend } from 'resend';
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,69 +15,50 @@ export async function POST(request: NextRequest) {
     }
 
     // Email configuration
-    const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'contact@rocketjlpt.com';
+    const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'rocketjlpt@gmail.com';
     
-    // For now, we'll use a simple email service
-    // You can integrate with services like Resend, SendGrid, or AWS SES
-    
-    // Send email via Resend
-    if (process.env.RESEND_API_KEY) {
-      const resendResponse = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
-        },
-        body: JSON.stringify({
-          from: 'JLPT Rocket <noreply@rocketjlpt.com>',
-          to: CONTACT_EMAIL,
-          reply_to: email,
-          subject: `[${type.toUpperCase()}] Contact Form - ${name}`,
-          html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-              <h2 style="color: #ec4899;">New Contact Form Submission</h2>
-              <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <p><strong>Type:</strong> ${type}</p>
-                <p><strong>Name:</strong> ${name}</p>
-                <p><strong>Email:</strong> ${email}</p>
-              </div>
-              <div style="background: white; padding: 20px; border: 1px solid #e5e7eb; border-radius: 8px;">
-                <h3 style="margin-top: 0;">Message:</h3>
-                <p style="white-space: pre-wrap;">${message}</p>
-              </div>
-              <p style="color: #6b7280; font-size: 12px; margin-top: 20px;">
-                This message was sent from the JLPT Rocket contact form.
-              </p>
-            </div>
-          `,
-        }),
-      });
-
-      const resendData = await resendResponse.json();
-
-      if (!resendResponse.ok) {
-        console.error('Resend API error:', resendData);
-        throw new Error(`Failed to send email via Resend: ${resendData.message || 'Unknown error'}`);
-      }
-
-      console.log('Email sent successfully via Resend:', resendData.id);
-    } else {
-      // Fallback: Log to console if no email service is configured
-      console.log('Contact Form Submission:', {
-        type,
-        name,
-        email,
-        message,
-        timestamp: new Date().toISOString(),
-      });
-      
-      console.warn('No email service configured. Set RESEND_API_KEY environment variable.');
-      
+    // Initialize Resend
+    if (!process.env.RESEND_API_KEY) {
+      console.error('RESEND_API_KEY not configured');
       return NextResponse.json(
         { error: 'Email service not configured' },
         { status: 500 }
       );
     }
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    // Send email via Resend
+    const { data, error } = await resend.emails.send({
+      from: 'JLPT Rocket <noreply@rocketjlpt.com>',
+      to: CONTACT_EMAIL,
+      replyTo: email,
+      subject: `[${type.toUpperCase()}] Contact Form - ${name}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #ec4899;">New Contact Form Submission</h2>
+          <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <p><strong>Type:</strong> ${type}</p>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+          </div>
+          <div style="background: white; padding: 20px; border: 1px solid #e5e7eb; border-radius: 8px;">
+            <h3 style="margin-top: 0;">Message:</h3>
+            <p style="white-space: pre-wrap;">${message}</p>
+          </div>
+          <p style="color: #6b7280; font-size: 12px; margin-top: 20px;">
+            This message was sent from the JLPT Rocket contact form.
+          </p>
+        </div>
+      `,
+    });
+
+    if (error) {
+      console.error('Resend API error:', error);
+      throw new Error(`Failed to send email: ${error.message}`);
+    }
+
+    console.log('Email sent successfully via Resend:', data?.id);
 
     return NextResponse.json(
       { success: true, message: 'Message sent successfully' },
