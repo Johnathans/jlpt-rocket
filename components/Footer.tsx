@@ -40,7 +40,7 @@ export default function Footer() {
                 <Instagram className="h-5 w-5" strokeWidth={2.5} />
               </a>
               <a 
-                href="https://facebook.com/rocketjlpt" 
+                href="https://www.facebook.com/groups/1229782502382368" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-900 hover:text-pink-500 transition-colors"
