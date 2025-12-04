@@ -57,10 +57,11 @@ export default function ContactBubble() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-pink-500 to-orange-500 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110"
+          className="fixed bottom-6 right-6 z-50 bg-white text-pink-500 px-5 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 border border-gray-200 hover:border-pink-500 flex items-center gap-2"
           aria-label="Contact us"
         >
-          <MessageCircle className="w-6 h-6" />
+          <MessageCircle className="w-5 h-5" strokeWidth={2} />
+          <span className="font-medium text-sm">Message</span>
         </button>
       )}
 
@@ -68,11 +69,11 @@ export default function ContactBubble() {
       {isOpen && (
         <div className="fixed bottom-6 right-6 z-50 w-96 bg-white rounded-lg shadow-2xl border border-gray-200">
           {/* Header */}
-          <div className="bg-gradient-to-r from-pink-500 to-orange-500 text-white p-4 rounded-t-lg flex justify-between items-center">
-            <h3 className="font-bold text-lg">Contact Us</h3>
+          <div className="bg-white p-4 rounded-t-lg flex justify-between items-center border-b border-gray-200">
+            <h3 className="font-semibold text-lg text-gray-900">Contact Us</h3>
             <button
               onClick={() => setIsOpen(false)}
-              className="hover:bg-white/20 rounded p-1 transition-colors"
+              className="hover:bg-gray-100 rounded p-1 transition-colors text-gray-500 hover:text-gray-700"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
