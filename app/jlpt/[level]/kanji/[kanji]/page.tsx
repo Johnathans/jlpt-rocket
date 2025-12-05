@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Pen, ChevronLeft, ChevronRight, Copy, Zap } from 'lucide-react';
+import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Pen, ChevronLeft, ChevronRight, Copy, Zap, Download } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import PublicNavbar from '@/components/PublicNavbar';
 
@@ -65,17 +65,29 @@ export default function KanjiDetailPage() {
       updateMetaTag('description', pageDescription);
       updateMetaTag('keywords', `${kanji.character}, kanji, JLPT ${kanji.jlpt_level}, ${kanji.meaning}, Japanese kanji, stroke order, kanji readings, on'yomi, kun'yomi`);
       
+      // Kanji image URL with descriptive filename
+      const romaji = kanji.kun_reading?.[0]?.replace(/\./g, '') || kanji.on_reading?.[0] || '';
+      const meaning = kanji.meaning.split(',')[0].trim().toLowerCase().replace(/\s+/g, '-');
+      const descriptiveFilename = `kanji-${kanji.character}-${romaji}-${meaning}-stroke-order.png`;
+      const imageUrl = `https://www.rocketjlpt.com/images/kanji/${descriptiveFilename}`;
+      
       // Open Graph tags
       updateOGTag('og:title', pageTitle);
       updateOGTag('og:description', pageDescription);
       updateOGTag('og:url', pageUrl);
       updateOGTag('og:type', 'article');
       updateOGTag('og:site_name', 'Rocket JLPT');
+      updateOGTag('og:image', imageUrl);
+      updateOGTag('og:image:width', '400');
+      updateOGTag('og:image:height', '500');
+      updateOGTag('og:image:alt', `Kanji ${kanji.character} stroke order diagram`);
       
       // Twitter Card tags
       updateMetaTag('twitter:card', 'summary_large_image');
       updateMetaTag('twitter:title', pageTitle);
       updateMetaTag('twitter:description', pageDescription);
+      updateMetaTag('twitter:image', imageUrl);
+      updateMetaTag('twitter:image:alt', `Kanji ${kanji.character} stroke order diagram`);
       
       // Canonical URL
       let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
@@ -99,6 +111,13 @@ export default function KanjiDetailPage() {
         "@type": "EducationalOccupationalCredential",
         "name": `JLPT ${kanji.jlpt_level} Kanji: ${kanji.character}`,
         "description": pageDescription,
+        "image": {
+          "@type": "ImageObject",
+          "url": imageUrl,
+          "width": 400,
+          "height": 500,
+          "caption": `Kanji ${kanji.character} stroke order diagram`
+        },
         "educationalLevel": `JLPT ${kanji.jlpt_level}`,
         "competencyRequired": `Japanese Language Proficiency Test ${kanji.jlpt_level}`,
         "about": {
@@ -416,9 +435,30 @@ export default function KanjiDetailPage() {
         {/* Stroke Order Diagram */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
           <div className="mb-4 sm:mb-6">
-            <div className="flex items-start gap-2 mb-3">
-              <Pen className="h-5 w-5 sm:h-6 sm:w-6 text-pink-600 flex-shrink-0 mt-1" />
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">How to Write {kanji.character} - Stroke Order Diagram</h2>
+            <div className="flex items-start justify-between gap-4 mb-3">
+              <div className="flex items-start gap-2">
+                <Pen className="h-5 w-5 sm:h-6 sm:w-6 text-pink-600 flex-shrink-0 mt-1" />
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900">How to Write {kanji.character} - Stroke Order Diagram</h2>
+              </div>
+              <button
+                onClick={() => {
+                  // Create descriptive filename matching generation script
+                  const romaji = kanji.kun_reading?.[0]?.replace(/\./g, '') || kanji.on_reading?.[0] || '';
+                  const meaning = kanji.meaning.split(',')[0].trim().toLowerCase().replace(/\s+/g, '-');
+                  const descriptiveFilename = `kanji-${kanji.character}-${romaji}-${meaning}-stroke-order.png`;
+                  const imageUrl = `/images/kanji/${descriptiveFilename}`;
+                  const link = document.createElement('a');
+                  link.href = imageUrl;
+                  link.download = descriptiveFilename;
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
+                className="inline-flex items-center justify-center p-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors shadow-sm"
+                title="Download stroke order image"
+              >
+                <Download className="h-5 w-5" />
+              </button>
             </div>
             <p className="text-gray-700">
               Learn the correct stroke order for writing the kanji {kanji.character} ({kanji.meaning}). 
@@ -427,31 +467,34 @@ export default function KanjiDetailPage() {
           </div>
           
           <div className="flex justify-center items-center bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg p-4 sm:p-6 lg:p-8 border border-pink-200">
-            <div className="relative w-full max-w-lg aspect-square bg-white rounded-lg p-3 sm:p-4 lg:p-6 shadow-sm">
-              {/* KanjiVG SVG - fully customizable */}
+            <div className="relative w-full max-w-md bg-white rounded-lg shadow-sm overflow-hidden">
+              {/* Styled Kanji Stroke Order Image */}
               {(() => {
-                const codePoint = kanji.character.codePointAt(0)?.toString(16).padStart(5, '0');
-                const svgUrl = `https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${codePoint}.svg`;
-                console.log('Kanji:', kanji.character, 'Code point:', codePoint, 'URL:', svgUrl);
+                // Create descriptive filename matching generation script
+                const romaji = kanji.kun_reading?.[0]?.replace(/\./g, '') || kanji.on_reading?.[0] || '';
+                const meaning = kanji.meaning.split(',')[0].trim().toLowerCase().replace(/\s+/g, '-');
+                const descriptiveFilename = `kanji-${kanji.character}-${romaji}-${meaning}-stroke-order.png`;
+                const imageUrl = `/images/kanji/${descriptiveFilename}`;
+                console.log('Kanji:', kanji.character, 'Image:', imageUrl);
                 
                 return (
                   <img
-                    src={svgUrl}
-                    alt={`Stroke order for ${kanji.character}`}
-                    className="w-full h-full"
+                    src={imageUrl}
+                    alt={`Kanji ${kanji.character} stroke order`}
+                    className="w-full h-auto"
                     style={{
                       filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
                     }}
                     onError={(e) => {
-                      console.error('Failed to load stroke order:', svgUrl);
+                      console.error('Failed to load stroke order image:', imageUrl);
                       e.currentTarget.style.display = 'none';
                       const parent = e.currentTarget.parentElement;
                       if (parent) {
-                        parent.innerHTML = '<p class="text-gray-500 text-center">Stroke order diagram not available</p>';
+                        parent.innerHTML = '<p class="text-gray-500 text-center p-8">Stroke order diagram not available</p>';
                       }
                     }}
                     onLoad={() => {
-                      console.log('Stroke order loaded successfully:', svgUrl);
+                      console.log('Stroke order image loaded successfully:', imageUrl);
                     }}
                   />
                 );
