@@ -29,6 +29,22 @@ export default function KanjiDetailPage() {
   const [allKanji, setAllKanji] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
   const [vocabCount, setVocabCount] = useState<number>(0);
+  const [voicesLoaded, setVoicesLoaded] = useState(false);
+
+  // Load voices for speech synthesis
+  useEffect(() => {
+    if ('speechSynthesis' in window) {
+      const loadVoices = () => {
+        const voices = window.speechSynthesis.getVoices();
+        if (voices.length > 0) {
+          setVoicesLoaded(true);
+        }
+      };
+      
+      loadVoices();
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+  }, []);
 
   // SEO: Update meta tags dynamically
   useEffect(() => {
@@ -214,12 +230,40 @@ export default function KanjiDetailPage() {
     fetchKanjiDetail();
   }, [kanjiChar, level]);
 
-  const playAudio = (text: string) => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'ja-JP';
-      utterance.rate = 0.8;
-      window.speechSynthesis.speak(utterance);
+  const playAudio = async (text: string) => {
+    try {
+      // Call our TTS API with caching
+      const response = await fetch('/api/tts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text,
+          voiceName: 'ja-JP-Chirp3-HD-Leda', // High-quality Google Chirp 3 voice
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate audio');
+      }
+
+      const data = await response.json();
+      
+      // Play the cached audio file
+      const audio = new Audio(data.audioUrl);
+      audio.play();
+      
+      console.log(data.cached ? 'Playing cached audio' : 'Playing newly generated audio');
+    } catch (error) {
+      console.error('Error playing audio:', error);
+      // Fallback to browser speech synthesis if API fails
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ja-JP';
+        utterance.rate = 0.85;
+        window.speechSynthesis.speak(utterance);
+      }
     }
   };
 
