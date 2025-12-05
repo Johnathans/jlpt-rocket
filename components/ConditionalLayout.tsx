@@ -19,14 +19,15 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
   const isHowToPassPage = pathname?.startsWith('/how-to-pass/');
   const isToolsPage = pathname?.startsWith('/tools/');
   const isPracticeSheetsPage = pathname?.startsWith('/practice-sheets/');
+  const isWorksheetsPage = pathname?.startsWith('/worksheets');
   const isSupportPage = pathname === '/about' || pathname === '/help' || pathname === '/contact' || pathname === '/privacy' || pathname === '/schools' || pathname === '/credits';
   const isMarketingPage = pathname === '/' || pathname === '/login' || pathname === '/signup' || isSupportPage;
   
   // Only show footer on marketing and how-to-pass pages
   const shouldShowFooter = isMarketingPage || isHowToPassPage;
 
-  // Public JLPT pages and tools pages have their own navbar
-  if (isPublicJLPTPage || isToolsPage || isPracticeSheetsPage) {
+  // Public JLPT pages, tools pages, and worksheets pages have their own navbar
+  if (isPublicJLPTPage || isToolsPage || isPracticeSheetsPage || isWorksheetsPage) {
     return (
       <>
         {children}
