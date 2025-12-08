@@ -585,6 +585,72 @@ export default function KanjiDetailPage() {
           )}
         </div>
 
+        {/* Explore Other Kanji from Same Level */}
+        {allKanji.length > 1 && (
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8 overflow-visible">
+            <div className="mb-4 sm:mb-6">
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+                  Explore Other {kanji.jlpt_level} Kanji
+                </h2>
+                <Link
+                  href={`/jlpt/${level.toLowerCase()}/kanji`}
+                  className="text-sm text-pink-600 hover:text-pink-700 font-medium"
+                >
+                  View All →
+                </Link>
+              </div>
+              <p className="text-gray-700 text-sm">
+                Discover more {kanji.jlpt_level} kanji characters to expand your Japanese vocabulary
+              </p>
+            </div>
+
+            {/* Kanji row - 4 large responsive boxes */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+              {(() => {
+                // Strategic selection to ensure each kanji gets 2-4 internal links within same level
+                const otherKanjiList = allKanji.filter(k => k !== kanjiChar);
+                const totalKanji = otherKanjiList.length;
+                
+                if (totalKanji === 0) return [];
+                
+                // Use current kanji index to create varied but consistent selections
+                // This ensures each kanji appears in multiple other kanji's explore sections
+                const selectedIndices = [
+                  (currentIndex + 1) % totalKanji,  // Next kanji
+                  (currentIndex + Math.floor(totalKanji / 4)) % totalKanji,  // Quarter through
+                  (currentIndex + Math.floor(totalKanji / 2)) % totalKanji,  // Halfway through
+                  (currentIndex + Math.floor(totalKanji * 3 / 4)) % totalKanji  // Three quarters through
+                ];
+                
+                // Remove duplicates and get unique kanji
+                const uniqueIndices = Array.from(new Set(selectedIndices));
+                const selectedKanji = uniqueIndices
+                  .map(idx => otherKanjiList[idx])
+                  .filter(Boolean)
+                  .slice(0, 4);
+                
+                return selectedKanji.map((otherKanji) => (
+                  <Link
+                    key={otherKanji}
+                    href={`/jlpt/${level.toLowerCase()}/kanji/${encodeURIComponent(otherKanji)}`}
+                    className="border-t-4 border-l-4 border-r-4 border-b-8 border-gray-200 hover:border-pink-200 hover:border-b-pink-500 transition-all duration-200 hover:shadow-lg rounded-xl sm:rounded-2xl p-6 pb-10 sm:p-8 bg-white hover:bg-pink-50 group"
+                  >
+                    <div className="text-center">
+                      <div className="text-6xl sm:text-7xl lg:text-8xl font-bold text-gray-900 font-japanese mb-3 group-hover:text-pink-600 transition-colors">
+                        {otherKanji}
+                      </div>
+                      <div className="text-sm text-gray-500 group-hover:text-pink-600 transition-colors">
+                        View Details
+                      </div>
+                    </div>
+                  </Link>
+                ));
+              })()}
+            </div>
+          </div>
+        )}
+
         {/* Study This Kanji CTA */}
         <div className="bg-gradient-to-r from-pink-500 to-orange-500 rounded-xl shadow-lg p-6 sm:p-8 text-center text-white">
           <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">
