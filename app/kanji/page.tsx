@@ -40,6 +40,73 @@ function KanjiPageContent() {
   const [currentPage, setCurrentPage] = useState(1);
   const [showTrainingModal, setShowTrainingModal] = useState(false);
 
+  // Update page metadata for SEO
+  useEffect(() => {
+    const levelCounts: Record<string, number> = {
+      'N5': 80,
+      'N4': 167,
+      'N3': 370,
+      'N2': 415,
+      'N1': 1179
+    };
+
+    const count = levelCounts[selectedLevel] || 2211;
+    const pageTitle = `JLPT ${selectedLevel} Kanji List - ${count} Essential Japanese Characters | Rocket JLPT`;
+    const pageDescription = `Master all ${count} JLPT ${selectedLevel} kanji with stroke order diagrams, readings, meanings, and vocabulary examples. Free interactive study tool for Japanese learners.`;
+    const pageUrl = `https://www.rocketjlpt.com/kanji?level=${selectedLevel}`;
+
+    // Update title
+    document.title = pageTitle;
+
+    // Update meta tags
+    const updateMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = name;
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    const updateOGTag = (property: string, content: string) => {
+      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('property', property);
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    // Standard meta tags
+    updateMetaTag('description', pageDescription);
+    updateMetaTag('keywords', `JLPT ${selectedLevel} kanji, Japanese kanji list, kanji study, ${selectedLevel} kanji meanings, kanji readings, Japanese characters, JLPT preparation`);
+
+    // Open Graph tags
+    updateOGTag('og:title', pageTitle);
+    updateOGTag('og:description', pageDescription);
+    updateOGTag('og:url', pageUrl);
+    updateOGTag('og:type', 'website');
+    updateOGTag('og:site_name', 'Rocket JLPT');
+    updateOGTag('og:image', 'https://www.rocketjlpt.com/og-image.png');
+
+    // Twitter Card tags
+    updateMetaTag('twitter:card', 'summary_large_image');
+    updateMetaTag('twitter:title', pageTitle);
+    updateMetaTag('twitter:description', pageDescription);
+    updateMetaTag('twitter:image', 'https://www.rocketjlpt.com/og-image.png');
+
+    // Canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = pageUrl;
+  }, [selectedLevel]);
+
   // Calculate paginated data
   const totalPages = Math.ceil(allKanjiData.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;

@@ -36,6 +36,73 @@ function VocabularyPageContent() {
   const [selectedVocab, setSelectedVocab] = useState<Set<string>>(new Set());
   const [showTrainingModal, setShowTrainingModal] = useState(false);
 
+  // Update page metadata for SEO
+  useEffect(() => {
+    const levelCounts: Record<string, number> = {
+      'N5': 800,
+      'N4': 1500,
+      'N3': 3750,
+      'N2': 6000,
+      'N1': 10000
+    };
+
+    const count = levelCounts[selectedLevel] || 8245;
+    const pageTitle = `JLPT ${selectedLevel} Vocabulary List - ${count}+ Japanese Words | Rocket JLPT`;
+    const pageDescription = `Learn all ${count}+ JLPT ${selectedLevel} vocabulary words with readings, meanings, and example sentences. Interactive flashcards and audio pronunciation for effective Japanese study.`;
+    const pageUrl = `https://www.rocketjlpt.com/vocabulary?level=${selectedLevel}`;
+
+    // Update title
+    document.title = pageTitle;
+
+    // Update meta tags
+    const updateMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = name;
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    const updateOGTag = (property: string, content: string) => {
+      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('property', property);
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    // Standard meta tags
+    updateMetaTag('description', pageDescription);
+    updateMetaTag('keywords', `JLPT ${selectedLevel} vocabulary, Japanese vocabulary list, ${selectedLevel} words, Japanese language learning, JLPT vocabulary study, Japanese flashcards`);
+
+    // Open Graph tags
+    updateOGTag('og:title', pageTitle);
+    updateOGTag('og:description', pageDescription);
+    updateOGTag('og:url', pageUrl);
+    updateOGTag('og:type', 'website');
+    updateOGTag('og:site_name', 'Rocket JLPT');
+    updateOGTag('og:image', 'https://www.rocketjlpt.com/og-image.png');
+
+    // Twitter Card tags
+    updateMetaTag('twitter:card', 'summary_large_image');
+    updateMetaTag('twitter:title', pageTitle);
+    updateMetaTag('twitter:description', pageDescription);
+    updateMetaTag('twitter:image', 'https://www.rocketjlpt.com/og-image.png');
+
+    // Canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = pageUrl;
+  }, [selectedLevel]);
+
   // Calculate paginated data
   const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;

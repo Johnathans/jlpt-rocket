@@ -43,6 +43,58 @@ export default function VocabularyLevelPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 100;
 
+  // Update page metadata for SEO
+  useEffect(() => {
+    if (!levelData) return;
+
+    const pageTitle = `JLPT ${levelData.name} Vocabulary - ${levelData.count}+ Essential Japanese Words | Rocket JLPT`;
+    const pageDescription = `Master all ${levelData.count}+ JLPT ${levelData.name} vocabulary words with readings, meanings, and example sentences. ${levelData.difficulty} level Japanese vocabulary for exam success.`;
+    const pageUrl = `https://www.rocketjlpt.com/jlpt/${level}/vocabulary`;
+
+    document.title = pageTitle;
+
+    const updateMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = name;
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    const updateOGTag = (property: string, content: string) => {
+      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('property', property);
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    updateMetaTag('description', pageDescription);
+    updateMetaTag('keywords', `JLPT ${levelData.name} vocabulary, ${levelData.name} words, Japanese vocabulary list, JLPT ${levelData.name} study, ${levelData.difficulty} Japanese`);
+
+    updateOGTag('og:title', pageTitle);
+    updateOGTag('og:description', pageDescription);
+    updateOGTag('og:url', pageUrl);
+    updateOGTag('og:type', 'website');
+    updateOGTag('og:site_name', 'Rocket JLPT');
+
+    updateMetaTag('twitter:card', 'summary_large_image');
+    updateMetaTag('twitter:title', pageTitle);
+    updateMetaTag('twitter:description', pageDescription);
+
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = pageUrl;
+  }, [level, levelData]);
+
   // Sync currentPage with URL on mount
   useEffect(() => {
     const page = searchParams.get('page');

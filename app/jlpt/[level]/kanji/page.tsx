@@ -24,6 +24,65 @@ export default function KanjiLevelPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Update page metadata for SEO
+  useEffect(() => {
+    const levelCounts: Record<string, number> = {
+      'N5': 80,
+      'N4': 167,
+      'N3': 370,
+      'N2': 415,
+      'N1': 1179
+    };
+
+    const count = levelCounts[level] || 0;
+    const pageTitle = `JLPT ${level} Kanji - Complete List of ${count} Characters | Rocket JLPT`;
+    const pageDescription = `Browse all ${count} JLPT ${level} kanji characters. Click any kanji to see detailed stroke order, readings, meanings, and vocabulary examples. Perfect for ${level} exam preparation.`;
+    const pageUrl = `https://www.rocketjlpt.com/jlpt/${level.toLowerCase()}/kanji`;
+
+    document.title = pageTitle;
+
+    const updateMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = name;
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    const updateOGTag = (property: string, content: string) => {
+      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('property', property);
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    updateMetaTag('description', pageDescription);
+    updateMetaTag('keywords', `JLPT ${level} kanji, ${level} kanji list, Japanese ${level} characters, JLPT kanji study, ${level} exam preparation`);
+
+    updateOGTag('og:title', pageTitle);
+    updateOGTag('og:description', pageDescription);
+    updateOGTag('og:url', pageUrl);
+    updateOGTag('og:type', 'website');
+    updateOGTag('og:site_name', 'Rocket JLPT');
+
+    updateMetaTag('twitter:card', 'summary_large_image');
+    updateMetaTag('twitter:title', pageTitle);
+    updateMetaTag('twitter:description', pageDescription);
+
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = pageUrl;
+  }, [level]);
+
   useEffect(() => {
     const fetchKanji = async () => {
       try {
