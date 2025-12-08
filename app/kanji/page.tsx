@@ -105,6 +105,40 @@ function KanjiPageContent() {
       document.head.appendChild(canonical);
     }
     canonical.href = pageUrl;
+
+    // Add BreadcrumbList schema
+    let script = document.querySelector('script[type="application/ld+json"][data-page="kanji-list"]') as HTMLScriptElement;
+    if (!script) {
+      script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.setAttribute('data-page', 'kanji-list');
+      document.head.appendChild(script);
+    }
+    
+    script.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.rocketjlpt.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Kanji",
+          "item": "https://www.rocketjlpt.com/kanji"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": `${selectedLevel} Kanji`,
+          "item": pageUrl
+        }
+      ]
+    });
   }, [selectedLevel]);
 
   // Calculate paginated data

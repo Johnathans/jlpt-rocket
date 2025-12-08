@@ -125,47 +125,80 @@ export default function KanjiDetailPage() {
       
       const structuredData = {
         "@context": "https://schema.org",
-        "@type": "EducationalOccupationalCredential",
-        "name": `JLPT ${kanji.jlpt_level} Kanji: ${kanji.character}`,
-        "description": pageDescription,
-        "image": {
-          "@type": "ImageObject",
-          "url": imageUrl,
-          "width": 400,
-          "height": 500,
-          "caption": `Kanji ${kanji.character} stroke order diagram`
-        },
-        "educationalLevel": `JLPT ${kanji.jlpt_level}`,
-        "competencyRequired": `Japanese Language Proficiency Test ${kanji.jlpt_level}`,
-        "about": {
-          "@type": "Thing",
-          "name": kanji.character,
-          "description": kanji.meaning,
-          "inLanguage": "ja"
-        },
-        "teaches": [
+        "@graph": [
           {
-            "@type": "DefinedTerm",
-            "name": "On'yomi Reading",
-            "description": kanji.on_reading?.join(', ') || 'None'
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.rocketjlpt.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": `JLPT ${kanji.jlpt_level}`,
+                "item": `https://www.rocketjlpt.com/jlpt/${level.toLowerCase()}`
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": `${kanji.jlpt_level} Kanji`,
+                "item": `https://www.rocketjlpt.com/jlpt/${level.toLowerCase()}/kanji`
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": kanji.character,
+                "item": pageUrl
+              }
+            ]
           },
           {
-            "@type": "DefinedTerm",
-            "name": "Kun'yomi Reading",
-            "description": kanji.kun_reading?.join(', ') || 'None'
-          },
-          {
-            "@type": "DefinedTerm",
-            "name": "Stroke Count",
-            "description": `${kanji.stroke_count} strokes`
+            "@type": "EducationalOccupationalCredential",
+            "name": `JLPT ${kanji.jlpt_level} Kanji: ${kanji.character}`,
+            "description": pageDescription,
+            "image": {
+              "@type": "ImageObject",
+              "url": imageUrl,
+              "width": 400,
+              "height": 500,
+              "caption": `Kanji ${kanji.character} stroke order diagram`
+            },
+            "educationalLevel": `JLPT ${kanji.jlpt_level}`,
+            "competencyRequired": `Japanese Language Proficiency Test ${kanji.jlpt_level}`,
+            "about": {
+              "@type": "Thing",
+              "name": kanji.character,
+              "description": kanji.meaning,
+              "inLanguage": "ja"
+            },
+            "teaches": [
+              {
+                "@type": "DefinedTerm",
+                "name": "On'yomi Reading",
+                "description": kanji.on_reading?.join(', ') || 'None'
+              },
+              {
+                "@type": "DefinedTerm",
+                "name": "Kun'yomi Reading",
+                "description": kanji.kun_reading?.join(', ') || 'None'
+              },
+              {
+                "@type": "DefinedTerm",
+                "name": "Stroke Count",
+                "description": `${kanji.stroke_count} strokes`
+              }
+            ],
+            "provider": {
+              "@type": "Organization",
+              "name": "Rocket JLPT",
+              "url": "https://www.rocketjlpt.com"
+            },
+            "url": pageUrl
           }
-        ],
-        "provider": {
-          "@type": "Organization",
-          "name": "Rocket JLPT",
-          "url": "https://www.rocketjlpt.com"
-        },
-        "url": pageUrl
+        ]
       };
       
       script.textContent = JSON.stringify(structuredData);

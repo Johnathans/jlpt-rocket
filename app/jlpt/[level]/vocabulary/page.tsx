@@ -127,14 +127,41 @@ export default function VocabularyLevelPage() {
     script.type = 'application/ld+json';
     script.textContent = JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "ItemList",
-      "name": `JLPT ${levelData.name} Vocabulary List`,
-      "description": `Complete list of ${levelData.count} ${levelData.description} Japanese vocabulary words for JLPT ${levelData.name}`,
-      "numberOfItems": levelData.count,
-      "itemListElement": {
-        "@type": "ListItem",
-        "name": `${levelData.name} Vocabulary Words`
-      }
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://www.rocketjlpt.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": `JLPT ${levelData.name}`,
+              "item": `https://www.rocketjlpt.com/jlpt/${level}`
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": `${levelData.name} Vocabulary`,
+              "item": `https://www.rocketjlpt.com/jlpt/${level}/vocabulary`
+            }
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "name": `JLPT ${levelData.name} Vocabulary List`,
+          "description": `Complete list of ${levelData.count} ${levelData.description} Japanese vocabulary words for JLPT ${levelData.name}`,
+          "numberOfItems": levelData.count,
+          "itemListElement": {
+            "@type": "ListItem",
+            "name": `${levelData.name} Vocabulary Words`
+          }
+        }
+      ]
     });
     document.head.appendChild(script);
 
