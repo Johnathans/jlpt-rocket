@@ -15,7 +15,7 @@ async function loadKanjiData() {
     const response = await fetch('/data/kanji.json');
     if (!response.ok) throw new Error('Failed to load kanji.json');
     kanjiCache = await response.json();
-    console.log('✓ Loaded kanji from local JSON:', kanjiCache.length, 'entries');
+    console.log('✓ Loaded kanji from local JSON:', kanjiCache?.length || 0, 'entries');
     return kanjiCache;
   } catch (error) {
     console.error('Failed to load local kanji data:', error);
@@ -30,7 +30,7 @@ async function loadVocabularyData() {
     const response = await fetch('/data/vocabulary.json');
     if (!response.ok) throw new Error('Failed to load vocabulary.json');
     vocabularyCache = await response.json();
-    console.log('✓ Loaded vocabulary from local JSON:', vocabularyCache.length, 'entries');
+    console.log('✓ Loaded vocabulary from local JSON:', vocabularyCache?.length || 0, 'entries');
     return vocabularyCache;
   } catch (error) {
     console.error('Failed to load local vocabulary data:', error);
@@ -45,7 +45,7 @@ async function loadSentencesData() {
     const response = await fetch('/data/sentences.json');
     if (!response.ok) throw new Error('Failed to load sentences.json');
     sentencesCache = await response.json();
-    console.log('✓ Loaded sentences from local JSON:', sentencesCache.length, 'entries');
+    console.log('✓ Loaded sentences from local JSON:', sentencesCache?.length || 0, 'entries');
     return sentencesCache;
   } catch (error) {
     console.error('Failed to load local sentences data:', error);
