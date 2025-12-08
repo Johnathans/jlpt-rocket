@@ -1,4 +1,5 @@
 import { supabase } from './supabase'
+import * as LocalData from './local-data'
 
 export type JLPTLevel = 'N5' | 'N4' | 'N3' | 'N2' | 'N1'
 
@@ -123,26 +124,13 @@ export interface SentenceData {
 
 // Kanji data functions
 export async function getKanjiByLevel(level: JLPTLevel): Promise<KanjiData[]> {
-  const cacheKey = `kanji_${level}`;
-  const cached = getCached<KanjiData[]>(cacheKey);
-  if (cached) return cached;
-  
-  const data = await fetchAllWithPagination<KanjiData>(
-    'kanji',
-    [{ column: 'jlpt_level', value: level }],
-    { column: 'frequency_rank', ascending: true }
-  );
-  
-  setCache(cacheKey, data);
-  return data;
+  // Use local JSON data with Supabase fallback
+  return LocalData.getKanjiByLevel(level) as Promise<KanjiData[]>;
 }
 
 export async function getAllKanji(): Promise<KanjiData[]> {
-  return fetchAllWithPagination<KanjiData>(
-    'kanji',
-    [],
-    { column: 'frequency_rank', ascending: true }
-  );
+  // Use local JSON data with Supabase fallback
+  return LocalData.getAllKanji() as Promise<KanjiData[]>;
 }
 
 export async function getRandomKanji(level: JLPTLevel, count: number = 10): Promise<KanjiData[]> {
@@ -164,21 +152,14 @@ export async function getRandomKanji(level: JLPTLevel, count: number = 10): Prom
 
 // Vocabulary data functions
 export async function getVocabularyByLevel(level: JLPTLevel): Promise<VocabularyData[]> {
-  const cacheKey = `vocabulary_${level}`;
-  const cached = getCached<VocabularyData[]>(cacheKey);
-  if (cached) return cached;
-  
-  const data = await fetchAllWithPagination<VocabularyData>(
-    'vocabulary',
-    [{ column: 'jlpt_level', value: level }],
-    { column: 'frequency_rank', ascending: true }
-  );
-  
-  setCache(cacheKey, data);
-  return data;
+  // Use local JSON data with Supabase fallback
+  return LocalData.getVocabularyByLevel(level) as Promise<VocabularyData[]>;
 }
 
 export async function getAllVocabulary(): Promise<VocabularyData[]> {
+  // Use local JSON data - fallback handled in local-data.ts
+  const localData = await LocalData.getVocabularyByLevel('N5');
+  // Return all vocabulary from all levels
   return fetchAllWithPagination<VocabularyData>(
     'vocabulary',
     [],
@@ -187,33 +168,13 @@ export async function getAllVocabulary(): Promise<VocabularyData[]> {
 }
 
 export async function getVocabularyCountByLevel(level: JLPTLevel): Promise<number> {
-  const { count, error } = await supabase
-    .from('vocabulary')
-    .select('*', { count: 'exact', head: true })
-    .eq('jlpt_level', level)
-
-  if (error) {
-    console.error('Error fetching vocabulary count:', error)
-    throw error
-  }
-
-  return count || 0
+  // Use local JSON data with Supabase fallback
+  return LocalData.getVocabularyCountByLevel(level);
 }
 
 export async function getVocabularyExamplesForKanji(kanjiCharacter: string, limit: number = 2): Promise<VocabularyData[]> {
-  const { data, error } = await supabase
-    .from('vocabulary')
-    .select('*')
-    .contains('kanji_used', [kanjiCharacter])
-    .order('frequency_rank', { ascending: true })
-    .limit(limit)
-
-  if (error) {
-    console.error('Error fetching vocabulary examples for kanji:', error)
-    throw error
-  }
-
-  return data || []
+  // Use local JSON data with Supabase fallback
+  return LocalData.getVocabularyExamplesForKanji(kanjiCharacter, limit) as Promise<VocabularyData[]>;
 }
 
 export async function getRandomVocabulary(level: JLPTLevel, count: number = 10): Promise<VocabularyData[]> {
@@ -235,32 +196,13 @@ export async function getRandomVocabulary(level: JLPTLevel, count: number = 10):
 
 // Sentences data functions
 export async function getSentencesByLevel(level: JLPTLevel): Promise<SentenceData[]> {
-  const { data, error } = await supabase
-    .from('sentences')
-    .select('*')
-    .eq('jlpt_level', level)
-    .order('difficulty_level', { ascending: true })
-
-  if (error) {
-    console.error('Error fetching sentences:', error)
-    throw error
-  }
-
-  return data || []
+  // Use local JSON data with Supabase fallback
+  return LocalData.getSentencesByLevel(level) as Promise<SentenceData[]>;
 }
 
 export async function getAllSentences(): Promise<SentenceData[]> {
-  const { data, error } = await supabase
-    .from('sentences')
-    .select('*')
-    .order('jlpt_level', { ascending: false }) // N5 first, then N4, etc.
-
-  if (error) {
-    console.error('Error fetching all sentences:', error)
-    throw error
-  }
-
-  return data || []
+  // Use local JSON data with Supabase fallback
+  return LocalData.getAllSentences() as Promise<SentenceData[]>;
 }
 
 export async function getRandomSentences(level: JLPTLevel, count: number = 5): Promise<SentenceData[]> {
@@ -375,15 +317,6 @@ export async function getContentCounts() {
 
 // Get content counts for a specific JLPT level
 export async function getContentCountsByLevel(level: JLPTLevel) {
-  const [kanjiCounts, vocabCounts, sentenceCounts] = await Promise.all([
-    supabase.from('kanji').select('*', { count: 'exact', head: true }).eq('jlpt_level', level),
-    supabase.from('vocabulary').select('*', { count: 'exact', head: true }).eq('jlpt_level', level),
-    supabase.from('sentences').select('*', { count: 'exact', head: true }).eq('jlpt_level', level)
-  ])
-
-  return {
-    kanji: kanjiCounts.count || 0,
-    vocabulary: vocabCounts.count || 0,
-    sentences: sentenceCounts.count || 0
-  }
+  // Use local JSON data with Supabase fallback
+  return LocalData.getContentCountsByLevel(level);
 }

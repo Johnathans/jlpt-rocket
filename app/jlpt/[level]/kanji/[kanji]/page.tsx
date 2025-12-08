@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Pen, ChevronLeft, ChevronRight, Copy, Zap, Download } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import { getKanjiByLevel, getKanjiByCharacter, getVocabularyExamplesForKanji, getVocabularyCountForKanji } from '@/lib/local-data';
 import PublicNavbar from '@/components/PublicNavbar';
 
 interface KanjiDetail {
@@ -176,50 +177,33 @@ export default function KanjiDetailPage() {
       try {
         setLoading(true);
         
-        // Fetch all kanji for this level to enable prev/next navigation
-        const { data: allKanjiData } = await supabase
-          .from('kanji')
-          .select('character')
-          .eq('jlpt_level', level)
-          .order('frequency_rank', { ascending: true });
+        // Fetch all kanji for this level to enable prev/next navigation (from local JSON)
+        const allKanjiData = await getKanjiByLevel(level as any);
         
         if (allKanjiData) {
-          const kanjiChars = allKanjiData.map(k => k.character);
+          const kanjiChars = allKanjiData.map((k: any) => k.character);
           setAllKanji(kanjiChars);
           setCurrentIndex(kanjiChars.indexOf(kanjiChar));
         }
         
-        // Fetch kanji details
-        const { data: kanjiData, error: kanjiError } = await supabase
-          .from('kanji')
-          .select('character, meaning, on_reading, kun_reading, stroke_count, jlpt_level, radical, frequency_rank')
-          .eq('character', kanjiChar)
-          .single();
+        // Fetch kanji details (from local JSON)
+        const kanjiData = await getKanjiByCharacter(kanjiChar);
 
-        if (kanjiError) throw kanjiError;
+        if (!kanjiData) {
+          console.error('Kanji not found');
+          setLoading(false);
+          return;
+        }
 
         setKanji(kanjiData);
 
-        // Fetch vocabulary examples that contain this kanji
-        const { data: vocabData, error: vocabError } = await supabase
-          .from('vocabulary')
-          .select('word, reading, meaning, jlpt_level')
-          .contains('kanji_used', [kanjiChar])
-          .limit(10);
-
-        if (!vocabError && vocabData) {
-          setExamples(vocabData);
-        }
+        // Fetch vocabulary examples that contain this kanji (from local JSON)
+        const vocabData = await getVocabularyExamplesForKanji(kanjiChar, 10);
+        setExamples(vocabData);
         
-        // Fetch total count of vocabulary words using this kanji for usefulness metric
-        const { count, error: countError } = await supabase
-          .from('vocabulary')
-          .select('*', { count: 'exact', head: true })
-          .contains('kanji_used', [kanjiChar]);
-        
-        if (!countError && count !== null) {
-          setVocabCount(count);
-        }
+        // Fetch total count of vocabulary words using this kanji for usefulness metric (from local JSON)
+        const count = await getVocabularyCountForKanji(kanjiChar);
+        setVocabCount(count);
       } catch (error) {
         console.error('Error fetching kanji:', error);
       } finally {

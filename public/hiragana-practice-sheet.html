@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiragana Practice Sheet - Rocket JLPT</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: white;
+            color: #000;
+            padding: 20px;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            padding: 15mm;
+            page-break-after: always;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .rocket-icon {
+            width: 30px;
+            height: 30px;
+            fill: #ec4899;
+        }
+        
+        .logo-text {
+            font-size: 22px;
+            font-weight: 300;
+            color: #000;
+        }
+        
+        .logo-text strong {
+            font-weight: 900;
+            margin-left: 2px;
+        }
+        
+        .title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .instructions {
+            font-size: 10px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .instructions ol {
+            margin-left: 18px;
+        }
+        
+        .kana-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 5px;
+        }
+        
+        .kana-table td {
+            border: 2px solid #000;
+            width: 9.09%;
+            height: 60px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 40px;
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .kana-table td:first-child {
+            width: 9.09%;
+            font-size: 48px;
+            font-weight: 900;
+        }
+        
+        .kana-table td.trace {
+            color: #e0e0e0;
+            font-weight: 400;
+        }
+        
+        .reading-row td {
+            height: 30px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: left;
+            padding-left: 8px;
+            border-top: none;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+            }
+            
+            .page {
+                margin: 0;
+                page-break-after: always;
+            }
+            
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <svg class="rocket-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.5 16.5c-1.5 1.25-2 5-2 5s3.75-.5 5-2c.625-.625 1-1.5 1-2.5a2.5 2.5 0 0 0-4-2z"/>
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+            </svg>
+            <div class="logo-text">Rocket<strong>JLPT</strong></div>
+        </div>
+        
+        <div class="title">HIRAGANA PRACTICE SHEET</div>
+        
+        <div class="instructions">
+            <strong>INSTRUCTIONS:</strong>
+            <ol>
+                <li>Trace and copy out each Hiragana character in the boxes provided.</li>
+                <li>Fill in the reading of the Hiragana (i.e. how it is SAID in Japanese - romaji).</li>
+            </ol>
+        </div>
+        
+        <!-- あ -->
+        <table class="kana-table">
+            <tr>
+                <td>あ</td>
+                <td class="trace">あ</td>
+                <td class="trace">あ</td>
+                <td class="trace">あ</td>
+                <td class="trace">あ</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="reading-row">
+                <td colspan="11">Reading:</td>
+            </tr>
+        </table>
+        
+        <!-- い -->
+        <table class="kana-table">
+            <tr>
+                <td>い</td>
+                <td class="trace">い</td>
+                <td class="trace">い</td>
+                <td class="trace">い</td>
+                <td class="trace">い</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="reading-row">
+                <td colspan="11">Reading:</td>
+            </tr>
+        </table>
+        
+        <!-- う -->
+        <table class="kana-table">
+            <tr>
+                <td>う</td>
+                <td class="trace">う</td>
+                <td class="trace">う</td>
+                <td class="trace">う</td>
+                <td class="trace">う</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="reading-row">
+                <td colspan="11">Reading:</td>
+            </tr>
+        </table>
+        
+        <!-- え -->
+        <table class="kana-table">
+            <tr>
+                <td>え</td>
+                <td class="trace">え</td>
+                <td class="trace">え</td>
+                <td class="trace">え</td>
+                <td class="trace">え</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="reading-row">
+                <td colspan="11">Reading:</td>
+            </tr>
+        </table>
+        
+        <!-- お -->
+        <table class="kana-table">
+            <tr>
+                <td>お</td>
+                <td class="trace">お</td>
+                <td class="trace">お</td>
+                <td class="trace">お</td>
+                <td class="trace">お</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="reading-row">
+                <td colspan="11">Reading:</td>
+            </tr>
+        </table>
+        
+        <!-- か -->
+        <table class="kana-table">
+            <tr>
+                <td>か</td>
+                <td class="trace">か</td>
+                <td class="trace">か</td>
+                <td class="trace">か</td>
+                <td class="trace">か</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="reading-row">
+                <td colspan="11">Reading:</td>
+            </tr>
+        </table>
+        
+        <!-- き -->
+        <table class="kana-table">
+            <tr>
+                <td>き</td>
+                <td class="trace">き</td>
+                <td class="trace">き</td>
+                <td class="trace">き</td>
+                <td class="trace">き</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="reading-row">
+                <td colspan="11">Reading:</td>
+            </tr>
+        </table>
+        
+        <!-- く -->
+        <table class="kana-table">
+            <tr>
+                <td>く</td>
+                <td class="trace">く</td>
+                <td class="trace">く</td>
+                <td class="trace">く</td>
+                <td class="trace">く</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="reading-row">
+                <td colspan="11">Reading:</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

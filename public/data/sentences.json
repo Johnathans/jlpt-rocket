@@ -1,0 +1,420 @@
+[
+  {
+    "id": "41c1854a-1ea5-4093-b96a-18d5aa2916e9",
+    "japanese_text": "私は毎日*学校*に行きます。",
+    "english_translation": "I go to school every day.",
+    "jlpt_level": "N5",
+    "difficulty_level": 1,
+    "grammar_points": [
+      "は particle",
+      "に particle",
+      "ます form"
+    ],
+    "vocabulary_used": [
+      "私",
+      "毎日",
+      "学校",
+      "行く"
+    ],
+    "kanji_used": [
+      "私",
+      "毎",
+      "日",
+      "学",
+      "校",
+      "行"
+    ],
+    "audio_url": null,
+    "created_at": "2025-08-15T05:33:13.248522+00:00",
+    "updated_at": "2025-08-15T05:33:13.248522+00:00"
+  },
+  {
+    "id": "72e9ae88-06eb-4ebf-b9f1-aaff4e10873e",
+    "japanese_text": "今日は*天気*がいいですね。",
+    "english_translation": "The weather is nice today, isn't it?",
+    "jlpt_level": "N5",
+    "difficulty_level": 1,
+    "grammar_points": [
+      "は particle",
+      "が particle",
+      "ですね"
+    ],
+    "vocabulary_used": [
+      "今日",
+      "天気",
+      "いい"
+    ],
+    "kanji_used": [
+      "今",
+      "日",
+      "天",
+      "気"
+    ],
+    "audio_url": null,
+    "created_at": "2025-08-15T05:33:13.248522+00:00",
+    "updated_at": "2025-08-15T05:33:13.248522+00:00"
+  },
+  {
+    "id": "733a6886-6c0b-44c3-a740-562789e05052",
+    "japanese_text": "*友達*と映画を見ました。",
+    "english_translation": "I watched a movie with my friend.",
+    "jlpt_level": "N5",
+    "difficulty_level": 2,
+    "grammar_points": [
+      "と particle",
+      "を particle",
+      "ました form"
+    ],
+    "vocabulary_used": [
+      "友達",
+      "映画",
+      "見る"
+    ],
+    "kanji_used": [
+      "友",
+      "達",
+      "映",
+      "画",
+      "見"
+    ],
+    "audio_url": null,
+    "created_at": "2025-08-15T05:33:13.248522+00:00",
+    "updated_at": "2025-08-15T05:33:13.248522+00:00"
+  },
+  {
+    "id": "52b88071-4626-4afc-a070-35e553ba73ba",
+    "japanese_text": "新しい*本*を買いました。",
+    "english_translation": "I bought a new book.",
+    "jlpt_level": "N5",
+    "difficulty_level": 1,
+    "grammar_points": [
+      "い-adjective",
+      "を particle",
+      "ました form"
+    ],
+    "vocabulary_used": [
+      "新しい",
+      "本",
+      "買う"
+    ],
+    "kanji_used": [
+      "新",
+      "本",
+      "買"
+    ],
+    "audio_url": null,
+    "created_at": "2025-08-15T05:33:13.248522+00:00",
+    "updated_at": "2025-08-15T05:33:13.248522+00:00"
+  },
+  {
+    "id": "93034623-1c9a-4e19-9299-ecde2d748b1e",
+    "japanese_text": "*電車*で会社に行きます。",
+    "english_translation": "I go to the company by train.",
+    "jlpt_level": "N5",
+    "difficulty_level": 2,
+    "grammar_points": [
+      "で particle",
+      "に particle",
+      "ます form"
+    ],
+    "vocabulary_used": [
+      "電車",
+      "会社",
+      "行く"
+    ],
+    "kanji_used": [
+      "電",
+      "車",
+      "会",
+      "社",
+      "行"
+    ],
+    "audio_url": null,
+    "created_at": "2025-08-15T05:33:13.248522+00:00",
+    "updated_at": "2025-08-15T05:33:13.248522+00:00"
+  },
+  {
+    "id": "e66a0913-3da2-40f1-b72a-364554a2746c",
+    "japanese_text": "昨日は*雨*が降りました。",
+    "english_translation": "It rained yesterday.",
+    "jlpt_level": "N5",
+    "difficulty_level": 2,
+    "grammar_points": [
+      "は particle",
+      "が particle",
+      "ました form"
+    ],
+    "vocabulary_used": [
+      "昨日",
+      "雨",
+      "降る"
+    ],
+    "kanji_used": [
+      "昨",
+      "日",
+      "雨",
+      "降"
+    ],
+    "audio_url": null,
+    "created_at": "2025-08-15T05:33:13.248522+00:00",
+    "updated_at": "2025-08-15T05:33:13.248522+00:00"
+  },
+  {
+    "id": "9f822bb5-728a-4920-a2a3-dcd4dc822bc4",
+    "japanese_text": "母は*料理*が上手です。",
+    "english_translation": "My mother is good at cooking.",
+    "jlpt_level": "N4",
+    "difficulty_level": 3,
+    "grammar_points": [
+      "は particle",
+      "が particle",
+      "な-adjective"
+    ],
+    "vocabulary_used": [
+      "母",
+      "料理",
+      "上手"
+    ],
+    "kanji_used": [
+      "母",
+      "料",
+      "理",
+      "上",
+      "手"
+    ],
+    "audio_url": null,
+    "created_at": "2025-08-15T05:33:13.248522+00:00",
+    "updated_at": "2025-08-15T05:33:13.248522+00:00"
+  },
+  {
+    "id": "5439aab2-dac9-4a62-a0be-8add6969e268",
+    "japanese_text": "*図書館*で本を読みます。",
+    "english_translation": "I read books at the library.",
+    "jlpt_level": "N4",
+    "difficulty_level": 2,
+    "grammar_points": [
+      "で particle",
+      "を particle",
+      "ます form"
+    ],
+    "vocabulary_used": [
+      "図書館",
+      "本",
+      "読む"
+    ],
+    "kanji_used": [
+      "図",
+      "書",
+      "館",
+      "本",
+      "読"
+    ],
+    "audio_url": null,
+    "created_at": "2025-08-15T05:33:13.248522+00:00",
+    "updated_at": "2025-08-15T05:33:13.248522+00:00"
+  },
+  {
+    "id": "625c3807-907f-410f-aaa4-1928c27202f5",
+    "japanese_text": "来年*日本*に行く予定です。",
+    "english_translation": "I plan to go to Japan next year.",
+    "jlpt_level": "N4",
+    "difficulty_level": 4,
+    "grammar_points": [
+      "に particle",
+      "dictionary form",
+      "予定"
+    ],
+    "vocabulary_used": [
+      "来年",
+      "日本",
+      "行く",
+      "予定"
+    ],
+    "kanji_used": [
+      "来",
+      "年",
+      "日",
+      "本",
+      "行",
+      "予",
+      "定"
+    ],
+    "audio_url": null,
+    "created_at": "2025-08-15T05:33:13.248522+00:00",
+    "updated_at": "2025-08-15T05:33:13.248522+00:00"
+  },
+  {
+    "id": "ba1516a4-56b8-412e-b5ec-0b80068170af",
+    "japanese_text": "この*問題*は難しいです。",
+    "english_translation": "This problem is difficult.",
+    "jlpt_level": "N4",
+    "difficulty_level": 3,
+    "grammar_points": [
+      "この",
+      "は particle",
+      "い-adjective"
+    ],
+    "vocabulary_used": [
+      "問題",
+      "難しい"
+    ],
+    "kanji_used": [
+      "問",
+      "題",
+      "難"
+    ],
+    "audio_url": null,
+    "created_at": "2025-08-15T05:33:13.248522+00:00",
+    "updated_at": "2025-08-15T05:33:13.248522+00:00"
+  },
+  {
+    "id": "d3acee2d-3100-4c67-a37b-265fb0fc2fcf",
+    "japanese_text": "彼は*経験*が豊富です。",
+    "english_translation": "He has a lot of experience.",
+    "jlpt_level": "N3",
+    "difficulty_level": 4,
+    "grammar_points": [
+      "は particle",
+      "が particle",
+      "な-adjective"
+    ],
+    "vocabulary_used": [
+      "彼",
+      "経験",
+      "豊富"
+    ],
+    "kanji_used": [
+      "彼",
+      "経",
+      "験",
+      "豊",
+      "富"
+    ],
+    "audio_url": null,
+    "created_at": "2025-08-15T05:33:13.248522+00:00",
+    "updated_at": "2025-08-15T05:33:13.248522+00:00"
+  },
+  {
+    "id": "a6190235-fc80-4f94-b5db-9d0825b29c1d",
+    "japanese_text": "*会議*の時間を変更しました。",
+    "english_translation": "I changed the meeting time.",
+    "jlpt_level": "N3",
+    "difficulty_level": 5,
+    "grammar_points": [
+      "の particle",
+      "を particle",
+      "ました form"
+    ],
+    "vocabulary_used": [
+      "会議",
+      "時間",
+      "変更"
+    ],
+    "kanji_used": [
+      "会",
+      "議",
+      "時",
+      "間",
+      "変",
+      "更"
+    ],
+    "audio_url": null,
+    "created_at": "2025-08-15T05:33:13.248522+00:00",
+    "updated_at": "2025-08-15T05:33:13.248522+00:00"
+  },
+  {
+    "id": "d22b52a3-3864-4741-9ef1-b2fc480f7f0a",
+    "japanese_text": "この*技術*は将来有望です。",
+    "english_translation": "This technology is promising for the future.",
+    "jlpt_level": "N2",
+    "difficulty_level": 6,
+    "grammar_points": [
+      "は particle",
+      "な-adjective"
+    ],
+    "vocabulary_used": [
+      "技術",
+      "将来",
+      "有望"
+    ],
+    "kanji_used": [
+      "技",
+      "術",
+      "将",
+      "来",
+      "有",
+      "望"
+    ],
+    "audio_url": null,
+    "created_at": "2025-08-15T05:33:13.248522+00:00",
+    "updated_at": "2025-08-15T05:33:13.248522+00:00"
+  },
+  {
+    "id": "7679c112-21f5-49cc-9d4f-8f52c0786986",
+    "japanese_text": "*環境*問題について話し合いました。",
+    "english_translation": "We discussed environmental issues.",
+    "jlpt_level": "N2",
+    "difficulty_level": 7,
+    "grammar_points": [
+      "について",
+      "ました form"
+    ],
+    "vocabulary_used": [
+      "環境",
+      "問題",
+      "話し合う"
+    ],
+    "kanji_used": [
+      "環",
+      "境",
+      "問",
+      "題",
+      "話",
+      "合"
+    ],
+    "audio_url": null,
+    "created_at": "2025-08-15T05:33:13.248522+00:00",
+    "updated_at": "2025-08-15T05:33:13.248522+00:00"
+  },
+  {
+    "id": "345fcb43-58d0-4229-89b4-dc757041604a",
+    "japanese_text": "この*政策*は効果的だと思います。",
+    "english_translation": "I think this policy is effective.",
+    "jlpt_level": "N1",
+    "difficulty_level": 8,
+    "grammar_points": [
+      "は particle",
+      "だと思う",
+      "な-adjective"
+    ],
+    "vocabulary_used": [
+      "政策",
+      "効果的",
+      "思う"
+    ],
+    "kanji_used": [
+      "政",
+      "策",
+      "効",
+      "果",
+      "的",
+      "思"
+    ],
+    "audio_url": null,
+    "created_at": "2025-08-15T05:33:13.248522+00:00",
+    "updated_at": "2025-08-15T05:33:13.248522+00:00"
+  },
+  {
+    "id": "f360b72c-7c06-4f8d-b70e-bb11f14932ba",
+    "japanese_text": "私は*毎朝*コーヒーを 飲みます",
+    "english_translation": "I drink coffee every morning",
+    "jlpt_level": "N5",
+    "difficulty_level": 1,
+    "grammar_points": null,
+    "vocabulary_used": null,
+    "kanji_used": null,
+    "audio_url": null,
+    "created_at": "2025-08-16T04:17:51.234915+00:00",
+    "updated_at": "2025-08-16T04:17:51.234915+00:00"
+  }
+]

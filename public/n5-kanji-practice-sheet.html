@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N5 Kanji Practice Sheet - Rocket JLPT</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: white;
+            color: #000;
+            padding: 20px;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto 20px;
+            background: white;
+            padding: 15mm;
+            page-break-after: always;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .rocket-icon {
+            width: 30px;
+            height: 30px;
+            fill: #ec4899;
+        }
+        
+        .logo-text {
+            font-size: 22px;
+            font-weight: 300;
+            color: #000;
+        }
+        
+        .logo-text strong {
+            font-weight: 900;
+            margin-left: 2px;
+        }
+        
+        .title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .instructions {
+            font-size: 10px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            background: #f9fafb;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .instructions ol {
+            margin-left: 18px;
+        }
+        
+        .kanji-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .kanji-card {
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 8px;
+            background: white;
+        }
+        
+        .kanji-main {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .kanji-character {
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .kanji-info {
+            flex: 1;
+            font-size: 10px;
+        }
+        
+        .kanji-meaning {
+            font-weight: 700;
+            font-size: 11px;
+            margin-bottom: 3px;
+        }
+        
+        .kanji-readings {
+            color: #666;
+            line-height: 1.3;
+        }
+        
+        .practice-boxes {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+        }
+        
+        .practice-box {
+            border: 1.5px solid #ddd;
+            aspect-ratio: 1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 400;
+            color: #e0e0e0;
+        }
+        
+        .practice-box:first-child {
+            color: #000;
+            font-weight: 700;
+            border-color: #000;
+        }
+        
+        .page-number {
+            text-align: center;
+            font-size: 10px;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+            }
+            
+            .page {
+                margin: 0;
+                page-break-after: always;
+            }
+            
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+        <div class="header">
+            <svg class="rocket-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.5 16.5c-1.5 1.25-2 5-2 5s3.75-.5 5-2c.625-.625 1-1.5 1-2.5a2.5 2.5 0 0 0-4-2z"/>
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+            </svg>
+            <div class="logo-text">Rocket<strong>JLPT</strong></div>
+        </div>
+        
+        <div class="title">N5 KANJI PRACTICE SHEET</div>
+        <div class="subtitle">79 Essential Kanji for JLPT N5</div>
+        
+        
+        <div class="instructions">
+            <strong>INSTRUCTIONS:</strong>
+            <ol>
+                <li>Study each kanji character, its meaning, and readings (on'yomi in katakana, kun'yomi in hiragana).</li>
+                <li>Practice writing each kanji in the boxes provided. The first box shows the character as a guide.</li>
+                <li>Focus on stroke order and proper proportions for each character.</li>
+            </ol>
+        </div>
+        
+        
+        <div class="kanji-grid">
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">日</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Day</div>
+                        <div class="kanji-readings">
+                            <div>音: にち, じつ</div>
+                            <div>訓: ひ, -び, -か</div>
+                            <div>画数: 4</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">日</div>
+                    <div class="practice-box">日</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">一</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">One</div>
+                        <div class="kanji-readings">
+                            <div>音: いち, いつ</div>
+                            <div>訓: ひと-, ひと.つ</div>
+                            <div>画数: 1</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">一</div>
+                    <div class="practice-box">一</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">国</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Country</div>
+                        <div class="kanji-readings">
+                            <div>音: こく</div>
+                            <div>訓: くに</div>
+                            <div>画数: 8</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">国</div>
+                    <div class="practice-box">国</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">人</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Person</div>
+                        <div class="kanji-readings">
+                            <div>音: じん, にん</div>
+                            <div>訓: ひと, -り, -と</div>
+                            <div>画数: 2</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">人</div>
+                    <div class="practice-box">人</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">年</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Year</div>
+                        <div class="kanji-readings">
+                            <div>音: ねん</div>
+                            <div>訓: とし</div>
+                            <div>画数: 6</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">年</div>
+                    <div class="practice-box">年</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">大</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Large</div>
+                        <div class="kanji-readings">
+                            <div>音: だい, たい</div>
+                            <div>訓: おお-, おお.きい, -おお.いに</div>
+                            <div>画数: 3</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">大</div>
+                    <div class="practice-box">大</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">十</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Ten</div>
+                        <div class="kanji-readings">
+                            <div>音: じゅう, じっ, じゅっ</div>
+                            <div>訓: とお, と</div>
+                            <div>画数: 2</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">十</div>
+                    <div class="practice-box">十</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">二</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Two</div>
+                        <div class="kanji-readings">
+                            <div>音: に, じ</div>
+                            <div>訓: ふた, ふた.つ, ふたたび</div>
+                            <div>画数: 2</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">二</div>
+                    <div class="practice-box">二</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">本</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Book</div>
+                        <div class="kanji-readings">
+                            <div>音: ほん</div>
+                            <div>訓: もと</div>
+                            <div>画数: 5</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">本</div>
+                    <div class="practice-box">本</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">中</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">In</div>
+                        <div class="kanji-readings">
+                            <div>音: ちゅう</div>
+                            <div>訓: なか, うち, あた.る</div>
+                            <div>画数: 4</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">中</div>
+                    <div class="practice-box">中</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">長</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Long</div>
+                        <div class="kanji-readings">
+                            <div>音: ちょう</div>
+                            <div>訓: なが.い, おさ</div>
+                            <div>画数: 8</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">長</div>
+                    <div class="practice-box">長</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">出</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Exit</div>
+                        <div class="kanji-readings">
+                            <div>音: しゅつ, すい</div>
+                            <div>訓: で.る, -で, だ.す, -だ.す, い.でる, い.だす</div>
+                            <div>画数: 5</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">出</div>
+                    <div class="practice-box">出</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="page-number">Page 1 of 7 | RocketJLPT.com</div>
+    </div>
+
+    <div class="page">
+        <div class="header">
+            <svg class="rocket-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.5 16.5c-1.5 1.25-2 5-2 5s3.75-.5 5-2c.625-.625 1-1.5 1-2.5a2.5 2.5 0 0 0-4-2z"/>
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+            </svg>
+            <div class="logo-text">Rocket<strong>JLPT</strong></div>
+        </div>
+        
+        <div class="title">N5 KANJI PRACTICE SHEET</div>
+        <div class="subtitle">79 Essential Kanji for JLPT N5</div>
+        
+        
+        
+        <div class="kanji-grid">
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">三</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Three</div>
+                        <div class="kanji-readings">
+                            <div>音: さん, ぞう</div>
+                            <div>訓: み, み.つ, みっ.つ</div>
+                            <div>画数: 3</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">三</div>
+                    <div class="practice-box">三</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">時</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Time</div>
+                        <div class="kanji-readings">
+                            <div>音: じ</div>
+                            <div>訓: とき, -どき</div>
+                            <div>画数: 10</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">時</div>
+                    <div class="practice-box">時</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">行</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Going</div>
+                        <div class="kanji-readings">
+                            <div>音: こう, ぎょう, あん</div>
+                            <div>訓: い.く, ゆ.く, -ゆ.き, -ゆき, -い.き, -いき, おこな.う, おこ.なう</div>
+                            <div>画数: 6</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">行</div>
+                    <div class="practice-box">行</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">見</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">See</div>
+                        <div class="kanji-readings">
+                            <div>音: けん</div>
+                            <div>訓: み.る, み.える, み.せる</div>
+                            <div>画数: 7</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">見</div>
+                    <div class="practice-box">見</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">月</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Month</div>
+                        <div class="kanji-readings">
+                            <div>音: げつ, がつ</div>
+                            <div>訓: つき</div>
+                            <div>画数: 4</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">月</div>
+                    <div class="practice-box">月</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">後</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Behind</div>
+                        <div class="kanji-readings">
+                            <div>音: ご, こう</div>
+                            <div>訓: のち, うし.ろ, うしろ, あと, おく.れる</div>
+                            <div>画数: 9</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">後</div>
+                    <div class="practice-box">後</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">前</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">In Front</div>
+                        <div class="kanji-readings">
+                            <div>音: ぜん</div>
+                            <div>訓: まえ, -まえ</div>
+                            <div>画数: 9</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">前</div>
+                    <div class="practice-box">前</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">生</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Life</div>
+                        <div class="kanji-readings">
+                            <div>音: せい, しょう</div>
+                            <div>訓: い.きる, い.かす, い.ける, う.まれる, うま.れる, う.まれ, うまれ, う.む, お.う, は.える, は.やす, き, なま, なま-, な.る, な.す, む.す, -う</div>
+                            <div>画数: 5</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">生</div>
+                    <div class="practice-box">生</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">五</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Five</div>
+                        <div class="kanji-readings">
+                            <div>音: ご</div>
+                            <div>訓: いつ, いつ.つ</div>
+                            <div>画数: 4</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">五</div>
+                    <div class="practice-box">五</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">間</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Interval</div>
+                        <div class="kanji-readings">
+                            <div>音: かん, けん</div>
+                            <div>訓: あいだ, ま, あい</div>
+                            <div>画数: 12</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">間</div>
+                    <div class="practice-box">間</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">上</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Above</div>
+                        <div class="kanji-readings">
+                            <div>音: じょう, しょう, しゃん</div>
+                            <div>訓: うえ, -うえ, うわ-, かみ, あ.げる, -あ.げる, あ.がる, -あ.がる, あ.がり, -あ.がり, のぼ.る, のぼ.り, のぼ.せる, のぼ.す, たてまつ.る</div>
+                            <div>画数: 3</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">上</div>
+                    <div class="practice-box">上</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">東</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">East</div>
+                        <div class="kanji-readings">
+                            <div>音: とう</div>
+                            <div>訓: ひがし</div>
+                            <div>画数: 8</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">東</div>
+                    <div class="practice-box">東</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="page-number">Page 2 of 7 | RocketJLPT.com</div>
+    </div>
+
+    <div class="page">
+        <div class="header">
+            <svg class="rocket-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.5 16.5c-1.5 1.25-2 5-2 5s3.75-.5 5-2c.625-.625 1-1.5 1-2.5a2.5 2.5 0 0 0-4-2z"/>
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+            </svg>
+            <div class="logo-text">Rocket<strong>JLPT</strong></div>
+        </div>
+        
+        <div class="title">N5 KANJI PRACTICE SHEET</div>
+        <div class="subtitle">79 Essential Kanji for JLPT N5</div>
+        
+        
+        
+        <div class="kanji-grid">
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">四</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Four</div>
+                        <div class="kanji-readings">
+                            <div>音: し</div>
+                            <div>訓: よ, よ.つ, よっ.つ, よん</div>
+                            <div>画数: 5</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">四</div>
+                    <div class="practice-box">四</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">今</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Now</div>
+                        <div class="kanji-readings">
+                            <div>音: こん, きん</div>
+                            <div>訓: いま</div>
+                            <div>画数: 4</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">今</div>
+                    <div class="practice-box">今</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">金</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Gold</div>
+                        <div class="kanji-readings">
+                            <div>音: きん, こん, ごん</div>
+                            <div>訓: かね, かな-, -がね</div>
+                            <div>画数: 8</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">金</div>
+                    <div class="practice-box">金</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">九</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Nine</div>
+                        <div class="kanji-readings">
+                            <div>音: きゅう, く</div>
+                            <div>訓: ここの, ここの.つ</div>
+                            <div>画数: 2</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">九</div>
+                    <div class="practice-box">九</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">入</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Enter</div>
+                        <div class="kanji-readings">
+                            <div>音: にゅう, じゅ</div>
+                            <div>訓: い.る, -い.る, -い.り, い.れる, -い.れ, はい.る</div>
+                            <div>画数: 2</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">入</div>
+                    <div class="practice-box">入</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">学</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Study</div>
+                        <div class="kanji-readings">
+                            <div>音: がく</div>
+                            <div>訓: まな.ぶ</div>
+                            <div>画数: 8</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">学</div>
+                    <div class="practice-box">学</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">高</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Tall</div>
+                        <div class="kanji-readings">
+                            <div>音: こう</div>
+                            <div>訓: たか.い, たか, -だか, たか.まる, たか.める</div>
+                            <div>画数: 10</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">高</div>
+                    <div class="practice-box">高</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">円</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Circle</div>
+                        <div class="kanji-readings">
+                            <div>音: えん</div>
+                            <div>訓: まる.い, まる, まど, まど.か, まろ.やか</div>
+                            <div>画数: 4</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">円</div>
+                    <div class="practice-box">円</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">子</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Child</div>
+                        <div class="kanji-readings">
+                            <div>音: し, す, つ</div>
+                            <div>訓: こ, -こ, ね</div>
+                            <div>画数: 3</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">子</div>
+                    <div class="practice-box">子</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">外</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Outside</div>
+                        <div class="kanji-readings">
+                            <div>音: がい, げ</div>
+                            <div>訓: そと, ほか, はず.す, はず.れる, と-</div>
+                            <div>画数: 5</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">外</div>
+                    <div class="practice-box">外</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">八</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Eight</div>
+                        <div class="kanji-readings">
+                            <div>音: はち</div>
+                            <div>訓: や, や.つ, やっ.つ, よう</div>
+                            <div>画数: 2</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">八</div>
+                    <div class="practice-box">八</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">六</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Six</div>
+                        <div class="kanji-readings">
+                            <div>音: ろく, りく</div>
+                            <div>訓: む, む.つ, むっ.つ, むい</div>
+                            <div>画数: 4</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">六</div>
+                    <div class="practice-box">六</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="page-number">Page 3 of 7 | RocketJLPT.com</div>
+    </div>
+
+    <div class="page">
+        <div class="header">
+            <svg class="rocket-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.5 16.5c-1.5 1.25-2 5-2 5s3.75-.5 5-2c.625-.625 1-1.5 1-2.5a2.5 2.5 0 0 0-4-2z"/>
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+            </svg>
+            <div class="logo-text">Rocket<strong>JLPT</strong></div>
+        </div>
+        
+        <div class="title">N5 KANJI PRACTICE SHEET</div>
+        <div class="subtitle">79 Essential Kanji for JLPT N5</div>
+        
+        
+        
+        <div class="kanji-grid">
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">下</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Below</div>
+                        <div class="kanji-readings">
+                            <div>音: か, げ</div>
+                            <div>訓: した, しも, もと, さ.げる, さ.がる, くだ.る, くだ.り, くだ.す, -くだ.す, くだ.さる, お.ろす, お.りる</div>
+                            <div>画数: 3</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">下</div>
+                    <div class="practice-box">下</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">来</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Come</div>
+                        <div class="kanji-readings">
+                            <div>音: らい, たい</div>
+                            <div>訓: く.る, きた.る, きた.す, き.たす, き.たる, き, こ</div>
+                            <div>画数: 7</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">来</div>
+                    <div class="practice-box">来</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">気</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Spirit</div>
+                        <div class="kanji-readings">
+                            <div>音: き, け</div>
+                            <div>訓: いき</div>
+                            <div>画数: 6</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">気</div>
+                    <div class="practice-box">気</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">小</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Little</div>
+                        <div class="kanji-readings">
+                            <div>音: しょう</div>
+                            <div>訓: ちい.さい, こ-, お-, さ-</div>
+                            <div>画数: 3</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">小</div>
+                    <div class="practice-box">小</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">七</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Seven</div>
+                        <div class="kanji-readings">
+                            <div>音: しち</div>
+                            <div>訓: なな, なな.つ, なの</div>
+                            <div>画数: 2</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">七</div>
+                    <div class="practice-box">七</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">山</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Mountain</div>
+                        <div class="kanji-readings">
+                            <div>音: さん, せん</div>
+                            <div>訓: やま</div>
+                            <div>画数: 3</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">山</div>
+                    <div class="practice-box">山</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">話</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Tale</div>
+                        <div class="kanji-readings">
+                            <div>音: わ</div>
+                            <div>訓: はな.す, はなし</div>
+                            <div>画数: 13</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">話</div>
+                    <div class="practice-box">話</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">女</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Woman</div>
+                        <div class="kanji-readings">
+                            <div>音: じょ, にょ, にょう</div>
+                            <div>訓: おんな, め</div>
+                            <div>画数: 3</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">女</div>
+                    <div class="practice-box">女</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">北</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">North</div>
+                        <div class="kanji-readings">
+                            <div>音: ほく</div>
+                            <div>訓: きた</div>
+                            <div>画数: 5</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">北</div>
+                    <div class="practice-box">北</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">午</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Noon</div>
+                        <div class="kanji-readings">
+                            <div>音: ご</div>
+                            <div>訓: うま</div>
+                            <div>画数: 4</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">午</div>
+                    <div class="practice-box">午</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">百</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Hundred</div>
+                        <div class="kanji-readings">
+                            <div>音: ひゃく, びゃく</div>
+                            <div>訓: もも</div>
+                            <div>画数: 6</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">百</div>
+                    <div class="practice-box">百</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">書</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Write</div>
+                        <div class="kanji-readings">
+                            <div>音: しょ</div>
+                            <div>訓: か.く, -が.き, -がき</div>
+                            <div>画数: 10</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">書</div>
+                    <div class="practice-box">書</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="page-number">Page 4 of 7 | RocketJLPT.com</div>
+    </div>
+
+    <div class="page">
+        <div class="header">
+            <svg class="rocket-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.5 16.5c-1.5 1.25-2 5-2 5s3.75-.5 5-2c.625-.625 1-1.5 1-2.5a2.5 2.5 0 0 0-4-2z"/>
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+            </svg>
+            <div class="logo-text">Rocket<strong>JLPT</strong></div>
+        </div>
+        
+        <div class="title">N5 KANJI PRACTICE SHEET</div>
+        <div class="subtitle">79 Essential Kanji for JLPT N5</div>
+        
+        
+        
+        <div class="kanji-grid">
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">先</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Before</div>
+                        <div class="kanji-readings">
+                            <div>音: せん</div>
+                            <div>訓: さき, ま.ず</div>
+                            <div>画数: 6</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">先</div>
+                    <div class="practice-box">先</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">名</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Name</div>
+                        <div class="kanji-readings">
+                            <div>音: めい, みょう</div>
+                            <div>訓: な, -な</div>
+                            <div>画数: 6</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">名</div>
+                    <div class="practice-box">名</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">川</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Stream</div>
+                        <div class="kanji-readings">
+                            <div>音: せん</div>
+                            <div>訓: かわ</div>
+                            <div>画数: 3</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">川</div>
+                    <div class="practice-box">川</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">千</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Thousand</div>
+                        <div class="kanji-readings">
+                            <div>音: せん</div>
+                            <div>訓: ち</div>
+                            <div>画数: 3</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">千</div>
+                    <div class="practice-box">千</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">水</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Water</div>
+                        <div class="kanji-readings">
+                            <div>音: すい</div>
+                            <div>訓: みず, みず-</div>
+                            <div>画数: 4</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">水</div>
+                    <div class="practice-box">水</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">半</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Half</div>
+                        <div class="kanji-readings">
+                            <div>音: はん</div>
+                            <div>訓: なか.ば</div>
+                            <div>画数: 5</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">半</div>
+                    <div class="practice-box">半</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">男</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Male</div>
+                        <div class="kanji-readings">
+                            <div>音: だん, なん</div>
+                            <div>訓: おとこ, お</div>
+                            <div>画数: 7</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">男</div>
+                    <div class="practice-box">男</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">西</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">West</div>
+                        <div class="kanji-readings">
+                            <div>音: せい, さい, す</div>
+                            <div>訓: にし</div>
+                            <div>画数: 6</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">西</div>
+                    <div class="practice-box">西</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">電</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Electricity</div>
+                        <div class="kanji-readings">
+                            <div>音: でん</div>
+                            
+                            <div>画数: 13</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">電</div>
+                    <div class="practice-box">電</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">校</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Exam</div>
+                        <div class="kanji-readings">
+                            <div>音: こう, きょう</div>
+                            
+                            <div>画数: 10</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">校</div>
+                    <div class="practice-box">校</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">語</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Word</div>
+                        <div class="kanji-readings">
+                            <div>音: ご</div>
+                            <div>訓: かた.る, かた.らう</div>
+                            <div>画数: 14</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">語</div>
+                    <div class="practice-box">語</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">土</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Soil</div>
+                        <div class="kanji-readings">
+                            <div>音: ど, と</div>
+                            <div>訓: つち</div>
+                            <div>画数: 3</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">土</div>
+                    <div class="practice-box">土</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="page-number">Page 5 of 7 | RocketJLPT.com</div>
+    </div>
+
+    <div class="page">
+        <div class="header">
+            <svg class="rocket-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.5 16.5c-1.5 1.25-2 5-2 5s3.75-.5 5-2c.625-.625 1-1.5 1-2.5a2.5 2.5 0 0 0-4-2z"/>
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+            </svg>
+            <div class="logo-text">Rocket<strong>JLPT</strong></div>
+        </div>
+        
+        <div class="title">N5 KANJI PRACTICE SHEET</div>
+        <div class="subtitle">79 Essential Kanji for JLPT N5</div>
+        
+        
+        
+        <div class="kanji-grid">
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">木</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Tree</div>
+                        <div class="kanji-readings">
+                            <div>音: ぼく, もく</div>
+                            <div>訓: き, こ-</div>
+                            <div>画数: 4</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">木</div>
+                    <div class="practice-box">木</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">聞</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Hear</div>
+                        <div class="kanji-readings">
+                            <div>音: ぶん, もん</div>
+                            <div>訓: き.く, き.こえる</div>
+                            <div>画数: 14</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">聞</div>
+                    <div class="practice-box">聞</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">食</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Eat</div>
+                        <div class="kanji-readings">
+                            <div>音: しょく, じき</div>
+                            <div>訓: く.う, く.らう, た.べる, は.む</div>
+                            <div>画数: 9</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">食</div>
+                    <div class="practice-box">食</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">車</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Car</div>
+                        <div class="kanji-readings">
+                            <div>音: しゃ</div>
+                            <div>訓: くるま</div>
+                            <div>画数: 7</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">車</div>
+                    <div class="practice-box">車</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">何</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">What</div>
+                        <div class="kanji-readings">
+                            <div>音: か</div>
+                            <div>訓: なに, なん, なに-, なん-</div>
+                            <div>画数: 7</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">何</div>
+                    <div class="practice-box">何</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">南</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">South</div>
+                        <div class="kanji-readings">
+                            <div>音: なん, な</div>
+                            <div>訓: みなみ</div>
+                            <div>画数: 9</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">南</div>
+                    <div class="practice-box">南</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">万</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Ten Thousand</div>
+                        <div class="kanji-readings">
+                            <div>音: まん, ばん</div>
+                            <div>訓: よろず</div>
+                            <div>画数: 3</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">万</div>
+                    <div class="practice-box">万</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">毎</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Every</div>
+                        <div class="kanji-readings">
+                            <div>音: まい</div>
+                            <div>訓: ごと, -ごと.に</div>
+                            <div>画数: 6</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">毎</div>
+                    <div class="practice-box">毎</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">白</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">White</div>
+                        <div class="kanji-readings">
+                            <div>音: はく, びゃく</div>
+                            <div>訓: しろ, しら-, しろ.い</div>
+                            <div>画数: 5</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">白</div>
+                    <div class="practice-box">白</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">天</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Heavens</div>
+                        <div class="kanji-readings">
+                            <div>音: てん</div>
+                            <div>訓: あまつ, あめ, あま-</div>
+                            <div>画数: 4</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">天</div>
+                    <div class="practice-box">天</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">母</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Mother</div>
+                        <div class="kanji-readings">
+                            <div>音: ぼ</div>
+                            <div>訓: はは, も</div>
+                            <div>画数: 5</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">母</div>
+                    <div class="practice-box">母</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">火</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Fire</div>
+                        <div class="kanji-readings">
+                            <div>音: か</div>
+                            <div>訓: ひ, -び, ほ-</div>
+                            <div>画数: 4</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">火</div>
+                    <div class="practice-box">火</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="page-number">Page 6 of 7 | RocketJLPT.com</div>
+    </div>
+
+    <div class="page">
+        <div class="header">
+            <svg class="rocket-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.5 16.5c-1.5 1.25-2 5-2 5s3.75-.5 5-2c.625-.625 1-1.5 1-2.5a2.5 2.5 0 0 0-4-2z"/>
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+            </svg>
+            <div class="logo-text">Rocket<strong>JLPT</strong></div>
+        </div>
+        
+        <div class="title">N5 KANJI PRACTICE SHEET</div>
+        <div class="subtitle">79 Essential Kanji for JLPT N5</div>
+        
+        
+        
+        <div class="kanji-grid">
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">右</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Right</div>
+                        <div class="kanji-readings">
+                            <div>音: う, ゆう</div>
+                            <div>訓: みぎ</div>
+                            <div>画数: 5</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">右</div>
+                    <div class="practice-box">右</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">読</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Read</div>
+                        <div class="kanji-readings">
+                            <div>音: どく, とく, とう</div>
+                            <div>訓: よ.む, -よ.み</div>
+                            <div>画数: 14</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">読</div>
+                    <div class="practice-box">読</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">友</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Friend</div>
+                        <div class="kanji-readings">
+                            <div>音: ゆう</div>
+                            <div>訓: とも</div>
+                            <div>画数: 4</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">友</div>
+                    <div class="practice-box">友</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">左</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Left</div>
+                        <div class="kanji-readings">
+                            <div>音: さ, しゃ</div>
+                            <div>訓: ひだり</div>
+                            <div>画数: 5</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">左</div>
+                    <div class="practice-box">左</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">休</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Rest</div>
+                        <div class="kanji-readings">
+                            <div>音: きゅう</div>
+                            <div>訓: やす.む, やす.まる, やす.める</div>
+                            <div>画数: 6</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">休</div>
+                    <div class="practice-box">休</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">父</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Father</div>
+                        <div class="kanji-readings">
+                            <div>音: ふ</div>
+                            <div>訓: ちち</div>
+                            <div>画数: 4</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">父</div>
+                    <div class="practice-box">父</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+            <div class="kanji-card">
+                <div class="kanji-main">
+                    <div class="kanji-character">雨</div>
+                    <div class="kanji-info">
+                        <div class="kanji-meaning">Rain</div>
+                        <div class="kanji-readings">
+                            <div>音: う</div>
+                            <div>訓: あめ, あま-, -さめ</div>
+                            <div>画数: 8</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="practice-boxes">
+                    <div class="practice-box">雨</div>
+                    <div class="practice-box">雨</div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                    <div class="practice-box"></div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="page-number">Page 7 of 7 | RocketJLPT.com</div>
+    </div>
+
+</body>
+</html>
