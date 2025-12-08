@@ -86,34 +86,116 @@ function WorksheetsContent() {
     // TODO: Replace with actual API call
     const mockWorksheets: Worksheet[] = [
       {
-        id: '1',
-        title: 'N5 Hiragana Practice',
+        id: 'n5-kanji',
+        title: 'N5 Kanji Practice Sheet',
+        description: '~80 basic kanji with stroke order diagrams for writing practice',
+        thumbnail_url: '/worksheets/n5-kanji-preview.png',
+        jlpt_level: 'N5',
+        category: 'Kanji',
+        difficulty: 'Beginner',
+        is_interactive: false,
+        is_premium: false,
+        download_count: 2450,
+        created_at: '2024-01-01',
+        updated_at: '2024-01-01',
+        tags: ['kanji', 'writing', 'stroke order', 'n5'],
+        pdf_url: '/worksheets/n5-kanji-practice-sheet.pdf',
+      },
+      {
+        id: 'n4-kanji',
+        title: 'N4 Kanji Practice Sheet',
+        description: '~170 elementary kanji with stroke order diagrams',
+        thumbnail_url: '/worksheets/n4-kanji-preview.png',
+        jlpt_level: 'N4',
+        category: 'Kanji',
+        difficulty: 'Beginner',
+        is_interactive: false,
+        is_premium: false,
+        download_count: 1890,
+        created_at: '2024-01-01',
+        updated_at: '2024-01-01',
+        tags: ['kanji', 'writing', 'stroke order', 'n4'],
+        pdf_url: '/worksheets/n4-kanji-practice-sheet.pdf',
+      },
+      {
+        id: 'n3-kanji',
+        title: 'N3 Kanji Practice Sheet',
+        description: '~370 intermediate kanji with stroke order diagrams',
+        thumbnail_url: '/worksheets/n3-kanji-preview.png',
+        jlpt_level: 'N3',
+        category: 'Kanji',
+        difficulty: 'Intermediate',
+        is_interactive: false,
+        is_premium: false,
+        download_count: 1560,
+        created_at: '2024-01-01',
+        updated_at: '2024-01-01',
+        tags: ['kanji', 'writing', 'stroke order', 'n3'],
+        pdf_url: '/worksheets/n3-kanji-practice-sheet.pdf',
+      },
+      {
+        id: 'n2-kanji',
+        title: 'N2 Kanji Practice Sheet',
+        description: '~370 advanced kanji with stroke order diagrams',
+        thumbnail_url: '/worksheets/n2-kanji-preview.png',
+        jlpt_level: 'N2',
+        category: 'Kanji',
+        difficulty: 'Advanced',
+        is_interactive: false,
+        is_premium: false,
+        download_count: 1240,
+        created_at: '2024-01-01',
+        updated_at: '2024-01-01',
+        tags: ['kanji', 'writing', 'stroke order', 'n2'],
+        pdf_url: '/worksheets/n2-kanji-practice-sheet.pdf',
+      },
+      {
+        id: 'n1-kanji',
+        title: 'N1 Kanji Practice Sheet',
+        description: '~1,200 expert kanji with stroke order diagrams',
+        thumbnail_url: '/worksheets/n1-kanji-preview.png',
+        jlpt_level: 'N1',
+        category: 'Kanji',
+        difficulty: 'Advanced',
+        is_interactive: false,
+        is_premium: false,
+        download_count: 980,
+        created_at: '2024-01-01',
+        updated_at: '2024-01-01',
+        tags: ['kanji', 'writing', 'stroke order', 'n1'],
+        pdf_url: '/worksheets/n1-kanji-practice-sheet.pdf',
+      },
+      {
+        id: 'hiragana',
+        title: 'Hiragana Practice Sheet',
         description: 'Master all hiragana characters with writing practice',
-        thumbnail_url: '/images/worksheets/hiragana-practice.png',
+        thumbnail_url: '/worksheets/hiragana-preview.png',
         jlpt_level: 'N5',
         category: 'Writing',
         difficulty: 'Beginner',
         is_interactive: false,
         is_premium: false,
-        download_count: 1250,
+        download_count: 3250,
         created_at: '2024-01-01',
         updated_at: '2024-01-01',
         tags: ['hiragana', 'writing', 'beginner'],
+        pdf_url: '/worksheets/hiragana-practice-sheet.pdf',
       },
       {
-        id: '2',
-        title: 'Common Verbs Conjugation',
-        description: 'Practice conjugating the 50 most common Japanese verbs',
-        thumbnail_url: '/images/worksheets/verb-conjugation.png',
-        jlpt_level: 'N4',
-        category: 'Verbs',
-        difficulty: 'Intermediate',
-        is_interactive: true,
+        id: 'katakana',
+        title: 'Katakana Practice Sheet',
+        description: 'Master all katakana characters with writing practice',
+        thumbnail_url: '/worksheets/katakana-preview.png',
+        jlpt_level: 'N5',
+        category: 'Writing',
+        difficulty: 'Beginner',
+        is_interactive: false,
         is_premium: false,
-        download_count: 890,
-        created_at: '2024-01-15',
-        updated_at: '2024-01-15',
-        tags: ['verbs', 'conjugation', 'grammar'],
+        download_count: 2890,
+        created_at: '2024-01-01',
+        updated_at: '2024-01-01',
+        tags: ['katakana', 'writing', 'beginner'],
+        pdf_url: '/worksheets/katakana-practice-sheet.pdf',
       },
     ];
     
@@ -447,10 +529,17 @@ function WorksheetsContent() {
                           Interactive
                         </span>
                       )}
-                      {/* TODO: Add actual image */}
-                      <div className="w-full h-full flex items-center justify-center text-gray-400">
-                        <BookOpen className="h-12 w-12" />
-                      </div>
+                      {worksheet.thumbnail_url ? (
+                        <img 
+                          src={worksheet.thumbnail_url} 
+                          alt={worksheet.title}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-gray-400">
+                          <BookOpen className="h-12 w-12" />
+                        </div>
+                      )}
                     </div>
 
                     {/* Content */}

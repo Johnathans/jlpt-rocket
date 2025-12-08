@@ -17,51 +17,143 @@ export default function WorksheetDetailPage() {
   const [relatedWorksheets, setRelatedWorksheets] = useState<Worksheet[]>([]);
 
   useEffect(() => {
-    // TODO: Replace with actual API call
-    const mockWorksheet: Worksheet = {
-      id: worksheetId,
-      title: 'N5 Hiragana Practice',
-      description: 'Master all hiragana characters with comprehensive writing practice. This worksheet includes stroke order diagrams, practice grids, and example words for each character.',
-      thumbnail_url: '/images/worksheets/hiragana-practice.png',
-      pdf_url: '/worksheets/hiragana-practice.pdf',
-      jlpt_level: 'N5',
-      category: 'Writing',
-      difficulty: 'Beginner',
-      is_interactive: false,
-      is_premium: false,
-      download_count: 1250,
-      created_at: '2024-01-01',
-      updated_at: '2024-01-01',
-      tags: ['hiragana', 'writing', 'beginner'],
-    };
-    
-    setWorksheet(mockWorksheet);
-    setLoading(false);
-
-    // Mock related worksheets
-    setRelatedWorksheets([
-      {
-        id: '2',
-        title: 'Katakana Writing Practice',
-        description: 'Practice writing katakana characters',
-        thumbnail_url: '/images/worksheets/katakana-practice.png',
+    // Worksheet database
+    const worksheets: Record<string, Worksheet> = {
+      'n5-kanji': {
+        id: 'n5-kanji',
+        title: 'N5 Kanji Practice Sheet',
+        description: 'Master all ~80 basic JLPT N5 kanji with comprehensive stroke order diagrams. This worksheet includes writing practice grids for each character, helping you learn proper stroke order and character formation.',
+        thumbnail_url: '/worksheets/n5-kanji-preview.png',
+        pdf_url: '/worksheets/n5-kanji-practice-sheet.pdf',
+        jlpt_level: 'N5',
+        category: 'Kanji',
+        difficulty: 'Beginner',
+        is_interactive: false,
+        is_premium: false,
+        download_count: 2450,
+        created_at: '2024-01-01',
+        updated_at: '2024-01-01',
+        tags: ['kanji', 'writing', 'stroke order', 'n5'],
+      },
+      'n4-kanji': {
+        id: 'n4-kanji',
+        title: 'N4 Kanji Practice Sheet',
+        description: 'Master all ~170 elementary JLPT N4 kanji with comprehensive stroke order diagrams. Build on your N5 foundation with these essential characters for daily communication.',
+        thumbnail_url: '/worksheets/n4-kanji-preview.png',
+        pdf_url: '/worksheets/n4-kanji-practice-sheet.pdf',
+        jlpt_level: 'N4',
+        category: 'Kanji',
+        difficulty: 'Beginner',
+        is_interactive: false,
+        is_premium: false,
+        download_count: 1890,
+        created_at: '2024-01-01',
+        updated_at: '2024-01-01',
+        tags: ['kanji', 'writing', 'stroke order', 'n4'],
+      },
+      'n3-kanji': {
+        id: 'n3-kanji',
+        title: 'N3 Kanji Practice Sheet',
+        description: 'Master all ~370 intermediate JLPT N3 kanji with comprehensive stroke order diagrams. These characters are essential for work and social situations in Japanese.',
+        thumbnail_url: '/worksheets/n3-kanji-preview.png',
+        pdf_url: '/worksheets/n3-kanji-practice-sheet.pdf',
+        jlpt_level: 'N3',
+        category: 'Kanji',
+        difficulty: 'Intermediate',
+        is_interactive: false,
+        is_premium: false,
+        download_count: 1560,
+        created_at: '2024-01-01',
+        updated_at: '2024-01-01',
+        tags: ['kanji', 'writing', 'stroke order', 'n3'],
+      },
+      'n2-kanji': {
+        id: 'n2-kanji',
+        title: 'N2 Kanji Practice Sheet',
+        description: 'Master all ~370 advanced JLPT N2 kanji with comprehensive stroke order diagrams. These characters are crucial for professional use and advanced reading comprehension.',
+        thumbnail_url: '/worksheets/n2-kanji-preview.png',
+        pdf_url: '/worksheets/n2-kanji-practice-sheet.pdf',
+        jlpt_level: 'N2',
+        category: 'Kanji',
+        difficulty: 'Advanced',
+        is_interactive: false,
+        is_premium: false,
+        download_count: 1240,
+        created_at: '2024-01-01',
+        updated_at: '2024-01-01',
+        tags: ['kanji', 'writing', 'stroke order', 'n2'],
+      },
+      'n1-kanji': {
+        id: 'n1-kanji',
+        title: 'N1 Kanji Practice Sheet',
+        description: 'Master all ~1,200 expert JLPT N1 kanji with comprehensive stroke order diagrams. Achieve near-native kanji proficiency with this comprehensive practice sheet.',
+        thumbnail_url: '/worksheets/n1-kanji-preview.png',
+        pdf_url: '/worksheets/n1-kanji-practice-sheet.pdf',
+        jlpt_level: 'N1',
+        category: 'Kanji',
+        difficulty: 'Advanced',
+        is_interactive: false,
+        is_premium: false,
+        download_count: 980,
+        created_at: '2024-01-01',
+        updated_at: '2024-01-01',
+        tags: ['kanji', 'writing', 'stroke order', 'n1'],
+      },
+      'hiragana': {
+        id: 'hiragana',
+        title: 'Hiragana Practice Sheet',
+        description: 'Master all hiragana characters with comprehensive writing practice. This worksheet includes stroke order diagrams, practice grids, and example words for each character.',
+        thumbnail_url: '/worksheets/hiragana-preview.png',
+        pdf_url: '/worksheets/hiragana-practice-sheet.pdf',
         jlpt_level: 'N5',
         category: 'Writing',
         difficulty: 'Beginner',
         is_interactive: false,
         is_premium: false,
-        download_count: 980,
-        created_at: '2024-01-05',
-        updated_at: '2024-01-05',
-        tags: ['katakana', 'writing'],
+        download_count: 3250,
+        created_at: '2024-01-01',
+        updated_at: '2024-01-01',
+        tags: ['hiragana', 'writing', 'beginner'],
       },
-    ]);
+      'katakana': {
+        id: 'katakana',
+        title: 'Katakana Practice Sheet',
+        description: 'Master all katakana characters with comprehensive writing practice. This worksheet includes stroke order diagrams, practice grids, and example words for each character.',
+        thumbnail_url: '/worksheets/katakana-preview.png',
+        pdf_url: '/worksheets/katakana-practice-sheet.pdf',
+        jlpt_level: 'N5',
+        category: 'Writing',
+        difficulty: 'Beginner',
+        is_interactive: false,
+        is_premium: false,
+        download_count: 2890,
+        created_at: '2024-01-01',
+        updated_at: '2024-01-01',
+        tags: ['katakana', 'writing', 'beginner'],
+      },
+    };
+    
+    const foundWorksheet = worksheets[worksheetId];
+    setWorksheet(foundWorksheet || null);
+    setLoading(false);
+
+    // Get related worksheets (same category or level)
+    if (foundWorksheet) {
+      const related = Object.values(worksheets)
+        .filter(w => w.id !== worksheetId && (w.category === foundWorksheet.category || w.jlpt_level === foundWorksheet.jlpt_level))
+        .slice(0, 4);
+      setRelatedWorksheets(related);
+    }
   }, [worksheetId]);
 
   const handleDownload = () => {
     if (worksheet?.pdf_url) {
-      // TODO: Implement actual download
-      console.log('Downloading:', worksheet.pdf_url);
+      const a = document.createElement('a');
+      a.href = worksheet.pdf_url;
+      a.download = `${worksheet.id}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     }
   };
 
@@ -153,10 +245,17 @@ export default function WorksheetDetailPage() {
             {/* Preview */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-6">
               <div className="aspect-[8.5/11] bg-gradient-to-br from-gray-50 to-gray-100 relative">
-                {/* TODO: Add actual worksheet preview */}
-                <div className="w-full h-full flex items-center justify-center text-gray-400">
-                  <BookOpen className="h-24 w-24" />
-                </div>
+                {worksheet.thumbnail_url ? (
+                  <img 
+                    src={worksheet.thumbnail_url} 
+                    alt={`${worksheet.title} preview`}
+                    className="w-full h-full object-contain"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-400">
+                    <BookOpen className="h-24 w-24" />
+                  </div>
+                )}
               </div>
             </div>
 
