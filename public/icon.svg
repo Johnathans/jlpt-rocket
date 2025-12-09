@@ -1,9 +1,19 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- White background -->
   <rect width="512" height="512" rx="128" fill="white"/>
-  <path d="M256 64C256 64 192 128 192 224C192 256 208 288 256 320C304 288 320 256 320 224C320 128 256 64 256 64Z" fill="#ec4899"/>
-  <path d="M256 320C256 320 224 336 192 368C176 384 176 416 192 432C208 448 240 448 256 432C272 448 304 448 320 432C336 416 336 384 320 368C288 336 256 320 256 320Z" fill="#ec4899"/>
-  <circle cx="224" cy="200" r="16" fill="white"/>
-  <circle cx="288" cy="200" r="16" fill="white"/>
-  <path d="M144 256L96 288L112 320L160 288L144 256Z" fill="#f97316"/>
-  <path d="M368 256L416 288L400 320L352 288L368 256Z" fill="#f97316"/>
+  
+  <!-- Lucide Rocket Icon (centered and scaled) -->
+  <g transform="translate(128, 128) scale(15.5)">
+    <!-- Flame/exhaust (orange) -->
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" fill="#f97316" stroke="#f97316" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Main rocket body (pink) -->
+    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" fill="#ec4899" stroke="#ec4899" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Left fin (orange) -->
+    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" fill="#f97316" stroke="#f97316" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Right fin (orange) -->
+    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" fill="#f97316" stroke="#f97316" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
 </svg>
