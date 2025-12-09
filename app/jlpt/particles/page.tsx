@@ -449,52 +449,46 @@ export default function ParticlesPage() {
           </div>
         </div>
 
-        {/* Particles List */}
-        <div className="space-y-4">
+        {/* Particles Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredParticles.map((particle) => (
             <div
               key={particle.id}
-              className="bg-white rounded-lg border border-gray-200 hover:border-pink-200 hover:shadow-md transition-all duration-200 overflow-hidden"
+              className="bg-white rounded-lg border border-gray-200 hover:border-pink-300 hover:shadow-lg transition-all duration-200 p-6 group"
             >
-              <div className="p-6">
-                <div className="flex items-start justify-between gap-4 mb-4">
-                  <div className="flex items-center gap-4">
-                    <div className="text-4xl font-bold text-pink-600 font-japanese">
-                      {particle.particle.split(' ')[0]}
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-1">
-                        {particle.meaning}
-                      </h3>
-                      <p className="text-gray-600">
-                        {particle.usage}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="px-3 py-1 text-xs font-medium bg-pink-100 text-pink-700 rounded-full">
-                      {particle.level}
-                    </span>
-                    <span className="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
-                      {particle.category}
-                    </span>
-                  </div>
+              {/* Particle with gradient background */}
+              <div className="mb-4 pb-3 border-b border-gray-100">
+                <div className="inline-block px-3 py-1 bg-gradient-to-r from-pink-50 to-orange-50 rounded-md mb-2">
+                  <h3 className="text-2xl font-bold text-gray-900 font-japanese">
+                    {particle.particle}
+                  </h3>
                 </div>
+                <p className="text-sm text-pink-600 font-medium">
+                  {particle.meaning}
+                </p>
+                <div className="flex items-center gap-2 mt-2">
+                  <span className="px-2 py-0.5 text-xs font-medium bg-pink-100 text-pink-700 rounded-full">
+                    {particle.level}
+                  </span>
+                  <span className="px-2 py-0.5 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
+                    {particle.category}
+                  </span>
+                </div>
+              </div>
 
-                {/* Example */}
-                <div className="bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg p-4 border border-pink-100">
-                  <div className="flex items-start gap-3">
-                    <ArrowRight className="h-5 w-5 text-pink-600 mt-0.5 flex-shrink-0" />
-                    <div className="flex-1">
-                      <p className="text-lg font-japanese text-gray-900 mb-1">
-                        {particle.example}
-                      </p>
-                      <p className="text-gray-600">
-                        {particle.exampleTranslation}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+              {/* Usage */}
+              <p className="text-sm text-gray-600 mb-4">
+                {particle.usage}
+              </p>
+
+              {/* Example */}
+              <div className="bg-gradient-to-br from-gray-50 to-pink-50/30 rounded-lg p-3 border border-gray-100">
+                <p className="text-base text-gray-900 mb-1 font-japanese">
+                  {particle.example}
+                </p>
+                <p className="text-xs text-gray-500">
+                  {particle.exampleTranslation}
+                </p>
               </div>
             </div>
           ))}
