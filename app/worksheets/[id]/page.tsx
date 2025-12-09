@@ -16,6 +16,43 @@ export default function WorksheetDetailPage() {
   const [loading, setLoading] = useState(true);
   const [relatedWorksheets, setRelatedWorksheets] = useState<Worksheet[]>([]);
 
+  // SEO metadata
+  useEffect(() => {
+    if (worksheet) {
+      document.title = `${worksheet.title} - Free PDF Download | Rocket JLPT`;
+      
+      const updateMetaTag = (name: string, content: string) => {
+        let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+        if (!meta) {
+          meta = document.createElement('meta');
+          meta.name = name;
+          document.head.appendChild(meta);
+        }
+        meta.content = content;
+      };
+
+      const updateOGTag = (property: string, content: string) => {
+        let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
+        if (!meta) {
+          meta = document.createElement('meta');
+          meta.setAttribute('property', property);
+          document.head.appendChild(meta);
+        }
+        meta.content = content;
+      };
+
+      updateMetaTag('description', worksheet.description);
+      updateMetaTag('keywords', `${worksheet.tags.join(', ')}, Japanese practice, JLPT ${worksheet.jlpt_level}, free worksheet`);
+      updateOGTag('og:title', `${worksheet.title} - Free PDF Download`);
+      updateOGTag('og:description', worksheet.description);
+      updateOGTag('og:url', `https://www.rocketjlpt.com/worksheets/${worksheet.id}`);
+      updateOGTag('og:image', `https://www.rocketjlpt.com${worksheet.thumbnail_url}`);
+      updateMetaTag('twitter:title', `${worksheet.title} - Free PDF Download`);
+      updateMetaTag('twitter:description', worksheet.description);
+      updateMetaTag('twitter:image', `https://www.rocketjlpt.com${worksheet.thumbnail_url}`);
+    }
+  }, [worksheet]);
+
   useEffect(() => {
     // Worksheet database
     const worksheets: Record<string, Worksheet> = {

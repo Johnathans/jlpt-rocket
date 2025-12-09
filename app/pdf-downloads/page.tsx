@@ -1,10 +1,42 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Download, FileText, Loader2 } from 'lucide-react';
 
 export default function PDFDownloadsPage() {
   const [loading, setLoading] = useState<string | null>(null);
+
+  useEffect(() => {
+    document.title = 'JLPT PDF Downloads - Kanji & Vocabulary Lists | Rocket JLPT';
+    
+    const updateMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = name;
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    const updateOGTag = (property: string, content: string) => {
+      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('property', property);
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    updateMetaTag('description', 'Download comprehensive JLPT study materials as PDFs. Complete kanji lists, vocabulary lists, and practice sheets for all levels N5 to N1.');
+    updateMetaTag('keywords', 'JLPT PDF, kanji list PDF, vocabulary list PDF, JLPT study materials, Japanese learning PDFs, JLPT downloads');
+    updateOGTag('og:title', 'JLPT PDF Downloads - Kanji & Vocabulary Lists');
+    updateOGTag('og:description', 'Download comprehensive JLPT study materials as PDFs. Complete kanji lists, vocabulary lists, and practice sheets for all levels N5 to N1.');
+    updateOGTag('og:url', 'https://www.rocketjlpt.com/pdf-downloads');
+    updateMetaTag('twitter:title', 'JLPT PDF Downloads - Kanji & Vocabulary Lists');
+    updateMetaTag('twitter:description', 'Download comprehensive JLPT study materials as PDFs. Complete kanji lists, vocabulary lists, and practice sheets for all levels.');
+  }, []);
 
   const handleDownload = async (pdfType: string, filename: string, staticPath?: string) => {
     try {

@@ -14,6 +14,38 @@ interface KanaItem {
 export default function HiraganaPage() {
   const [searchTerm, setSearchTerm] = useState('');
 
+  useEffect(() => {
+    document.title = 'Hiragana Chart - All 104 Characters with Audio | Rocket JLPT';
+    
+    const updateMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = name;
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    const updateOGTag = (property: string, content: string) => {
+      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('property', property);
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    updateMetaTag('description', 'Complete hiragana chart with all 104 characters including basic, dakuten, and combination characters. Learn Japanese hiragana with audio pronunciation and romaji.');
+    updateMetaTag('keywords', 'hiragana, hiragana chart, learn hiragana, Japanese alphabet, hiragana characters, hiragana pronunciation, Japanese writing system');
+    updateOGTag('og:title', 'Hiragana Chart - All 104 Characters with Audio');
+    updateOGTag('og:description', 'Complete hiragana chart with all 104 characters including basic, dakuten, and combination characters. Learn Japanese hiragana with audio pronunciation.');
+    updateOGTag('og:url', 'https://www.rocketjlpt.com/jlpt/hiragana');
+    updateMetaTag('twitter:title', 'Hiragana Chart - All 104 Characters with Audio');
+    updateMetaTag('twitter:description', 'Complete hiragana chart with all 104 characters. Learn Japanese hiragana with audio pronunciation and romaji.');
+  }, []);
+
   // Basic Hiragana
   const basicHiragana: KanaItem[] = [
     { character: 'あ', romaji: 'a', type: 'basic' },

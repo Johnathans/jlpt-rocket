@@ -28,6 +28,39 @@ function WorksheetsContent() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // SEO metadata
+  useEffect(() => {
+    document.title = 'Japanese Practice Worksheets - Free PDF Downloads | Rocket JLPT';
+    
+    const updateMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = name;
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    const updateOGTag = (property: string, content: string) => {
+      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('property', property);
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    updateMetaTag('description', 'Download free Japanese practice worksheets for all JLPT levels. Kanji writing practice, hiragana, katakana sheets with stroke order diagrams.');
+    updateMetaTag('keywords', 'Japanese worksheets, kanji practice sheets, hiragana worksheets, katakana practice, JLPT worksheets, Japanese writing practice, free PDF downloads');
+    updateOGTag('og:title', 'Japanese Practice Worksheets - Free PDF Downloads | Rocket JLPT');
+    updateOGTag('og:description', 'Download free Japanese practice worksheets for all JLPT levels. Kanji writing practice, hiragana, katakana sheets with stroke order diagrams.');
+    updateOGTag('og:url', 'https://www.rocketjlpt.com/worksheets');
+    updateMetaTag('twitter:title', 'Japanese Practice Worksheets - Free PDF Downloads');
+    updateMetaTag('twitter:description', 'Download free Japanese practice worksheets for all JLPT levels. Kanji writing practice, hiragana, katakana sheets with stroke order diagrams.');
+  }, []);
   
   // Accordion states
   const [expandedSections, setExpandedSections] = useState({

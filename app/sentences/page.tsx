@@ -59,6 +59,38 @@ function SentencesPageContent() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isTraining, setIsTraining] = useState(false);
 
+  useEffect(() => {
+    document.title = 'Japanese Sentence Practice - JLPT Example Sentences | Rocket JLPT';
+    
+    const updateMetaTag = (name: string, content: string) => {
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = name;
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    const updateOGTag = (property: string, content: string) => {
+      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('property', property);
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    updateMetaTag('description', 'Practice Japanese sentences with context and translations. Learn natural Japanese expressions and sentence patterns for all JLPT levels N5 to N1.');
+    updateMetaTag('keywords', 'Japanese sentences, JLPT sentences, Japanese examples, sentence practice, Japanese grammar in context, example sentences');
+    updateOGTag('og:title', 'Japanese Sentence Practice - JLPT Example Sentences');
+    updateOGTag('og:description', 'Practice Japanese sentences with context and translations. Learn natural Japanese expressions and sentence patterns for all JLPT levels.');
+    updateOGTag('og:url', 'https://www.rocketjlpt.com/sentences');
+    updateMetaTag('twitter:title', 'Japanese Sentence Practice - JLPT Example Sentences');
+    updateMetaTag('twitter:description', 'Practice Japanese sentences with context and translations. Learn natural expressions for all JLPT levels.');
+  }, []);
+
   // Calculate paginated data
   const totalPages = Math.ceil(allSentences.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
