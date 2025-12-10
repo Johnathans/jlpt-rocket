@@ -29,9 +29,9 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
 
   return (
     <SidebarContext.Provider value={{ isCollapsed, toggleSidebar }}>
-      <div className="min-h-screen" style={{ backgroundColor: '#f9fafb' }}>
+      <div className="min-h-screen bg-gray-50">
         <DashboardNavbar />
-        <div className="pt-20">
+        <div className="pt-28">
           {children}
         </div>
       </div>

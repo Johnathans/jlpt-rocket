@@ -76,23 +76,25 @@ export default function DashboardNavbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isProfileMenuOpen]);
 
-  const mainNavItems = [
+  const mainNavItems: Array<{ href: string; label: string; icon: any; badge?: number }> = [
     { href: '/roadmap', label: 'Dashboard', icon: Home },
     { href: '/kanji', label: 'Kanji', icon: FileText },
     { href: '/vocabulary', label: 'Vocabulary', icon: BookOpen },
     { href: '/sentences', label: 'Sentences', icon: MessageSquare },
   ];
 
-  const secondaryNavItems = [
+  const secondaryNavItems: Array<{ href: string; label: string; icon: any; badge?: number }> = [
     { href: '/stories', label: 'Stories', icon: BookMarked },
     { href: '/test', label: 'Tests', icon: ClipboardCheck },
     { href: '/progress', label: 'Progress', icon: BarChart3 },
     { href: '/review', label: 'Review', icon: RotateCcw, badge: reviewCount },
   ];
 
+  const allNavItems = [...mainNavItems, ...secondaryNavItems];
+
   return (
     <>
-      {/* Top Navigation Bar */}
+      {/* Primary Navigation Bar - Logo and Profile */}
       <nav className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -107,31 +109,8 @@ export default function DashboardNavbar() {
               </Link>
             </div>
 
-            {/* Desktop Horizontal Navigation */}
-            <div className="hidden lg:flex items-center gap-1 ml-8">
-              {mainNavItems.map((item) => {
-                const Icon = item.icon;
-                const isActive = pathname === item.href;
-                
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all rounded-lg ${
-                      isActive
-                        ? 'text-pink-600 bg-pink-50'
-                        : 'text-gray-700 hover:text-pink-600 hover:bg-gray-50'
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" />
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </div>
-
-            {/* Right Side Navigation */}
-            <div className="hidden lg:flex items-center gap-1">
+            {/* Right Side - Streak and Profile */}
+            <div className="hidden lg:flex items-center gap-2">
               {/* Streak Button */}
               <button
                 onClick={() => setIsStreakModalOpen(true)}
@@ -140,34 +119,6 @@ export default function DashboardNavbar() {
                 <Flame className="h-4 w-4" />
                 <span className="text-sm">Streak</span>
               </button>
-              
-              {secondaryNavItems.map((item) => {
-                const Icon = item.icon;
-                const isActive = pathname === item.href;
-                
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`relative flex items-center gap-2 px-3 py-2 text-sm font-medium transition-all rounded-lg ${
-                      isActive
-                        ? 'text-pink-600 bg-pink-50'
-                        : 'text-gray-700 hover:text-pink-600 hover:bg-gray-50'
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" />
-                    {item.label}
-                    {item.badge && item.badge > 0 && (
-                      <span className="ml-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs rounded-full px-2 py-0.5 font-bold">
-                        {item.badge > 99 ? '99+' : item.badge}
-                      </span>
-                    )}
-                  </Link>
-                );
-              })}
-
-              {/* Divider */}
-              <div className="h-8 w-px bg-gray-200 mx-2"></div>
 
               {/* Profile Dropdown */}
               <div className="relative profile-dropdown">
@@ -244,7 +195,7 @@ export default function DashboardNavbar() {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center">
+            <div className="lg:hidden flex items-center">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 text-sm font-medium text-gray-900 hover:bg-gray-50"
@@ -254,8 +205,43 @@ export default function DashboardNavbar() {
             </div>
           </div>
 
-          {/* Mobile Menu */}
-          {isMobileMenuOpen && (
+        </div>
+      </nav>
+
+      {/* Secondary Navigation Bar - All Links */}
+      <div className="fixed top-16 left-0 right-0 bg-gray-50 border-b border-gray-200 z-40 hidden lg:block">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center gap-1 h-12">
+            {allNavItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = pathname === item.href;
+              
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`relative flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all rounded-lg ${
+                    isActive
+                      ? 'text-pink-600 bg-white shadow-sm'
+                      : 'text-gray-700 hover:text-pink-600 hover:bg-white'
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                  {item.label}
+                  {item.badge && item.badge > 0 && (
+                    <span className="ml-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs rounded-full px-2 py-0.5 font-bold">
+                      {item.badge > 99 ? '99+' : item.badge}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
             <div className="lg:hidden border-t border-gray-200">
               <div className="px-2 pt-2 pb-3 space-y-1">
                 {/* Main Navigation */}
@@ -326,8 +312,6 @@ export default function DashboardNavbar() {
               </div>
             </div>
           )}
-        </div>
-      </nav>
 
       {/* Streak Modal */}
       <StreakModal 
