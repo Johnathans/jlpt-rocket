@@ -307,13 +307,13 @@ export default function RoadmapPage() {
                         
                         <div className="relative">
                           <div className="text-4xl font-bold text-gray-900 mb-1 group-hover:text-pink-600 transition-colors font-japanese">
-                            {item.kanji}
+                            {item.character}
                           </div>
                           <div className="text-xs text-gray-500 mb-0.5 line-clamp-1">
                             {item.meaning}
                           </div>
                           <div className="text-xs text-gray-400">
-                            {item.strokes}
+                            {item.stroke_count}
                           </div>
                         </div>
                       </Link>
