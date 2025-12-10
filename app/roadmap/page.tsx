@@ -96,13 +96,13 @@ export default function RoadmapPage() {
     const loadContent = async () => {
       setContentLoading(true);
       try {
-        if (activeTab === 'kanji' && kanjiData.length === 0) {
+        if (activeTab === 'kanji') {
           const data = await getKanjiByLevel(currentLevel);
-          setKanjiData(data.slice(0, 12)); // Show first 12
-        } else if (activeTab === 'vocabulary' && vocabularyData.length === 0) {
+          setKanjiData(data.slice(0, 40)); // Show first 40
+        } else if (activeTab === 'vocabulary') {
           const data = await getVocabularyByLevel(currentLevel);
           setVocabularyData(data.slice(0, 20)); // Show first 20
-        } else if (activeTab === 'sentences' && sentencesData.length === 0) {
+        } else if (activeTab === 'sentences') {
           const data = await getSentencesByLevel(currentLevel);
           setSentencesData(data.slice(0, 15)); // Show first 15
         }
@@ -309,11 +309,8 @@ export default function RoadmapPage() {
                           <div className="text-4xl font-bold text-gray-900 mb-1 group-hover:text-pink-600 transition-colors font-japanese">
                             {item.character}
                           </div>
-                          <div className="text-xs text-gray-500 mb-0.5 line-clamp-1">
+                          <div className="text-xs text-gray-500 line-clamp-1">
                             {item.meaning}
-                          </div>
-                          <div className="text-xs text-gray-400">
-                            {item.stroke_count}
                           </div>
                         </div>
                       </Link>
