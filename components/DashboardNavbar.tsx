@@ -118,10 +118,10 @@ export default function DashboardNavbar() {
                 <Home className="h-5 w-5" />
               </Link>
 
-              {/* Combined Progress + Review Link - Icon Only */}
+              {/* Combined Progress + Review Link - Icon with Badge */}
               <Link
                 href="/progress"
-                className={`relative flex items-center justify-center p-2 transition-all rounded-lg ${
+                className={`flex items-center gap-2 px-3 py-2 transition-all rounded-lg ${
                   pathname === '/progress' || pathname === '/review'
                     ? 'text-pink-600 bg-pink-50'
                     : 'text-gray-700 hover:text-pink-600 hover:bg-gray-50'
@@ -130,7 +130,7 @@ export default function DashboardNavbar() {
               >
                 <BarChart3 className="h-5 w-5" />
                 {reviewCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs rounded-full px-1.5 py-0.5 font-bold min-w-[20px] text-center">
+                  <span className="bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs rounded-full px-2 py-0.5 font-bold">
                     {reviewCount > 99 ? '99+' : reviewCount}
                   </span>
                 )}
