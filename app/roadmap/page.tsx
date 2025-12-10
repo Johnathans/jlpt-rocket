@@ -110,7 +110,7 @@ export default function RoadmapPage() {
               <span className="text-sm font-medium text-gray-600">Current Level</span>
               <Target className="h-5 w-5 text-pink-500" />
             </div>
-            <div className="text-5xl font-black text-pink-600">{currentLevel}</div>
+            <div className="text-5xl font-black text-gray-900">{currentLevel}</div>
             <div className="text-sm text-gray-600 mt-1">studying now</div>
           </div>
 
@@ -134,28 +134,30 @@ export default function RoadmapPage() {
             <div className="text-sm text-gray-600 mt-1">items to review</div>
           </div>
 
-          {/* Total Mastered */}
+          {/* Progress Card - Combined Mastered & Learning */}
           <div className="bg-white rounded-lg border-2 border-gray-200 p-6">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-600">Mastered</span>
-              <CheckCircle className="h-5 w-5 text-pink-500" />
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-medium text-gray-600">Your Progress</span>
+              <TrendingUp className="h-5 w-5 text-pink-500" />
             </div>
-            <div className="text-4xl font-bold text-gray-900">
-              {(stats?.kanji.mastered || 0) + (stats?.vocabulary.mastered || 0) + (stats?.sentences.mastered || 0)}
+            <div className="space-y-3">
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs font-medium text-gray-500">Mastered</span>
+                  <span className="text-2xl font-bold text-gray-900">
+                    {(stats?.kanji.mastered || 0) + (stats?.vocabulary.mastered || 0) + (stats?.sentences.mastered || 0)}
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-medium text-gray-500">Learning</span>
+                  <span className="text-2xl font-bold text-gray-900">
+                    {(stats?.kanji.learning || 0) + (stats?.vocabulary.learning || 0) + (stats?.sentences.learning || 0)}
+                  </span>
+                </div>
+              </div>
             </div>
-            <div className="text-sm text-gray-600 mt-1">total items</div>
-          </div>
-
-          {/* Total Learning */}
-          <div className="bg-white rounded-lg border-2 border-gray-200 p-6">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-600">Learning</span>
-              <BookOpen className="h-5 w-5 text-pink-500" />
-            </div>
-            <div className="text-4xl font-bold text-gray-900">
-              {(stats?.kanji.learning || 0) + (stats?.vocabulary.learning || 0) + (stats?.sentences.learning || 0)}
-            </div>
-            <div className="text-sm text-gray-600 mt-1">in progress</div>
           </div>
         </div>
 
