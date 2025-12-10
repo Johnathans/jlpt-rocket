@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight, BookMarked, ClipboardCheck } from 'lucide-react';
+import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight, BookMarked, ClipboardCheck, Volume2, Brush } from 'lucide-react';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
-import { getContentCounts } from '@/lib/supabase-data';
+import { getContentCounts, getKanjiByLevel, getVocabularyByLevel, getSentencesByLevel } from '@/lib/supabase-data';
 import { StreakSystem } from '@/lib/streakSystem';
 import { ReviewSystem } from '@/lib/reviewSystem';
 import { useRouter } from 'next/navigation';
@@ -27,6 +27,10 @@ export default function RoadmapPage() {
   const [streakData, setStreakData] = useState({ currentStreak: 0 });
   const [isLevelModalOpen, setIsLevelModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'kanji' | 'vocabulary' | 'sentences' | 'stories' | 'tests'>('kanji');
+  const [kanjiData, setKanjiData] = useState<any[]>([]);
+  const [vocabularyData, setVocabularyData] = useState<any[]>([]);
+  const [sentencesData, setSentencesData] = useState<any[]>([]);
+  const [contentLoading, setContentLoading] = useState(false);
 
   // Get user's first name
   const userName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || 'there';
@@ -86,6 +90,31 @@ export default function RoadmapPage() {
 
     loadStats();
   }, [currentLevel]);
+
+  // Load content data when tab changes
+  useEffect(() => {
+    const loadContent = async () => {
+      setContentLoading(true);
+      try {
+        if (activeTab === 'kanji' && kanjiData.length === 0) {
+          const data = await getKanjiByLevel(currentLevel);
+          setKanjiData(data.slice(0, 12)); // Show first 12
+        } else if (activeTab === 'vocabulary' && vocabularyData.length === 0) {
+          const data = await getVocabularyByLevel(currentLevel);
+          setVocabularyData(data.slice(0, 20)); // Show first 20
+        } else if (activeTab === 'sentences' && sentencesData.length === 0) {
+          const data = await getSentencesByLevel(currentLevel);
+          setSentencesData(data.slice(0, 15)); // Show first 15
+        }
+      } catch (error) {
+        console.error('Error loading content:', error);
+      } finally {
+        setContentLoading(false);
+      }
+    };
+
+    loadContent();
+  }, [activeTab, currentLevel]);
 
   // Listen for level switcher event from navbar
   useEffect(() => {
@@ -252,87 +281,113 @@ export default function RoadmapPage() {
             {activeTab === 'kanji' && (
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900">Kanji</h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      {stats?.kanji.total || 0} total · {stats?.kanji.mastered || 0} mastered · {stats?.kanji.learning || 0} learning
-                    </p>
-                  </div>
+                  <h3 className="text-lg font-bold text-gray-900">Kanji Preview</h3>
                   <Link
                     href="/kanji"
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
                   >
-                    Start Learning
+                    View All ({stats?.kanji.total || 0})
                     <ChevronRight className="h-4 w-4" />
                   </Link>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
-                  <div 
-                    className="bg-gradient-to-r from-pink-500 to-orange-500 h-3 rounded-full transition-all"
-                    style={{ width: `${stats?.kanji.total ? (stats.kanji.mastered / stats.kanji.total * 100) : 0}%` }}
-                  />
-                </div>
-                <p className="text-sm text-gray-600">
-                  Master essential kanji characters for {currentLevel}. Learn readings, meanings, and stroke order.
-                </p>
+                {contentLoading ? (
+                  <div className="text-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500 mx-auto"></div>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                    {kanjiData.map((item: any) => (
+                      <Link
+                        key={item.id}
+                        href="/kanji"
+                        className="border-2 border-gray-200 hover:border-pink-300 bg-white hover:bg-pink-50 transition-all rounded-lg p-4 text-center group"
+                      >
+                        <div className="text-5xl font-bold text-black mb-2 font-japanese">
+                          {item.kanji}
+                        </div>
+                        <div className="flex items-center justify-center gap-1 text-xs text-gray-500 mb-1">
+                          <Brush className="h-3 w-3" />
+                          <span>{item.strokes}</span>
+                        </div>
+                        <p className="text-sm text-gray-700 font-medium line-clamp-1">
+                          {item.meaning}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
             {activeTab === 'vocabulary' && (
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900">Vocabulary</h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      {stats?.vocabulary.total || 0} total · {stats?.vocabulary.mastered || 0} mastered · {stats?.vocabulary.learning || 0} learning
-                    </p>
-                  </div>
+                  <h3 className="text-lg font-bold text-gray-900">Vocabulary Preview</h3>
                   <Link
                     href="/vocabulary"
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
                   >
-                    Start Learning
+                    View All ({stats?.vocabulary.total || 0})
                     <ChevronRight className="h-4 w-4" />
                   </Link>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
-                  <div 
-                    className="bg-gradient-to-r from-pink-500 to-orange-500 h-3 rounded-full transition-all"
-                    style={{ width: `${stats?.vocabulary.total ? (stats.vocabulary.mastered / stats.vocabulary.total * 100) : 0}%` }}
-                  />
-                </div>
-                <p className="text-sm text-gray-600">
-                  Build your vocabulary with essential words and phrases for {currentLevel}.
-                </p>
+                {contentLoading ? (
+                  <div className="text-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500 mx-auto"></div>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {vocabularyData.map((item: any) => (
+                      <Link
+                        key={item.id}
+                        href="/vocabulary"
+                        className="flex items-center justify-between p-4 bg-white border-2 border-gray-200 hover:border-pink-300 hover:bg-pink-50 rounded-lg transition-all group"
+                      >
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-1">
+                            <span className="text-2xl font-bold text-black font-japanese">{item.word}</span>
+                            <span className="text-sm text-gray-600">{item.reading}</span>
+                          </div>
+                          <p className="text-sm text-gray-700">{item.meaning}</p>
+                        </div>
+                        <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-pink-500" />
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
             {activeTab === 'sentences' && (
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900">Sentences</h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      {stats?.sentences.total || 0} total · {stats?.sentences.mastered || 0} mastered · {stats?.sentences.learning || 0} learning
-                    </p>
-                  </div>
+                  <h3 className="text-lg font-bold text-gray-900">Sentences Preview</h3>
                   <Link
                     href="/sentences"
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
                   >
-                    Start Learning
+                    View All ({stats?.sentences.total || 0})
                     <ChevronRight className="h-4 w-4" />
                   </Link>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
-                  <div 
-                    className="bg-gradient-to-r from-pink-500 to-orange-500 h-3 rounded-full transition-all"
-                    style={{ width: `${stats?.sentences.total ? (stats.sentences.mastered / stats.sentences.total * 100) : 0}%` }}
-                  />
-                </div>
-                <p className="text-sm text-gray-600">
-                  Practice reading and understanding complete sentences in context.
-                </p>
+                {contentLoading ? (
+                  <div className="text-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500 mx-auto"></div>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {sentencesData.map((item: any) => (
+                      <Link
+                        key={item.id}
+                        href="/sentences"
+                        className="block p-4 bg-white border-2 border-gray-200 hover:border-pink-300 hover:bg-pink-50 rounded-lg transition-all group"
+                      >
+                        <div className="text-xl font-japanese text-black mb-2">{item.japanese}</div>
+                        <p className="text-sm text-gray-700">{item.english}</p>
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
