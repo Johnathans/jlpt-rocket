@@ -61,7 +61,7 @@ export default function TrainingHeader({
         <div className="flex-1 flex justify-center items-center gap-2 sm:gap-3 mx-2 sm:mx-4">
           <div className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl bg-gray-200 rounded-full h-3">
             <div 
-              className="bg-green-500 h-3 rounded-full transition-all duration-500 ease-out"
+              className="bg-gradient-to-r from-pink-500 to-orange-500 h-3 rounded-full transition-all duration-500 ease-out"
               style={{ width: `${Math.max(0, Math.min(100, progress))}%` }}
             />
           </div>
