@@ -29,7 +29,8 @@ export default function RoadmapPage() {
   useEffect(() => {
     const loadStats = async () => {
       try {
-        const counts = await getContentCounts();
+        const { getContentCountsByLevel } = await import('@/lib/supabase-data');
+        const counts = await getContentCountsByLevel(currentLevel);
         const reviewItems = ReviewSystem.getItemsDueForReview();
         
         // Get all progress data from localStorage
@@ -77,7 +78,7 @@ export default function RoadmapPage() {
     };
 
     loadStats();
-  }, []);
+  }, [currentLevel]);
 
   if (loading) {
     return (
