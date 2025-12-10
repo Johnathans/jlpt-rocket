@@ -103,29 +103,20 @@ export default function DashboardNavbar() {
               </Link>
             </div>
 
-            {/* Right Side - Home, Streak, Progress+Review, Night Mode, Settings */}
+            {/* Right Side - Home, Progress+Review, Night Mode, Settings */}
             <div className="hidden lg:flex items-center gap-2">
-              {/* Home Button */}
+              {/* Home Button - Icon Only */}
               <Link
                 href="/roadmap"
-                className={`flex items-center gap-2 px-3 py-2 text-sm font-bold transition-all rounded-lg ${
+                className={`flex items-center justify-center p-2 transition-all rounded-lg ${
                   pathname === '/roadmap'
                     ? 'text-pink-600 bg-pink-50'
                     : 'text-gray-700 hover:text-pink-600 hover:bg-gray-50'
                 }`}
+                title="Home"
               >
-                <Home className="h-4 w-4" />
-                <span className="text-sm">Home</span>
+                <Home className="h-5 w-5" />
               </Link>
-
-              {/* Streak Button */}
-              <button
-                onClick={() => setIsStreakModalOpen(true)}
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all"
-              >
-                <Flame className="h-4 w-4" />
-                <span className="text-sm">Streak</span>
-              </button>
 
               {/* Combined Progress + Review Link */}
               <Link
