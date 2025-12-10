@@ -33,7 +33,6 @@ export default function DashboardNavbar() {
   const [reviewCount, setReviewCount] = useState(0);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isStreakModalOpen, setIsStreakModalOpen] = useState(false);
-  const [isNavDropdownOpen, setIsNavDropdownOpen] = useState(false);
   const { user, signOut } = useAuth();
   const pathname = usePathname();
 
@@ -64,41 +63,39 @@ export default function DashboardNavbar() {
     };
   }, []);
 
-  // Close dropdowns when clicking outside
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Element;
       if (isProfileMenuOpen && !target.closest('.profile-dropdown')) {
         setIsProfileMenuOpen(false);
       }
-      if (isNavDropdownOpen && !target.closest('.nav-dropdown')) {
-        setIsNavDropdownOpen(false);
-      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isProfileMenuOpen, isNavDropdownOpen]);
+  }, [isProfileMenuOpen]);
 
-  const menuItems = [
+  const mainNavItems = [
     { href: '/roadmap', label: 'Dashboard', icon: Home },
     { href: '/kanji', label: 'Kanji', icon: FileText },
     { href: '/vocabulary', label: 'Vocabulary', icon: BookOpen },
     { href: '/sentences', label: 'Sentences', icon: MessageSquare },
-    { href: '/stories', label: 'Stories', icon: BookMarked },
-    { href: '/test', label: 'Practice Tests', icon: ClipboardCheck },
   ];
 
-  // Get current page label for dropdown button
-  const currentPage = menuItems.find(item => item.href === pathname);
-  const currentPageLabel = currentPage ? currentPage.label : 'Navigation';
+  const secondaryNavItems = [
+    { href: '/stories', label: 'Stories', icon: BookMarked },
+    { href: '/test', label: 'Tests', icon: ClipboardCheck },
+    { href: '/progress', label: 'Progress', icon: BarChart3 },
+    { href: '/review', label: 'Review', icon: RotateCcw, badge: reviewCount },
+  ];
 
   return (
     <>
       {/* Top Navigation Bar */}
-      <nav className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-sm z-50">
+      <nav className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-16">
             {/* Logo Section */}
             <div className="flex items-center">
               <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
@@ -110,98 +107,73 @@ export default function DashboardNavbar() {
               </Link>
             </div>
 
-            {/* Desktop Navigation Dropdown - Aligned Left */}
-            <div className="hidden md:flex flex-1 justify-start">
-              <div className="ml-8 relative nav-dropdown">
-                <button
-                  onClick={() => setIsNavDropdownOpen(!isNavDropdownOpen)}
-                  className="flex items-center gap-2 py-4 px-4 text-base font-medium transition-all duration-200 rounded-lg text-gray-900 hover:bg-gray-50"
-                >
-                  <span>{currentPageLabel}</span>
-                  {isNavDropdownOpen ? (
-                    <ChevronUp className="h-4 w-4" />
-                  ) : (
-                    <ChevronDown className="h-4 w-4" />
-                  )}
-                </button>
+            {/* Desktop Horizontal Navigation */}
+            <div className="hidden lg:flex items-center gap-1 ml-8">
+              {mainNavItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = pathname === item.href;
                 
-                {/* Navigation Dropdown Menu */}
-                {isNavDropdownOpen && (
-                  <div className="absolute left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
-                    {menuItems.map((item) => {
-                      const Icon = item.icon;
-                      const isActive = pathname === item.href;
-                      
-                      return (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className={`flex items-center gap-3 px-4 py-3 text-base font-medium transition-all duration-200 rounded-lg mx-2 ${
-                            isActive
-                              ? 'bg-pink-50 text-pink-600 border border-pink-200'
-                              : 'text-gray-700 hover:bg-gray-50 hover:text-pink-600'
-                          }`}
-                          onClick={() => setIsNavDropdownOpen(false)}
-                        >
-                          {Icon && <Icon className={`h-5 w-5 ${
-                            isActive ? 'text-pink-600' : 'text-pink-500'
-                          }`} />}
-                          {item.label}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all rounded-lg ${
+                      isActive
+                        ? 'text-pink-600 bg-pink-50'
+                        : 'text-gray-700 hover:text-pink-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
+                    {item.label}
+                  </Link>
+                );
+              })}
             </div>
 
-            {/* Right Side Icon Menu */}
-            <div className="hidden md:flex items-center gap-2">
-              {/* Streak Icon */}
+            {/* Right Side Navigation */}
+            <div className="hidden lg:flex items-center gap-1">
+              {/* Streak Button */}
               <button
                 onClick={() => setIsStreakModalOpen(true)}
-                className="flex items-center justify-center w-12 h-12 rounded-lg hover:bg-gray-50 transition-all duration-200"
-                title="View Streak"
+                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all"
               >
-                <Flame className="h-6 w-6 flex-shrink-0 text-orange-500" />
+                <Flame className="h-4 w-4" />
+                <span className="text-sm">Streak</span>
               </button>
               
-              {/* Progress Icon */}
-              <Link
-                href="/progress"
-                className={`p-3 rounded-lg transition-all duration-200 ${
-                  pathname === '/progress'
-                    ? 'bg-pink-50 text-pink-600'
-                    : 'text-gray-700 hover:bg-gray-50 hover:text-pink-600'
-                }`}
-                title="View Progress"
-              >
-                <BarChart3 className="h-6 w-6" />
-              </Link>
+              {secondaryNavItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = pathname === item.href;
+                
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`relative flex items-center gap-2 px-3 py-2 text-sm font-medium transition-all rounded-lg ${
+                      isActive
+                        ? 'text-pink-600 bg-pink-50'
+                        : 'text-gray-700 hover:text-pink-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
+                    {item.label}
+                    {item.badge && item.badge > 0 && (
+                      <span className="ml-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs rounded-full px-2 py-0.5 font-bold">
+                        {item.badge > 99 ? '99+' : item.badge}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
 
-              {/* Review Icon with Badge */}
-              <Link
-                href="/review"
-                className={`relative p-3 rounded-lg transition-all duration-200 ${
-                  pathname === '/review'
-                    ? 'bg-pink-50 text-pink-600'
-                    : 'text-gray-700 hover:bg-gray-50 hover:text-pink-600'
-                }`}
-                title={`Review (${reviewCount} items)`}
-              >
-                <RotateCcw className="h-6 w-6" />
-                {reviewCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
-                    {reviewCount > 99 ? '99+' : reviewCount}
-                  </span>
-                )}
-              </Link>
+              {/* Divider */}
+              <div className="h-8 w-px bg-gray-200 mx-2"></div>
 
               {/* Profile Dropdown */}
               <div className="relative profile-dropdown">
                 <button 
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                  className="flex items-center gap-1 p-3 rounded-lg transition-all duration-200 text-gray-900 hover:bg-gray-50"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-gray-700 hover:bg-gray-50"
                 >
                   {userAvatar ? (
                     <img 
@@ -210,18 +182,13 @@ export default function DashboardNavbar() {
                       className="h-6 w-6 rounded-full object-cover"
                     />
                   ) : (
-                    <Image 
-                      src="/user.png" 
-                      alt="Profile" 
-                      width={24} 
-                      height={24} 
-                      className="h-6 w-6" 
-                    />
+                    <User className="h-4 w-4" />
                   )}
+                  <span className="text-sm font-medium">{userName}</span>
                   {isProfileMenuOpen ? (
-                    <ChevronUp className="h-4 w-4" />
+                    <ChevronUp className="h-3 w-3" />
                   ) : (
-                    <ChevronDown className="h-4 w-4" />
+                    <ChevronDown className="h-3 w-3" />
                   )}
                 </button>
                 
@@ -289,9 +256,10 @@ export default function DashboardNavbar() {
 
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
-            <div className="md:hidden">
-              <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                {menuItems.map((item) => {
+            <div className="lg:hidden border-t border-gray-200">
+              <div className="px-2 pt-2 pb-3 space-y-1">
+                {/* Main Navigation */}
+                {mainNavItems.map((item) => {
                   const Icon = item.icon;
                   const isActive = pathname === item.href;
                   
@@ -299,51 +267,62 @@ export default function DashboardNavbar() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium ${
+                      className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium ${
                         isActive
                           ? 'bg-pink-50 text-pink-600'
-                          : 'text-gray-700 hover:bg-gray-50 hover:text-pink-600'
+                          : 'text-gray-700 hover:bg-gray-50'
                       }`}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      {Icon && <Icon className="h-5 w-5 flex-shrink-0" />}
-                      <span>{item.label}</span>
+                      <Icon className="h-5 w-5" />
+                      {item.label}
                     </Link>
                   );
                 })}
 
-                {/* Progress Link */}
-                <Link
-                  href="/progress"
-                  className={`flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium ${
-                    pathname === '/progress'
-                      ? 'bg-pink-50 text-pink-600'
-                      : 'text-gray-700 hover:bg-gray-50 hover:text-pink-600'
-                  }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <BarChart3 className="h-5 w-5 flex-shrink-0" />
-                  <span>Progress</span>
-                </Link>
+                {/* Divider */}
+                <div className="h-px bg-gray-200 my-2"></div>
 
-                {/* Review Link with Badge */}
-                <Link
-                  href="/review"
-                  className={`relative flex items-center gap-2 px-3 py-2 rounded-md text-base font-medium ${
-                    pathname === '/review'
-                      ? 'bg-pink-50 text-pink-600'
-                      : 'text-gray-700 hover:bg-gray-50 hover:text-pink-600'
-                  }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                {/* Secondary Navigation */}
+                {secondaryNavItems.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = pathname === item.href;
+                  
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium ${
+                        isActive
+                          ? 'bg-pink-50 text-pink-600'
+                          : 'text-gray-700 hover:bg-gray-50'
+                      }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <div className="flex items-center gap-3">
+                        <Icon className="h-5 w-5" />
+                        {item.label}
+                      </div>
+                      {item.badge && item.badge > 0 && (
+                        <span className="bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs rounded-full px-2 py-0.5 font-bold">
+                          {item.badge > 99 ? '99+' : item.badge}
+                        </span>
+                      )}
+                    </Link>
+                  );
+                })}
+
+                {/* Streak Button */}
+                <button
+                  onClick={() => {
+                    setIsStreakModalOpen(true);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-orange-50"
                 >
-                  <RotateCcw className="h-5 w-5 flex-shrink-0" />
-                  <span>Review</span>
-                  {reviewCount > 0 && (
-                    <span className="bg-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold ml-1">
-                      {reviewCount > 99 ? '99+' : reviewCount}
-                    </span>
-                  )}
-                </Link>
+                  <Flame className="h-5 w-5 text-orange-500" />
+                  View Streak
+                </button>
               </div>
             </div>
           )}
