@@ -389,7 +389,18 @@ function MatchPageContent() {
   };
 
   const handleGoHome = () => {
-    router.push('/');
+    // Navigate back to the original page based on the training type
+    const type = searchParams.get('type');
+    if (type === 'vocabulary') {
+      router.push('/vocabulary');
+    } else if (type === 'kanji') {
+      router.push('/kanji');
+    } else if (type === 'sentences') {
+      router.push('/sentences');
+    } else {
+      // Fallback to roadmap page for logged in users
+      router.push('/roadmap');
+    }
   };
 
   // Show completion screen
