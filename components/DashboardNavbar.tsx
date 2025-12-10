@@ -5,8 +5,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { 
-  Target,
-  Languages,
+  Home,
+  BookOpen,
+  FileText,
+  MessageSquare,
+  ClipboardCheck,
+  BookMarked,
   RotateCcw,
   BarChart3,
   User,
@@ -14,11 +18,9 @@ import {
   ChevronUp,
   Settings,
   CreditCard,
-  FileText,
   GraduationCap,
   Rocket,
-  Zap,
-  X,
+  Flame,
   LogOut,
   Menu
 } from 'lucide-react';
@@ -79,12 +81,12 @@ export default function DashboardNavbar() {
   }, [isProfileMenuOpen, isNavDropdownOpen]);
 
   const menuItems = [
-    { href: '/roadmap', label: 'Roadmap', icon: Rocket },
-    { href: '/stories', label: 'Stories', icon: FileText },
-    { href: '/vocabulary', label: 'Vocabulary', icon: Languages },
-    { href: '/kanji', label: 'Kanji', icon: Languages },
-    { href: '/sentences', label: 'Sentences', icon: Target },
-    { href: '/test', label: 'Test', icon: FileText },
+    { href: '/roadmap', label: 'Dashboard', icon: Home },
+    { href: '/kanji', label: 'Kanji', icon: FileText },
+    { href: '/vocabulary', label: 'Vocabulary', icon: BookOpen },
+    { href: '/sentences', label: 'Sentences', icon: MessageSquare },
+    { href: '/stories', label: 'Stories', icon: BookMarked },
+    { href: '/test', label: 'Practice Tests', icon: ClipboardCheck },
   ];
 
   // Get current page label for dropdown button
@@ -155,12 +157,13 @@ export default function DashboardNavbar() {
 
             {/* Right Side Icon Menu */}
             <div className="hidden md:flex items-center gap-2">
-              {/* Lightning Bolt Icon */}
+              {/* Streak Icon */}
               <button
                 onClick={() => setIsStreakModalOpen(true)}
                 className="flex items-center justify-center w-12 h-12 rounded-lg hover:bg-gray-50 transition-all duration-200"
+                title="View Streak"
               >
-                <Zap className="h-6 w-6 flex-shrink-0 text-orange-500" />
+                <Flame className="h-6 w-6 flex-shrink-0 text-orange-500" />
               </button>
               
               {/* Progress Icon */}
@@ -171,6 +174,7 @@ export default function DashboardNavbar() {
                     ? 'bg-pink-50 text-pink-600'
                     : 'text-gray-700 hover:bg-gray-50 hover:text-pink-600'
                 }`}
+                title="View Progress"
               >
                 <BarChart3 className="h-6 w-6" />
               </Link>
@@ -183,10 +187,11 @@ export default function DashboardNavbar() {
                     ? 'bg-pink-50 text-pink-600'
                     : 'text-gray-700 hover:bg-gray-50 hover:text-pink-600'
                 }`}
+                title={`Review (${reviewCount} items)`}
               >
                 <RotateCcw className="h-6 w-6" />
                 {reviewCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                  <span className="absolute -top-1 -right-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
                     {reviewCount > 99 ? '99+' : reviewCount}
                   </span>
                 )}
@@ -301,7 +306,7 @@ export default function DashboardNavbar() {
                       }`}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
-
+                      {Icon && <Icon className="h-5 w-5 flex-shrink-0" />}
                       <span>{item.label}</span>
                     </Link>
                   );
