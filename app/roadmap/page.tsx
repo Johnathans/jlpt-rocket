@@ -80,6 +80,16 @@ export default function RoadmapPage() {
     loadStats();
   }, [currentLevel]);
 
+  // Listen for level switcher event from navbar
+  useEffect(() => {
+    const handleOpenLevelSwitcher = () => {
+      setIsLevelModalOpen(true);
+    };
+
+    window.addEventListener('open-level-switcher', handleOpenLevelSwitcher);
+    return () => window.removeEventListener('open-level-switcher', handleOpenLevelSwitcher);
+  }, []);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">

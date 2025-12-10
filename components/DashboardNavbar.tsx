@@ -11,18 +11,16 @@ import {
   MessageSquare,
   ClipboardCheck,
   BookMarked,
-  RotateCcw,
   BarChart3,
-  User,
-  ChevronDown,
-  ChevronUp,
   Settings,
   CreditCard,
-  GraduationCap,
+  Target,
   Rocket,
   Flame,
   LogOut,
-  Menu
+  Menu,
+  Moon,
+  Sun
 } from 'lucide-react';
 import { ReviewSystem } from '@/lib/reviewSystem';
 import StreakModal from './StreakModal';
@@ -31,7 +29,8 @@ import { useAuth } from '@/lib/auth';
 export default function DashboardNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [reviewCount, setReviewCount] = useState(0);
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [isSettingsMenuOpen, setIsSettingsMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [isStreakModalOpen, setIsStreakModalOpen] = useState(false);
   const { user, signOut } = useAuth();
   const pathname = usePathname();
@@ -63,18 +62,18 @@ export default function DashboardNavbar() {
     };
   }, []);
 
-  // Close dropdown when clicking outside
+  // Close settings menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Element;
-      if (isProfileMenuOpen && !target.closest('.profile-dropdown')) {
-        setIsProfileMenuOpen(false);
+      const target = event.target as HTMLElement;
+      if (isSettingsMenuOpen && !target.closest('.settings-dropdown')) {
+        setIsSettingsMenuOpen(false);
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isProfileMenuOpen]);
+  }, [isSettingsMenuOpen]);
 
   const mainNavItems: Array<{ href: string; label: string; icon: any; badge?: number }> = [
     { href: '/kanji', label: 'Kanji', icon: FileText },
@@ -104,7 +103,7 @@ export default function DashboardNavbar() {
               </Link>
             </div>
 
-            {/* Right Side - Home, Streak, Progress, Review, and Profile */}
+            {/* Right Side - Home, Streak, Progress+Review, Night Mode, Settings */}
             <div className="hidden lg:flex items-center gap-2">
               {/* Home Button */}
               <Link
@@ -128,30 +127,17 @@ export default function DashboardNavbar() {
                 <span className="text-sm">Streak</span>
               </button>
 
-              {/* Progress Link */}
+              {/* Combined Progress + Review Link */}
               <Link
                 href="/progress"
-                className={`flex items-center gap-2 px-3 py-2 text-sm font-medium transition-all rounded-lg ${
-                  pathname === '/progress'
+                className={`relative flex items-center gap-2 px-3 py-2 text-sm font-medium transition-all rounded-lg ${
+                  pathname === '/progress' || pathname === '/review'
                     ? 'text-pink-600 bg-pink-50'
                     : 'text-gray-700 hover:text-pink-600 hover:bg-gray-50'
                 }`}
               >
                 <BarChart3 className="h-4 w-4" />
                 <span className="text-sm">Progress</span>
-              </Link>
-
-              {/* Review Link with Badge */}
-              <Link
-                href="/review"
-                className={`relative flex items-center gap-2 px-3 py-2 text-sm font-medium transition-all rounded-lg ${
-                  pathname === '/review'
-                    ? 'text-pink-600 bg-pink-50'
-                    : 'text-gray-700 hover:text-pink-600 hover:bg-gray-50'
-                }`}
-              >
-                <RotateCcw className="h-4 w-4" />
-                <span className="text-sm">Review</span>
                 {reviewCount > 0 && (
                   <span className="ml-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs rounded-full px-2 py-0.5 font-bold">
                     {reviewCount > 99 ? '99+' : reviewCount}
@@ -159,74 +145,67 @@ export default function DashboardNavbar() {
                 )}
               </Link>
 
-              {/* Profile Dropdown */}
-              <div className="relative profile-dropdown">
+              {/* Night Mode Toggle */}
+              <button
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg transition-all"
+                title="Toggle night mode"
+              >
+                {isDarkMode ? (
+                  <Sun className="h-4 w-4" />
+                ) : (
+                  <Moon className="h-4 w-4" />
+                )}
+              </button>
+
+              {/* Settings Dropdown */}
+              <div className="relative settings-dropdown">
                 <button 
-                  onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                  onClick={() => setIsSettingsMenuOpen(!isSettingsMenuOpen)}
                   className="flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-gray-700 hover:bg-gray-50"
                 >
-                  {userAvatar ? (
-                    <img 
-                      src={userAvatar} 
-                      alt="Profile" 
-                      className="h-6 w-6 rounded-full object-cover"
-                    />
-                  ) : (
-                    <User className="h-4 w-4" />
-                  )}
-                  <span className="text-sm font-medium">{userName}</span>
-                  {isProfileMenuOpen ? (
-                    <ChevronUp className="h-3 w-3" />
-                  ) : (
-                    <ChevronDown className="h-3 w-3" />
-                  )}
+                  <Settings className="h-4 w-4" />
                 </button>
-                
-                {/* Dropdown Menu */}
-                {isProfileMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-200 py-3 z-50">
-                    <Link
-                      href="/profile"
-                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-pink-600 transition-all duration-200 rounded-lg mx-2"
-                      onClick={() => setIsProfileMenuOpen(false)}
-                    >
-                      <User className="h-5 w-5 text-pink-500" />
-                      Profile
-                    </Link>
-                    <Link
-                      href="/change-jlpt-level"
-                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-pink-600 transition-all duration-200 rounded-lg mx-2"
-                      onClick={() => setIsProfileMenuOpen(false)}
-                    >
-                      <GraduationCap className="h-5 w-5 text-pink-500" />
-                      Change JLPT Level
-                    </Link>
-                    <Link
-                      href="/settings"
-                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-pink-600 transition-all duration-200 rounded-lg mx-2"
-                      onClick={() => setIsProfileMenuOpen(false)}
-                    >
-                      <Settings className="h-5 w-5 text-pink-500" />
-                      Settings
-                    </Link>
+
+                {/* Settings Dropdown Menu */}
+                {isSettingsMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
+                    {userName && (
+                      <div className="px-4 py-3 border-b border-gray-200">
+                        <p className="text-sm font-medium text-gray-900">{userName}</p>
+                        <p className="text-xs text-gray-500 mt-1">Account settings</p>
+                      </div>
+                    )}
                     <Link
                       href="/membership"
-                      className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-pink-600 transition-all duration-200 rounded-lg mx-2"
-                      onClick={() => setIsProfileMenuOpen(false)}
+                      className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-pink-600 transition-all rounded-lg mx-2"
+                      onClick={() => setIsSettingsMenuOpen(false)}
                     >
-                      <CreditCard className="h-5 w-5 text-pink-500" />
+                      <CreditCard className="h-4 w-4 text-pink-500" />
                       Membership
                     </Link>
+                    <button
+                      onClick={() => {
+                        setIsSettingsMenuOpen(false);
+                        // Open level switcher modal
+                        const event = new CustomEvent('open-level-switcher');
+                        window.dispatchEvent(event);
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-pink-600 transition-all rounded-lg mx-2"
+                    >
+                      <Target className="h-4 w-4 text-pink-500" />
+                      JLPT Level
+                    </button>
                     <hr className="my-2 mx-2 border-gray-200" />
                     <button
                       onClick={() => {
-                        setIsProfileMenuOpen(false);
+                        setIsSettingsMenuOpen(false);
                         signOut();
                       }}
-                      className="w-full flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-700 transition-all duration-200 rounded-lg mx-2"
+                      className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-700 transition-all rounded-lg mx-2"
                     >
-                      <LogOut className="h-5 w-5 text-gray-500" />
-                      Log Out
+                      <LogOut className="h-4 w-4 text-gray-500" />
+                      Sign Out
                     </button>
                   </div>
                 )}
