@@ -271,12 +271,18 @@ function MatchPageContent() {
     if (showResult) return;
     playButtonClickSound();
     setSelectedAnswer(answer);
+    
+    // Auto-submit the answer after a brief delay
+    setTimeout(() => {
+      handleCheckAnswer(answer);
+    }, 300);
   };
 
-  const handleCheckAnswer = () => {
-    if (!selectedAnswer) return;
+  const handleCheckAnswer = (answer?: string) => {
+    const answerToCheck = answer || selectedAnswer;
+    if (!answerToCheck) return;
     
-    const correct = selectedAnswer === currentItem.meaning;
+    const correct = answerToCheck === currentItem.meaning;
     setIsCorrect(correct);
     setShowResult(true);
     
@@ -311,7 +317,7 @@ function MatchPageContent() {
         character: currentItem.character,
         meaning: currentItem.meaning,
         reading: currentItem.reading,
-        userAnswer: selectedAnswer,
+        userAnswer: answerToCheck,
         correctAnswer: currentItem.meaning,
         type: currentItem.type
       };
@@ -405,7 +411,7 @@ function MatchPageContent() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading training items...</p>
         </div>
       </div>
@@ -440,23 +446,23 @@ function MatchPageContent() {
               const isSelected = selectedAnswer === option;
               const isCorrectAnswer = option === currentItem.meaning;
               
-              let buttonClass = "w-full p-4 text-center text-base font-semibold rounded-lg transition-all duration-200 border-2 border-gray-300 ";
+              let buttonClass = "w-full p-4 text-center text-base font-semibold rounded-lg transition-all duration-200 border-2 ";
               
               if (!showResult) {
                 if (isSelected) {
-                  buttonClass += "bg-blue-100 text-blue-800 shadow-md";
+                  buttonClass += "bg-gradient-to-r from-pink-100 to-orange-100 text-pink-700 border-pink-300 shadow-md";
                 } else {
-                  buttonClass += "bg-white hover:bg-gray-50 text-gray-800 shadow-sm hover:shadow-md cursor-pointer";
+                  buttonClass += "bg-white hover:bg-pink-50 text-gray-800 border-gray-300 shadow-sm hover:shadow-md hover:border-pink-300 cursor-pointer";
                 }
               } else {
                 if (isSelected && isCorrectAnswer) {
-                  buttonClass += "bg-green-100 text-green-600";
+                  buttonClass += "bg-gradient-to-r from-pink-100 to-orange-100 text-pink-700 border-pink-400";
                 } else if (isSelected && !isCorrectAnswer) {
-                  buttonClass += "bg-red-100 text-red-600";
+                  buttonClass += "bg-red-100 text-red-600 border-red-300";
                 } else if (isCorrectAnswer) {
-                  buttonClass += "bg-green-100 text-green-600";
+                  buttonClass += "bg-gradient-to-r from-pink-100 to-orange-100 text-pink-700 border-pink-400";
                 } else {
-                  buttonClass += "bg-gray-100 text-gray-500";
+                  buttonClass += "bg-gray-100 text-gray-500 border-gray-300";
                 }
               }
 
@@ -469,7 +475,7 @@ function MatchPageContent() {
                 >
                   {option}
                   {showResult && isCorrectAnswer && (
-                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded flex items-center justify-center">
+                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-pink-500 to-orange-500 rounded flex items-center justify-center">
                       <span className="text-white text-xs font-bold">✓</span>
                     </div>
                   )}
@@ -487,30 +493,13 @@ function MatchPageContent() {
 
       </div>
 
-      {/* Bottom Row with Centered Check Button */}
+      {/* Bottom Row with Continue Button */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6">
         <div className="max-w-2xl mx-auto flex justify-center">
-          {!showResult ? (
-            <button
-              onClick={handleCheckAnswer}
-              disabled={!selectedAnswer}
-              className={`py-4 px-32 rounded-full font-semibold text-sm transition-all duration-200 border-b-4 border-gray-300 ${
-                selectedAnswer
-                  ? 'text-white shadow-lg hover:shadow-xl'
-                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-              }`}
-              style={selectedAnswer ? { backgroundColor: '#333333' } : {}}
-            >
-              CHECK
-            </button>
-          ) : (
+          {showResult && (
             <button
               onClick={handleNext}
-              className={`py-4 px-32 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 border-b-4 ${
-                isCorrect
-                  ? 'bg-green-500 hover:bg-green-600 text-white border-green-700'
-                  : 'bg-gray-300 hover:bg-gray-400 text-gray-700 border-gray-500'
-              }`}
+              className="py-4 px-32 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white"
             >
               {currentIndex < trainingItems.length - 1 ? 'CONTINUE' : 'FINISH'}
             </button>
