@@ -40,6 +40,8 @@ export default function DashboardNavbar() {
     setIsDarkMode(savedDarkMode);
     if (savedDarkMode) {
       document.documentElement.classList.add('dark');
+      document.body.style.backgroundColor = '#1a1a1a';
+      document.body.style.color = '#f5f5f5';
     }
   }, []);
 
@@ -51,8 +53,12 @@ export default function DashboardNavbar() {
     
     if (newDarkMode) {
       document.documentElement.classList.add('dark');
+      document.body.style.backgroundColor = '#1a1a1a';
+      document.body.style.color = '#f5f5f5';
     } else {
       document.documentElement.classList.remove('dark');
+      document.body.style.backgroundColor = '';
+      document.body.style.color = '';
     }
   };
 
@@ -110,14 +116,14 @@ export default function DashboardNavbar() {
   return (
     <>
       {/* Primary Navigation Bar - Logo and Profile */}
-      <nav className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50">
+      <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo Section */}
             <div className="flex items-center">
               <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
                 <Rocket className="h-6 w-6 text-pink-500 flex-shrink-0" />
-                <span className="text-2xl text-gray-900">
+                <span className="text-2xl text-gray-900 dark:text-white">
                   <span className="font-light">Rocket</span>
                   <span className="font-black ml-1">JLPT</span>
                 </span>
@@ -160,7 +166,7 @@ export default function DashboardNavbar() {
               {/* Night Mode Toggle */}
               <button
                 onClick={toggleDarkMode}
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg transition-all"
+                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all"
                 title="Toggle night mode"
               >
                 {isDarkMode ? (
