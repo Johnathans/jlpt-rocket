@@ -9,6 +9,7 @@ import { ReviewSystem } from '@/lib/reviewSystem';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import LevelSwitcherModal from '@/components/LevelSwitcherModal';
+import { useAuth } from '@/lib/auth';
 
 interface ProgressStats {
   kanji: { total: number; mastered: number; learning: number };
@@ -19,11 +20,16 @@ interface ProgressStats {
 
 export default function RoadmapPage() {
   const { currentLevel } = useJLPTLevel();
+  const { user } = useAuth();
   const router = useRouter();
   const [stats, setStats] = useState<ProgressStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [streakData, setStreakData] = useState({ currentStreak: 0 });
   const [isLevelModalOpen, setIsLevelModalOpen] = useState(false);
+
+  // Get user's first name
+  const userName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || 'there';
+  const firstName = userName.split(' ')[0];
 
   // Load progress stats
   useEffect(() => {
@@ -108,7 +114,7 @@ export default function RoadmapPage() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
-            Learning Dashboard
+            Welcome, {firstName}!
           </h1>
           <p className="text-lg text-gray-600">
             {currentLevel} · Track your progress and continue learning
