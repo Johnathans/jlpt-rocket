@@ -10,7 +10,7 @@ export default function TrainingLayout({
 }) {
   // Clean training layout without navbar/footer
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#f9fafb' }}>
+    <div className="min-h-screen" className="bg-gray-50 dark:bg-gray-900">
       {children}
     </div>
   );

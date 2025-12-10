@@ -9,24 +9,24 @@ export default function SettingsPage() {
   const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#f9fafb' }}>
+    <div className="min-h-screen" className="bg-gray-50 dark:bg-gray-900">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         
         {/* Settings Header */}
-        <div className="bg-white rounded-lg shadow-sm p-8 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-8 mb-6">
           <div className="flex items-center gap-4 mb-4">
             <div className="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center">
               <Settings className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-              <p className="text-gray-600">Customize your learning experience</p>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Settings</h1>
+              <p className="text-gray-600 dark:text-gray-300">Customize your learning experience</p>
             </div>
           </div>
         </div>
 
         {/* Learning Preferences */}
-        <div className="bg-white rounded-lg shadow-sm p-8 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-8 mb-6">
           <h2 className="text-xl font-bold text-gray-900 mb-6">Learning Preferences</h2>
           
           <div className="space-y-6">
@@ -34,8 +34,8 @@ export default function SettingsPage() {
               <div className="flex items-center gap-3">
                 <Volume2 className="h-5 w-5 text-gray-500" />
                 <div>
-                  <p className="font-medium text-gray-900">Sound Effects</p>
-                  <p className="text-sm text-gray-600">Play sounds during lessons</p>
+                  <p className="font-medium text-gray-900 dark:text-white">Sound Effects</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Play sounds during lessons</p>
                 </div>
               </div>
               <button
@@ -56,8 +56,8 @@ export default function SettingsPage() {
               <div className="flex items-center gap-3">
                 <Bell className="h-5 w-5 text-gray-500" />
                 <div>
-                  <p className="font-medium text-gray-900">Push Notifications</p>
-                  <p className="text-sm text-gray-600">Remind me to study</p>
+                  <p className="font-medium text-gray-900 dark:text-white">Push Notifications</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Remind me to study</p>
                 </div>
               </div>
               <button
@@ -78,8 +78,8 @@ export default function SettingsPage() {
               <div className="flex items-center gap-3">
                 <Moon className="h-5 w-5 text-gray-500" />
                 <div>
-                  <p className="font-medium text-gray-900">Dark Mode</p>
-                  <p className="text-sm text-gray-600">Use dark theme</p>
+                  <p className="font-medium text-gray-900 dark:text-white">Dark Mode</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Use dark theme</p>
                 </div>
               </div>
               <button
@@ -99,7 +99,7 @@ export default function SettingsPage() {
         </div>
 
         {/* Account Settings */}
-        <div className="bg-white rounded-lg shadow-sm p-8 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-8 mb-6">
           <h2 className="text-xl font-bold text-gray-900 mb-6">Account Settings</h2>
           
           <div className="space-y-4">
@@ -116,7 +116,7 @@ export default function SettingsPage() {
         </div>
 
         {/* Save Settings */}
-        <div className="bg-white rounded-lg shadow-sm p-8">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-8">
           <button className="w-full px-6 py-4 bg-green-500 text-white hover:bg-green-600 font-bold transition-colors rounded-lg shadow-sm border-b-4 border-b-green-600 hover:border-b-green-700 text-base">
             Save Settings
           </button>

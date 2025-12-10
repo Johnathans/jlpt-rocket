@@ -128,25 +128,25 @@ export default function RoadmapPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading dashboard...</p>
+          <p className="text-gray-600 dark:text-gray-300">Loading dashboard...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
             Welcome, {firstName}!
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-600 dark:text-gray-400">
             {currentLevel} · Track your progress and continue learning
           </p>
         </div>
@@ -156,18 +156,18 @@ export default function RoadmapPage() {
           {/* JLPT Level Card - Clickable */}
           <button
             onClick={() => setIsLevelModalOpen(true)}
-            className="bg-white rounded-lg border-2 border-pink-500 p-6 hover:border-pink-600 hover:shadow-md transition-all text-left w-full"
+            className="bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-lg border-2 border-pink-500 dark:border-pink-400 p-6 hover:border-pink-600 dark:hover:border-pink-500 hover:shadow-md transition-all text-left w-full"
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-600">Current Level</span>
+              <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Current Level</h3>
               <ArrowLeftRight className="h-5 w-5 text-pink-500" />
             </div>
-            <div className="text-5xl font-black text-gray-900">{currentLevel}</div>
-            <div className="text-sm text-gray-600 mt-1">click to change</div>
+            <p className="text-3xl font-bold text-gray-900 dark:text-white">{currentLevel}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">click to change</p>
           </button>
 
           {/* Streak Card */}
-          <div className="bg-gradient-to-r from-pink-500 to-orange-500 rounded-lg p-6 text-white">
+          <div className="bg-gradient-to-r from-pink-500 to-orange-500 dark:from-pink-400 dark:to-orange-400 rounded-lg p-6 text-white">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium opacity-90">Current Streak</span>
               <Flame className="h-5 w-5" />
@@ -177,26 +177,26 @@ export default function RoadmapPage() {
           </div>
 
           {/* Review Due Card */}
-          <div className="bg-white rounded-lg border-2 border-gray-200 p-6">
+          <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 p-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-600">Reviews Due</span>
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Reviews Due</span>
               <RotateCcw className="h-5 w-5 text-pink-500" />
             </div>
-            <div className="text-4xl font-bold text-gray-900">{stats?.reviewDue || 0}</div>
+            <div className="text-4xl font-bold text-gray-900 dark:text-white">{stats?.reviewDue || 0}</div>
             <div className="text-sm text-gray-600 mt-1">items to review</div>
           </div>
 
           {/* Progress Card - Combined Mastered & Learning */}
-          <div className="bg-white rounded-lg border-2 border-gray-200 p-6">
+          <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 p-6">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-medium text-gray-600">Your Progress</span>
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Your Progress</span>
               <TrendingUp className="h-5 w-5 text-pink-500" />
             </div>
             <div className="space-y-3">
               <div>
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-xs font-medium text-gray-500">Mastered</span>
-                  <span className="text-2xl font-bold text-gray-900">
+                  <span className="text-2xl font-bold text-gray-900 dark:text-white">
                     {(stats?.kanji.mastered || 0) + (stats?.vocabulary.mastered || 0) + (stats?.sentences.mastered || 0)}
                   </span>
                 </div>
@@ -204,7 +204,7 @@ export default function RoadmapPage() {
               <div>
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-medium text-gray-500">Learning</span>
-                  <span className="text-2xl font-bold text-gray-900">
+                  <span className="text-2xl font-bold text-gray-900 dark:text-white">
                     {(stats?.kanji.learning || 0) + (stats?.vocabulary.learning || 0) + (stats?.sentences.learning || 0)}
                   </span>
                 </div>
@@ -214,9 +214,9 @@ export default function RoadmapPage() {
         </div>
 
         {/* Content Tabs */}
-        <div className="bg-white rounded-lg border border-gray-200 mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 mb-8">
           {/* Tab Headers */}
-          <div className="border-b border-gray-200">
+          <div className="border-b border-gray-200 dark:border-gray-700">
             <div className="flex overflow-x-auto">
               <button
                 onClick={() => setActiveTab('kanji')}
@@ -281,7 +281,7 @@ export default function RoadmapPage() {
             {activeTab === 'kanji' && (
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-gray-900">Kanji Preview</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">Kanji Preview</h3>
                   <Link
                     href="/kanji"
                     className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
@@ -323,7 +323,7 @@ export default function RoadmapPage() {
             {activeTab === 'vocabulary' && (
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-gray-900">Vocabulary Preview</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">Vocabulary Preview</h3>
                   <Link
                     href="/vocabulary"
                     className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
@@ -347,7 +347,7 @@ export default function RoadmapPage() {
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-1">
                             <span className="text-2xl font-bold text-black font-japanese">{item.word}</span>
-                            <span className="text-sm text-gray-600">{item.reading}</span>
+                            <span className="text-sm text-gray-600 dark:text-gray-300">{item.reading}</span>
                           </div>
                           <p className="text-sm text-gray-700">{item.meaning}</p>
                         </div>
@@ -362,7 +362,7 @@ export default function RoadmapPage() {
             {activeTab === 'sentences' && (
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-gray-900">Sentences Preview</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">Sentences Preview</h3>
                   <Link
                     href="/sentences"
                     className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
@@ -396,7 +396,7 @@ export default function RoadmapPage() {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900">Stories</h3>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">Stories</h3>
                     <p className="text-sm text-gray-600 mt-1">
                       Immersive reading practice with engaging stories
                     </p>
@@ -409,7 +409,7 @@ export default function RoadmapPage() {
                     <ChevronRight className="h-4 w-4" />
                   </Link>
                 </div>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-300">
                   Improve your reading comprehension with level-appropriate stories that use vocabulary and grammar you've learned.
                 </p>
               </div>
@@ -419,7 +419,7 @@ export default function RoadmapPage() {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900">Tests</h3>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">Tests</h3>
                     <p className="text-sm text-gray-600 mt-1">
                       Practice exams and quizzes
                     </p>
@@ -432,7 +432,7 @@ export default function RoadmapPage() {
                     <ChevronRight className="h-4 w-4" />
                   </Link>
                 </div>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-300">
                   Test your knowledge with practice exams that simulate the real JLPT experience.
                 </p>
               </div>
@@ -448,7 +448,7 @@ export default function RoadmapPage() {
                 <h2 className="text-xl font-bold text-gray-900 mb-1">
                   You have {stats.reviewDue} items to review
                 </h2>
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-gray-300">
                   Keep your streak going by reviewing items you've learned
                 </p>
               </div>

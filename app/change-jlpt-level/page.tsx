@@ -92,7 +92,7 @@ export default function ChangeJLPTLevelPage() {
   const selectedLevelData = selectedLevel ? jlptLevels.find(l => l.level === selectedLevel) : null;
 
   return (
-    <div className="min-h-screen py-8" style={{ backgroundColor: '#f9fafb' }}>
+    <div className="min-h-screen py-8" className="bg-gray-50 dark:bg-gray-900">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -103,7 +103,7 @@ export default function ChangeJLPTLevelPage() {
             Select the level you're preparing for to customize your learning experience
           </p>
           <p className="text-lg text-gray-500">
-            Current level: <span className="font-semibold text-gray-700">{currentLevel}</span>
+            Current level: <span className="font-semibold text-gray-700 dark:text-gray-300">{currentLevel}</span>
           </p>
         </div>
 
@@ -155,7 +155,7 @@ export default function ChangeJLPTLevelPage() {
 
         {/* Level Requirements */}
         {selectedLevelData && (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mb-8">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 p-8 mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">
               {selectedLevelData.title} Requirements
             </h2>
@@ -163,34 +163,34 @@ export default function ChangeJLPTLevelPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               <div className="text-center p-6 bg-gray-50 rounded-xl">
                 <div className="flex justify-center mb-3">
-                  <Book className="h-8 w-8 text-gray-600" />
+                  <Book className="h-8 w-8 text-gray-600 dark:text-gray-300" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">Vocabulary</h3>
-                <p className="text-2xl font-bold text-gray-900">{selectedLevelData.requirements.vocabulary}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{selectedLevelData.requirements.vocabulary}</p>
               </div>
               
               <div className="text-center p-6 bg-gray-50 rounded-xl">
                 <div className="flex justify-center mb-3">
-                  <FileText className="h-8 w-8 text-gray-600" />
+                  <FileText className="h-8 w-8 text-gray-600 dark:text-gray-300" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">Kanji</h3>
-                <p className="text-2xl font-bold text-gray-900">{selectedLevelData.requirements.kanji}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{selectedLevelData.requirements.kanji}</p>
               </div>
               
               <div className="text-center p-6 bg-gray-50 rounded-xl">
                 <div className="flex justify-center mb-3">
-                  <MessageSquare className="h-8 w-8 text-gray-600" />
+                  <MessageSquare className="h-8 w-8 text-gray-600 dark:text-gray-300" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">Grammar</h3>
-                <p className="text-2xl font-bold text-gray-900">{selectedLevelData.requirements.grammar}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{selectedLevelData.requirements.grammar}</p>
               </div>
               
               <div className="text-center p-6 bg-gray-50 rounded-xl">
                 <div className="flex justify-center mb-3">
-                  <GraduationCap className="h-8 w-8 text-gray-600" />
+                  <GraduationCap className="h-8 w-8 text-gray-600 dark:text-gray-300" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">Study Time</h3>
-                <p className="text-2xl font-bold text-gray-900">{selectedLevelData.requirements.studyTime}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-white">{selectedLevelData.requirements.studyTime}</p>
               </div>
             </div>
 

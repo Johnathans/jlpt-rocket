@@ -298,12 +298,12 @@ export default function StoriesPage() {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#f9fafb' }}>
+    <div className="min-h-screen" className="bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Learning Stories</h1>
-          <p className="text-gray-600">Follow your journey through Japanese stories and lessons</p>
+          <p className="text-gray-600 dark:text-gray-300">Follow your journey through Japanese stories and lessons</p>
         </div>
 
         {/* Stories Grid */}
@@ -443,7 +443,7 @@ export default function StoriesPage() {
                                 </div>
                               ))}
                               {lesson.kanji.length > 6 && (
-                                <div className="w-8 h-8 bg-gray-200 border border-gray-300 rounded flex items-center justify-center text-xs text-gray-600">
+                                <div className="w-8 h-8 bg-gray-200 border border-gray-300 rounded flex items-center justify-center text-xs text-gray-600 dark:text-gray-300">
                                   +{lesson.kanji.length - 6}
                                 </div>
                               )}
@@ -465,7 +465,7 @@ export default function StoriesPage() {
                                 </div>
                               ))}
                               {lesson.vocabulary.length > 4 && (
-                                <div className="px-2 py-1 bg-gray-200 border border-gray-300 rounded text-xs text-gray-600">
+                                <div className="px-2 py-1 bg-gray-200 border border-gray-300 rounded text-xs text-gray-600 dark:text-gray-300">
                                   +{lesson.vocabulary.length - 4} more
                                 </div>
                               )}

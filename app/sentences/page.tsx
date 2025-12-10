@@ -432,9 +432,9 @@ function SentencesPageContent() {
     const progress = ((currentIndex + 1) / trainingItems.length) * 100;
 
     return (
-      <div className="min-h-screen" style={{ backgroundColor: '#f9fafb' }}>
+      <div className="min-h-screen" className="bg-gray-50 dark:bg-gray-900">
         {/* Training Header */}
-        <div className="bg-white border-b border-gray-200 px-4 py-3">
+        <div className="bg-white dark:bg-gray-800 border-b border-gray-200 px-4 py-3">
           <div className="max-w-4xl mx-auto flex items-center justify-between">
             <button
               onClick={handleGoHome}
@@ -461,7 +461,7 @@ function SentencesPageContent() {
           <div className="w-full max-w-4xl">
             {/* Question Counter */}
             <div className="text-center mb-8">
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-gray-600 dark:text-gray-300">
                 Question {currentIndex + 1} of {trainingItems.length}
               </span>
             </div>
@@ -515,7 +515,7 @@ function SentencesPageContent() {
                 <div className={`text-2xl font-bold mb-2 ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
                   {isCorrect ? '正解！' : '不正解'}
                 </div>
-                <div className="text-gray-700">
+                <div className="text-gray-700 dark:text-gray-300">
                   <div className="font-japanese text-lg">{clozeWord.word} ({clozeWord.reading})</div>
                   <div className="text-sm">{clozeWord.meaning}</div>
                 </div>
@@ -524,7 +524,7 @@ function SentencesPageContent() {
 
             {/* Score */}
             <div className="text-center mt-8">
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-gray-600 dark:text-gray-300">
                 Score: {score}/{trainingItems.length}
               </span>
             </div>
@@ -535,10 +535,10 @@ function SentencesPageContent() {
   }
 
   return (
-    <div className="min-h-screen pb-20" style={{ backgroundColor: '#f9fafb' }}>
+    <div className="min-h-screen pb-20" className="bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
       <div className="mb-6 flex justify-between items-center">
-        <p className="text-sm text-gray-600">Select sentences to begin studying</p>
+        <p className="text-sm text-gray-600 dark:text-gray-300">Select sentences to begin studying</p>
         <div className="flex gap-3">
           <button
             onClick={selectAll}
@@ -557,7 +557,7 @@ function SentencesPageContent() {
 
       {loading && (
         <div className="flex justify-center items-center py-12">
-          <div className="text-gray-600">Loading sentences...</div>
+          <div className="text-gray-600 dark:text-gray-300">Loading sentences...</div>
         </div>
       )}
 
@@ -624,7 +624,7 @@ function SentencesPageContent() {
                   <p className="text-gray-900 font-japanese leading-relaxed mb-2">
                     {item.context}
                   </p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
                     {item.contextTranslation}
                   </p>
                 </div>
@@ -712,7 +712,7 @@ function SentencesPageContent() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-gray-600 dark:text-gray-300">
                   {selectedSentences.size} sentence{selectedSentences.size !== 1 ? 's' : ''} selected
                 </span>
               </div>
@@ -733,7 +733,7 @@ function SentencesPageContent() {
 
 export default function SentencesPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f9fafb' }}>Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center" className="bg-gray-50 dark:bg-gray-900">Loading...</div>}>
       <SentencesPageContent />
     </Suspense>
   );

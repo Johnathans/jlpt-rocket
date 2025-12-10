@@ -83,14 +83,14 @@ export default function TestPage() {
   };
 
   return (
-    <div className="min-h-screen py-8" style={{ backgroundColor: '#f9fafb' }}>
+    <div className="min-h-screen py-8" className="bg-gray-50 dark:bg-gray-900">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             How would you like to test?
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-gray-300">
             Choose a test category to begin your JLPT preparation
           </p>
         </div>
@@ -136,7 +136,7 @@ export default function TestPage() {
 
         {/* Test Types List */}
         {selectedType && (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6 capitalize">
               {selectedType} Tests
             </h2>

@@ -4,7 +4,7 @@ import { Crown, Check, CreditCard, Calendar, Gift, Sparkles, Zap, Star } from 'l
 
 export default function MembershipPage() {
   return (
-    <div className="min-h-screen pb-20" style={{ backgroundColor: '#f9fafb' }}>
+    <div className="min-h-screen pb-20" className="bg-gray-50 dark:bg-gray-900">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-20">
         
         {/* Header */}
@@ -13,38 +13,38 @@ export default function MembershipPage() {
             <Crown className="h-10 w-10 text-white" />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-3">Membership Plans</h1>
-          <p className="text-lg text-gray-600">Choose the perfect plan for your JLPT journey</p>
+          <p className="text-lg text-gray-600 dark:text-gray-300">Choose the perfect plan for your JLPT journey</p>
         </div>
 
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           {/* Free Plan */}
-          <div className="bg-white rounded-2xl border-2 border-gray-200 p-8 relative">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-200 p-8 relative">
             <div className="mb-6">
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Free</h3>
               <div className="flex items-baseline gap-2 mb-4">
-                <span className="text-5xl font-bold text-gray-900">$0</span>
-                <span className="text-gray-600">/month</span>
+                <span className="text-5xl font-bold text-gray-900 dark:text-white">$0</span>
+                <span className="text-gray-600 dark:text-gray-300">/month</span>
               </div>
-              <p className="text-gray-600">Perfect for getting started</p>
+              <p className="text-gray-600 dark:text-gray-300">Perfect for getting started</p>
             </div>
             
             <div className="space-y-3 mb-8">
               <div className="flex items-start gap-3">
                 <Check className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Access to all kanji & vocabulary</span>
+                <span className="text-gray-700 dark:text-gray-300">Access to all kanji & vocabulary</span>
               </div>
               <div className="flex items-start gap-3">
                 <Check className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">5 stories per month</span>
+                <span className="text-gray-700 dark:text-gray-300">5 stories per month</span>
               </div>
               <div className="flex items-start gap-3">
                 <Check className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Basic progress tracking</span>
+                <span className="text-gray-700 dark:text-gray-300">Basic progress tracking</span>
               </div>
               <div className="flex items-start gap-3">
                 <Check className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-700">Practice tests</span>
+                <span className="text-gray-700 dark:text-gray-300">Practice tests</span>
               </div>
             </div>
 
@@ -102,24 +102,24 @@ export default function MembershipPage() {
         </div>
 
         {/* Billing & Account Section */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-8">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Billing & Account</h2>
           
           <div className="grid md:grid-cols-2 gap-4 mb-6">
-            <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
+            <div className="p-4 bg-gray-50 rounded-xl border border-gray-200 dark:border-gray-700">
               <div className="flex items-center gap-3 mb-2">
                 <CreditCard className="h-5 w-5 text-pink-500" />
-                <p className="font-semibold text-gray-900">Payment Method</p>
+                <p className="font-semibold text-gray-900 dark:text-white">Payment Method</p>
               </div>
-              <p className="text-sm text-gray-600">No payment method on file</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">No payment method on file</p>
             </div>
             
-            <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
+            <div className="p-4 bg-gray-50 rounded-xl border border-gray-200 dark:border-gray-700">
               <div className="flex items-center gap-3 mb-2">
                 <Calendar className="h-5 w-5 text-pink-500" />
-                <p className="font-semibold text-gray-900">Next Billing Date</p>
+                <p className="font-semibold text-gray-900 dark:text-white">Next Billing Date</p>
               </div>
-              <p className="text-sm text-gray-600">N/A - Free Plan</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">N/A - Free Plan</p>
             </div>
           </div>
           

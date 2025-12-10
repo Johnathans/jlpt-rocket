@@ -339,12 +339,12 @@ function KanjiPageContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen pb-20" style={{ backgroundColor: '#f9fafb' }}>
+      <div className="min-h-screen pb-20" className="bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
           <div className="flex justify-center items-center h-64">
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
-              <p className="text-gray-600">Loading kanji data...</p>
+              <p className="text-gray-600 dark:text-gray-300">Loading kanji data...</p>
             </div>
           </div>
         </div>
@@ -354,7 +354,7 @@ function KanjiPageContent() {
 
   if (error) {
     return (
-      <div className="min-h-screen pb-20" style={{ backgroundColor: '#f9fafb' }}>
+      <div className="min-h-screen pb-20" className="bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
           <div className="flex justify-center items-center h-64">
             <div className="text-center">
@@ -375,10 +375,10 @@ function KanjiPageContent() {
   }
 
   return (
-    <div className="min-h-screen pb-20" style={{ backgroundColor: '#f9fafb' }}>
+    <div className="min-h-screen pb-20" className="bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
       <div className="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-        <p className="text-sm text-gray-600">Select kanji to begin studying ({kanjiData.length} available)</p>
+        <p className="text-sm text-gray-600 dark:text-gray-300">Select kanji to begin studying ({kanjiData.length} available)</p>
         <div className="flex gap-2 sm:gap-3">
           <button
             onClick={selectAll}
@@ -458,7 +458,7 @@ function KanjiPageContent() {
                       <p className="text-sm text-gray-900 font-japanese">
                         {example.word} ({example.reading})
                       </p>
-                      <p className="text-xs text-gray-600">
+                      <p className="text-xs text-gray-600 dark:text-gray-300">
                         {example.meaning}
                       </p>
                     </div>
@@ -547,7 +547,7 @@ function KanjiPageContent() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-gray-600 dark:text-gray-300">
                   {selectedKanji.size} kanji selected
                 </span>
               </div>
@@ -577,7 +577,7 @@ function KanjiPageContent() {
 
 export default function KanjiPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f9fafb' }}>Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center" className="bg-gray-50 dark:bg-gray-900">Loading...</div>}>
       <KanjiPageContent />
     </Suspense>
   );
