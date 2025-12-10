@@ -1,13 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, Target, ChevronRight, Play, RotateCcw, CheckCircle } from 'lucide-react';
+import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight } from 'lucide-react';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 import { getContentCounts } from '@/lib/supabase-data';
 import { StreakSystem } from '@/lib/streakSystem';
 import { ReviewSystem } from '@/lib/reviewSystem';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import LevelSwitcherModal from '@/components/LevelSwitcherModal';
 
 interface ProgressStats {
   kanji: { total: number; mastered: number; learning: number };
@@ -22,6 +23,7 @@ export default function RoadmapPage() {
   const [stats, setStats] = useState<ProgressStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [streakData, setStreakData] = useState({ currentStreak: 0 });
+  const [isLevelModalOpen, setIsLevelModalOpen] = useState(false);
 
   // Load progress stats
   useEffect(() => {
@@ -104,15 +106,18 @@ export default function RoadmapPage() {
 
         {/* Stats Overview */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {/* JLPT Level Card */}
-          <div className="bg-white rounded-lg border-2 border-pink-500 p-6">
+          {/* JLPT Level Card - Clickable */}
+          <button
+            onClick={() => setIsLevelModalOpen(true)}
+            className="bg-white rounded-lg border-2 border-pink-500 p-6 hover:border-pink-600 hover:shadow-md transition-all text-left w-full"
+          >
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-gray-600">Current Level</span>
-              <Target className="h-5 w-5 text-pink-500" />
+              <ArrowLeftRight className="h-5 w-5 text-pink-500" />
             </div>
             <div className="text-5xl font-black text-gray-900">{currentLevel}</div>
-            <div className="text-sm text-gray-600 mt-1">studying now</div>
-          </div>
+            <div className="text-sm text-gray-600 mt-1">click to change</div>
+          </button>
 
           {/* Streak Card */}
           <div className="bg-gradient-to-r from-pink-500 to-orange-500 rounded-lg p-6 text-white">
@@ -253,6 +258,12 @@ export default function RoadmapPage() {
           </div>
         )}
       </div>
+
+      {/* Level Switcher Modal */}
+      <LevelSwitcherModal 
+        isOpen={isLevelModalOpen} 
+        onClose={() => setIsLevelModalOpen(false)} 
+      />
     </div>
   );
 }
