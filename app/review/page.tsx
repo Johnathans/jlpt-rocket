@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useReviewStore } from '@/lib/store/useReviewStore';
 import { ItemProgress, ReviewSystem } from '@/lib/reviewSystem';
-import { Calendar, Clock, Target, TrendingUp, BookOpen } from 'lucide-react';
+import { Target, Play, RotateCcw, Trash2, CheckCircle } from 'lucide-react';
 import { getVocabularyByLevel, getKanjiByLevel, getSentencesByLevel, JLPTLevel } from '@/lib/supabase-data';
 
 function getItemDetails(progress: ItemProgress) {
@@ -133,114 +133,112 @@ export default function ReviewPage() {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#f9fafb' }}>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        {/* Simplified Header */}
-        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <div className="text-center">
-            <div className="text-8xl font-bold text-gray-900 mb-4">{reviewItems.length}</div>
-            <div className="text-2xl text-gray-600 mb-8">
-              {reviewItems.length === 1 ? 'item due for review' : 'items due for review'}
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Review</h1>
+          <p className="text-gray-600">Practice items you've learned to strengthen your memory</p>
+        </div>
+
+        {/* Stats Card */}
+        <div className="bg-white rounded-lg border border-gray-200 p-8 mb-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="text-6xl font-bold text-gray-900 mb-2">{reviewItems.length}</div>
+              <div className="text-lg text-gray-600">
+                {reviewItems.length === 1 ? 'item due for review' : 'items due for review'}
+              </div>
             </div>
-            <div className="flex gap-4 justify-center">
+            <div className="flex gap-3">
               <button
                 onClick={handleStartReview}
                 disabled={reviewItems.length === 0}
-                className="bg-green-500 hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200"
+                className="flex items-center gap-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all"
               >
-                Start Review Session
+                <Play className="h-5 w-5" />
+                Start Review
               </button>
               <button
                 onClick={handleClearReviewData}
-                className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
+                className="flex items-center gap-2 border-2 border-gray-300 hover:border-red-500 hover:bg-red-50 text-gray-700 hover:text-red-600 px-4 py-3 rounded-lg font-medium transition-all"
+                title="Clear all review data"
               >
-                Clear Review Data
+                <Trash2 className="h-5 w-5" />
               </button>
             </div>
           </div>
         </div>
 
-        {/* Items to Review */}
-        <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
+        {/* Items List */}
+        <div className="bg-white rounded-lg border border-gray-200 p-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Items Due for Review</h2>
-            <Link 
-              href="/review/settings" 
-              className="text-sm text-purple-600 hover:text-purple-700 font-medium flex items-center gap-1"
-            >
-              <Target className="h-4 w-4" />
-              Review Settings
-            </Link>
+            <h2 className="text-xl font-bold text-gray-900">Review Queue</h2>
           </div>
           
           {reviewItems.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mx-auto mb-4">
-                <Target className="h-8 w-8 text-green-600" />
+            <div className="text-center py-16">
+              <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-r from-pink-100 to-orange-100 rounded-full mx-auto mb-4">
+                <CheckCircle className="h-10 w-10 text-pink-600" />
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">All caught up!</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">All caught up!</h3>
               <p className="text-gray-600">No items are due for review right now. Great job!</p>
             </div>
           ) : (
             <div className="space-y-4">
               {loading ? (
                 <div className="text-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-500 mx-auto"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500 mx-auto"></div>
                   <p className="text-gray-600 mt-2">Loading review items...</p>
                 </div>
               ) : (
                 currentItems.map((progress) => {
                   const details = itemDetails.get(progress.id);
                   if (!details) {
-                    // Skip items with invalid IDs (empty strings, etc.)
                     return null;
                   }
                 
-                  const masteryColor = progress.masteryLevel >= 75 ? 'text-green-600' : 
-                                     progress.masteryLevel >= 50 ? 'text-yellow-600' : 
+                  const masteryColor = progress.masteryLevel >= 75 ? 'text-pink-600' : 
+                                     progress.masteryLevel >= 50 ? 'text-orange-500' : 
                                      progress.masteryLevel >= 25 ? 'text-orange-600' : 'text-red-600';
-                  const masteryBg = progress.masteryLevel >= 75 ? 'bg-green-100' : 
-                                     progress.masteryLevel >= 50 ? 'bg-yellow-100' : 
-                                     progress.masteryLevel >= 25 ? 'bg-orange-100' : 'bg-red-100';
                   
                   return (
-                    <div key={`${progress.type}_${progress.id}`} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-1">
-                          <h3 className="text-lg font-bold text-black font-japanese">
-                            {progress.type === 'sentences' 
-                              ? details.fullSentence
-                              : progress.type === 'vocabulary' 
-                              ? details.word 
-                              : details.kanji
-                            }
-                          </h3>
-                          {(progress.type === 'vocabulary' || progress.type === 'sentences') && (
-                            <span className="text-sm text-gray-600 font-japanese">
+                    <div key={`${progress.type}_${progress.id}`} className="border border-gray-200 rounded-lg p-4 hover:border-pink-300 hover:bg-pink-50 transition-all">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h3 className="text-xl font-bold text-gray-900 font-japanese">
                               {progress.type === 'sentences' 
-                                ? details.fullReading
-                                : details.reading
+                                ? details.fullSentence
+                                : progress.type === 'vocabulary' 
+                                ? details.word 
+                                : details.kanji
                               }
+                            </h3>
+                            {(progress.type === 'vocabulary' || progress.type === 'sentences') && details.reading && (
+                              <span className="text-sm text-gray-600 font-japanese">
+                                {progress.type === 'sentences' 
+                                  ? details.fullReading
+                                  : details.reading
+                                }
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-gray-700 mb-3">
+                            {details.meaning}
+                          </p>
+                          <div className="flex items-center gap-4 text-sm">
+                            <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs font-medium uppercase">
+                              {progress.type}
                             </span>
-                          )}
-                        </div>
-                        <p className="text-gray-800 font-medium mb-1">
-                          {details.meaning}
-                        </p>
-                        <div className="flex items-center gap-4 text-xs text-gray-500">
-                          <span className="uppercase tracking-wide font-medium">{progress.type}</span>
-                          <span className={`font-medium ${masteryColor}`}>
-                            {progress.masteryLevel}% mastered
-                          </span>
-                          <span>
-                            {progress.correctCount}/{progress.correctCount + progress.incorrectCount} correct
-                          </span>
-                          {progress.nextReviewDate > new Date() && (
-                            <span>
-                              Next: {progress.nextReviewDate.toLocaleDateString()}
+                            <span className={`font-semibold ${masteryColor}`}>
+                              {progress.masteryLevel}% mastered
                             </span>
-                          )}
+                            <span className="text-gray-500">
+                              {progress.correctCount}/{progress.correctCount + progress.incorrectCount} correct
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -283,8 +281,8 @@ export default function ReviewPage() {
                             onClick={() => handlePageChange(page)}
                             className={`w-10 h-10 text-sm font-medium rounded-lg transition-all duration-200 ${
                               currentPage === page
-                                ? 'bg-green-500 text-white shadow-md hover:bg-green-600'
-                                : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400'
+                                ? 'bg-gradient-to-r from-pink-500 to-orange-500 text-white shadow-md'
+                                : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-pink-300'
                             }`}
                           >
                             {page}
@@ -308,7 +306,7 @@ export default function ReviewPage() {
               )}
               
               {/* Items count info */}
-              <div className="text-center text-sm text-gray-600 py-2">
+              <div className="text-center text-sm text-gray-500 py-2">
                 Showing {startIndex + 1}-{Math.min(endIndex, reviewItems.length)} of {reviewItems.length} items
               </div>
             </div>
