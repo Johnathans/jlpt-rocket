@@ -129,10 +129,10 @@ export default function ContextualExpressionsTestPage() {
   // Show loading state
   if (!isLoaded || contextualQuestions.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading contextual expressions test...</p>
+          <p className="text-gray-600 dark:text-gray-300">Loading contextual expressions test...</p>
         </div>
       </div>
     );
@@ -145,9 +145,9 @@ export default function ContextualExpressionsTestPage() {
   if (showFinalResult) {
     const percentage = Math.round((score / contextualQuestions.length) * 100);
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 text-center">
             <div className="mb-8">
               <div className="text-6xl font-bold text-pink-600 mb-2">{percentage}%</div>
               <div className="text-xl text-gray-600 mb-4">
@@ -179,7 +179,7 @@ export default function ContextualExpressionsTestPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 relative">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 relative">
       {/* Custom Test Header */}
       <div className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-sm z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -196,14 +196,14 @@ export default function ContextualExpressionsTestPage() {
               </button>
               
               {/* Test Badge */}
-              <div className="bg-white px-3 py-1 rounded-full border border-green-500">
+              <div className="bg-white dark:bg-gray-800 px-3 py-1 rounded-full border border-green-500">
                 <span className="text-black text-sm font-medium">Contextual Expressions</span>
               </div>
             </div>
 
             {/* Question Counter */}
             <div className="absolute left-1/2 transform -translate-x-1/2">
-              <div className="bg-gray-100 px-4 py-2 rounded-lg border border-gray-200">
+              <div className="bg-gray-100 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700">
                 <span className="text-gray-600 text-sm font-medium mr-2">Question</span>
                 <span className="text-gray-900 font-bold text-lg">
                   {currentQuestion + 1}/{contextualQuestions.length}
@@ -236,7 +236,7 @@ export default function ContextualExpressionsTestPage() {
       {/* Main Content */}
       <div className="pt-20 pb-28 px-4 flex justify-center">
         <div className="w-full max-w-4xl">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 p-8">
             {/* Question Section */}
             <div className="text-center space-y-6 mb-8">
               <div className="p-8">
@@ -315,11 +315,11 @@ export default function ContextualExpressionsTestPage() {
 
             {/* Explanation Section */}
             {showExplanation && (
-              <div className="mt-6 p-6 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="mt-6 p-6 bg-gray-50 rounded-lg border border-gray-200 dark:border-gray-700">
                 <div className="space-y-4">
                   <div className="text-center">
                     <p className="text-sm text-gray-600 mb-2">Context:</p>
-                    <p className="text-lg font-medium text-gray-900">{question.context}</p>
+                    <p className="text-lg font-medium text-gray-900 dark:text-white">{question.context}</p>
                   </div>
                   
                   <div className="border-t pt-4">
@@ -356,7 +356,7 @@ export default function ContextualExpressionsTestPage() {
                                 </span>
                               </div>
                               {index === question.correctAnswer && (
-                                <p className="text-sm text-gray-700">{question.explanation}</p>
+                                <p className="text-sm text-gray-700 dark:text-gray-300">{question.explanation}</p>
                               )}
                             </div>
                           </div>
@@ -427,10 +427,10 @@ export default function ContextualExpressionsTestPage() {
           <div className="fixed right-0 top-0 h-full w-80 bg-white shadow-xl z-50 overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-bold text-gray-900">Questions</h3>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">Questions</h3>
                 <button
                   onClick={() => setIsDrawerOpen(false)}
-                  className="text-gray-500 hover:text-gray-700"
+                  className="text-gray-500 hover:text-gray-700 dark:text-gray-300"
                 >
                   ✕
                 </button>
@@ -489,8 +489,8 @@ export default function ContextualExpressionsTestPage() {
               {/* Score */}
               <div className="mt-6 p-4 bg-gray-50 rounded-lg">
                 <div className="text-center">
-                  <p className="text-sm text-gray-600">Score</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">Score</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {score}/{contextualQuestions.length}
                   </p>
                 </div>
