@@ -61,17 +61,6 @@ function ProgressPageContent() {
         sentences: { learning: 0, mastered: 0, total: contentCounts.sentences }
       };
       
-      console.log('Progress data loaded:', {
-        progressMapSize: progressMap.size,
-        contentCounts,
-        progressEntries: Array.from(progressMap.entries()).map(([key, value]) => ({
-          key,
-          type: value.type,
-          masteryLevel: value.masteryLevel,
-          correctCount: value.correctCount,
-          incorrectCount: value.incorrectCount
-        }))
-      });
       
       // Count progress for each type
       progressMap.forEach((progress) => {
@@ -96,7 +85,6 @@ function ProgressPageContent() {
         }
       });
       
-      console.log('Calculated stats:', newStats);
       setStats(newStats);
     };
     
@@ -162,71 +150,90 @@ function ProgressPageContent() {
     { name: 'Sentences', data: stats.sentences }
   ];
 
-  // Debug logging for graph rendering
-  console.log('Graph rendering data:', {
-    categories: categories.map(cat => ({
-      name: cat.name,
-      mastered: cat.data.mastered,
-      learning: cat.data.learning,
-      total: cat.data.total,
-      masteredPercent: cat.data.total > 0 ? (cat.data.mastered / cat.data.total) * 100 : 0,
-      learningPercent: cat.data.total > 0 ? (cat.data.learning / cat.data.total) * 100 : 0
-    }))
-  });
 
-  const maxTotal = Math.max(stats.kanji.total, stats.vocabulary.total, stats.sentences.total);
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#f9fafb' }}>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        <div className="bg-white rounded-lg shadow-sm p-8">
-          <div className="space-y-6">
-            {categories.map((category) => (
-              <div key={category.name}>
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-2xl font-bold text-gray-800">{category.name}</h3>
-                  <span className="text-lg text-gray-600 font-medium">
-                    {category.data.mastered + category.data.learning} / {category.data.total}
-                  </span>
-                </div>
-                
-                <div className="relative">
-                  <div className="w-full bg-gray-200 rounded h-32">
-                    <div className="flex h-32 rounded overflow-hidden">
-                      <div 
-                        className="bg-green-500 flex items-center justify-center text-white text-lg font-bold"
-                        style={{ width: `${category.data.total > 0 ? (category.data.mastered / category.data.total) * 100 : 0}%` }}
-                      >
-                        {category.data.mastered > 0 && (
-                          <span className="px-3">{category.data.mastered}</span>
-                        )}
-                      </div>
-                      <div 
-                        className="bg-green-300 flex items-center justify-center text-gray-800 text-lg font-bold"
-                        style={{ width: `${category.data.total > 0 ? (category.data.learning / category.data.total) * 100 : 0}%` }}
-                      >
-                        {category.data.learning > 0 && (
-                          <span className="px-3">{category.data.learning}</span>
-                        )}
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Progress</h1>
+          <p className="text-gray-600">Track your learning progress across all content types</p>
+        </div>
+
+        <div className="bg-white rounded-lg border border-gray-200 p-6 sm:p-8">
+          <div className="space-y-8">
+            {categories.map((category) => {
+              const masteredPercent = category.data.total > 0 ? (category.data.mastered / category.data.total) * 100 : 0;
+              const learningPercent = category.data.total > 0 ? (category.data.learning / category.data.total) * 100 : 0;
+              const totalProgress = category.data.mastered + category.data.learning;
+              
+              return (
+                <div key={category.name}>
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 gap-2">
+                    <h3 className="text-xl font-bold text-gray-900">{category.name}</h3>
+                    <div className="flex items-center gap-4 text-sm">
+                      <span className="text-gray-600">
+                        <span className="font-bold text-gray-900">{totalProgress}</span> / {category.data.total}
+                      </span>
+                      <span className="text-gray-500">
+                        {category.data.total > 0 ? Math.round((totalProgress / category.data.total) * 100) : 0}%
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {/* Progress Bar */}
+                  <div className="relative">
+                    <div className="w-full bg-gray-200 rounded-lg h-12 overflow-hidden">
+                      <div className="flex h-12">
+                        {/* Mastered */}
+                        <div 
+                          className="bg-gradient-to-r from-pink-500 to-orange-500 flex items-center justify-center text-white text-sm font-bold transition-all duration-300"
+                          style={{ width: `${masteredPercent}%` }}
+                        >
+                          {category.data.mastered > 0 && masteredPercent > 8 && (
+                            <span className="px-2">{category.data.mastered}</span>
+                          )}
+                        </div>
+                        {/* Learning */}
+                        <div 
+                          className="bg-orange-200 flex items-center justify-center text-gray-800 text-sm font-bold transition-all duration-300"
+                          style={{ width: `${learningPercent}%` }}
+                        >
+                          {category.data.learning > 0 && learningPercent > 8 && (
+                            <span className="px-2">{category.data.learning}</span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
+                  
+                  {/* Stats Row */}
+                  <div className="flex items-center gap-6 mt-3 text-sm">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-sm bg-gradient-to-r from-pink-500 to-orange-500"></div>
+                      <span className="text-gray-600">
+                        <span className="font-semibold text-gray-900">{category.data.mastered}</span> mastered
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-sm bg-orange-200"></div>
+                      <span className="text-gray-600">
+                        <span className="font-semibold text-gray-900">{category.data.learning}</span> learning
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-500">
+                        <span className="font-semibold">{category.data.total - totalProgress}</span> not started
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
-          <div className="flex items-center gap-8 mt-8 text-base">
-            <div className="flex items-center gap-3">
-              <div className="w-5 h-5 bg-green-500 rounded"></div>
-              <span className="font-medium">Mastered</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-5 h-5 bg-green-300 rounded"></div>
-              <span className="font-medium">Learning</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -235,7 +242,14 @@ function ProgressPageContent() {
 
 export default function ProgressPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f9fafb' }}>Loading...</div>}>
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading progress...</p>
+        </div>
+      </div>
+    }>
       <ProgressPageContent />
     </Suspense>
   );
