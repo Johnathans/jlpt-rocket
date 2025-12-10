@@ -14,7 +14,6 @@ import {
   BarChart3,
   Settings,
   CreditCard,
-  Target,
   Rocket,
   Flame,
   LogOut,
@@ -175,18 +174,6 @@ export default function DashboardNavbar() {
                       <CreditCard className="h-4 w-4 text-pink-500" />
                       Membership
                     </Link>
-                    <button
-                      onClick={() => {
-                        setIsSettingsMenuOpen(false);
-                        // Open level switcher modal
-                        const event = new CustomEvent('open-level-switcher');
-                        window.dispatchEvent(event);
-                      }}
-                      className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-pink-600 transition-all rounded-lg mx-2"
-                    >
-                      <Target className="h-4 w-4 text-pink-500" />
-                      JLPT Level
-                    </button>
                     <hr className="my-2 mx-2 border-gray-200" />
                     <button
                       onClick={() => {
