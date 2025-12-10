@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight } from 'lucide-react';
+import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight, BookMarked, ClipboardCheck } from 'lucide-react';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 import { getContentCounts } from '@/lib/supabase-data';
 import { StreakSystem } from '@/lib/streakSystem';
@@ -26,6 +26,7 @@ export default function RoadmapPage() {
   const [loading, setLoading] = useState(true);
   const [streakData, setStreakData] = useState({ currentStreak: 0 });
   const [isLevelModalOpen, setIsLevelModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<'kanji' | 'vocabulary' | 'sentences' | 'stories' | 'tests'>('kanji');
 
   // Get user's first name
   const userName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || 'there';
@@ -183,72 +184,203 @@ export default function RoadmapPage() {
           </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="bg-white rounded-lg border border-gray-200 p-6 mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Start</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Kanji */}
-            <Link
-              href="/kanji"
-              className="group border-2 border-gray-200 rounded-lg p-6 hover:border-pink-300 hover:bg-pink-50 transition-all"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <FileText className="h-8 w-8 text-pink-500" />
-                <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-pink-500 transition-colors" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">Kanji</h3>
-              <p className="text-sm text-gray-600 mb-3">
-                {stats?.kanji.total || 0} total · {stats?.kanji.mastered || 0} mastered
-              </p>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div 
-                  className="bg-gradient-to-r from-pink-500 to-orange-500 h-2 rounded-full transition-all"
-                  style={{ width: `${stats?.kanji.total ? (stats.kanji.mastered / stats.kanji.total * 100) : 0}%` }}
-                />
-              </div>
-            </Link>
+        {/* Content Tabs */}
+        <div className="bg-white rounded-lg border border-gray-200 mb-8">
+          {/* Tab Headers */}
+          <div className="border-b border-gray-200">
+            <div className="flex overflow-x-auto">
+              <button
+                onClick={() => setActiveTab('kanji')}
+                className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${
+                  activeTab === 'kanji'
+                    ? 'border-pink-500 text-pink-600'
+                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                }`}
+              >
+                <FileText className="h-4 w-4" />
+                Kanji
+              </button>
+              <button
+                onClick={() => setActiveTab('vocabulary')}
+                className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${
+                  activeTab === 'vocabulary'
+                    ? 'border-pink-500 text-pink-600'
+                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                }`}
+              >
+                <BookOpen className="h-4 w-4" />
+                Vocabulary
+              </button>
+              <button
+                onClick={() => setActiveTab('sentences')}
+                className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${
+                  activeTab === 'sentences'
+                    ? 'border-pink-500 text-pink-600'
+                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                }`}
+              >
+                <MessageSquare className="h-4 w-4" />
+                Sentences
+              </button>
+              <button
+                onClick={() => setActiveTab('stories')}
+                className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${
+                  activeTab === 'stories'
+                    ? 'border-pink-500 text-pink-600'
+                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                }`}
+              >
+                <BookMarked className="h-4 w-4" />
+                Stories
+              </button>
+              <button
+                onClick={() => setActiveTab('tests')}
+                className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${
+                  activeTab === 'tests'
+                    ? 'border-pink-500 text-pink-600'
+                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                }`}
+              >
+                <ClipboardCheck className="h-4 w-4" />
+                Tests
+              </button>
+            </div>
+          </div>
 
-            {/* Vocabulary */}
-            <Link
-              href="/vocabulary"
-              className="group border-2 border-gray-200 rounded-lg p-6 hover:border-pink-300 hover:bg-pink-50 transition-all"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <BookOpen className="h-8 w-8 text-pink-500" />
-                <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-pink-500 transition-colors" />
+          {/* Tab Content */}
+          <div className="p-6">
+            {activeTab === 'kanji' && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900">Kanji</h3>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {stats?.kanji.total || 0} total · {stats?.kanji.mastered || 0} mastered · {stats?.kanji.learning || 0} learning
+                    </p>
+                  </div>
+                  <Link
+                    href="/kanji"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all"
+                  >
+                    Start Learning
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
+                  <div 
+                    className="bg-gradient-to-r from-pink-500 to-orange-500 h-3 rounded-full transition-all"
+                    style={{ width: `${stats?.kanji.total ? (stats.kanji.mastered / stats.kanji.total * 100) : 0}%` }}
+                  />
+                </div>
+                <p className="text-sm text-gray-600">
+                  Master essential kanji characters for {currentLevel}. Learn readings, meanings, and stroke order.
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">Vocabulary</h3>
-              <p className="text-sm text-gray-600 mb-3">
-                {stats?.vocabulary.total || 0} total · {stats?.vocabulary.mastered || 0} mastered
-              </p>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div 
-                  className="bg-gradient-to-r from-pink-500 to-orange-500 h-2 rounded-full transition-all"
-                  style={{ width: `${stats?.vocabulary.total ? (stats.vocabulary.mastered / stats.vocabulary.total * 100) : 0}%` }}
-                />
-              </div>
-            </Link>
+            )}
 
-            {/* Sentences */}
-            <Link
-              href="/sentences"
-              className="group border-2 border-gray-200 rounded-lg p-6 hover:border-pink-300 hover:bg-pink-50 transition-all"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <MessageSquare className="h-8 w-8 text-pink-500" />
-                <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-pink-500 transition-colors" />
+            {activeTab === 'vocabulary' && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900">Vocabulary</h3>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {stats?.vocabulary.total || 0} total · {stats?.vocabulary.mastered || 0} mastered · {stats?.vocabulary.learning || 0} learning
+                    </p>
+                  </div>
+                  <Link
+                    href="/vocabulary"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all"
+                  >
+                    Start Learning
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
+                  <div 
+                    className="bg-gradient-to-r from-pink-500 to-orange-500 h-3 rounded-full transition-all"
+                    style={{ width: `${stats?.vocabulary.total ? (stats.vocabulary.mastered / stats.vocabulary.total * 100) : 0}%` }}
+                  />
+                </div>
+                <p className="text-sm text-gray-600">
+                  Build your vocabulary with essential words and phrases for {currentLevel}.
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-1">Sentences</h3>
-              <p className="text-sm text-gray-600 mb-3">
-                {stats?.sentences.total || 0} total · {stats?.sentences.mastered || 0} mastered
-              </p>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div 
-                  className="bg-gradient-to-r from-pink-500 to-orange-500 h-2 rounded-full transition-all"
-                  style={{ width: `${stats?.sentences.total ? (stats.sentences.mastered / stats.sentences.total * 100) : 0}%` }}
-                />
+            )}
+
+            {activeTab === 'sentences' && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900">Sentences</h3>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {stats?.sentences.total || 0} total · {stats?.sentences.mastered || 0} mastered · {stats?.sentences.learning || 0} learning
+                    </p>
+                  </div>
+                  <Link
+                    href="/sentences"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all"
+                  >
+                    Start Learning
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
+                  <div 
+                    className="bg-gradient-to-r from-pink-500 to-orange-500 h-3 rounded-full transition-all"
+                    style={{ width: `${stats?.sentences.total ? (stats.sentences.mastered / stats.sentences.total * 100) : 0}%` }}
+                  />
+                </div>
+                <p className="text-sm text-gray-600">
+                  Practice reading and understanding complete sentences in context.
+                </p>
               </div>
-            </Link>
+            )}
+
+            {activeTab === 'stories' && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900">Stories</h3>
+                    <p className="text-sm text-gray-600 mt-1">
+                      Immersive reading practice with engaging stories
+                    </p>
+                  </div>
+                  <Link
+                    href="/stories"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all"
+                  >
+                    Read Stories
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </div>
+                <p className="text-sm text-gray-600">
+                  Improve your reading comprehension with level-appropriate stories that use vocabulary and grammar you've learned.
+                </p>
+              </div>
+            )}
+
+            {activeTab === 'tests' && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900">Tests</h3>
+                    <p className="text-sm text-gray-600 mt-1">
+                      Practice exams and quizzes
+                    </p>
+                  </div>
+                  <Link
+                    href="/test"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all"
+                  >
+                    Take a Test
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </div>
+                <p className="text-sm text-gray-600">
+                  Test your knowledge with practice exams that simulate the real JLPT experience.
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
