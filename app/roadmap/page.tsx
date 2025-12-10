@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, Target, ChevronRight, Play } from 'lucide-react';
+import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, Target, ChevronRight, Play, RotateCcw, CheckCircle } from 'lucide-react';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 import { getContentCounts } from '@/lib/supabase-data';
 import { StreakSystem } from '@/lib/streakSystem';
@@ -104,6 +104,16 @@ export default function RoadmapPage() {
 
         {/* Stats Overview */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {/* JLPT Level Card */}
+          <div className="bg-white rounded-lg border-2 border-pink-500 p-6">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-gray-600">Current Level</span>
+              <Target className="h-5 w-5 text-pink-500" />
+            </div>
+            <div className="text-5xl font-black text-pink-600">{currentLevel}</div>
+            <div className="text-sm text-gray-600 mt-1">studying now</div>
+          </div>
+
           {/* Streak Card */}
           <div className="bg-gradient-to-r from-pink-500 to-orange-500 rounded-lg p-6 text-white">
             <div className="flex items-center justify-between mb-2">
@@ -118,7 +128,7 @@ export default function RoadmapPage() {
           <div className="bg-white rounded-lg border-2 border-gray-200 p-6">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-gray-600">Reviews Due</span>
-              <Target className="h-5 w-5 text-pink-500" />
+              <RotateCcw className="h-5 w-5 text-pink-500" />
             </div>
             <div className="text-4xl font-bold text-gray-900">{stats?.reviewDue || 0}</div>
             <div className="text-sm text-gray-600 mt-1">items to review</div>
@@ -128,7 +138,7 @@ export default function RoadmapPage() {
           <div className="bg-white rounded-lg border-2 border-gray-200 p-6">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-gray-600">Mastered</span>
-              <TrendingUp className="h-5 w-5 text-pink-500" />
+              <CheckCircle className="h-5 w-5 text-pink-500" />
             </div>
             <div className="text-4xl font-bold text-gray-900">
               {(stats?.kanji.mastered || 0) + (stats?.vocabulary.mastered || 0) + (stats?.sentences.mastered || 0)}
