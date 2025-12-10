@@ -209,7 +209,7 @@ export default function DashboardNavbar() {
       </nav>
 
       {/* Secondary Navigation Bar - All Links */}
-      <div className="fixed top-16 left-0 right-0 bg-gray-50 border-b border-gray-200 z-40 hidden lg:block">
+      <div className="fixed top-16 left-0 right-0 bg-white border-b border-gray-200 z-40 hidden lg:block">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center gap-1 h-12">
             {allNavItems.map((item) => {
@@ -220,10 +220,10 @@ export default function DashboardNavbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all rounded-lg ${
+                  className={`relative flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all ${
                     isActive
-                      ? 'text-pink-600 bg-white shadow-sm'
-                      : 'text-gray-700 hover:text-pink-600 hover:bg-white'
+                      ? 'text-pink-600 border-b-2 border-pink-600'
+                      : 'text-gray-600 hover:text-gray-900 border-b-2 border-transparent'
                   }`}
                 >
                   <Icon className="h-4 w-4" />
