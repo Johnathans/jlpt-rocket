@@ -49,6 +49,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const darkMode = localStorage.getItem('darkMode') === 'true';
+                if (darkMode) {
+                  document.documentElement.classList.add('dark');
+                  document.body.style.backgroundColor = '#1a1a1a';
+                  document.body.style.color = '#f5f5f5';
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className={`${inter.className} ${notoSansJP.variable}`}>
         <GoogleAnalytics />
         <AuthProvider>

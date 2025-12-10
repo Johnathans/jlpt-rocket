@@ -259,13 +259,13 @@ function ClozePageContent() {
       // No asterisks found, just show the sentence as is
       return (
         <div className="text-center">
-          <div className="text-5xl font-japanese font-bold leading-relaxed mb-4">
+          <div className="text-5xl font-japanese font-bold leading-relaxed mb-4 text-gray-900 dark:text-white">
             {originalText}
           </div>
-          <div className="text-lg text-gray-600 font-japanese mb-6">
+          <div className="text-lg text-gray-600 dark:text-gray-300 font-japanese mb-6">
             {currentItem.fullReading}
           </div>
-          <div className="text-gray-800 font-medium">
+          <div className="text-gray-800 dark:text-gray-200 font-medium">
             {currentItem.meaning}
           </div>
         </div>
@@ -279,7 +279,7 @@ function ClozePageContent() {
     
     return (
       <div className="text-center">
-        <div className="text-5xl font-japanese font-bold leading-relaxed mb-4">
+        <div className="text-5xl font-japanese font-bold leading-relaxed mb-4 text-gray-900 dark:text-white">
           <span>{beforeCloze}</span>
           <span 
             className={`inline-block min-w-20 px-3 py-2 mx-1 rounded border-2 text-center align-middle ${
@@ -289,17 +289,17 @@ function ClozePageContent() {
                     ? 'bg-green-100 border-green-500 text-green-600'
                     : 'bg-red-100 border-red-500 text-red-600'
                   : 'bg-blue-50 border-blue-300 text-blue-800'
-                : 'bg-gray-200 border-dashed border-gray-400 text-gray-500'
+                : 'bg-gray-200 dark:bg-gray-700 border-dashed border-gray-400 dark:border-gray-600 text-gray-500 dark:text-gray-400'
             }`}
           >
             {selectedAnswer || '___'}
           </span>
           <span>{afterCloze}</span>
         </div>
-        <div className="text-lg text-gray-600 font-japanese mb-6">
+        <div className="text-lg text-gray-600 dark:text-gray-300 font-japanese mb-6">
           {currentItem.fullReading}
         </div>
-        <div className="text-gray-800 font-medium">
+        <div className="text-gray-800 dark:text-gray-200 font-medium">
           {currentItem.meaning}
         </div>
       </div>
@@ -408,7 +408,7 @@ function ClozePageContent() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-white dark:bg-gray-900 flex flex-col">
       <TrainingHeader 
         progress={progress}
         closeHref="/sentences"
@@ -430,13 +430,13 @@ function ClozePageContent() {
                 const isSelected = selectedAnswer === option;
                 const isCorrectAnswer = option === clozeWord?.word;
                 
-                let buttonClass = "w-full p-4 text-center text-base font-semibold rounded-lg transition-all duration-200 border-2 border-gray-300 relative ";
+                let buttonClass = "w-full p-4 text-center text-base font-semibold rounded-lg transition-all duration-200 border-2 border-gray-300 dark:border-gray-600 relative ";
                 
                 if (!showResult) {
                   if (isSelected) {
                     buttonClass += "bg-blue-100 text-blue-800 shadow-md";
                   } else {
-                    buttonClass += "bg-white hover:bg-gray-50 text-gray-800 shadow-sm hover:shadow-md cursor-pointer";
+                    buttonClass += "bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 shadow-sm hover:shadow-md cursor-pointer";
                   }
                 } else {
                   if (isSelected && isCorrectAnswer) {
@@ -446,7 +446,7 @@ function ClozePageContent() {
                   } else if (isCorrectAnswer) {
                     buttonClass += "bg-green-100 text-green-600";
                   } else {
-                    buttonClass += "bg-gray-100 text-gray-500";
+                    buttonClass += "bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400";
                   }
                 }
 
@@ -516,7 +516,7 @@ function ClozePageContent() {
 
 export default function ClozePage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">Loading...</div>}>
       <ClozePageContent />
     </Suspense>
   );

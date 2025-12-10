@@ -289,7 +289,7 @@ function FlashcardPageContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <TrainingHeader
         progress={(currentIndex / trainingItems.length) * 100}
         onClose={handleClose}
@@ -307,15 +307,15 @@ function FlashcardPageContent() {
           >
             {/* Front of card */}
             <div 
-              className="absolute inset-0 w-full h-full bg-white rounded-2xl shadow-xl border-2 border-gray-200 flex flex-col items-center justify-center backface-hidden"
+              className="absolute inset-0 w-full h-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl border-2 border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center backface-hidden"
               style={{ backfaceVisibility: 'hidden' }}
             >
               <div className="text-center">
-                <div className="text-6xl sm:text-7xl md:text-8xl font-bold font-japanese leading-none mb-4" style={{ color: '#333333' }}>
+                <div className="text-6xl sm:text-7xl md:text-8xl font-bold font-japanese leading-none mb-4 text-gray-900 dark:text-white">
                   {currentItem.character}
                 </div>
                 {currentItem.reading && (
-                  <p className="text-lg sm:text-xl text-gray-600 font-japanese">
+                  <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 font-japanese">
                     {currentItem.reading}
                   </p>
                 )}
@@ -327,7 +327,7 @@ function FlashcardPageContent() {
 
             {/* Back of card */}
             <div 
-              className="absolute inset-0 w-full h-full bg-white rounded-2xl shadow-xl border-2 border-gray-200 flex flex-col items-center justify-center backface-hidden rotate-y-180"
+              className="absolute inset-0 w-full h-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl border-2 border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center backface-hidden rotate-y-180"
               style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
             >
               {/* Audio icon */}
@@ -338,7 +338,7 @@ function FlashcardPageContent() {
                     playJapaneseAudio(currentItem.character);
                   }
                 }}
-                className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 transition-colors duration-200"
+                className="absolute top-4 right-4 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors duration-200"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M6 15h3l4.5 4.5V4.5L9 9H6v6z" />
@@ -346,7 +346,7 @@ function FlashcardPageContent() {
               </button>
               
               <div className="text-center">
-                <div className="text-4xl sm:text-5xl md:text-6xl font-black text-gray-800 mb-4">
+                <div className="text-4xl sm:text-5xl md:text-6xl font-black text-gray-800 dark:text-white mb-4">
                   {currentItem.meaning}
                 </div>
                 {currentItem.reading && (
@@ -355,7 +355,7 @@ function FlashcardPageContent() {
                   </p>
                 )}
               </div>
-              <div className="absolute bottom-4 text-sm text-gray-400">
+              <div className="absolute bottom-4 text-sm text-gray-400 dark:text-gray-500">
                 Tap to flip back
               </div>
             </div>
@@ -364,14 +364,14 @@ function FlashcardPageContent() {
 
         {/* Prompt */}
         <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-700">
+          <h2 className="text-2xl font-bold text-gray-700 dark:text-gray-200">
             Do you remember?
           </h2>
         </div>
         <div className="flex gap-6">
           <button
             onClick={handleForget}
-            className="px-20 py-5 rounded-lg font-semibold transition-all duration-200 border-b-4 min-w-[240px] bg-gray-200 hover:bg-gray-300 text-gray-700 border-gray-400 cursor-pointer"
+            className="px-20 py-5 rounded-lg font-semibold transition-all duration-200 border-b-4 min-w-[240px] bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 border-gray-400 dark:border-gray-600 cursor-pointer"
           >
             ✗&nbsp;&nbsp;&nbsp;&nbsp;Forgot
           </button>
@@ -418,7 +418,7 @@ function FlashcardPageContent() {
 
 export default function FlashcardPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">Loading...</div>}>
       <FlashcardPageContent />
     </Suspense>
   );
