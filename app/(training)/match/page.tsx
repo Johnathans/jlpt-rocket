@@ -420,17 +420,17 @@ function MatchPageContent() {
 
   if (trainingItems.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-6">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading training items...</p>
+          <p className="text-gray-600 dark:text-gray-300">Loading training items...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-white dark:bg-gray-900 flex flex-col">
       <TrainingHeader 
         progress={(currentIndex / trainingItems.length) * 100}
         onClose={handleClose}
@@ -440,11 +440,11 @@ function MatchPageContent() {
       <div className="flex-1 flex flex-col items-center justify-center px-4 pb-24 pt-8 space-y-8">
         {/* Large Kanji/Character - Not in container */}
         <div className="text-center mb-12">
-          <div className="text-[10rem] sm:text-9xl md:text-[12rem] lg:text-[14rem] font-bold font-japanese leading-none mb-4" style={{ color: '#333333' }}>
+          <div className="text-[10rem] sm:text-9xl md:text-[12rem] lg:text-[14rem] font-bold font-japanese leading-none mb-4 text-gray-900 dark:text-white">
             {currentItem.character}
           </div>
           {currentItem.reading && (
-            <p className="text-2xl sm:text-3xl text-gray-600 font-japanese">
+            <p className="text-2xl sm:text-3xl text-gray-600 dark:text-gray-300 font-japanese">
               {currentItem.reading}
             </p>
           )}
@@ -463,7 +463,7 @@ function MatchPageContent() {
                 if (isSelected) {
                   buttonClass += "bg-gradient-to-r from-pink-100 to-orange-100 text-pink-700 border-pink-300 shadow-md";
                 } else {
-                  buttonClass += "bg-white hover:bg-pink-50 text-gray-800 border-gray-300 shadow-sm hover:shadow-md hover:border-pink-300 cursor-pointer";
+                  buttonClass += "bg-white dark:bg-gray-800 hover:bg-pink-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600 shadow-sm hover:shadow-md hover:border-pink-300 cursor-pointer";
                 }
               } else {
                 if (isSelected && isCorrectAnswer) {
@@ -530,7 +530,7 @@ function MatchPageContent() {
 
 export default function MatchPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">Loading...</div>}>
       <MatchPageContent />
     </Suspense>
   );
