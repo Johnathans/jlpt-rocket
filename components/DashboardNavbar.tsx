@@ -77,7 +77,6 @@ export default function DashboardNavbar() {
   }, [isProfileMenuOpen]);
 
   const mainNavItems: Array<{ href: string; label: string; icon: any; badge?: number }> = [
-    { href: '/roadmap', label: 'Dashboard', icon: Home },
     { href: '/kanji', label: 'Kanji', icon: FileText },
     { href: '/vocabulary', label: 'Vocabulary', icon: BookOpen },
     { href: '/sentences', label: 'Sentences', icon: MessageSquare },
@@ -86,11 +85,7 @@ export default function DashboardNavbar() {
   const secondaryNavItems: Array<{ href: string; label: string; icon: any; badge?: number }> = [
     { href: '/stories', label: 'Stories', icon: BookMarked },
     { href: '/test', label: 'Tests', icon: ClipboardCheck },
-    { href: '/progress', label: 'Progress', icon: BarChart3 },
-    { href: '/review', label: 'Review', icon: RotateCcw, badge: reviewCount },
   ];
-
-  const allNavItems = [...mainNavItems, ...secondaryNavItems];
 
   return (
     <>
@@ -109,8 +104,21 @@ export default function DashboardNavbar() {
               </Link>
             </div>
 
-            {/* Right Side - Streak and Profile */}
+            {/* Right Side - Home, Streak, Progress, Review, and Profile */}
             <div className="hidden lg:flex items-center gap-2">
+              {/* Home Button */}
+              <Link
+                href="/roadmap"
+                className={`flex items-center gap-2 px-3 py-2 text-sm font-bold transition-all rounded-lg ${
+                  pathname === '/roadmap'
+                    ? 'text-pink-600 bg-pink-50'
+                    : 'text-gray-700 hover:text-pink-600 hover:bg-gray-50'
+                }`}
+              >
+                <Home className="h-4 w-4" />
+                <span className="text-sm">Home</span>
+              </Link>
+
               {/* Streak Button */}
               <button
                 onClick={() => setIsStreakModalOpen(true)}
@@ -119,6 +127,37 @@ export default function DashboardNavbar() {
                 <Flame className="h-4 w-4" />
                 <span className="text-sm">Streak</span>
               </button>
+
+              {/* Progress Link */}
+              <Link
+                href="/progress"
+                className={`flex items-center gap-2 px-3 py-2 text-sm font-medium transition-all rounded-lg ${
+                  pathname === '/progress'
+                    ? 'text-pink-600 bg-pink-50'
+                    : 'text-gray-700 hover:text-pink-600 hover:bg-gray-50'
+                }`}
+              >
+                <BarChart3 className="h-4 w-4" />
+                <span className="text-sm">Progress</span>
+              </Link>
+
+              {/* Review Link with Badge */}
+              <Link
+                href="/review"
+                className={`relative flex items-center gap-2 px-3 py-2 text-sm font-medium transition-all rounded-lg ${
+                  pathname === '/review'
+                    ? 'text-pink-600 bg-pink-50'
+                    : 'text-gray-700 hover:text-pink-600 hover:bg-gray-50'
+                }`}
+              >
+                <RotateCcw className="h-4 w-4" />
+                <span className="text-sm">Review</span>
+                {reviewCount > 0 && (
+                  <span className="ml-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs rounded-full px-2 py-0.5 font-bold">
+                    {reviewCount > 99 ? '99+' : reviewCount}
+                  </span>
+                )}
+              </Link>
 
               {/* Profile Dropdown */}
               <div className="relative profile-dropdown">
@@ -207,38 +246,6 @@ export default function DashboardNavbar() {
 
         </div>
       </nav>
-
-      {/* Secondary Navigation Bar - All Links */}
-      <div className="fixed top-16 left-0 right-0 bg-white border-b border-gray-200 z-40 hidden lg:block">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center gap-1 h-12">
-            {allNavItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = pathname === item.href;
-              
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`relative flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all ${
-                    isActive
-                      ? 'text-pink-600 border-b-2 border-pink-600'
-                      : 'text-gray-600 hover:text-gray-900 border-b-2 border-transparent'
-                  }`}
-                >
-                  <Icon className="h-4 w-4" />
-                  {item.label}
-                  {item.badge && item.badge > 0 && (
-                    <span className="ml-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs rounded-full px-2 py-0.5 font-bold">
-                      {item.badge > 99 ? '99+' : item.badge}
-                    </span>
-                  )}
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </div>
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
