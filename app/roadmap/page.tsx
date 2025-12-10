@@ -295,23 +295,27 @@ export default function RoadmapPage() {
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500 mx-auto"></div>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-3">
                     {kanjiData.map((item: any) => (
                       <Link
                         key={item.id}
                         href="/kanji"
-                        className="border-2 border-gray-200 hover:border-pink-300 bg-white hover:bg-pink-50 transition-all rounded-lg p-4 text-center group"
+                        className="relative bg-white rounded-lg border border-gray-200 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-400 hover:shadow-md transition-all duration-200 p-3 text-center group overflow-hidden"
                       >
-                        <div className="text-5xl font-bold text-black mb-2 font-japanese">
-                          {item.kanji}
+                        {/* Subtle gradient on hover */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-pink-50 to-orange-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg"></div>
+                        
+                        <div className="relative">
+                          <div className="text-4xl font-bold text-gray-900 mb-1 group-hover:text-pink-600 transition-colors font-japanese">
+                            {item.kanji}
+                          </div>
+                          <div className="text-xs text-gray-500 mb-0.5 line-clamp-1">
+                            {item.meaning}
+                          </div>
+                          <div className="text-xs text-gray-400">
+                            {item.strokes}
+                          </div>
                         </div>
-                        <div className="flex items-center justify-center gap-1 text-xs text-gray-500 mb-1">
-                          <Brush className="h-3 w-3" />
-                          <span>{item.strokes}</span>
-                        </div>
-                        <p className="text-sm text-gray-700 font-medium line-clamp-1">
-                          {item.meaning}
-                        </p>
                       </Link>
                     ))}
                   </div>
