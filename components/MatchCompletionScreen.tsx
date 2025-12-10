@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { RotateCcw, Home } from 'lucide-react';
-import Lottie from 'lottie-react';
+import { RotateCcw, Home, CheckCircle, XCircle } from 'lucide-react';
 
 interface WrongAnswer {
   id: string;
@@ -33,112 +32,118 @@ export default function MatchCompletionScreen({
 }: MatchCompletionScreenProps) {
   const [displayedXP, setDisplayedXP] = useState(0);
   const [showContent, setShowContent] = useState(false);
-  const [animationData, setAnimationData] = useState(null);
-
-  // Load Lottie animation
-  useEffect(() => {
-    // Load the extracted Lottie animation JSON
-    fetch('/rocket-launch-animation.json')
-      .then(response => {
-        if (!response.ok) throw new Error('Failed to load animation');
-        return response.json();
-      })
-      .then(data => {
-        console.log('Loaded rocket launch animation successfully!');
-        setAnimationData(data);
-      })
-      .catch(error => {
-        console.log('Using fallback animation:', error);
-        setAnimationData(null);
-      });
-  }, []);
 
   // Animate XP counter
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowContent(true);
-      // Animate XP counting up
-      let current = 0;
-      const increment = Math.ceil(xpGained / 20);
-      const xpTimer = setInterval(() => {
-        current += increment;
-        if (current >= xpGained) {
-          current = xpGained;
-          clearInterval(xpTimer);
-        }
-        setDisplayedXP(current);
-      }, 50);
-    }, 1000);
+    setShowContent(true);
+    // Animate XP counting up
+    let current = 0;
+    const increment = Math.ceil(xpGained / 20);
+    const xpTimer = setInterval(() => {
+      current += increment;
+      if (current >= xpGained) {
+        current = xpGained;
+        clearInterval(xpTimer);
+      }
+      setDisplayedXP(current);
+    }, 30);
 
-    return () => clearTimeout(timer);
+    return () => clearInterval(xpTimer);
   }, [xpGained]);
 
   const percentage = Math.round((score / totalQuestions) * 100);
   const isGoodScore = percentage >= 80;
 
+  const correctAnswers = score;
+  const incorrectAnswers = wrongAnswers.length;
+
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
-        {/* Rocket Animation */}
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4 sm:p-6">
+      <div className="w-full max-w-3xl">
+        {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-80 h-80 mx-auto mb-4 flex items-center justify-center">
-            {animationData ? (
-              <Lottie 
-                animationData={animationData}
-                style={{ width: 320, height: 320 }}
-                loop={false}
-                autoplay={true}
-              />
-            ) : (
-              <div className="w-80 h-80 flex items-center justify-center animate-bounce">
-                <div className="text-9xl">🚀</div>
-              </div>
-            )}
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            {isGoodScore ? 'Excellent Work!' : 'Training Complete!'}
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+            Training Complete
           </h1>
           <p className="text-lg text-gray-600">
-            You scored {score}/{totalQuestions} ({percentage}%)
+            {score} of {totalQuestions} correct ({percentage}%)
           </p>
         </div>
 
-        {/* XP Gained */}
-        {showContent && (
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-full shadow-lg animate-pulse">
-              <span className="text-lg font-bold">+{displayedXP} XP</span>
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          {/* Correct Answers */}
+          <div className="bg-white rounded-lg border-2 border-gray-200 p-6">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-gray-600">Correct</span>
+              <CheckCircle className="h-5 w-5" style={{ color: '#dfef87' }} />
             </div>
+            <div className="text-3xl font-bold text-gray-900">{correctAnswers}</div>
           </div>
-        )}
+
+          {/* Incorrect Answers */}
+          <div className="bg-white rounded-lg border-2 border-gray-200 p-6">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-gray-600">Incorrect</span>
+              <XCircle className="h-5 w-5 text-red-500" />
+            </div>
+            <div className="text-3xl font-bold text-gray-900">{incorrectAnswers}</div>
+          </div>
+
+          {/* XP Gained */}
+          <div className="bg-gradient-to-r from-pink-500 to-orange-500 rounded-lg p-6 text-white">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium">XP Earned</span>
+            </div>
+            <div className="text-3xl font-bold">+{displayedXP}</div>
+          </div>
+        </div>
 
         {/* Wrong Answers Section */}
         {showContent && wrongAnswers.length > 0 && (
-          <div className="bg-gray-50 rounded-lg p-6 max-w-2xl w-full mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4 text-center">
-              Review Missed Questions ({wrongAnswers.length})
+          <div className="bg-white rounded-lg border border-gray-200 p-6 mb-8">
+            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <XCircle className="h-6 w-6 text-red-500" />
+              Review Incorrect Answers
             </h2>
-            <div className="space-y-3 max-h-60 overflow-y-auto">
-              {wrongAnswers.map((answer) => (
-                <div key={answer.id} className="bg-white border border-gray-200 rounded-lg p-4">
-                  <div className="flex items-center justify-between">
+            <div className="space-y-3 max-h-96 overflow-y-auto">
+              {wrongAnswers.map((answer, index) => (
+                <div key={answer.id} className="border border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors">
+                  <div className="flex items-start gap-4">
+                    {/* Number Badge */}
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-sm font-bold text-gray-600">
+                      {index + 1}
+                    </div>
+                    
                     <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="text-2xl font-japanese font-bold text-gray-900">
+                      {/* Character and Reading */}
+                      <div className="flex items-center gap-3 mb-3">
+                        <span className="text-3xl font-japanese font-bold text-gray-900">
                           {answer.character}
                         </span>
                         {answer.reading && (
-                          <span className="text-sm text-gray-600 font-japanese">
+                          <span className="text-lg text-gray-600 font-japanese">
                             {answer.reading}
                           </span>
                         )}
                       </div>
-                      <div className="text-sm">
-                        <p className="text-gray-600">
-                          <span className="font-medium">Your answer:</span> {answer.userAnswer}
-                        </p>
-                        <p className="text-gray-900">
-                          <span className="font-medium">Correct answer:</span> {answer.correctAnswer}
-                        </p>
+                      
+                      {/* Answers */}
+                      <div className="space-y-2">
+                        <div className="flex items-start gap-2">
+                          <XCircle className="h-4 w-4 text-red-500 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <span className="text-xs font-medium text-gray-500 uppercase">Your Answer</span>
+                            <p className="text-sm text-red-600 font-medium">{answer.userAnswer}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <CheckCircle className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: '#dfef87' }} />
+                          <div>
+                            <span className="text-xs font-medium text-gray-500 uppercase">Correct Answer</span>
+                            <p className="text-sm text-gray-900 font-medium">{answer.correctAnswer}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -150,11 +155,11 @@ export default function MatchCompletionScreen({
 
         {/* Action Buttons */}
         {showContent && (
-          <div className="flex flex-col sm:flex-row gap-4 max-w-lg w-full">
+          <div className="flex flex-col sm:flex-row gap-4">
             {wrongAnswers.length > 0 && (
               <button
                 onClick={onPracticeMissed}
-                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gray-600 text-white hover:bg-gray-700 font-semibold transition-colors rounded-lg"
+                className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-white border-2 border-gray-300 text-gray-700 hover:border-pink-300 hover:bg-pink-50 font-semibold transition-all rounded-lg"
               >
                 <RotateCcw className="h-5 w-5" />
                 Practice Missed ({wrongAnswers.length})
@@ -162,13 +167,14 @@ export default function MatchCompletionScreen({
             )}
             <button
               onClick={onGoHome}
-              className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-green-600 text-white hover:bg-green-700 font-semibold transition-colors rounded-lg"
+              className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-semibold transition-all rounded-lg shadow-lg hover:shadow-xl"
             >
               <Home className="h-5 w-5" />
               Continue
             </button>
           </div>
         )}
+      </div>
     </div>
   );
 }
