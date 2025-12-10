@@ -4,7 +4,7 @@ import { Crown, Check, CreditCard, Calendar, Gift, Sparkles, Zap, Star } from 'l
 
 export default function MembershipPage() {
   return (
-    <div className="min-h-screen pb-20" className="bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen pb-20 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-20">
         
         {/* Header */}

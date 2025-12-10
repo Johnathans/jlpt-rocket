@@ -75,7 +75,7 @@ export default function ProfilePage() {
   // Show loading state if auth is still loading
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" className="bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
           <p className="text-gray-600 dark:text-gray-300">Loading profile...</p>
@@ -87,7 +87,7 @@ export default function ProfilePage() {
   // Show login prompt if no user
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center" className="bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
         <div className="text-center">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Please sign in to view your profile</h2>
           <a href="/login" className="px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600">
@@ -98,7 +98,7 @@ export default function ProfilePage() {
     );
   }
   return (
-    <div className="min-h-screen py-8" className="bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen py-8 bg-gray-50 dark:bg-gray-900">
       {/* Success Toast */}
       {showSuccessToast && (
         <div className="fixed top-4 right-4 z-50 bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-2 animate-in slide-in-from-top-2">

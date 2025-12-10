@@ -312,7 +312,7 @@ function VocabularyPageContent() {
   };
 
   return (
-    <div className="min-h-screen pb-20" className="bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen pb-20 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
         <div className="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <p className="text-sm text-gray-600 dark:text-gray-300">Select vocabulary to begin studying</p>
@@ -496,7 +496,7 @@ function VocabularyPageContent() {
 
 export default function VocabularyPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center" className="bg-gray-50 dark:bg-gray-900">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">Loading...</div>}>
       <VocabularyPageContent />
     </Suspense>
   );
