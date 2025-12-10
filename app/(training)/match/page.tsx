@@ -456,11 +456,11 @@ function MatchPageContent() {
                 }
               } else {
                 if (isSelected && isCorrectAnswer) {
-                  buttonClass += "bg-lime-100 text-lime-700 border-lime-400";
+                  buttonClass += "bg-[#dfef87]/30 text-gray-800 border-[#dfef87]";
                 } else if (isSelected && !isCorrectAnswer) {
                   buttonClass += "bg-red-50 text-red-600 border-red-300";
                 } else if (isCorrectAnswer) {
-                  buttonClass += "bg-lime-100 text-lime-700 border-lime-400";
+                  buttonClass += "bg-[#dfef87]/30 text-gray-800 border-[#dfef87]";
                 } else {
                   buttonClass += "bg-gray-100 text-gray-500 border-gray-300";
                 }
@@ -475,8 +475,8 @@ function MatchPageContent() {
                 >
                   {option}
                   {showResult && isCorrectAnswer && (
-                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-lime-500 rounded flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">✓</span>
+                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: '#dfef87' }}>
+                      <span className="text-gray-800 text-xs font-bold">✓</span>
                     </div>
                   )}
                   {showResult && isSelected && !isCorrectAnswer && (
