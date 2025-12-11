@@ -42,6 +42,8 @@ function FlashcardPageContent() {
   const [earnedXP, setEarnedXP] = useState(0);
   const [showQuitModal, setShowQuitModal] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [itemQueue, setItemQueue] = useState<TrainingItem[]>([]);
+  const [seenCount, setSeenCount] = useState(0);
   
   const { speak, playAudio } = useTTS();
 
@@ -117,13 +119,14 @@ function FlashcardPageContent() {
         }
         
         setTrainingItems(selectedItems);
+        setItemQueue(selectedItems);
       }
     };
 
     fetchTrainingItems();
   }, [searchParams]);
 
-  const currentItem = trainingItems[currentIndex];
+  const currentItem = itemQueue[0];
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -184,7 +187,20 @@ function FlashcardPageContent() {
     ReviewSystem.updateItemProgress(currentItem.id.toString(), currentItem.type, true, currentItem);
     
     setScore(score + 1);
-    handleNext();
+    setSeenCount(seenCount + 1);
+    
+    // Remove from queue (correct answer = don't re-queue)
+    const newQueue = itemQueue.slice(1);
+    setItemQueue(newQueue);
+    setIsFlipped(false);
+    
+    // Check if training is complete
+    if (newQueue.length === 0) {
+      const xp = score * 10;
+      setEarnedXP(xp);
+      StreakSystem.recordSession();
+      setShowCompletion(true);
+    }
   };
 
   const handleForget = () => {
@@ -205,20 +221,16 @@ function FlashcardPageContent() {
       type: currentItem.type
     }]);
     
-    handleNext();
-  };
-
-  const handleNext = () => {
-    if (currentIndex < trainingItems.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-      setIsFlipped(false);
-    } else {
-      // Training completed
-      const xp = score * 10;
-      setEarnedXP(xp);
-      StreakSystem.recordSession();
-      setShowCompletion(true);
-    }
+    setSeenCount(seenCount + 1);
+    
+    // Re-queue the item (Anki-style: wrong items come back)
+    // Insert it 3-5 positions ahead in the queue
+    const newQueue = itemQueue.slice(1);
+    const insertPosition = Math.min(Math.floor(Math.random() * 3) + 3, newQueue.length);
+    newQueue.splice(insertPosition, 0, currentItem);
+    
+    setItemQueue(newQueue);
+    setIsFlipped(false);
   };
 
   const handleClose = () => {
@@ -291,7 +303,7 @@ function FlashcardPageContent() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <TrainingHeader
-        progress={(currentIndex / trainingItems.length) * 100}
+        progress={((trainingItems.length - itemQueue.length) / trainingItems.length) * 100}
         onClose={handleClose}
       />
 

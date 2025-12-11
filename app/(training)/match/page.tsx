@@ -57,6 +57,8 @@ function MatchPageContent() {
   const [wrongAnswers, setWrongAnswers] = useState<WrongAnswer[]>([]);
   const [showCompletion, setShowCompletion] = useState(false);
   const [earnedXP, setEarnedXP] = useState(0);
+  const [itemQueue, setItemQueue] = useState<TrainingItem[]>([]);
+  const [seenCount, setSeenCount] = useState(0);
   const [preloadedAudio, setPreloadedAudio] = useState<string | null>(null);
   const [showQuitModal, setShowQuitModal] = useState(false);
   
@@ -177,19 +179,22 @@ function MatchPageContent() {
           }
         }
         
-        setTrainingItems(selectedItems.length > 0 ? selectedItems : sampleItems);
+        const items = selectedItems.length > 0 ? selectedItems : sampleItems;
+        setTrainingItems(items);
+        setItemQueue(items);
       } else {
         // Fallback to sample items if no selection
         setTrainingItems(sampleItems);
+        setItemQueue(sampleItems);
       }
     };
 
     fetchTrainingItems();
   }, [searchParams]);
 
-  const currentItem = trainingItems[currentIndex];
-  const isComplete = currentIndex >= trainingItems.length;
-  const progress = trainingItems.length > 0 ? ((currentIndex + 1) / trainingItems.length) * 100 : 0;
+  const currentItem = itemQueue[0];
+  const isComplete = itemQueue.length === 0;
+  const progress = trainingItems.length > 0 ? ((trainingItems.length - itemQueue.length) / trainingItems.length) * 100 : 0;
 
   useEffect(() => {
     if (currentItem && trainingItems.length > 0) {
@@ -286,6 +291,8 @@ function MatchPageContent() {
     setIsCorrect(correct);
     setShowResult(true);
     
+    setSeenCount(seenCount + 1);
+    
     if (correct) {
       // Play correct answer sound
       playCorrectSound();
@@ -328,14 +335,23 @@ function MatchPageContent() {
   };
 
   const handleNext = () => {
-    if (currentIndex < trainingItems.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-      setSelectedAnswer(null);
-      setShowResult(false);
-      setIsCorrect(null);
-      setPreloadedAudio(null); // Clear preloaded audio for next question
-    } else {
-      // Training complete - show completion screen
+    // Remove current item from queue
+    const newQueue = itemQueue.slice(1);
+    
+    // If answer was incorrect, re-queue the item (Anki-style)
+    if (!isCorrect && currentItem) {
+      const insertPosition = Math.min(Math.floor(Math.random() * 3) + 3, newQueue.length);
+      newQueue.splice(insertPosition, 0, currentItem);
+    }
+    
+    setItemQueue(newQueue);
+    setSelectedAnswer(null);
+    setShowResult(false);
+    setIsCorrect(null);
+    setPreloadedAudio(null);
+    
+    // Check if training is complete
+    if (newQueue.length === 0) {
       setShowCompletion(true);
       
       // Calculate and save XP
@@ -512,7 +528,7 @@ function MatchPageContent() {
               onClick={handleNext}
               className="py-4 px-32 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white"
             >
-              {currentIndex < trainingItems.length - 1 ? 'CONTINUE' : 'FINISH'}
+              {itemQueue.length > 1 ? 'CONTINUE' : 'FINISH'}
             </button>
           )}
         </div>
