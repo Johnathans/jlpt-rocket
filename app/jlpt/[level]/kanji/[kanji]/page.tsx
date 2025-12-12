@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Pen, ChevronLeft, ChevronRight, Copy, Zap, Download } from 'lucide-react';
+import { ArrowLeft, Volume2, BookOpen, Layers, TrendingUp, Pen, ChevronLeft, ChevronRight, Copy, Zap, Download, Lightbulb } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { getKanjiByLevel, getKanjiByCharacter, getVocabularyExamplesForKanji, getVocabularyCountForKanji } from '@/lib/local-data';
 import PublicNavbar from '@/components/PublicNavbar';
@@ -31,6 +31,7 @@ export default function KanjiDetailPage() {
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
   const [vocabCount, setVocabCount] = useState<number>(0);
   const [voicesLoaded, setVoicesLoaded] = useState(false);
+  const [mnemonic, setMnemonic] = useState<string | null>(null);
 
   // Load voices for speech synthesis
   useEffect(() => {
@@ -237,6 +238,22 @@ export default function KanjiDetailPage() {
         // Fetch total count of vocabulary words using this kanji for usefulness metric (from local JSON)
         const count = await getVocabularyCountForKanji(kanjiChar);
         setVocabCount(count);
+        
+        // Load mnemonic if available (N5 only for now)
+        if (level === 'N5') {
+          try {
+            const mnemonicResponse = await fetch('/data/n5-kanji-mnemonics.json');
+            if (mnemonicResponse.ok) {
+              const mnemonics = await mnemonicResponse.json();
+              const kanjiMnemonic = mnemonics.find((m: any) => m.character === kanjiChar);
+              if (kanjiMnemonic) {
+                setMnemonic(kanjiMnemonic.mnemonic);
+              }
+            }
+          } catch (err) {
+            console.error('Error loading mnemonic:', err);
+          }
+        }
       } catch (error) {
         console.error('Error fetching kanji:', error);
       } finally {
@@ -617,6 +634,38 @@ export default function KanjiDetailPage() {
             </div>
           )}
         </div>
+
+        {/* How to Memorize This Kanji - Mnemonic Section */}
+        {mnemonic && (
+          <div className="bg-gradient-to-br from-pink-50 to-orange-50 rounded-xl shadow-sm border border-pink-200 p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+            <div className="mb-4">
+              <div className="flex items-start gap-2 mb-3">
+                <Lightbulb className="h-5 w-5 sm:h-6 sm:w-6 text-pink-600 flex-shrink-0 mt-1" />
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900">How to Memorize {kanji.character}</h2>
+              </div>
+              <p className="text-gray-700 text-sm sm:text-base mb-4">
+                Use this memory aid to help you remember the kanji {kanji.character} ({kanji.meaning}):
+              </p>
+            </div>
+            
+            <div className="bg-white rounded-lg p-4 sm:p-6 border border-pink-300">
+              <div className="flex items-start gap-4">
+                <div className="text-6xl sm:text-7xl font-bold text-gray-900 font-japanese flex-shrink-0">
+                  {kanji.character}
+                </div>
+                <div className="flex-1">
+                  <p className="text-base sm:text-lg text-gray-800 leading-relaxed">
+                    {mnemonic}
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <p className="text-xs sm:text-sm text-gray-600 mt-4 text-center">
+              💡 Tip: Visualize this story in your mind to make the kanji stick!
+            </p>
+          </div>
+        )}
 
         {/* Explore Other Kanji from Same Level */}
         {allKanji.length > 1 && (

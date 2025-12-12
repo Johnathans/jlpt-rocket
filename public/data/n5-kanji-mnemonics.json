@@ -1,0 +1,555 @@
+[
+  {
+    "character": "一",
+    "meaning": "One",
+    "stroke_count": 1,
+    "jlpt_level": "N5",
+    "mnemonic": "Just one single horizontal line - it's literally the number one lying down! Can't get simpler than that."
+  },
+  {
+    "character": "二",
+    "meaning": "Two",
+    "stroke_count": 2,
+    "jlpt_level": "N5",
+    "mnemonic": "Two horizontal lines stacked on top of each other - just like the number two! Count them: one, two."
+  },
+  {
+    "character": "九",
+    "meaning": "Nine",
+    "stroke_count": 2,
+    "jlpt_level": "N5",
+    "mnemonic": "Looks like a muscular arm flexing - and you need NINE muscles to flex your arm that hard!"
+  },
+  {
+    "character": "七",
+    "meaning": "Seven",
+    "stroke_count": 2,
+    "jlpt_level": "N5",
+    "mnemonic": "A horizontal line cut by a vertical slash - like cutting a cake into SEVEN pieces with one decisive cut!"
+  },
+  {
+    "character": "人",
+    "meaning": "Person",
+    "stroke_count": 2,
+    "jlpt_level": "N5",
+    "mnemonic": "Two legs walking - a simple stick figure person striding forward. The most basic representation of a human!"
+  },
+  {
+    "character": "入",
+    "meaning": "Enter",
+    "stroke_count": 2,
+    "jlpt_level": "N5",
+    "mnemonic": "An arrow pointing down and in - showing the direction to ENTER a building. Follow the arrow inside!"
+  },
+  {
+    "character": "八",
+    "meaning": "Eight",
+    "stroke_count": 2,
+    "jlpt_level": "N5",
+    "mnemonic": "Two lines spreading apart like the number 8 split in half. Or think of it as two chopsticks - you need EIGHT fingers to use chopsticks properly!"
+  },
+  {
+    "character": "十",
+    "meaning": "Ten",
+    "stroke_count": 2,
+    "jlpt_level": "N5",
+    "mnemonic": "A perfect plus (+) sign - and when you count on your TEN fingers, you're adding them all up!"
+  },
+  {
+    "character": "三",
+    "meaning": "Three",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Three horizontal lines stacked up - count them: one, two, three! The pattern continues from one and two."
+  },
+  {
+    "character": "上",
+    "meaning": "Above",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "A short line sitting ABOVE a longer baseline - the top line is literally positioned above! The arrow points up."
+  },
+  {
+    "character": "下",
+    "meaning": "Below",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "A short line hanging BELOW a longer top line - opposite of above! The arrow points down."
+  },
+  {
+    "character": "大",
+    "meaning": "Large",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "A person (人) spreading their arms and legs wide - making themselves as LARGE as possible! Think of a big starfish."
+  },
+  {
+    "character": "女",
+    "meaning": "Woman",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "A woman kneeling gracefully with her arms crossed - a traditional pose showing elegance and poise."
+  },
+  {
+    "character": "山",
+    "meaning": "Mountain",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Three peaks of a mountain range! The middle peak is the tallest - just like Mt. Fuji with smaller peaks beside it."
+  },
+  {
+    "character": "川",
+    "meaning": "Stream",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Three flowing lines of water running down a stream - you can see the current flowing between the banks!"
+  },
+  {
+    "character": "土",
+    "meaning": "Soil",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "A plant sprouting from the ground - the horizontal line is the soil surface, and the stem grows up from the earth!"
+  },
+  {
+    "character": "千",
+    "meaning": "Thousand",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Ten (十) with an extra slash - multiply by 100 and you get a THOUSAND! The slash adds two zeros."
+  },
+  {
+    "character": "子",
+    "meaning": "Child",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "A baby wrapped in a blanket with arms reaching up - a CHILD wanting to be picked up by their parent!"
+  },
+  {
+    "character": "小",
+    "meaning": "Little",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "A vertical line with two tiny dots on either side - the dots are so LITTLE and small compared to the center line!"
+  },
+  {
+    "character": "中",
+    "meaning": "In",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "A vertical line going through the middle of a box - the arrow pierces right IN the center! Bulls-eye!"
+  },
+  {
+    "character": "五",
+    "meaning": "Five",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Looks like a fancy FIVE with crossed lines - imagine the Roman numeral V with extra decoration!"
+  },
+  {
+    "character": "六",
+    "meaning": "Six",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "A hat on top of legs - and a spider has SIX legs under its body (close enough to eight!)."
+  },
+  {
+    "character": "円",
+    "meaning": "Circle",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "A rounded enclosure - it's literally shaped like a CIRCLE! Also means yen, the circular coins."
+  },
+  {
+    "character": "天",
+    "meaning": "Heavens",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "A big (大) person with a line above their head - reaching up to the HEAVENS! The sky is the limit."
+  },
+  {
+    "character": "日",
+    "meaning": "Day",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Picture a window with the sun shining through it. The horizontal line is the windowsill, and the bright rectangle is sunlight streaming in - that's your day beginning!"
+  },
+  {
+    "character": "月",
+    "meaning": "Month",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Two horizontal strokes are clouds in the night sky, and the two vertical strokes form a crescent moon peeking through. The moon's cycle gives us months!"
+  },
+  {
+    "character": "木",
+    "meaning": "Tree",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "The horizontal line is the ground, the vertical line is the trunk, and the branches spread out on both sides. It's literally a simple tree drawing!"
+  },
+  {
+    "character": "水",
+    "meaning": "Water",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "The center vertical line is a stream of water flowing down, and the splashes on either side show water droplets bouncing off rocks. You can almost see it flowing!"
+  },
+  {
+    "character": "火",
+    "meaning": "Fire",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "A person (人) dancing wildly with flames shooting up on both sides. Fire makes people jump and dance to avoid getting burned!"
+  },
+  {
+    "character": "出",
+    "meaning": "Exit",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "Two mountains stacked - you EXIT by climbing up and over both peaks to get out!"
+  },
+  {
+    "character": "右",
+    "meaning": "Right",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "A hand (the right side) reaching for your mouth (口) - most people eat with their RIGHT hand!"
+  },
+  {
+    "character": "四",
+    "meaning": "Four",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "A box with FOUR sides and FOUR corners - count each side: one, two, three, four!"
+  },
+  {
+    "character": "左",
+    "meaning": "Left",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "A hand (the left side) holding a carpenter's square - craftsmen hold tools in their LEFT hand to measure!"
+  },
+  {
+    "character": "本",
+    "meaning": "Book",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "A tree (木) with a horizontal line through it - ancient BOOKS were made from tree bark and wood!"
+  },
+  {
+    "character": "白",
+    "meaning": "White",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "The sun (日) with a drop on top - when the sun's rays hit a drop of water, it reflects pure WHITE light!"
+  },
+  {
+    "character": "万",
+    "meaning": "Ten Thousand",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "One (一) with a fancy curl - multiply by TEN THOUSAND to make it super special and valuable!"
+  },
+  {
+    "character": "今",
+    "meaning": "Now",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "An umbrella covering the present moment - you need it NOW, not later! Live in the present."
+  },
+  {
+    "character": "午",
+    "meaning": "Noon",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "A pestle pounding rice - farmers take their lunch break at NOON when the sun is highest!"
+  },
+  {
+    "character": "友",
+    "meaning": "Friend",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Two hands reaching out to each other - FRIENDS shake hands and support one another!"
+  },
+  {
+    "character": "父",
+    "meaning": "Father",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Two crossed lines - FATHER works hard, crossing his arms after a long day of providing for the family."
+  },
+  {
+    "character": "北",
+    "meaning": "North",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "Two people (人人) sitting back-to-back - they're cold because they're facing NORTH where it's freezing!"
+  },
+  {
+    "character": "半",
+    "meaning": "Half",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "Eight (八) divided by a line - split it in HALF down the middle! Perfect division."
+  },
+  {
+    "character": "外",
+    "meaning": "Outside",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "An evening moon with a divination stick - fortune tellers work OUTSIDE under the moonlight!"
+  },
+  {
+    "character": "母",
+    "meaning": "Mother",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "Woman (女) with two dots - representing a MOTHER's breasts, nurturing and feeding her children."
+  },
+  {
+    "character": "休",
+    "meaning": "Rest",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "A person (人) leaning against a tree (木) - taking a REST in the shade after working hard!"
+  },
+  {
+    "character": "先",
+    "meaning": "Before",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "Legs walking forward - you must go BEFORE others, leading the way ahead!"
+  },
+  {
+    "character": "名",
+    "meaning": "Name",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "Evening (夕) mouth (口) - when it gets dark, you call out someone's NAME to find them!"
+  },
+  {
+    "character": "年",
+    "meaning": "Year",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "A person carrying grain on their back - farmers harvest once a YEAR, marking the passage of time!"
+  },
+  {
+    "character": "気",
+    "meaning": "Spirit",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "Steam rising from rice - the SPIRIT and energy of life rising up like vapor! Also means air/atmosphere."
+  },
+  {
+    "character": "百",
+    "meaning": "Hundred",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "White (白) with an extra stroke - multiply white by ten to get a HUNDRED! One hundred is pure and complete."
+  },
+  {
+    "character": "男",
+    "meaning": "Male",
+    "stroke_count": 7,
+    "jlpt_level": "N5",
+    "mnemonic": "Strength (力) in the rice field (田) - MALES traditionally did the heavy farm work requiring physical power!"
+  },
+  {
+    "character": "見",
+    "meaning": "See",
+    "stroke_count": 7,
+    "jlpt_level": "N5",
+    "mnemonic": "An eye (目) on legs - your eyes walk around to SEE everything! They're always looking and observing."
+  },
+  {
+    "character": "車",
+    "meaning": "Car",
+    "stroke_count": 7,
+    "jlpt_level": "N5",
+    "mnemonic": "A bird's eye view of a CAR - you can see the axle, wheels, and chassis from above! Also means vehicle/wheel."
+  },
+  {
+    "character": "毎",
+    "meaning": "Every",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "Mother (母) without the dots - EVERY mother loves their child, it's universal and constant!"
+  },
+  {
+    "character": "行",
+    "meaning": "Going",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "A crossroads intersection - you're GOING somewhere, choosing which path to take at the crossroads!"
+  },
+  {
+    "character": "西",
+    "meaning": "West",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "A bird's nest - birds fly WEST at sunset to return to their nests for the night!"
+  },
+  {
+    "character": "何",
+    "meaning": "What",
+    "stroke_count": 7,
+    "jlpt_level": "N5",
+    "mnemonic": "Person (人) with a mouth (口) asking questions - WHAT is this? WHAT is that? Always curious!"
+  },
+  {
+    "character": "来",
+    "meaning": "Come",
+    "stroke_count": 7,
+    "jlpt_level": "N5",
+    "mnemonic": "A person arriving at a rice field - COME here to help with the harvest! Beckoning someone to approach."
+  },
+  {
+    "character": "学",
+    "meaning": "Study",
+    "stroke_count": 8,
+    "jlpt_level": "N5",
+    "mnemonic": "A child (子) under a roof learning - STUDY happens when children are sheltered and taught knowledge!"
+  },
+  {
+    "character": "金",
+    "meaning": "Gold",
+    "stroke_count": 8,
+    "jlpt_level": "N5",
+    "mnemonic": "A roof over precious nuggets - GOLD is so valuable it needs protection! Also means money/metal."
+  },
+  {
+    "character": "雨",
+    "meaning": "Rain",
+    "stroke_count": 8,
+    "jlpt_level": "N5",
+    "mnemonic": "The top line is the sky, and the four dots below are raindrops falling down. It's literally a picture of rain falling from the clouds!"
+  },
+  {
+    "character": "国",
+    "meaning": "Country",
+    "stroke_count": 8,
+    "jlpt_level": "N5",
+    "mnemonic": "A jewel (玉) enclosed by borders - a COUNTRY protects its treasures within its boundaries!"
+  },
+  {
+    "character": "東",
+    "meaning": "East",
+    "stroke_count": 8,
+    "jlpt_level": "N5",
+    "mnemonic": "The sun (日) rising behind a tree (木) - the sun rises in the EAST every morning!"
+  },
+  {
+    "character": "長",
+    "meaning": "Long",
+    "stroke_count": 8,
+    "jlpt_level": "N5",
+    "mnemonic": "An old person with LONG flowing hair - elders have lived a LONG time and their hair grows long!"
+  },
+  {
+    "character": "前",
+    "meaning": "In Front",
+    "stroke_count": 9,
+    "jlpt_level": "N5",
+    "mnemonic": "A knife cutting forward - you cut what's IN FRONT of you, moving the blade ahead!"
+  },
+  {
+    "character": "南",
+    "meaning": "South",
+    "stroke_count": 9,
+    "jlpt_level": "N5",
+    "mnemonic": "Ten (十) inside a building - it's warm in the SOUTH, so you can count to ten comfortably indoors!"
+  },
+  {
+    "character": "後",
+    "meaning": "Behind",
+    "stroke_count": 9,
+    "jlpt_level": "N5",
+    "mnemonic": "Walking with a thread trailing BEHIND you - the thread follows after you, always behind your steps!"
+  },
+  {
+    "character": "食",
+    "meaning": "Eat",
+    "stroke_count": 9,
+    "jlpt_level": "N5",
+    "mnemonic": "A person (人) with a good (良) roof over their head - that's the top part. Below is a spoon bringing food to their mouth. Eating requires shelter and utensils!"
+  },
+  {
+    "character": "校",
+    "meaning": "Exam",
+    "stroke_count": 10,
+    "jlpt_level": "N5",
+    "mnemonic": "Tree (木) with crossed marks - teachers mark EXAM papers under a tree, crossing out wrong answers! Also means school."
+  },
+  {
+    "character": "時",
+    "meaning": "Time",
+    "stroke_count": 10,
+    "jlpt_level": "N5",
+    "mnemonic": "Sun (日) at a temple - monks measure TIME by the sun's position, marking the hours of prayer!"
+  },
+  {
+    "character": "高",
+    "meaning": "Tall",
+    "stroke_count": 10,
+    "jlpt_level": "N5",
+    "mnemonic": "A TALL tower with a roof on top - the building reaches high into the sky! Also means expensive/high."
+  },
+  {
+    "character": "間",
+    "meaning": "Interval",
+    "stroke_count": 12,
+    "jlpt_level": "N5",
+    "mnemonic": "Sun (日) peeking through a gate - the INTERVAL of space between the doors lets sunlight through!"
+  },
+  {
+    "character": "話",
+    "meaning": "Tale",
+    "stroke_count": 13,
+    "jlpt_level": "N5",
+    "mnemonic": "Words (言) spoken by the tongue - telling a TALE or story with your mouth! Also means talk/speak."
+  },
+  {
+    "character": "電",
+    "meaning": "Electricity",
+    "stroke_count": 13,
+    "jlpt_level": "N5",
+    "mnemonic": "Rain (雨) plus a rice field (田) equals electricity - because lightning strikes during rainstorms over fields, creating nature's electricity!"
+  },
+  {
+    "character": "聞",
+    "meaning": "Hear",
+    "stroke_count": 14,
+    "jlpt_level": "N5",
+    "mnemonic": "An ear (耳) at the gate - you put your ear to the door to HEAR what's happening inside! Also means ask."
+  },
+  {
+    "character": "語",
+    "meaning": "Word",
+    "stroke_count": 14,
+    "jlpt_level": "N5",
+    "mnemonic": "Words (言) that I speak - my WORDS come from my mouth! Also means language/tell."
+  },
+  {
+    "character": "読",
+    "meaning": "Read",
+    "stroke_count": 14,
+    "jlpt_level": "N5",
+    "mnemonic": "Words (言) selling at market - you READ the price tags and signs when shopping! Reading is everywhere."
+  },
+  {
+    "character": "生",
+    "meaning": "Life",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "A plant sprouting from the earth - new LIFE growing from the soil! Also means birth/raw/student."
+  },
+  {
+    "character": "書",
+    "meaning": "Write",
+    "stroke_count": 10,
+    "jlpt_level": "N5",
+    "mnemonic": "A brush in hand making marks - you WRITE with a brush or pen, creating characters on paper! Also means book."
+  }
+]

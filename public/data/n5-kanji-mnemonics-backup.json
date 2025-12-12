@@ -1,0 +1,555 @@
+[
+  {
+    "character": "一",
+    "meaning": "One",
+    "stroke_count": 1,
+    "jlpt_level": "N5",
+    "mnemonic": "Just one single horizontal line - it's literally the number one lying down! Can't get simpler than that."
+  },
+  {
+    "character": "二",
+    "meaning": "Two",
+    "stroke_count": 2,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "九",
+    "meaning": "Nine",
+    "stroke_count": 2,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "七",
+    "meaning": "Seven",
+    "stroke_count": 2,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "人",
+    "meaning": "Person",
+    "stroke_count": 2,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "入",
+    "meaning": "Enter",
+    "stroke_count": 2,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "八",
+    "meaning": "Eight",
+    "stroke_count": 2,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "十",
+    "meaning": "Ten",
+    "stroke_count": 2,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "三",
+    "meaning": "Three",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "上",
+    "meaning": "Above",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "下",
+    "meaning": "Below",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "大",
+    "meaning": "Large",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "女",
+    "meaning": "Woman",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "山",
+    "meaning": "Mountain",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "川",
+    "meaning": "Stream",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "土",
+    "meaning": "Soil",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "千",
+    "meaning": "Thousand",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "子",
+    "meaning": "Child",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "小",
+    "meaning": "Little",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "中",
+    "meaning": "In",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "五",
+    "meaning": "Five",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "六",
+    "meaning": "Six",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "円",
+    "meaning": "Circle",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "天",
+    "meaning": "Heavens",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "日",
+    "meaning": "Day",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Picture a window with the sun shining through it. The horizontal line is the windowsill, and the bright rectangle is sunlight streaming in - that's your day beginning!"
+  },
+  {
+    "character": "月",
+    "meaning": "Month",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Two horizontal strokes are clouds in the night sky, and the two vertical strokes form a crescent moon peeking through. The moon's cycle gives us months!"
+  },
+  {
+    "character": "木",
+    "meaning": "Tree",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "The horizontal line is the ground, the vertical line is the trunk, and the branches spread out on both sides. It's literally a simple tree drawing!"
+  },
+  {
+    "character": "水",
+    "meaning": "Water",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "The center vertical line is a stream of water flowing down, and the splashes on either side show water droplets bouncing off rocks. You can almost see it flowing!"
+  },
+  {
+    "character": "火",
+    "meaning": "Fire",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "A person (人) dancing wildly with flames shooting up on both sides. Fire makes people jump and dance to avoid getting burned!"
+  },
+  {
+    "character": "出",
+    "meaning": "Exit",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "右",
+    "meaning": "Right",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "四",
+    "meaning": "Four",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "左",
+    "meaning": "Left",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "本",
+    "meaning": "Book",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "白",
+    "meaning": "White",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "万",
+    "meaning": "Ten Thousand",
+    "stroke_count": 3,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "今",
+    "meaning": "Now",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "午",
+    "meaning": "Noon",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "友",
+    "meaning": "Friend",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "父",
+    "meaning": "Father",
+    "stroke_count": 4,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "北",
+    "meaning": "North",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "半",
+    "meaning": "Half",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "外",
+    "meaning": "Outside",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "母",
+    "meaning": "Mother",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "休",
+    "meaning": "Rest",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "先",
+    "meaning": "Before",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "名",
+    "meaning": "Name",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "年",
+    "meaning": "Year",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "気",
+    "meaning": "Spirit",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "百",
+    "meaning": "Hundred",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "男",
+    "meaning": "Male",
+    "stroke_count": 7,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "見",
+    "meaning": "See",
+    "stroke_count": 7,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "車",
+    "meaning": "Car",
+    "stroke_count": 7,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "毎",
+    "meaning": "Every",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "行",
+    "meaning": "Going",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "西",
+    "meaning": "West",
+    "stroke_count": 6,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "何",
+    "meaning": "What",
+    "stroke_count": 7,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "来",
+    "meaning": "Come",
+    "stroke_count": 7,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "学",
+    "meaning": "Study",
+    "stroke_count": 8,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "金",
+    "meaning": "Gold",
+    "stroke_count": 8,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "雨",
+    "meaning": "Rain",
+    "stroke_count": 8,
+    "jlpt_level": "N5",
+    "mnemonic": "The top line is the sky, and the four dots below are raindrops falling down. It's literally a picture of rain falling from the clouds!"
+  },
+  {
+    "character": "国",
+    "meaning": "Country",
+    "stroke_count": 8,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "東",
+    "meaning": "East",
+    "stroke_count": 8,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "長",
+    "meaning": "Long",
+    "stroke_count": 8,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "前",
+    "meaning": "In Front",
+    "stroke_count": 9,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "南",
+    "meaning": "South",
+    "stroke_count": 9,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "後",
+    "meaning": "Behind",
+    "stroke_count": 9,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "食",
+    "meaning": "Eat",
+    "stroke_count": 9,
+    "jlpt_level": "N5",
+    "mnemonic": "A person (人) with a good (良) roof over their head - that's the top part. Below is a spoon bringing food to their mouth. Eating requires shelter and utensils!"
+  },
+  {
+    "character": "校",
+    "meaning": "Exam",
+    "stroke_count": 10,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "時",
+    "meaning": "Time",
+    "stroke_count": 10,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "高",
+    "meaning": "Tall",
+    "stroke_count": 10,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "間",
+    "meaning": "Interval",
+    "stroke_count": 12,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "話",
+    "meaning": "Tale",
+    "stroke_count": 13,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "電",
+    "meaning": "Electricity",
+    "stroke_count": 13,
+    "jlpt_level": "N5",
+    "mnemonic": "Rain (雨) plus a rice field (田) equals electricity - because lightning strikes during rainstorms over fields, creating nature's electricity!"
+  },
+  {
+    "character": "聞",
+    "meaning": "Hear",
+    "stroke_count": 14,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "語",
+    "meaning": "Word",
+    "stroke_count": 14,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "読",
+    "meaning": "Read",
+    "stroke_count": 14,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "生",
+    "meaning": "Life",
+    "stroke_count": 5,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  },
+  {
+    "character": "書",
+    "meaning": "Write",
+    "stroke_count": 10,
+    "jlpt_level": "N5",
+    "mnemonic": "Mnemonic pending - add manually or use API"
+  }
+]
