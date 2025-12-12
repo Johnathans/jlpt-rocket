@@ -50,8 +50,8 @@ export default function KanjiDetailPage() {
   // SEO: Update meta tags dynamically
   useEffect(() => {
     if (kanji) {
-      const pageTitle = `${kanji.character} (${kanji.meaning}) - JLPT ${kanji.jlpt_level} Kanji | Rocket JLPT`;
-      const pageDescription = `Learn ${kanji.character} (${kanji.meaning}): JLPT ${kanji.jlpt_level} kanji with ${kanji.stroke_count} strokes. On'yomi: ${kanji.on_reading?.join(', ') || 'N/A'}, Kun'yomi: ${kanji.kun_reading?.join(', ') || 'N/A'}. Includes stroke order, readings, and vocabulary examples.`;
+      const pageTitle = `${kanji.meaning} Kanji (${kanji.character}): Stroke Order, Readings & Examples`;
+      const pageDescription = `Learn how to write ${kanji.meaning} in kanji (${kanji.character}). JLPT ${kanji.jlpt_level} kanji with ${kanji.stroke_count} strokes. On'yomi: ${kanji.on_reading?.join(', ') || 'N/A'}, Kun'yomi: ${kanji.kun_reading?.join(', ') || 'N/A'}. Includes stroke order diagrams, readings, and vocabulary examples.`;
       const pageUrl = `https://www.rocketjlpt.com/jlpt/${level.toLowerCase()}/kanji/${encodeURIComponent(kanjiChar)}`;
       
       // Update title
