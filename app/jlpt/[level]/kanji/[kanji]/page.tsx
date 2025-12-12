@@ -239,20 +239,18 @@ export default function KanjiDetailPage() {
         const count = await getVocabularyCountForKanji(kanjiChar);
         setVocabCount(count);
         
-        // Load mnemonic if available (N5 only for now)
-        if (level === 'N5') {
-          try {
-            const mnemonicResponse = await fetch('/data/n5-kanji-mnemonics.json');
-            if (mnemonicResponse.ok) {
-              const mnemonics = await mnemonicResponse.json();
-              const kanjiMnemonic = mnemonics.find((m: any) => m.character === kanjiChar);
-              if (kanjiMnemonic) {
-                setMnemonic(kanjiMnemonic.mnemonic);
-              }
+        // Load mnemonic if available (all levels)
+        try {
+          const mnemonicResponse = await fetch(`/data/${level.toLowerCase()}-kanji-mnemonics.json`);
+          if (mnemonicResponse.ok) {
+            const mnemonics = await mnemonicResponse.json();
+            const kanjiMnemonic = mnemonics.find((m: any) => m.character === kanjiChar);
+            if (kanjiMnemonic) {
+              setMnemonic(kanjiMnemonic.mnemonic);
             }
-          } catch (err) {
-            console.error('Error loading mnemonic:', err);
           }
+        } catch (err) {
+          console.error('Error loading mnemonic:', err);
         }
       } catch (error) {
         console.error('Error fetching kanji:', error);
