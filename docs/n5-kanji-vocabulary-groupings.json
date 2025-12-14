@@ -1,0 +1,169 @@
+{
+  "groupings": [
+    {
+      "id": "numbers_counting",
+      "name": "Numbers & Counting",
+      "kanji": ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "百", "千", "万", "円", "半"],
+      "vocabulary": ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "百", "千", "万", "～円", "一日", "一番", "五日", "五つ", "半", "いくつ", "いくら"]
+    },
+    {
+      "id": "time_calendar",
+      "name": "Time & Calendar",
+      "kanji": ["日", "月", "年", "時", "間", "今", "前", "後", "午", "火", "水", "木", "金", "土", "毎"],
+      "vocabulary": ["今日", "明日", "昨日", "今", "今朝", "朝", "朝御飯", "明後日", "一昨日", "～月", "去年", "来年", "毎日", "毎朝", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日", "午前", "午後", "～時", "～時間", "～か月", "前", "後", "後ろ", "いつ"]
+    },
+    {
+      "id": "people_family",
+      "name": "People & Family",
+      "kanji": ["人", "男", "女", "子", "母", "父", "友", "先", "生"],
+      "vocabulary": ["人", "男", "男の子", "女", "女の子", "子", "お母さん", "お父さん", "兄", "姉", "弟", "妹", "お兄さん", "お姉さん", "兄弟", "おじいさん", "おばあさん", "おじさん", "おばさん", "家族", "友達", "先生", "学生", "大人", "外国人", "あなた"]
+    },
+    {
+      "id": "places_directions",
+      "name": "Places & Directions",
+      "kanji": ["上", "下", "中", "外", "左", "右", "東", "西", "南", "北", "国", "山", "川", "天"],
+      "vocabulary": ["上", "下", "中", "外", "左", "右", "東", "西", "南", "北", "国", "外国", "山", "川", "天気", "後ろ", "前", "間", "あそこ", "あちら", "あっち"]
+    },
+    {
+      "id": "school_learning",
+      "name": "School & Learning",
+      "kanji": ["学", "校", "生", "先", "語", "書", "読", "話", "聞", "見", "名"],
+      "vocabulary": ["学校", "学生", "先生", "教室", "英語", "日本語", "～語", "漢字", "片仮名", "平仮名", "書く", "読む", "話す", "聞く", "見る", "言う", "教える", "覚える", "名前", "意味"]
+    },
+    {
+      "id": "daily_actions",
+      "name": "Daily Actions",
+      "kanji": ["行", "来", "入", "出", "食", "休", "見", "聞", "書", "読"],
+      "vocabulary": ["行く", "来る", "入る", "入れる", "入口", "出る", "出口", "食べる", "飲む", "休む", "休み", "見る", "聞く", "書く", "読む", "話す", "歩く", "走る", "買う", "買い物", "帰る", "開く", "開ける", "閉める", "洗う", "浴びる", "起きる", "寝る", "座る", "立つ", "遊ぶ"]
+    },
+    {
+      "id": "size_quantity",
+      "name": "Size & Quantity",
+      "kanji": ["大", "小", "長", "高", "白"],
+      "vocabulary": ["大きい", "大きな", "小さい", "長い", "高い", "多い", "大勢", "白い", "黒い", "白", "黒", "大人", "少ない", "薄い", "厚い", "重い", "軽い"]
+    },
+    {
+      "id": "nature_weather",
+      "name": "Nature & Weather",
+      "kanji": ["天", "気", "雨", "水", "火", "山", "川", "木", "本"],
+      "vocabulary": ["天気", "雨", "水", "火", "山", "川", "木", "元気", "気", "本", "日本", "海", "風", "雪", "曇り", "暑い", "寒い", "暖かい", "涼しい", "暗い", "明るい"]
+    },
+    {
+      "id": "buildings_places",
+      "name": "Buildings & Places",
+      "kanji": ["家", "校"],
+      "vocabulary": ["家", "うち", "学校", "会社", "駅", "銀行", "公園", "喫茶店", "映画館", "図書館", "病院", "郵便局", "お手洗い", "玄関", "店", "デパート", "スーパー", "レストラン", "ホテル", "アパート"]
+    },
+    {
+      "id": "food_eating",
+      "name": "Food & Eating",
+      "kanji": ["食", "水"],
+      "vocabulary": ["食べる", "飲む", "朝御飯", "昼御飯", "晩御飯", "水", "お茶", "紅茶", "お酒", "牛肉", "牛乳", "果物", "お菓子", "カレー", "パン", "卵", "魚", "肉", "野菜", "ご飯", "美味しい", "甘い", "辛い"]
+    },
+    {
+      "id": "money_shopping",
+      "name": "Money & Shopping",
+      "kanji": ["金", "円"],
+      "vocabulary": ["お金", "～円", "金曜日", "買う", "買い物", "売る", "店", "銀行", "いくら", "高い", "安い"]
+    },
+    {
+      "id": "transportation",
+      "name": "Transportation & Movement",
+      "kanji": ["車", "電"],
+      "vocabulary": ["車", "電車", "駅", "行く", "来る", "帰る", "歩く", "走る", "降りる", "乗る", "自転車", "バス", "タクシー", "飛行機", "船"]
+    }
+  ],
+  "ungrouped_items": {
+    "kanji": [
+      {"kanji": "電", "meaning": "Electricity", "note": "Used in 電車 but kanji itself not in main groups"},
+      {"kanji": "名", "meaning": "Name", "note": "Used in 名前 but not explicitly grouped"}
+    ],
+    "vocabulary": [
+      "ああ", "会う", "上げる", "危ない", "余り", "飴", "生まれる", "絵", "映画", "映画館", "ええ", "エレベーター",
+      "嫌", "要る", "一緒", "歌", "歌う", "音楽", "ギター", "写真", "テニス", "サッカー", "野球", "泳ぐ",
+      "結婚", "結構", "仕事", "勉強", "宿題", "試験", "質問", "答え", "切手", "切符", "荷物", "プレゼント",
+      "誕生日", "パーティー", "旅行", "散歩", "掃除", "洗濯", "料理", "貸す", "借りる", "返す", "あげる",
+      "もらう", "くれる", "始まる", "終わる", "消える", "消す", "つける", "切る", "置く", "持つ", "使う",
+      "作る", "撮る", "待つ", "知る", "分かる", "思う", "好き", "嫌い", "上手", "下手", "大切", "大丈夫",
+      "本当", "嘘", "問題", "～ぐらい", "～くらい", "～ごろ", "～中", "～方", "キロ", "グラム", "メートル", "センチ"
+    ]
+  },
+  "suggested_new_groups": [
+    {
+      "id": "entertainment_hobbies",
+      "name": "Entertainment & Hobbies",
+      "vocabulary": ["映画", "音楽", "歌", "歌う", "ギター", "写真", "絵", "テニス", "サッカー", "野球", "泳ぐ", "遊ぶ"]
+    },
+    {
+      "id": "life_events",
+      "name": "Life Events & Occasions",
+      "vocabulary": ["生まれる", "結婚", "誕生日", "パーティー", "プレゼント"]
+    },
+    {
+      "id": "work_study",
+      "name": "Work & Study Activities",
+      "vocabulary": ["仕事", "勉強", "宿題", "試験", "質問", "答え"]
+    },
+    {
+      "id": "household_activities",
+      "name": "Household Activities",
+      "vocabulary": ["掃除", "洗濯", "料理"]
+    },
+    {
+      "id": "transactions",
+      "name": "Giving & Receiving",
+      "vocabulary": ["あげる", "もらう", "くれる", "貸す", "借りる", "返す"]
+    },
+    {
+      "id": "state_changes",
+      "name": "State Changes",
+      "vocabulary": ["始まる", "終わる", "消える", "消す", "つける"]
+    },
+    {
+      "id": "common_actions",
+      "name": "Common Actions",
+      "vocabulary": ["切る", "置く", "持つ", "使う", "作る", "撮る", "待つ"]
+    },
+    {
+      "id": "mental_states",
+      "name": "Mental States & Thoughts",
+      "vocabulary": ["知る", "分かる", "思う", "好き", "嫌い"]
+    },
+    {
+      "id": "abilities_skills",
+      "name": "Abilities & Skills",
+      "vocabulary": ["上手", "下手", "できる"]
+    },
+    {
+      "id": "travel_mail",
+      "name": "Travel & Mail",
+      "vocabulary": ["旅行", "切手", "切符", "荷物"]
+    },
+    {
+      "id": "measurements",
+      "name": "Measurements & Units",
+      "vocabulary": ["キロ", "グラム", "メートル", "センチ", "～ぐらい", "～くらい"]
+    },
+    {
+      "id": "expressions_interjections",
+      "name": "Expressions & Interjections",
+      "vocabulary": ["ああ", "ええ", "はい", "いいえ", "結構", "大丈夫"]
+    },
+    {
+      "id": "abstract_concepts",
+      "name": "Abstract Concepts",
+      "vocabulary": ["本当", "嘘", "問題", "大切", "一緒"]
+    }
+  ],
+  "statistics": {
+    "total_n5_kanji": 79,
+    "grouped_kanji": 77,
+    "ungrouped_kanji": 2,
+    "total_n5_vocabulary_estimated": 718,
+    "grouped_in_main_groups": 350,
+    "ungrouped_vocabulary": 168,
+    "suggested_for_new_groups": 200,
+    "total_main_groups": 12,
+    "suggested_additional_groups": 13
+  }
+}

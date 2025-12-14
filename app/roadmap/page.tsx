@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight, BookMarked, ClipboardCheck, Volume2, Brush } from 'lucide-react';
+import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight, BookMarked, ClipboardCheck, Volume2, Brush, GraduationCap } from 'lucide-react';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 import { getContentCounts, getKanjiByLevel, getVocabularyByLevel, getSentencesByLevel } from '@/lib/supabase-data';
 import { StreakSystem } from '@/lib/streakSystem';
@@ -26,7 +26,7 @@ export default function RoadmapPage() {
   const [loading, setLoading] = useState(true);
   const [streakData, setStreakData] = useState({ currentStreak: 0 });
   const [isLevelModalOpen, setIsLevelModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'kanji' | 'vocabulary' | 'sentences' | 'stories' | 'tests'>('kanji');
+  const [activeTab, setActiveTab] = useState<'lessons' | 'kanji' | 'vocabulary' | 'sentences' | 'stories' | 'tests'>('lessons');
   const [kanjiData, setKanjiData] = useState<any[]>([]);
   const [vocabularyData, setVocabularyData] = useState<any[]>([]);
   const [sentencesData, setSentencesData] = useState<any[]>([]);
@@ -219,6 +219,17 @@ export default function RoadmapPage() {
           <div className="border-b border-gray-200 dark:border-gray-700">
             <div className="flex overflow-x-auto">
               <button
+                onClick={() => setActiveTab('lessons')}
+                className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${
+                  activeTab === 'lessons'
+                    ? 'border-pink-500 text-pink-600'
+                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                }`}
+              >
+                <GraduationCap className="h-4 w-4" />
+                N5 Lessons
+              </button>
+              <button
                 onClick={() => setActiveTab('kanji')}
                 className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${
                   activeTab === 'kanji'
@@ -278,6 +289,63 @@ export default function RoadmapPage() {
 
           {/* Tab Content */}
           <div className="p-6">
+            {activeTab === 'lessons' && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">N5 Lessons</h3>
+                </div>
+                
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                  {/* Lesson 1 */}
+                  <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-500 transition-all cursor-pointer p-4 text-center">
+                    <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">1</div>
+                    <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Self-Introduction</div>
+                    <div className="text-xs text-gray-500">5 Kanji · 20 Vocab</div>
+                  </div>
+
+                  {/* Lesson 2 */}
+                  <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-500 transition-all cursor-pointer p-4 text-center">
+                    <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">2</div>
+                    <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Time & Schedule</div>
+                    <div className="text-xs text-gray-500">12 Kanji · 25 Vocab</div>
+                  </div>
+
+                  {/* Lesson 3 */}
+                  <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-500 transition-all cursor-pointer p-4 text-center">
+                    <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">3</div>
+                    <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Daily Actions</div>
+                    <div className="text-xs text-gray-500">7 Kanji · 20 Vocab</div>
+                  </div>
+
+                  {/* Lesson 4 */}
+                  <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-500 transition-all cursor-pointer p-4 text-center">
+                    <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">4</div>
+                    <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Family & People</div>
+                    <div className="text-xs text-gray-500">8 Kanji · 25 Vocab</div>
+                  </div>
+
+                  {/* Lesson 5 */}
+                  <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-500 transition-all cursor-pointer p-4 text-center">
+                    <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">5</div>
+                    <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Places & Directions</div>
+                    <div className="text-xs text-gray-500">10 Kanji · 30 Vocab</div>
+                  </div>
+
+                  {/* Lesson 6 */}
+                  <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-500 transition-all cursor-pointer p-4 text-center">
+                    <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">6</div>
+                    <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Shopping</div>
+                    <div className="text-xs text-gray-500">6 Kanji · 25 Vocab</div>
+                  </div>
+
+                  {/* Coming Soon */}
+                  <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-dashed border-gray-300 dark:border-gray-700 p-4 text-center flex flex-col items-center justify-center">
+                    <div className="text-sm text-gray-500 dark:text-gray-400">+14 more</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {activeTab === 'kanji' && (
               <div>
                 <div className="flex items-center justify-between mb-4">
