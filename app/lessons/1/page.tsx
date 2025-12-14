@@ -140,11 +140,11 @@ export default function Lesson1() {
         }),
       });
 
-      const data = await response.json();
-      
-      if (data.audioUrl) {
-        // Cache the URL
-        setAudioCache(prev => ({ ...prev, [text]: data.audioUrl }));
+      if (response.ok) {
+        // Convert binary response to blob URL
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        setAudioCache(prev => ({ ...prev, [text]: blobUrl }));
       }
     } catch (error) {
       console.error('Audio preload error:', error);
@@ -156,7 +156,7 @@ export default function Lesson1() {
       // Check cache first
       if (audioCache[text]) {
         const audio = new Audio(audioCache[text]);
-        audio.play();
+        await audio.play();
         return;
       }
 
@@ -173,14 +173,19 @@ export default function Lesson1() {
         }),
       });
 
-      const data = await response.json();
-      
-      if (data.audioUrl) {
-        // Cache and play
-        setAudioCache(prev => ({ ...prev, [text]: data.audioUrl }));
-        const audio = new Audio(data.audioUrl);
-        audio.play();
+      if (!response.ok) {
+        console.error('TTS API error:', response.status);
+        return;
       }
+      
+      // Convert binary response to blob URL
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      
+      // Cache and play
+      setAudioCache(prev => ({ ...prev, [text]: blobUrl }));
+      const audio = new Audio(blobUrl);
+      await audio.play();
     } catch (error) {
       console.error('Audio playback error:', error);
     }
