@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { ReviewSystem } from '@/lib/reviewSystem';
+import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { getContentCountsByLevel, JLPTLevel } from '@/lib/supabase-data';
 
 interface ReviewStats {
@@ -52,8 +52,8 @@ function ProgressPageContent() {
 
   // Load real progress data from review system
   useEffect(() => {
-    const loadProgressData = () => {
-      const progressMap = ReviewSystem.getProgressData();
+    const loadProgressData = async () => {
+      const progressMap = await ReviewSystemSupabase.getProgressData();
       
       const newStats = {
         kanji: { learning: 0, mastered: 0, total: contentCounts.kanji },
@@ -95,9 +95,9 @@ function ProgressPageContent() {
   
   // Refresh data when page becomes visible (user returns from training)
   useEffect(() => {
-    const handleVisibilityChange = () => {
+    const handleVisibilityChange = async () => {
       if (!document.hidden) {
-        const progressMap = ReviewSystem.getProgressData();
+        const progressMap = await ReviewSystemSupabase.getProgressData();
         
         const newStats = {
           kanji: { learning: 0, mastered: 0, total: contentCounts.kanji },
@@ -153,16 +153,16 @@ function ProgressPageContent() {
 
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Progress</h1>
-          <p className="text-gray-600">Track your learning progress across all content types</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Progress</h1>
+          <p className="text-gray-600 dark:text-gray-300">Track your learning progress across all content types</p>
         </div>
 
-        <div className="bg-white rounded-lg border border-gray-200 p-6 sm:p-8">
+        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
           <div className="space-y-8">
             {categories.map((category) => {
               const masteredPercent = category.data.total > 0 ? (category.data.mastered / category.data.total) * 100 : 0;
@@ -172,12 +172,12 @@ function ProgressPageContent() {
               return (
                 <div key={category.name}>
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 gap-2">
-                    <h3 className="text-xl font-bold text-gray-900">{category.name}</h3>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">{category.name}</h3>
                     <div className="flex items-center gap-4 text-sm">
-                      <span className="text-gray-600">
-                        <span className="font-bold text-gray-900">{totalProgress}</span> / {category.data.total}
+                      <span className="text-gray-600 dark:text-gray-300">
+                        <span className="font-bold text-gray-900 dark:text-white">{totalProgress}</span> / {category.data.total}
                       </span>
-                      <span className="text-gray-500">
+                      <span className="text-gray-500 dark:text-gray-400">
                         {category.data.total > 0 ? Math.round((totalProgress / category.data.total) * 100) : 0}%
                       </span>
                     </div>
@@ -185,7 +185,7 @@ function ProgressPageContent() {
                   
                   {/* Progress Bar */}
                   <div className="relative">
-                    <div className="w-full bg-gray-200 rounded-lg h-12 overflow-hidden">
+                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-lg h-12 overflow-hidden">
                       <div className="flex h-12">
                         {/* Mastered */}
                         <div 
@@ -198,7 +198,7 @@ function ProgressPageContent() {
                         </div>
                         {/* Learning */}
                         <div 
-                          className="bg-orange-200 flex items-center justify-center text-gray-800 text-sm font-bold transition-all duration-300"
+                          className="bg-orange-200 dark:bg-orange-400 flex items-center justify-center text-gray-800 dark:text-gray-900 text-sm font-bold transition-all duration-300"
                           style={{ width: `${learningPercent}%` }}
                         >
                           {category.data.learning > 0 && learningPercent > 8 && (
@@ -213,18 +213,18 @@ function ProgressPageContent() {
                   <div className="flex items-center gap-6 mt-3 text-sm">
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-sm bg-gradient-to-r from-pink-500 to-orange-500"></div>
-                      <span className="text-gray-600">
-                        <span className="font-semibold text-gray-900">{category.data.mastered}</span> mastered
+                      <span className="text-gray-600 dark:text-gray-300">
+                        <span className="font-semibold text-gray-900 dark:text-white">{category.data.mastered}</span> mastered
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-sm bg-orange-200"></div>
-                      <span className="text-gray-600">
-                        <span className="font-semibold text-gray-900">{category.data.learning}</span> learning
+                      <div className="w-3 h-3 rounded-sm bg-orange-200 dark:bg-orange-400"></div>
+                      <span className="text-gray-600 dark:text-gray-300">
+                        <span className="font-semibold text-gray-900 dark:text-white">{category.data.learning}</span> learning
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-gray-500">
+                      <span className="text-gray-500 dark:text-gray-400">
                         <span className="font-semibold">{category.data.total - totalProgress}</span> not started
                       </span>
                     </div>
@@ -243,10 +243,10 @@ function ProgressPageContent() {
 export default function ProgressPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading progress...</p>
+          <p className="text-gray-600 dark:text-gray-300">Loading progress...</p>
         </div>
       </div>
     }>

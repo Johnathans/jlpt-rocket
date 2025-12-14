@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { ReviewSystem, ItemProgress, ReviewSettings } from '@/lib/reviewSystem';
+import { ItemProgress, ReviewSettings } from '@/lib/reviewSystem';
+import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 
 interface ReviewState {
   // Review queue
@@ -15,13 +16,13 @@ interface ReviewState {
   reviewSettings: ReviewSettings;
   
   // Actions
-  loadReviewItems: () => void;
+  loadReviewItems: () => Promise<void>;
   startReviewSession: () => void;
   endReviewSession: () => void;
-  answerReviewItem: (itemId: number, type: 'vocabulary' | 'kanji' | 'sentences', isCorrect: boolean) => void;
+  answerReviewItem: (itemId: number, type: 'vocabulary' | 'kanji' | 'sentences', isCorrect: boolean) => Promise<void>;
   nextReviewItem: () => void;
   updateReviewSettings: (settings: ReviewSettings) => void;
-  getReviewStats: () => { total: number; mastered: number; learning: number; review: number; dueToday: number };
+  getReviewStats: () => Promise<{ total: number; mastered: number; learning: number; review: number; dueToday: number }>;
   getCurrentReviewItem: () => ItemProgress | null;
   getReviewProgress: () => number;
 }
@@ -33,11 +34,11 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
   reviewSessionActive: false,
   todayReviewed: 0,
   todayCorrect: 0,
-  reviewSettings: ReviewSystem.getReviewSettings(),
+  reviewSettings: ReviewSystemSupabase.getReviewSettings(),
   
   // Actions
-  loadReviewItems: () => {
-    const dueItems = ReviewSystem.getItemsDueForReview();
+  loadReviewItems: async () => {
+    const dueItems = await ReviewSystemSupabase.getItemsDueForReview();
     set({ 
       reviewItems: dueItems,
       currentReviewIndex: 0
@@ -62,9 +63,9 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
     });
   },
   
-  answerReviewItem: (itemId, type, isCorrect) => {
+  answerReviewItem: async (itemId, type, isCorrect) => {
     // Update progress in the review system
-    ReviewSystem.updateItemProgress(itemId.toString(), type, isCorrect);
+    await ReviewSystemSupabase.updateItemProgress(itemId.toString(), type, isCorrect);
     
     // Update session stats
     const { todayReviewed, todayCorrect } = get();
@@ -74,10 +75,9 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
     });
     
     // If incorrect, keep item in review queue; if correct, it may be removed based on mastery
-    const progress = ReviewSystem.getItemProgress(itemId.toString(), type);
+    const progress = await ReviewSystemSupabase.getItemProgress(itemId.toString(), type);
     if (isCorrect && progress.masteryLevel >= 100) {
-      // Remove from review if mastered
-      ReviewSystem.removeFromReview(itemId.toString(), type);
+      // Note: removeFromReview not needed as updateItemProgress handles this
     }
   },
   
@@ -92,12 +92,12 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
   },
   
   updateReviewSettings: (settings) => {
-    ReviewSystem.saveReviewSettings(settings);
+    ReviewSystemSupabase.saveReviewSettings(settings);
     set({ reviewSettings: settings });
   },
   
-  getReviewStats: () => {
-    return ReviewSystem.getStats();
+  getReviewStats: async () => {
+    return await ReviewSystemSupabase.getStats();
   },
   
   getCurrentReviewItem: () => {

@@ -5,7 +5,7 @@ import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, ChevronRight, Pla
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 import { getContentCounts, getKanjiByLevel, getVocabularyByLevel, getSentencesByLevel } from '@/lib/supabase-data';
 import { StreakSystem } from '@/lib/streakSystem';
-import { ReviewSystem } from '@/lib/reviewSystem';
+import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import LevelSwitcherModal from '@/components/LevelSwitcherModal';
@@ -42,7 +42,7 @@ export default function RoadmapPage() {
       try {
         const { getContentCountsByLevel } = await import('@/lib/supabase-data');
         const counts = await getContentCountsByLevel(currentLevel);
-        const reviewItems = ReviewSystem.getItemsDueForReview();
+        const reviewItems = await ReviewSystemSupabase.getItemsDueForReview();
         
         // Get all progress data from localStorage
         const kanjiProgress = JSON.parse(localStorage.getItem('kanjiProgress') || '{}');

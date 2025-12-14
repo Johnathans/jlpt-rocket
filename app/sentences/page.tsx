@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Volume2, BookOpen, MessageSquare, X, Home, RotateCcw } from 'lucide-react';
-import { ReviewSystem } from '@/lib/reviewSystem';
+import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { StreakSystem } from '@/lib/streakSystem';
 import MatchCompletionScreen from '@/components/MatchCompletionScreen';
 import { getSentencesByLevel, SentenceData, JLPTLevel, parseClozeText } from '@/lib/supabase-data';
@@ -192,12 +192,12 @@ function SentencesPageContent() {
 
   // Sync mastery state with ReviewSystem on component mount and when returning from training
   useEffect(() => {
-    const syncMasteryState = () => {
+    const syncMasteryState = async () => {
       const newMasteredSentences = new Set(masteredSentences);
       let hasChanges = false;
 
-      sentencesData.forEach(item => {
-        const progress = ReviewSystem.getItemProgress(item.id, 'sentences');
+      for (const item of sentencesData) {
+        const progress = await ReviewSystemSupabase.getItemProgress(item.id, 'sentences');
         const isCurrentlyMastered = masteredSentences.has(item.id);
         const shouldBeMastered = progress.masteryLevel >= 100;
 
@@ -206,7 +206,7 @@ function SentencesPageContent() {
           hasChanges = true;
           console.log(`[SentencesPage] Auto-mastered sentence ${item.id}`);
         }
-      });
+      }
 
       if (hasChanges) {
         setMasteredSentences(newMasteredSentences);
@@ -273,17 +273,17 @@ function SentencesPageContent() {
     });
   };
 
-  const toggleMastered = (id: string) => {
+  const toggleMastered = async (id: string) => {
     const newMastered = new Set(masteredSentences);
     if (newMastered.has(id)) {
       newMastered.delete(id);
       // Reset progress in review system when unmarking as mastered
-      ReviewSystem.resetItemProgress(id, 'sentences');
+      await ReviewSystemSupabase.resetItemProgress(id, 'sentences');
       console.log(`Reset progress for sentence ${id}`);
     } else {
       newMastered.add(id);
       // Set as mastered in review system when marking as mastered
-      ReviewSystem.setItemMastered(id, 'sentences');
+      await ReviewSystemSupabase.setItemMastered(id, 'sentences');
       console.log(`Set sentence ${id} as mastered`);
     }
     setMasteredSentences(newMastered);
@@ -319,7 +319,7 @@ function SentencesPageContent() {
     return wrongOptions;
   };
 
-  const handleAnswerSelect = (answer: string) => {
+  const handleAnswerSelect = async (answer: string) => {
     if (showResult) return;
     
     const currentItem = trainingItems[currentIndex];
@@ -348,7 +348,7 @@ function SentencesPageContent() {
     }
 
     // Update progress in review system
-    ReviewSystem.updateItemProgress(currentItem.id, 'sentences', correct, currentItem);
+    await ReviewSystemSupabase.updateItemProgress(currentItem.id, 'sentences', correct, currentItem);
 
     // Auto-advance after 1.5 seconds
     setTimeout(() => {

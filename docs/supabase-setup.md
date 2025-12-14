@@ -57,7 +57,7 @@ CREATE POLICY "Users can insert own profile" ON profiles
 CREATE TABLE user_progress (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL,
-  item_id INTEGER NOT NULL,
+  item_id TEXT NOT NULL,  -- Changed from INTEGER to TEXT to support UUIDs
   item_type TEXT NOT NULL CHECK (item_type IN ('vocabulary', 'kanji', 'sentences')),
   mastery_level INTEGER DEFAULT 0 CHECK (mastery_level >= 0 AND mastery_level <= 100),
   correct_count INTEGER DEFAULT 0,

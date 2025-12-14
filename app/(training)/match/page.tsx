@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import TrainingHeader from '@/components/TrainingHeader';
 import MatchCompletionScreen from '@/components/MatchCompletionScreen';
 import QuitConfirmationModal from '@/components/QuitConfirmationModal';
-import { ReviewSystem } from '@/lib/reviewSystem';
+import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { StreakSystem } from '@/lib/streakSystem';
 import { speakText, useTTS } from '@/lib/useTTS';
 import { playIncorrectSound, playCorrectSound, shouldPlayVoice, playButtonClickSound } from '@/lib/audioUtils';
@@ -94,7 +94,7 @@ function MatchPageContent() {
         
         if (isReviewMode) {
           // Review mode: get items from ReviewSystem
-          const reviewItems = ReviewSystem.getItemsDueForReview();
+          const reviewItems = await ReviewSystemSupabase.getItemsDueForReview();
           selectedItems = reviewItems
             .filter(item => itemIds.includes(item.id))
             .map(item => ({
@@ -283,7 +283,7 @@ function MatchPageContent() {
     }, 300);
   };
 
-  const handleCheckAnswer = (answer?: string) => {
+  const handleCheckAnswer = async (answer?: string) => {
     const answerToCheck = answer || selectedAnswer;
     if (!answerToCheck) return;
     
@@ -307,7 +307,7 @@ function MatchPageContent() {
       
       setScore(score + 1);
       // Update review system for correct answer
-      ReviewSystem.updateItemProgress(currentItem.id, currentItem.type, true, currentItem);
+      await ReviewSystemSupabase.updateItemProgress(currentItem.id, currentItem.type, true, currentItem);
     } else {
       // Play Japanese audio immediately for incorrect answers if voice is enabled
       if (shouldPlayVoice()) {
@@ -330,7 +330,7 @@ function MatchPageContent() {
       };
       setWrongAnswers([...wrongAnswers, wrongAnswer]);
       // Update review system for incorrect answer
-      ReviewSystem.updateItemProgress(currentItem.id, currentItem.type, false, currentItem);
+      await ReviewSystemSupabase.updateItemProgress(currentItem.id, currentItem.type, false, currentItem);
     }
   };
 

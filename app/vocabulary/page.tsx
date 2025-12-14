@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { Check, X, BookOpen, Volume2 } from 'lucide-react';
 import Link from 'next/link';
-import { ReviewSystem } from '@/lib/reviewSystem';
+import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { useSearchParams } from 'next/navigation';
 import { getAllVocabulary, getVocabularyByLevel, getVocabularyCountByLevel, VocabularyData } from '@/lib/supabase-data';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
@@ -217,12 +217,12 @@ function VocabularyPageContent() {
   useEffect(() => {
     if (vocabularyData.length === 0) return;
     
-    const syncMasteryState = () => {
+    const syncMasteryState = async () => {
       const newMasteredVocab = new Set(masteredVocab);
       let hasChanges = false;
 
-      vocabularyData.forEach(item => {
-        const progress = ReviewSystem.getItemProgress(item.id, 'vocabulary');
+      for (const item of vocabularyData) {
+        const progress = await ReviewSystemSupabase.getItemProgress(item.id, 'vocabulary');
         const isCurrentlyMastered = masteredVocab.has(item.id);
         const shouldBeMastered = progress.masteryLevel >= 100;
 
@@ -231,7 +231,7 @@ function VocabularyPageContent() {
           hasChanges = true;
           console.log(`[VocabularyPage] Auto-mastered vocabulary ${item.id}: ${item.word}`);
         }
-      });
+      }
 
       if (hasChanges) {
         setMasteredVocab(newMasteredVocab);
@@ -287,18 +287,18 @@ function VocabularyPageContent() {
     setSelectedVocab(newSelectedVocab);
   };
 
-  const toggleMastered = (id: string) => {
+  const toggleMastered = async (id: string) => {
     const newMastered = new Set(masteredVocab);
-    if (newMastered.has(id)) {
+    if (masteredVocab.has(id)) {
       newMastered.delete(id);
-      // Reset progress in review system when unmarking as mastered
-      ReviewSystem.resetItemProgress(id, 'vocabulary');
-      console.log(`Reset progress for vocabulary ${id}`);
+      // Reset progress in review system
+      await ReviewSystemSupabase.resetItemProgress(id, 'vocabulary');
+      console.log(`[VocabularyPage] Unmarked vocabulary ${id} as mastered`);
     } else {
       newMastered.add(id);
-      // Set as mastered in review system when marking as mastered
-      ReviewSystem.setItemMastered(id, 'vocabulary');
-      console.log(`Set vocabulary ${id} as mastered`);
+      // Set as mastered in review system
+      await ReviewSystemSupabase.setItemMastered(id, 'vocabulary');
+      console.log(`[VocabularyPage] Marked vocabulary ${id} as mastered`);
     }
     setMasteredVocab(newMastered);
   };

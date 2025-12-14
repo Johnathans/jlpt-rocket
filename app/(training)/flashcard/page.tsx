@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import TrainingHeader from '@/components/TrainingHeader';
 import MatchCompletionScreen from '@/components/MatchCompletionScreen';
 import QuitConfirmationModal from '@/components/QuitConfirmationModal';
-import { ReviewSystem } from '@/lib/reviewSystem';
+import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { StreakSystem } from '@/lib/streakSystem';
 import { speakText, useTTS } from '@/lib/useTTS';
 import { playIncorrectSound, playCorrectSound, shouldPlayVoice, playButtonClickSound } from '@/lib/audioUtils';
@@ -179,12 +179,12 @@ function FlashcardPageContent() {
     }
   };
 
-  const handleRemember = () => {
+  const handleRemember = async () => {
     playButtonClickSound();
     playCorrectSound();
     
     // Update review system
-    ReviewSystem.updateItemProgress(currentItem.id.toString(), currentItem.type, true, currentItem);
+    await ReviewSystemSupabase.updateItemProgress(currentItem.id, currentItem.type, true, currentItem);
     
     setScore(score + 1);
     setSeenCount(seenCount + 1);
@@ -203,12 +203,12 @@ function FlashcardPageContent() {
     }
   };
 
-  const handleForget = () => {
+  const handleForget = async () => {
     playButtonClickSound();
     playIncorrectSound();
     
     // Update review system
-    ReviewSystem.updateItemProgress(currentItem.id.toString(), currentItem.type, false, currentItem);
+    await ReviewSystemSupabase.updateItemProgress(currentItem.id, currentItem.type, false, currentItem);
     
     // Add to wrong answers
     setWrongAnswers([...wrongAnswers, {
@@ -241,15 +241,15 @@ function FlashcardPageContent() {
     setShowQuitModal(false);
   };
 
-  const handleQuit = () => {
+  const handleQuit = async () => {
     const xp = score * 10;
     setEarnedXP(xp);
     StreakSystem.recordSession();
     
     // Record partial completion
-    trainingItems.slice(0, currentIndex).forEach(item => {
-      ReviewSystem.updateItemProgress(item.id.toString(), item.type, true, item);
-    });
+    for (const item of trainingItems.slice(0, currentIndex)) {
+      await ReviewSystemSupabase.updateItemProgress(item.id.toString(), item.type, true, item);
+    }
     
     setShowCompletion(true);
   };

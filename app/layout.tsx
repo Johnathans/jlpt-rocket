@@ -5,6 +5,7 @@ import ConditionalLayout from '@/components/ConditionalLayout';
 import { AuthProvider } from '@/lib/auth';
 import { JLPTLevelProvider } from '@/contexts/JLPTLevelContext';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import { ProgressMigration } from '@/components/ProgressMigration';
 
 const inter = Inter({ subsets: ['latin'] });
 const notoSansJP = Noto_Sans_JP({ 
@@ -69,6 +70,7 @@ export default function RootLayout({
         <GoogleAnalytics />
         <AuthProvider>
           <JLPTLevelProvider>
+            <ProgressMigration />
             <ConditionalLayout>{children}</ConditionalLayout>
           </JLPTLevelProvider>
         </AuthProvider>

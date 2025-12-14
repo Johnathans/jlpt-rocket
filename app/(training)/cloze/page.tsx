@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import TrainingHeader from '@/components/TrainingHeader';
-import { ReviewSystem } from '@/lib/reviewSystem';
+import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { StreakSystem } from '@/lib/streakSystem';
 import { useTTS } from '@/lib/useTTS';
 import { playIncorrectSound, playCorrectSound, shouldPlayVoice, playButtonClickSound } from '@/lib/audioUtils';
@@ -306,7 +306,7 @@ function ClozePageContent() {
     );
   };
 
-  const handleAnswerSelect = (answer: string) => {
+  const handleAnswerSelect = async (answer: string) => {
     if (showResult) return;
     playButtonClickSound();
     setSelectedAnswer(answer);
@@ -361,7 +361,7 @@ function ClozePageContent() {
     }
 
     // Update progress in review system (using sentence ID and 'sentences' type)
-    ReviewSystem.updateItemProgress(
+    await ReviewSystemSupabase.updateItemProgress(
       currentItem.id,
       'sentences',
       correct,

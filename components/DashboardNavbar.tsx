@@ -21,7 +21,7 @@ import {
   Moon,
   Sun
 } from 'lucide-react';
-import { ReviewSystem } from '@/lib/reviewSystem';
+import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import StreakModal from './StreakModal';
 import { useAuth } from '@/lib/auth';
 
@@ -68,8 +68,8 @@ export default function DashboardNavbar() {
 
   // Load review count on client side
   useEffect(() => {
-    const updateReviewCount = () => {
-      const dueItems = ReviewSystem.getItemsDueForReview();
+    const updateReviewCount = async () => {
+      const dueItems = await ReviewSystemSupabase.getItemsDueForReview();
       setReviewCount(dueItems.length);
     };
 

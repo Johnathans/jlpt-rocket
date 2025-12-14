@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useReviewStore } from '@/lib/store/useReviewStore';
-import { ItemProgress, ReviewSystem } from '@/lib/reviewSystem';
+import { ItemProgress } from '@/lib/reviewSystem';
+import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { Target, Play, RotateCcw, Trash2, CheckCircle } from 'lucide-react';
 import { getVocabularyByLevel, getKanjiByLevel, getSentencesByLevel, JLPTLevel } from '@/lib/supabase-data';
 
@@ -127,8 +128,8 @@ export default function ReviewPage() {
     setCurrentPage(page);
   };
 
-  const handleClearReviewData = () => {
-    ReviewSystem.clearAllReviewData();
+  const handleClearReviewData = async () => {
+    await ReviewSystemSupabase.clearAllReviewData();
     refreshData();
   };
 

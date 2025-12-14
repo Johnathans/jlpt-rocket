@@ -59,7 +59,7 @@ export type Database = {
         Row: {
           id: string
           user_id: string
-          item_id: number
+          item_id: string
           item_type: 'vocabulary' | 'kanji' | 'sentences'
           mastery_level: number
           correct_count: number
@@ -72,7 +72,7 @@ export type Database = {
         Insert: {
           id?: string
           user_id: string
-          item_id: number
+          item_id: string
           item_type: 'vocabulary' | 'kanji' | 'sentences'
           mastery_level?: number
           correct_count?: number
@@ -85,7 +85,7 @@ export type Database = {
         Update: {
           id?: string
           user_id?: string
-          item_id?: number
+          item_id?: string
           item_type?: 'vocabulary' | 'kanji' | 'sentences'
           mastery_level?: number
           correct_count?: number

@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Volume2, BookOpen, Brush } from 'lucide-react';
-import { ReviewSystem } from '@/lib/reviewSystem';
+import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { getKanjiByLevel, KanjiData } from '@/lib/supabase-data';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 import TrainingModeModal from '@/components/TrainingModeModal';
@@ -240,12 +240,12 @@ function KanjiPageContent() {
   useEffect(() => {
     if (kanjiData.length === 0) return;
     
-    const syncMasteryState = () => {
+    const syncMasteryState = async () => {
       const newMasteredKanji = new Set(masteredKanji);
       let hasChanges = false;
 
-      kanjiData.forEach(item => {
-        const progress = ReviewSystem.getItemProgress(item.id, 'kanji');
+      for (const item of kanjiData) {
+        const progress = await ReviewSystemSupabase.getItemProgress(item.id, 'kanji');
         const isCurrentlyMastered = masteredKanji.has(item.id);
         const shouldBeMastered = progress.masteryLevel >= 100;
 
@@ -254,7 +254,7 @@ function KanjiPageContent() {
           hasChanges = true;
           console.log(`[KanjiPage] Auto-mastered kanji ${item.id}: ${item.kanji}`);
         }
-      });
+      }
 
       if (hasChanges) {
         setMasteredKanji(newMasteredKanji);
@@ -310,19 +310,19 @@ function KanjiPageContent() {
     setSelectedKanji(newSelectedKanji);
   };
 
-  const toggleMastered = (id: string) => {
+  const toggleMastered = async (id: string) => {
     const newMasteredKanji = new Set(masteredKanji);
     const isCurrentlyMastered = newMasteredKanji.has(id);
     
     if (isCurrentlyMastered) {
       newMasteredKanji.delete(id);
       // Reset progress in review system when unmarking as mastered
-      ReviewSystem.resetItemProgress(id, 'kanji');
+      await ReviewSystemSupabase.resetItemProgress(id, 'kanji');
       console.log(`Reset progress for kanji ${id}`);
     } else {
       newMasteredKanji.add(id);
       // Mark as mastered in review system (set to 100% mastery)
-      ReviewSystem.setItemMastered(id, 'kanji');
+      await ReviewSystemSupabase.setItemMastered(id, 'kanji');
       console.log(`Set kanji ${id} as mastered`);
     }
     
