@@ -137,99 +137,62 @@ export default function HomePage() {
               </div>
             </div>
             
-            {/* Right Column - Learning Paths */}
-            <div className="space-y-4">
-              {/* Header */}
-              <div className="text-center lg:text-left mb-2">
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">Choose Your Learning Path</h3>
-                <p className="text-sm text-gray-600">Study at your own pace</p>
+            {/* Right Column - Japan Experience Collage */}
+            <div className="relative h-full min-h-[500px]">
+              {/* Main large image - Tokyo/Japan scene */}
+              <div className="relative rounded-2xl overflow-hidden shadow-lg h-[280px] mb-3">
+                <img
+                  src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800&auto=format&fit=crop&q=80"
+                  alt="Tokyo cityscape"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h3 className="text-white text-2xl font-bold mb-2">Live & Work in Japan</h3>
+                  <p className="text-white/90 text-sm">Unlock opportunities in the world's 3rd largest economy</p>
+                </div>
               </div>
-              
-              {/* Learning Path Cards */}
-              <div className="space-y-4">
-                <div className="bg-white rounded-lg shadow-sm p-5 border border-gray-200 hover:shadow-md transition-all duration-200">
-                  <div className="flex items-start gap-4">
-                    {/* Avatar */}
-                    <div className="relative flex-shrink-0">
-                      <img
-                        src="https://i.pravatar.cc/150?img=1"
-                        alt="Beginner learner"
-                        className="w-14 h-14 rounded-full object-cover border-2 border-pink-100"
-                      />
-                      <div className="absolute -bottom-1 -right-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-                        N5
-                      </div>
-                    </div>
-                    
-                    {/* Content */}
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-sm mb-1">Beginner Path</h4>
-                      <p className="text-sm text-gray-600 leading-relaxed">Start with basic hiragana, katakana, and 79 essential kanji</p>
-                    </div>
+
+              {/* Bottom row - 3 smaller cards */}
+              <div className="grid grid-cols-3 gap-3">
+                {/* Mt. Fuji */}
+                <div className="relative rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-200 h-[140px]">
+                  <img
+                    src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=300&auto=format&fit=crop&q=80"
+                    alt="Mount Fuji"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/30"></div>
+                  <div className="absolute bottom-2 left-2 right-2">
+                    <p className="text-white text-xs font-semibold">Travel</p>
                   </div>
                 </div>
 
-                <div className="bg-white rounded-lg shadow-sm p-5 border border-gray-200 hover:shadow-md transition-all duration-200">
-                  <div className="flex items-start gap-4">
-                    {/* Avatar */}
-                    <div className="relative flex-shrink-0">
-                      <img
-                        src="https://i.pravatar.cc/150?img=27"
-                        alt="Intermediate learner"
-                        className="w-14 h-14 rounded-full object-cover border-2 border-pink-100"
-                      />
-                      <div className="absolute -bottom-1 -right-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-                        N3
-                      </div>
-                    </div>
-                    
-                    {/* Content */}
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-sm mb-1">Intermediate Path</h4>
-                      <p className="text-sm text-gray-600 leading-relaxed">Build fluency with 367 kanji and advanced grammar patterns</p>
-                    </div>
+                {/* Salary boost card */}
+                <div className="relative rounded-xl overflow-hidden bg-gradient-to-br from-pink-500 to-orange-500 shadow-md hover:shadow-lg transition-all duration-200 h-[140px] p-4 flex flex-col justify-center items-center text-center">
+                  <div className="text-white">
+                    <div className="text-3xl font-bold mb-1">+30%</div>
+                    <p className="text-xs font-medium opacity-90">Higher Salary</p>
                   </div>
                 </div>
 
-                <div className="bg-white rounded-lg shadow-sm p-5 border border-gray-200 hover:shadow-md transition-all duration-200">
-                  <div className="flex items-start gap-4">
-                    {/* Avatar */}
-                    <div className="relative flex-shrink-0">
-                      <img
-                        src="https://i.pravatar.cc/150?img=68"
-                        alt="Advanced learner"
-                        className="w-14 h-14 rounded-full object-cover border-2 border-pink-100"
-                      />
-                      <div className="absolute -bottom-1 -right-1 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-                        N1
-                      </div>
-                    </div>
-                    
-                    {/* Content */}
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-sm mb-1">Advanced Path</h4>
-                      <p className="text-sm text-gray-600 leading-relaxed">Master 1,232 kanji and achieve near-native proficiency</p>
-                    </div>
+                {/* Traditional culture */}
+                <div className="relative rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-200 h-[140px]">
+                  <img
+                    src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=300&auto=format&fit=crop&q=80"
+                    alt="Japanese temple"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/30"></div>
+                  <div className="absolute bottom-2 left-2 right-2">
+                    <p className="text-white text-xs font-semibold">Culture</p>
                   </div>
                 </div>
               </div>
-              
-              {/* Content Stats */}
-              <div className="bg-gradient-to-r from-pink-50 to-orange-50 rounded-lg p-5 border border-pink-100">
-                <div className="grid grid-cols-3 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold text-gray-900">2.2K</div>
-                    <div className="text-xs text-gray-600 mt-1">Kanji</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-gray-900">8.2K</div>
-                    <div className="text-xs text-gray-600 mt-1">Vocab</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-gray-900">5</div>
-                    <div className="text-xs text-gray-600 mt-1">Levels</div>
-                  </div>
-                </div>
+
+              {/* Floating badge */}
+              <div className="absolute top-4 right-4 bg-white rounded-full px-4 py-2 shadow-lg">
+                <p className="text-xs font-semibold text-gray-900">🇯🇵 Learn Japanese</p>
               </div>
             </div>
           </div>
