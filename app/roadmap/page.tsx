@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight, BookMarked, ClipboardCheck, Volume2, Brush, GraduationCap } from 'lucide-react';
+import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight, BookMarked, ClipboardCheck, Volume2, Brush, GraduationCap, Lock } from 'lucide-react';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 import { getContentCounts, getKanjiByLevel, getVocabularyByLevel, getSentencesByLevel } from '@/lib/supabase-data';
 import { StreakSystem } from '@/lib/streakSystem';
@@ -296,43 +296,48 @@ export default function RoadmapPage() {
                 </div>
                 
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                  {/* Lesson 1 */}
-                  <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-500 transition-all cursor-pointer p-4 text-center">
+                  {/* Lesson 1 - Unlocked */}
+                  <Link href="/lessons/1" className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-500 transition-all cursor-pointer p-4 text-center">
                     <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">1</div>
                     <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Self-Introduction</div>
                     <div className="text-xs text-gray-500">5 Kanji · 20 Vocab</div>
-                  </div>
+                  </Link>
 
-                  {/* Lesson 2 */}
-                  <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-500 transition-all cursor-pointer p-4 text-center">
+                  {/* Lesson 2 - Locked */}
+                  <div className="relative bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 p-4 text-center">
+                    <Lock className="h-4 w-4 text-gray-400 absolute top-2 right-2" />
                     <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">2</div>
                     <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Time & Schedule</div>
                     <div className="text-xs text-gray-500">12 Kanji · 25 Vocab</div>
                   </div>
 
-                  {/* Lesson 3 */}
-                  <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-500 transition-all cursor-pointer p-4 text-center">
+                  {/* Lesson 3 - Locked */}
+                  <div className="relative bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 p-4 text-center">
+                    <Lock className="h-4 w-4 text-gray-400 absolute top-2 right-2" />
                     <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">3</div>
                     <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Daily Actions</div>
                     <div className="text-xs text-gray-500">7 Kanji · 20 Vocab</div>
                   </div>
 
-                  {/* Lesson 4 */}
-                  <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-500 transition-all cursor-pointer p-4 text-center">
+                  {/* Lesson 4 - Locked */}
+                  <div className="relative bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 p-4 text-center">
+                    <Lock className="h-4 w-4 text-gray-400 absolute top-2 right-2" />
                     <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">4</div>
                     <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Family & People</div>
                     <div className="text-xs text-gray-500">8 Kanji · 25 Vocab</div>
                   </div>
 
-                  {/* Lesson 5 */}
-                  <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-500 transition-all cursor-pointer p-4 text-center">
+                  {/* Lesson 5 - Locked */}
+                  <div className="relative bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 p-4 text-center">
+                    <Lock className="h-4 w-4 text-gray-400 absolute top-2 right-2" />
                     <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">5</div>
                     <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Places & Directions</div>
                     <div className="text-xs text-gray-500">10 Kanji · 30 Vocab</div>
                   </div>
 
-                  {/* Lesson 6 */}
-                  <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-500 transition-all cursor-pointer p-4 text-center">
+                  {/* Lesson 6 - Locked */}
+                  <div className="relative bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 p-4 text-center">
+                    <Lock className="h-4 w-4 text-gray-400 absolute top-2 right-2" />
                     <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">6</div>
                     <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Shopping</div>
                     <div className="text-xs text-gray-500">6 Kanji · 25 Vocab</div>

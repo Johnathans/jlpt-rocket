@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { TextToSpeechClient } from '@google-cloud/text-to-speech';
 
 // Initialize the TTS client with API key
@@ -11,18 +11,12 @@ export async function POST(request: NextRequest) {
     const { text, languageCode = 'ja-JP', voiceName = 'ja-JP-Chirp3-HD-Leda' } = await request.json();
 
     if (!text) {
-      return new Response(JSON.stringify({ error: 'Text is required' }), { 
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return NextResponse.json({ error: 'Text is required' }, { status: 400 });
     }
 
     if (!process.env.GOOGLE_CLOUD_API_KEY) {
       console.error('GOOGLE_CLOUD_API_KEY is not set');
-      return new Response(JSON.stringify({ error: 'TTS service not configured' }), { 
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return NextResponse.json({ error: 'TTS service not configured' }, { status: 500 });
     }
 
     // Construct the request for Chirp 3 (HD-Leda voice)
@@ -46,32 +40,24 @@ export async function POST(request: NextRequest) {
 
     if (!response.audioContent) {
       console.error('No audio content in response');
-      return new Response(JSON.stringify({ error: 'Failed to generate audio' }), { 
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return NextResponse.json({ error: 'Failed to generate audio' }, { status: 500 });
     }
 
-    // Return audio as binary MP3 with proper headers
+    // Convert to base64 and return as data URL
     const audioBuffer = Buffer.from(response.audioContent as Uint8Array);
-    
-    return new Response(audioBuffer as any, {
-      status: 200,
-      headers: {
-        'Content-Type': 'audio/mpeg',
-        'Content-Length': audioBuffer.length.toString(),
-        'Cache-Control': 'public, max-age=31536000, immutable',
-      },
+    const base64Audio = audioBuffer.toString('base64');
+    const dataUrl = `data:audio/mpeg;base64,${base64Audio}`;
+
+    return NextResponse.json({
+      audioUrl: dataUrl,
+      cached: false,
     });
 
   } catch (error) {
     console.error('TTS Error:', error instanceof Error ? error.message : 'Unknown error');
-    return new Response(JSON.stringify({ 
-      error: 'Failed to generate speech', 
-      details: error instanceof Error ? error.message : 'Unknown error' 
-    }), { 
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return NextResponse.json(
+      { error: 'Failed to generate speech', details: error instanceof Error ? error.message : 'Unknown error' },
+      { status: 500 }
+    );
   }
 }

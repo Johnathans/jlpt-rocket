@@ -140,11 +140,10 @@ export default function Lesson1() {
         }),
       });
 
-      if (response.ok) {
-        // Convert binary response to blob URL
-        const blob = await response.blob();
-        const blobUrl = URL.createObjectURL(blob);
-        setAudioCache(prev => ({ ...prev, [text]: blobUrl }));
+      const data = await response.json();
+      
+      if (data.audioUrl) {
+        setAudioCache(prev => ({ ...prev, [text]: data.audioUrl }));
       }
     } catch (error) {
       console.error('Audio preload error:', error);
@@ -156,7 +155,7 @@ export default function Lesson1() {
       // Check cache first
       if (audioCache[text]) {
         const audio = new Audio(audioCache[text]);
-        await audio.play();
+        audio.play();
         return;
       }
 
@@ -174,20 +173,25 @@ export default function Lesson1() {
       });
 
       if (!response.ok) {
-        console.error('TTS API error:', response.status);
-        return;
+        throw new Error('Failed to generate audio');
       }
+
+      const data = await response.json();
       
-      // Convert binary response to blob URL
-      const blob = await response.blob();
-      const blobUrl = URL.createObjectURL(blob);
-      
-      // Cache and play
-      setAudioCache(prev => ({ ...prev, [text]: blobUrl }));
-      const audio = new Audio(blobUrl);
-      await audio.play();
+      if (data.audioUrl) {
+        setAudioCache(prev => ({ ...prev, [text]: data.audioUrl }));
+        const audio = new Audio(data.audioUrl);
+        audio.play();
+      }
     } catch (error) {
       console.error('Audio playback error:', error);
+      // Fallback to browser speech synthesis
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ja-JP';
+        utterance.rate = 0.75;
+        window.speechSynthesis.speak(utterance);
+      }
     }
   };
 
@@ -276,30 +280,28 @@ export default function Lesson1() {
         {sections[currentSection] === 'vocabulary' && (
           <div>
             {vocabMode === 'drill' ? (
-              // Drill Mode - One word at a time with matching
-              <div className="max-w-4xl mx-auto py-8 pb-40">
-                <div className="grid grid-cols-2 gap-28 items-start">
-                  {/* Left Column - Word */}
-                  <div className="text-center flex flex-col items-center justify-center">
-                    <div className="w-full px-4">
-                      <div className="font-bold text-gray-900 dark:text-white mb-3 font-japanese leading-none" 
-                           style={{ 
-                             fontSize: vocabularyWords[currentVocabIndex].kanji.length > 3 ? 'clamp(3rem, 8vw, 8rem)' : 'clamp(4rem, 12vw, 12rem)',
-                             wordBreak: 'keep-all'
-                           }}>
-                        {vocabularyWords[currentVocabIndex].kanji}
-                      </div>
-                    </div>
-                    <div className="text-xl text-gray-500 dark:text-gray-400 mb-4">
-                      {vocabularyWords[currentVocabIndex].reading}
-                    </div>
+              // Drill Mode - One word at a time
+              <div className="max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                  {/* Left side - Word Display */}
+                  <div className="flex flex-col items-center justify-center min-h-[400px]">
                     <button
                       onClick={() => playAudio(vocabularyWords[currentVocabIndex].kanji)}
-                      className="inline-flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-pink-500 dark:hover:text-pink-400 transition-colors"
+                      className="group"
                     >
-                      <Volume2 className="h-5 w-5" />
-                      <span className="text-sm font-medium">Play audio</span>
+                      <div
+                        className="font-bold text-gray-900 dark:text-white mb-3 font-japanese leading-none"
+                        style={{
+                          fontSize: vocabularyWords[currentVocabIndex].kanji.length > 3 ? 'clamp(3rem, 8vw, 8rem)' : 'clamp(4rem, 12vw, 12rem)',
+                          wordBreak: 'keep-all',
+                        }}
+                      >
+                        {vocabularyWords[currentVocabIndex].kanji}
+                      </div>
                     </button>
+                    <div className="text-xl text-gray-600 dark:text-gray-400 font-japanese">
+                      {vocabularyWords[currentVocabIndex].reading}
+                    </div>
                   </div>
 
                   {/* Right Column - Options */}
@@ -398,12 +400,26 @@ export default function Lesson1() {
                       </div>
                       <p className="text-gray-600 dark:text-gray-400">Words Mastered</p>
                     </div>
-                    <button
-                      onClick={handleNext}
-                      className="px-8 py-4 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-semibold rounded-lg transition-all text-lg"
-                    >
-                      Continue Lesson →
-                    </button>
+                    <div className="flex flex-col gap-3 w-full max-w-xs">
+                      <button
+                        onClick={() => {
+                          // Reset vocabulary drill
+                          setCurrentVocabIndex(0);
+                          setVocabMode('drill');
+                          setSelectedMatch(null);
+                          setMatchedWords([]);
+                        }}
+                        className="px-8 py-3 bg-white dark:bg-gray-800 border-2 border-pink-500 text-pink-600 dark:text-pink-400 font-semibold rounded-lg hover:bg-pink-50 dark:hover:bg-gray-700 transition-all"
+                      >
+                        Practice Again
+                      </button>
+                      <button
+                        onClick={handleNext}
+                        className="px-8 py-4 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-semibold rounded-lg transition-all text-lg"
+                      >
+                        Continue Lesson →
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -620,6 +636,9 @@ export default function Lesson1() {
           <div className="max-w-4xl mx-auto px-6 py-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
+                <div className="text-sm text-gray-500 dark:text-gray-400 mr-4">
+                  {currentVocabIndex + 1} / {vocabularyWords.length}
+                </div>
                 {selectedMatch === vocabularyWords[currentVocabIndex].meaning ? (
                   <>
                     <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center">
