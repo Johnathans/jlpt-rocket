@@ -156,7 +156,7 @@ export class ReviewSystemSupabase {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
   }
 
-  // Migrate localStorage data to Supabase (one-time migration)
+  // Migrate localStorage data to Supabase (merge strategy)
   static async migrateLocalStorageToSupabase(): Promise<void> {
     const userId = await this.getUserId();
     if (!userId) {
@@ -164,10 +164,13 @@ export class ReviewSystemSupabase {
       return;
     }
 
-    // Check if already migrated
+    // Check if already migrated on this device
     const migrated = localStorage.getItem(this.MIGRATION_KEY);
     if (migrated === 'true') {
-      console.log('[ReviewSystem] Already migrated to Supabase');
+      console.log('[ReviewSystem] Already migrated on this device, loading from Supabase');
+      // Load from Supabase and update localStorage to sync
+      const supabaseProgress = await this.loadProgressFromSupabase();
+      this.saveProgressToLocalStorage(supabaseProgress);
       return;
     }
 
@@ -181,9 +184,33 @@ export class ReviewSystemSupabase {
     console.log(`[ReviewSystem] Migrating ${localProgress.size} items to Supabase...`);
     
     try {
-      await this.saveProgressToSupabase(localProgress);
+      // Load existing Supabase data
+      const supabaseProgress = await this.loadProgressFromSupabase();
+      
+      // Merge: Keep the higher progress for each item
+      localProgress.forEach((localItem, key) => {
+        const supabaseItem = supabaseProgress.get(key);
+        
+        if (!supabaseItem) {
+          // Item only exists locally, add it
+          supabaseProgress.set(key, localItem);
+        } else {
+          // Item exists in both, keep the one with higher mastery
+          if (localItem.masteryLevel > supabaseItem.masteryLevel) {
+            supabaseProgress.set(key, localItem);
+          }
+          // If Supabase has higher mastery, keep it (already in map)
+        }
+      });
+      
+      // Save merged data to Supabase
+      await this.saveProgressToSupabase(supabaseProgress);
+      
+      // Update localStorage with merged data
+      this.saveProgressToLocalStorage(supabaseProgress);
+      
       localStorage.setItem(this.MIGRATION_KEY, 'true');
-      console.log('[ReviewSystem] Migration completed successfully');
+      console.log(`[ReviewSystem] Migration completed successfully. Merged ${supabaseProgress.size} total items.`);
     } catch (error) {
       console.error('[ReviewSystem] Migration failed:', error);
     }
@@ -421,6 +448,28 @@ export class ReviewSystemSupabase {
     });
     
     return stats;
+  }
+
+  // Force re-sync from Supabase (useful for debugging)
+  static async forceSyncFromSupabase(): Promise<void> {
+    const userId = await this.getUserId();
+    if (!userId) {
+      console.log('[ReviewSystem] No user logged in');
+      return;
+    }
+
+    console.log('[ReviewSystem] Force syncing from Supabase...');
+    const supabaseProgress = await this.loadProgressFromSupabase();
+    this.saveProgressToLocalStorage(supabaseProgress);
+    console.log(`[ReviewSystem] Synced ${supabaseProgress.size} items from Supabase`);
+  }
+
+  // Clear migration flag to force re-migration (for debugging)
+  static clearMigrationFlag(): void {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(this.MIGRATION_KEY);
+      console.log('[ReviewSystem] Cleared migration flag');
+    }
   }
 
   // Clear all review data (for testing/reset)

@@ -63,10 +63,11 @@ export default function ReviewPage() {
   const itemsPerPage = 10;
 
   // Load data on mount and when page becomes visible
-  const refreshData = () => {
+  const refreshData = async () => {
     setLoading(true);
-    loadReviewItems();
-    setStats(getReviewStats());
+    await loadReviewItems();
+    const reviewStats = await getReviewStats();
+    setStats(reviewStats);
     
     // Get item details from stored content (no API calls needed)
     const detailsMap = new Map();
