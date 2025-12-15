@@ -15,7 +15,7 @@ interface ConditionalLayoutProps {
 export default function ConditionalLayout({ children }: ConditionalLayoutProps) {
   const pathname = usePathname();
   const isLessonMode = pathname?.startsWith('/lessons/');
-  const isTrainingMode = pathname === '/match' || pathname === '/cloze' || pathname === '/input' || pathname === '/flashcard' || pathname?.includes('/training/') || pathname?.includes('/story/') || pathname?.includes('/test/') && pathname !== '/test';
+  const isTrainingMode = pathname === '/match' || pathname === '/cloze' || pathname === '/input' || pathname === '/flashcard' || pathname === '/typing' || pathname?.includes('/training/') || pathname?.includes('/story/') || pathname?.includes('/test/') && pathname !== '/test';
   const isPublicJLPTPage = pathname?.startsWith('/jlpt/');
   const isHowToPassPage = pathname?.startsWith('/how-to-pass/');
   const isToolsPage = pathname?.startsWith('/tools/');

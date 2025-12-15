@@ -26,7 +26,7 @@ export default function RoadmapPage() {
   const [loading, setLoading] = useState(true);
   const [streakData, setStreakData] = useState({ currentStreak: 0 });
   const [isLevelModalOpen, setIsLevelModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'lessons' | 'kanji' | 'vocabulary' | 'sentences' | 'stories' | 'tests'>('lessons');
+  const [activeTab, setActiveTab] = useState<'hiragana' | 'katakana' | 'kanji' | 'vocabulary' | 'sentences' | 'stories'>('kanji');
   const [kanjiData, setKanjiData] = useState<any[]>([]);
   const [vocabularyData, setVocabularyData] = useState<any[]>([]);
   const [sentencesData, setSentencesData] = useState<any[]>([]);
@@ -98,13 +98,13 @@ export default function RoadmapPage() {
       try {
         if (activeTab === 'kanji') {
           const data = await getKanjiByLevel(currentLevel);
-          setKanjiData(data.slice(0, 40)); // Show first 40
+          setKanjiData(data); // Show all kanji
         } else if (activeTab === 'vocabulary') {
           const data = await getVocabularyByLevel(currentLevel);
-          setVocabularyData(data.slice(0, 20)); // Show first 20
+          setVocabularyData(data); // Show all vocabulary
         } else if (activeTab === 'sentences') {
           const data = await getSentencesByLevel(currentLevel);
-          setSentencesData(data.slice(0, 15)); // Show first 15
+          setSentencesData(data); // Show all sentences
         }
       } catch (error) {
         console.error('Error loading content:', error);
@@ -214,139 +214,235 @@ export default function RoadmapPage() {
         </div>
 
         {/* Content Tabs */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm mb-8">
           {/* Tab Headers */}
-          <div className="border-b border-gray-200 dark:border-gray-700">
-            <div className="flex overflow-x-auto">
-              <button
-                onClick={() => setActiveTab('lessons')}
-                className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${
-                  activeTab === 'lessons'
-                    ? 'border-pink-500 text-pink-600'
-                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
-                }`}
-              >
-                <GraduationCap className="h-4 w-4" />
-                N5 Lessons
-              </button>
-              <button
-                onClick={() => setActiveTab('kanji')}
-                className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${
-                  activeTab === 'kanji'
-                    ? 'border-pink-500 text-pink-600'
-                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
-                }`}
-              >
-                <FileText className="h-4 w-4" />
-                Kanji
-              </button>
-              <button
-                onClick={() => setActiveTab('vocabulary')}
-                className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${
-                  activeTab === 'vocabulary'
-                    ? 'border-pink-500 text-pink-600'
-                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
-                }`}
-              >
-                <BookOpen className="h-4 w-4" />
-                Vocabulary
-              </button>
-              <button
-                onClick={() => setActiveTab('sentences')}
-                className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${
-                  activeTab === 'sentences'
-                    ? 'border-pink-500 text-pink-600'
-                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
-                }`}
-              >
-                <MessageSquare className="h-4 w-4" />
-                Sentences
-              </button>
-              <button
-                onClick={() => setActiveTab('stories')}
-                className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${
-                  activeTab === 'stories'
-                    ? 'border-pink-500 text-pink-600'
-                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
-                }`}
-              >
-                <BookMarked className="h-4 w-4" />
-                Stories
-              </button>
-              <button
-                onClick={() => setActiveTab('tests')}
-                className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${
-                  activeTab === 'tests'
-                    ? 'border-pink-500 text-pink-600'
-                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
-                }`}
-              >
-                <ClipboardCheck className="h-4 w-4" />
-                Tests
-              </button>
-            </div>
+          <div className="flex gap-2 p-2 overflow-x-auto">
+            {currentLevel === 'N5' && (
+              <>
+                <button
+                  onClick={() => setActiveTab('hiragana')}
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-all whitespace-nowrap ${
+                    activeTab === 'hiragana'
+                      ? 'bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400'
+                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                  }`}
+                >
+                  <FileText className="h-4 w-4" />
+                  Hiragana
+                </button>
+                <button
+                  onClick={() => setActiveTab('katakana')}
+                  className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-all whitespace-nowrap ${
+                    activeTab === 'katakana'
+                      ? 'bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400'
+                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                  }`}
+                >
+                  <FileText className="h-4 w-4" />
+                  Katakana
+                </button>
+              </>
+            )}
+            <button
+              onClick={() => setActiveTab('kanji')}
+              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-all whitespace-nowrap ${
+                activeTab === 'kanji'
+                  ? 'bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+              }`}
+            >
+              <FileText className="h-4 w-4" />
+              Kanji
+            </button>
+            <button
+              onClick={() => setActiveTab('vocabulary')}
+              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-all whitespace-nowrap ${
+                activeTab === 'vocabulary'
+                  ? 'bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+              }`}
+            >
+              <BookOpen className="h-4 w-4" />
+              Vocabulary
+            </button>
+            <button
+              onClick={() => setActiveTab('sentences')}
+              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-all whitespace-nowrap ${
+                activeTab === 'sentences'
+                  ? 'bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+              }`}
+            >
+              <MessageSquare className="h-4 w-4" />
+              Sentences
+            </button>
+            <button
+              onClick={() => setActiveTab('stories')}
+              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-all whitespace-nowrap ${
+                activeTab === 'stories'
+                  ? 'bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+              }`}
+            >
+              <BookMarked className="h-4 w-4" />
+              Stories
+            </button>
           </div>
-
+          
+          <div className="border-t border-gray-200 dark:border-gray-700"></div>
+          
           {/* Tab Content */}
           <div className="p-6">
-            {activeTab === 'lessons' && (
+            {activeTab === 'hiragana' && (
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">N5 Lessons</h3>
-                </div>
-                
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                  {/* Lesson 1 - Unlocked */}
-                  <Link href="/lessons/1" className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-500 transition-all cursor-pointer p-4 text-center">
-                    <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">1</div>
-                    <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Self-Introduction</div>
-                    <div className="text-xs text-gray-500">5 Kanji · 20 Vocab</div>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">Hiragana</h3>
+                  <Link
+                    href="/typing?type=hiragana"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
+                  >
+                    Start Practice
+                    <ChevronRight className="h-4 w-4" />
                   </Link>
+                </div>
+                <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-3">
+                  {[
+                    // Basic vowels
+                    { char: 'あ', romaji: 'a' }, { char: 'い', romaji: 'i' }, { char: 'う', romaji: 'u' }, { char: 'え', romaji: 'e' }, { char: 'お', romaji: 'o' },
+                    // K row
+                    { char: 'か', romaji: 'ka' }, { char: 'き', romaji: 'ki' }, { char: 'く', romaji: 'ku' }, { char: 'け', romaji: 'ke' }, { char: 'こ', romaji: 'ko' },
+                    // G row (dakuten)
+                    { char: 'が', romaji: 'ga' }, { char: 'ぎ', romaji: 'gi' }, { char: 'ぐ', romaji: 'gu' }, { char: 'げ', romaji: 'ge' }, { char: 'ご', romaji: 'go' },
+                    // S row
+                    { char: 'さ', romaji: 'sa' }, { char: 'し', romaji: 'shi' }, { char: 'す', romaji: 'su' }, { char: 'せ', romaji: 'se' }, { char: 'そ', romaji: 'so' },
+                    // Z row (dakuten)
+                    { char: 'ざ', romaji: 'za' }, { char: 'じ', romaji: 'ji' }, { char: 'ず', romaji: 'zu' }, { char: 'ぜ', romaji: 'ze' }, { char: 'ぞ', romaji: 'zo' },
+                    // T row
+                    { char: 'た', romaji: 'ta' }, { char: 'ち', romaji: 'chi' }, { char: 'つ', romaji: 'tsu' }, { char: 'て', romaji: 'te' }, { char: 'と', romaji: 'to' },
+                    // D row (dakuten)
+                    { char: 'だ', romaji: 'da' }, { char: 'ぢ', romaji: 'ji' }, { char: 'づ', romaji: 'zu' }, { char: 'で', romaji: 'de' }, { char: 'ど', romaji: 'do' },
+                    // N row
+                    { char: 'な', romaji: 'na' }, { char: 'に', romaji: 'ni' }, { char: 'ぬ', romaji: 'nu' }, { char: 'ね', romaji: 'ne' }, { char: 'の', romaji: 'no' },
+                    // H row
+                    { char: 'は', romaji: 'ha' }, { char: 'ひ', romaji: 'hi' }, { char: 'ふ', romaji: 'fu' }, { char: 'へ', romaji: 'he' }, { char: 'ほ', romaji: 'ho' },
+                    // B row (dakuten)
+                    { char: 'ば', romaji: 'ba' }, { char: 'び', romaji: 'bi' }, { char: 'ぶ', romaji: 'bu' }, { char: 'べ', romaji: 'be' }, { char: 'ぼ', romaji: 'bo' },
+                    // P row (handakuten)
+                    { char: 'ぱ', romaji: 'pa' }, { char: 'ぴ', romaji: 'pi' }, { char: 'ぷ', romaji: 'pu' }, { char: 'ぺ', romaji: 'pe' }, { char: 'ぽ', romaji: 'po' },
+                    // M row
+                    { char: 'ま', romaji: 'ma' }, { char: 'み', romaji: 'mi' }, { char: 'む', romaji: 'mu' }, { char: 'め', romaji: 'me' }, { char: 'も', romaji: 'mo' },
+                    // Y row
+                    { char: 'や', romaji: 'ya' }, { char: 'ゆ', romaji: 'yu' }, { char: 'よ', romaji: 'yo' },
+                    // R row
+                    { char: 'ら', romaji: 'ra' }, { char: 'り', romaji: 'ri' }, { char: 'る', romaji: 'ru' }, { char: 'れ', romaji: 're' }, { char: 'ろ', romaji: 'ro' },
+                    // W row
+                    { char: 'わ', romaji: 'wa' }, { char: 'を', romaji: 'wo' }, { char: 'ん', romaji: 'n' },
+                    // Combination sounds (きゃ, きゅ, きょ, etc.)
+                    { char: 'きゃ', romaji: 'kya' }, { char: 'きゅ', romaji: 'kyu' }, { char: 'きょ', romaji: 'kyo' },
+                    { char: 'ぎゃ', romaji: 'gya' }, { char: 'ぎゅ', romaji: 'gyu' }, { char: 'ぎょ', romaji: 'gyo' },
+                    { char: 'しゃ', romaji: 'sha' }, { char: 'しゅ', romaji: 'shu' }, { char: 'しょ', romaji: 'sho' },
+                    { char: 'じゃ', romaji: 'ja' }, { char: 'じゅ', romaji: 'ju' }, { char: 'じょ', romaji: 'jo' },
+                    { char: 'ちゃ', romaji: 'cha' }, { char: 'ちゅ', romaji: 'chu' }, { char: 'ちょ', romaji: 'cho' },
+                    { char: 'にゃ', romaji: 'nya' }, { char: 'にゅ', romaji: 'nyu' }, { char: 'にょ', romaji: 'nyo' },
+                    { char: 'ひゃ', romaji: 'hya' }, { char: 'ひゅ', romaji: 'hyu' }, { char: 'ひょ', romaji: 'hyo' },
+                    { char: 'びゃ', romaji: 'bya' }, { char: 'びゅ', romaji: 'byu' }, { char: 'びょ', romaji: 'byo' },
+                    { char: 'ぴゃ', romaji: 'pya' }, { char: 'ぴゅ', romaji: 'pyu' }, { char: 'ぴょ', romaji: 'pyo' },
+                    { char: 'みゃ', romaji: 'mya' }, { char: 'みゅ', romaji: 'myu' }, { char: 'みょ', romaji: 'myo' },
+                    { char: 'りゃ', romaji: 'rya' }, { char: 'りゅ', romaji: 'ryu' }, { char: 'りょ', romaji: 'ryo' }
+                  ].map((item, idx) => (
+                    <Link
+                      key={idx}
+                      href="/typing?type=hiragana"
+                      className="relative bg-white rounded-lg border border-gray-200 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-400 hover:shadow-md transition-all duration-200 p-3 text-center group overflow-hidden"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-pink-50 to-orange-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg"></div>
+                      <div className="relative">
+                        <div className="text-3xl font-bold text-gray-900 mb-1 group-hover:text-pink-600 transition-colors font-japanese">
+                          {item.char}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {item.romaji}
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
 
-                  {/* Lesson 2 - Locked */}
-                  <div className="relative bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 p-4 text-center">
-                    <Lock className="h-4 w-4 text-gray-400 absolute top-2 right-2" />
-                    <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">2</div>
-                    <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Time & Schedule</div>
-                    <div className="text-xs text-gray-500">12 Kanji · 25 Vocab</div>
-                  </div>
-
-                  {/* Lesson 3 - Locked */}
-                  <div className="relative bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 p-4 text-center">
-                    <Lock className="h-4 w-4 text-gray-400 absolute top-2 right-2" />
-                    <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">3</div>
-                    <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Daily Actions</div>
-                    <div className="text-xs text-gray-500">7 Kanji · 20 Vocab</div>
-                  </div>
-
-                  {/* Lesson 4 - Locked */}
-                  <div className="relative bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 p-4 text-center">
-                    <Lock className="h-4 w-4 text-gray-400 absolute top-2 right-2" />
-                    <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">4</div>
-                    <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Family & People</div>
-                    <div className="text-xs text-gray-500">8 Kanji · 25 Vocab</div>
-                  </div>
-
-                  {/* Lesson 5 - Locked */}
-                  <div className="relative bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 p-4 text-center">
-                    <Lock className="h-4 w-4 text-gray-400 absolute top-2 right-2" />
-                    <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">5</div>
-                    <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Places & Directions</div>
-                    <div className="text-xs text-gray-500">10 Kanji · 30 Vocab</div>
-                  </div>
-
-                  {/* Lesson 6 - Locked */}
-                  <div className="relative bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 border-b-4 border-b-gray-300 p-4 text-center">
-                    <Lock className="h-4 w-4 text-gray-400 absolute top-2 right-2" />
-                    <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">6</div>
-                    <div className="text-sm font-medium text-gray-900 dark:text-white mb-1">Shopping</div>
-                    <div className="text-xs text-gray-500">6 Kanji · 25 Vocab</div>
-                  </div>
-
-                  {/* Coming Soon */}
-                  <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-dashed border-gray-300 dark:border-gray-700 p-4 text-center flex flex-col items-center justify-center">
-                    <div className="text-sm text-gray-500 dark:text-gray-400">+14 more</div>
-                  </div>
+            {activeTab === 'katakana' && (
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">Katakana</h3>
+                  <Link
+                    href="/typing?type=katakana"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
+                  >
+                    Start Practice
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </div>
+                <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-3">
+                  {[
+                    // Basic vowels
+                    { char: 'ア', romaji: 'a' }, { char: 'イ', romaji: 'i' }, { char: 'ウ', romaji: 'u' }, { char: 'エ', romaji: 'e' }, { char: 'オ', romaji: 'o' },
+                    // K row
+                    { char: 'カ', romaji: 'ka' }, { char: 'キ', romaji: 'ki' }, { char: 'ク', romaji: 'ku' }, { char: 'ケ', romaji: 'ke' }, { char: 'コ', romaji: 'ko' },
+                    // G row (dakuten)
+                    { char: 'ガ', romaji: 'ga' }, { char: 'ギ', romaji: 'gi' }, { char: 'グ', romaji: 'gu' }, { char: 'ゲ', romaji: 'ge' }, { char: 'ゴ', romaji: 'go' },
+                    // S row
+                    { char: 'サ', romaji: 'sa' }, { char: 'シ', romaji: 'shi' }, { char: 'ス', romaji: 'su' }, { char: 'セ', romaji: 'se' }, { char: 'ソ', romaji: 'so' },
+                    // Z row (dakuten)
+                    { char: 'ザ', romaji: 'za' }, { char: 'ジ', romaji: 'ji' }, { char: 'ズ', romaji: 'zu' }, { char: 'ゼ', romaji: 'ze' }, { char: 'ゾ', romaji: 'zo' },
+                    // T row
+                    { char: 'タ', romaji: 'ta' }, { char: 'チ', romaji: 'chi' }, { char: 'ツ', romaji: 'tsu' }, { char: 'テ', romaji: 'te' }, { char: 'ト', romaji: 'to' },
+                    // D row (dakuten)
+                    { char: 'ダ', romaji: 'da' }, { char: 'ヂ', romaji: 'ji' }, { char: 'ヅ', romaji: 'zu' }, { char: 'デ', romaji: 'de' }, { char: 'ド', romaji: 'do' },
+                    // N row
+                    { char: 'ナ', romaji: 'na' }, { char: 'ニ', romaji: 'ni' }, { char: 'ヌ', romaji: 'nu' }, { char: 'ネ', romaji: 'ne' }, { char: 'ノ', romaji: 'no' },
+                    // H row
+                    { char: 'ハ', romaji: 'ha' }, { char: 'ヒ', romaji: 'hi' }, { char: 'フ', romaji: 'fu' }, { char: 'ヘ', romaji: 'he' }, { char: 'ホ', romaji: 'ho' },
+                    // B row (dakuten)
+                    { char: 'バ', romaji: 'ba' }, { char: 'ビ', romaji: 'bi' }, { char: 'ブ', romaji: 'bu' }, { char: 'ベ', romaji: 'be' }, { char: 'ボ', romaji: 'bo' },
+                    // P row (handakuten)
+                    { char: 'パ', romaji: 'pa' }, { char: 'ピ', romaji: 'pi' }, { char: 'プ', romaji: 'pu' }, { char: 'ペ', romaji: 'pe' }, { char: 'ポ', romaji: 'po' },
+                    // M row
+                    { char: 'マ', romaji: 'ma' }, { char: 'ミ', romaji: 'mi' }, { char: 'ム', romaji: 'mu' }, { char: 'メ', romaji: 'me' }, { char: 'モ', romaji: 'mo' },
+                    // Y row
+                    { char: 'ヤ', romaji: 'ya' }, { char: 'ユ', romaji: 'yu' }, { char: 'ヨ', romaji: 'yo' },
+                    // R row
+                    { char: 'ラ', romaji: 'ra' }, { char: 'リ', romaji: 'ri' }, { char: 'ル', romaji: 'ru' }, { char: 'レ', romaji: 're' }, { char: 'ロ', romaji: 'ro' },
+                    // W row
+                    { char: 'ワ', romaji: 'wa' }, { char: 'ヲ', romaji: 'wo' }, { char: 'ン', romaji: 'n' },
+                    // Combination sounds
+                    { char: 'キャ', romaji: 'kya' }, { char: 'キュ', romaji: 'kyu' }, { char: 'キョ', romaji: 'kyo' },
+                    { char: 'ギャ', romaji: 'gya' }, { char: 'ギュ', romaji: 'gyu' }, { char: 'ギョ', romaji: 'gyo' },
+                    { char: 'シャ', romaji: 'sha' }, { char: 'シュ', romaji: 'shu' }, { char: 'ショ', romaji: 'sho' },
+                    { char: 'ジャ', romaji: 'ja' }, { char: 'ジュ', romaji: 'ju' }, { char: 'ジョ', romaji: 'jo' },
+                    { char: 'チャ', romaji: 'cha' }, { char: 'チュ', romaji: 'chu' }, { char: 'チョ', romaji: 'cho' },
+                    { char: 'ニャ', romaji: 'nya' }, { char: 'ニュ', romaji: 'nyu' }, { char: 'ニョ', romaji: 'nyo' },
+                    { char: 'ヒャ', romaji: 'hya' }, { char: 'ヒュ', romaji: 'hyu' }, { char: 'ヒョ', romaji: 'hyo' },
+                    { char: 'ビャ', romaji: 'bya' }, { char: 'ビュ', romaji: 'byu' }, { char: 'ビョ', romaji: 'byo' },
+                    { char: 'ピャ', romaji: 'pya' }, { char: 'ピュ', romaji: 'pyu' }, { char: 'ピョ', romaji: 'pyo' },
+                    { char: 'ミャ', romaji: 'mya' }, { char: 'ミュ', romaji: 'myu' }, { char: 'ミョ', romaji: 'myo' },
+                    { char: 'リャ', romaji: 'rya' }, { char: 'リュ', romaji: 'ryu' }, { char: 'リョ', romaji: 'ryo' }
+                  ].map((item, idx) => (
+                    <Link
+                      key={idx}
+                      href="/typing?type=katakana"
+                      className="relative bg-white rounded-lg border border-gray-200 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-400 hover:shadow-md transition-all duration-200 p-3 text-center group overflow-hidden"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-pink-50 to-orange-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg"></div>
+                      <div className="relative">
+                        <div className="text-3xl font-bold text-gray-900 mb-1 group-hover:text-pink-600 transition-colors font-japanese">
+                          {item.char}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {item.romaji}
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
               </div>
             )}
@@ -488,28 +584,6 @@ export default function RoadmapPage() {
               </div>
             )}
 
-            {activeTab === 'tests' && (
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">Tests</h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Practice exams and quizzes
-                    </p>
-                  </div>
-                  <Link
-                    href="/test"
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all"
-                  >
-                    Take a Test
-                    <ChevronRight className="h-4 w-4" />
-                  </Link>
-                </div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  Test your knowledge with practice exams that simulate the real JLPT experience.
-                </p>
-              </div>
-            )}
           </div>
         </div>
 
