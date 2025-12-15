@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight, BookMarked, ClipboardCheck, Volume2, Brush, GraduationCap, Lock } from 'lucide-react';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 import { getContentCounts, getKanjiByLevel, getVocabularyByLevel, getSentencesByLevel } from '@/lib/supabase-data';
@@ -9,6 +9,7 @@ import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import LevelSwitcherModal from '@/components/LevelSwitcherModal';
+import TrainingModeModal from '@/components/TrainingModeModal';
 import { useAuth } from '@/lib/auth';
 
 interface ProgressStats {
@@ -31,10 +32,75 @@ export default function RoadmapPage() {
   const [vocabularyData, setVocabularyData] = useState<any[]>([]);
   const [sentencesData, setSentencesData] = useState<any[]>([]);
   const [contentLoading, setContentLoading] = useState(false);
+  const [showTrainingModal, setShowTrainingModal] = useState(false);
+  const [trainingType, setTrainingType] = useState<'kanji' | 'vocabulary'>('kanji');
+  const [selectedKanji, setSelectedKanji] = useState<Set<string>>(new Set());
+  const [selectedVocabulary, setSelectedVocabulary] = useState<Set<string>>(new Set());
+  const [selectionMode, setSelectionMode] = useState(false);
 
   // Get user's first name
   const userName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || 'there';
   const firstName = userName.split(' ')[0];
+
+  // Helper functions for selection (optimized with useCallback)
+  const toggleKanjiSelection = useCallback((id: string) => {
+    setSelectedKanji(prev => {
+      const newSelected = new Set(prev);
+      if (newSelected.has(id)) {
+        newSelected.delete(id);
+      } else {
+        newSelected.add(id);
+      }
+      return newSelected;
+    });
+  }, []);
+
+  const toggleVocabularySelection = useCallback((id: string) => {
+    setSelectedVocabulary(prev => {
+      const newSelected = new Set(prev);
+      if (newSelected.has(id)) {
+        newSelected.delete(id);
+      } else {
+        newSelected.add(id);
+      }
+      return newSelected;
+    });
+  }, []);
+
+  const handleStartTraining = (type: 'kanji' | 'vocabulary') => {
+    setTrainingType(type);
+    
+    // If in selection mode and items are selected, use selected items
+    // Otherwise, select all items automatically
+    if (type === 'kanji' && selectedKanji.size === 0) {
+      setSelectedKanji(new Set(kanjiData.map(k => k.id)));
+    } else if (type === 'vocabulary' && selectedVocabulary.size === 0) {
+      setSelectedVocabulary(new Set(vocabularyData.map(v => v.id)));
+    }
+    
+    setShowTrainingModal(true);
+  };
+
+  const handleSelectMode = (type: 'kanji' | 'vocabulary') => {
+    setTrainingType(type);
+    setSelectionMode(true);
+  };
+
+  const getSelectedData = () => {
+    if (trainingType === 'kanji') {
+      return kanjiData.filter(k => selectedKanji.has(k.id));
+    } else {
+      return vocabularyData.filter(v => selectedVocabulary.has(v.id));
+    }
+  };
+
+  const getSelectedItems = () => {
+    if (trainingType === 'kanji') {
+      return Array.from(selectedKanji);
+    } else {
+      return Array.from(selectedVocabulary);
+    }
+  };
 
   // Load progress stats
   useEffect(() => {
@@ -276,7 +342,8 @@ export default function RoadmapPage() {
               <MessageSquare className="h-4 w-4" />
               Sentences
             </button>
-            <button
+            {/* Stories tab hidden for now */}
+            {/* <button
               onClick={() => setActiveTab('stories')}
               className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded transition-all whitespace-nowrap ${
                 activeTab === 'stories'
@@ -286,7 +353,7 @@ export default function RoadmapPage() {
             >
               <BookMarked className="h-4 w-4" />
               Stories
-            </button>
+            </button> */}
           </div>
           
           <div className="border-t border-gray-200 dark:border-gray-700"></div>
@@ -451,13 +518,21 @@ export default function RoadmapPage() {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white">Kanji Preview</h3>
-                  <Link
-                    href="/kanji"
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
-                  >
-                    View All ({stats?.kanji.total || 0})
-                    <ChevronRight className="h-4 w-4" />
-                  </Link>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleSelectMode('kanji')}
+                      className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-pink-500 text-pink-600 hover:bg-pink-50 font-medium rounded-lg transition-all text-sm"
+                    >
+                      Select Items to Study
+                    </button>
+                    <button
+                      onClick={() => handleStartTraining('kanji')}
+                      className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
+                    >
+                      Start Practice
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
                 {contentLoading ? (
                   <div className="text-center py-8">
@@ -466,23 +541,46 @@ export default function RoadmapPage() {
                 ) : (
                   <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-3">
                     {kanjiData.map((item: any) => (
-                      <Link
-                        key={item.id}
-                        href="/kanji"
-                        className="relative bg-white rounded-lg border border-gray-200 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-400 hover:shadow-md transition-all duration-200 p-3 text-center group overflow-hidden"
-                      >
-                        {/* Subtle gradient on hover */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-pink-50 to-orange-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg"></div>
-                        
-                        <div className="relative">
-                          <div className="text-4xl font-bold text-gray-900 mb-1 group-hover:text-pink-600 transition-colors font-japanese">
+                      selectionMode ? (
+                        <button
+                          key={item.id}
+                          onClick={() => toggleKanjiSelection(item.id)}
+                          className={`relative rounded-lg border border-gray-200 border-b-4 p-3 text-center ${
+                            selectedKanji.has(item.id)
+                              ? 'bg-pink-50 border-pink-300 border-b-pink-500'
+                              : 'bg-white border-b-gray-300'
+                          }`}
+                        >
+                          {selectedKanji.has(item.id) && (
+                            <div className="absolute top-1 right-1 w-5 h-5 bg-pink-500 rounded-full flex items-center justify-center">
+                              <span className="text-white text-xs font-bold">✓</span>
+                            </div>
+                          )}
+                          <div className="text-4xl font-bold text-gray-900 mb-1 font-japanese">
                             {item.character}
                           </div>
                           <div className="text-xs text-gray-500 line-clamp-1">
                             {item.meaning}
                           </div>
-                        </div>
-                      </Link>
+                        </button>
+                      ) : (
+                        <Link
+                          key={item.id}
+                          href="/kanji"
+                          className="relative bg-white rounded-lg border border-gray-200 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-400 hover:shadow-md transition-all duration-200 p-3 text-center group overflow-hidden"
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-br from-pink-50 to-orange-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg"></div>
+                          
+                          <div className="relative">
+                            <div className="text-4xl font-bold text-gray-900 mb-1 group-hover:text-pink-600 transition-colors font-japanese">
+                              {item.character}
+                            </div>
+                            <div className="text-xs text-gray-500 line-clamp-1">
+                              {item.meaning}
+                            </div>
+                          </div>
+                        </Link>
+                      )
                     ))}
                   </div>
                 )}
@@ -493,13 +591,21 @@ export default function RoadmapPage() {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white">Vocabulary Preview</h3>
-                  <Link
-                    href="/vocabulary"
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
-                  >
-                    View All ({stats?.vocabulary.total || 0})
-                    <ChevronRight className="h-4 w-4" />
-                  </Link>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleSelectMode('vocabulary')}
+                      className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-pink-500 text-pink-600 hover:bg-pink-50 font-medium rounded-lg transition-all text-sm"
+                    >
+                      Select Items to Study
+                    </button>
+                    <button
+                      onClick={() => handleStartTraining('vocabulary')}
+                      className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
+                    >
+                      Start Practice
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
                 {contentLoading ? (
                   <div className="text-center py-8">
@@ -508,20 +614,45 @@ export default function RoadmapPage() {
                 ) : (
                   <div className="space-y-2">
                     {vocabularyData.map((item: any) => (
-                      <Link
-                        key={item.id}
-                        href="/vocabulary"
-                        className="flex items-center justify-between p-4 bg-white border-2 border-gray-200 hover:border-pink-300 hover:bg-pink-50 rounded-lg transition-all group"
-                      >
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-1">
-                            <span className="text-2xl font-bold text-black font-japanese">{item.word}</span>
-                            <span className="text-sm text-gray-600 dark:text-gray-300">{item.reading}</span>
+                      selectionMode ? (
+                        <button
+                          key={item.id}
+                          onClick={() => toggleVocabularySelection(item.id)}
+                          className={`flex items-center justify-between p-4 border-2 rounded-lg w-full text-left relative ${
+                            selectedVocabulary.has(item.id)
+                              ? 'bg-pink-50 border-pink-300'
+                              : 'bg-white border-gray-200'
+                          }`}
+                        >
+                          {selectedVocabulary.has(item.id) && (
+                            <div className="absolute top-2 right-2 w-6 h-6 bg-pink-500 rounded-full flex items-center justify-center">
+                              <span className="text-white text-xs font-bold">✓</span>
+                            </div>
+                          )}
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-1">
+                              <span className="text-2xl font-bold text-black font-japanese">{item.word}</span>
+                              <span className="text-sm text-gray-600 dark:text-gray-300">{item.reading}</span>
+                            </div>
+                            <p className="text-sm text-gray-700">{item.meaning}</p>
                           </div>
-                          <p className="text-sm text-gray-700">{item.meaning}</p>
-                        </div>
-                        <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-pink-500" />
-                      </Link>
+                        </button>
+                      ) : (
+                        <Link
+                          key={item.id}
+                          href="/vocabulary"
+                          className="flex items-center justify-between p-4 bg-white border-2 border-gray-200 hover:border-pink-300 hover:bg-pink-50 rounded-lg transition-all group"
+                        >
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-1">
+                              <span className="text-2xl font-bold text-black font-japanese">{item.word}</span>
+                              <span className="text-sm text-gray-600 dark:text-gray-300">{item.reading}</span>
+                            </div>
+                            <p className="text-sm text-gray-700">{item.meaning}</p>
+                          </div>
+                          <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-pink-500" />
+                        </Link>
+                      )
                     ))}
                   </div>
                 )}
@@ -536,7 +667,7 @@ export default function RoadmapPage() {
                     href="/sentences"
                     className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
                   >
-                    View All ({stats?.sentences.total || 0})
+                    Start Practice
                     <ChevronRight className="h-4 w-4" />
                   </Link>
                 </div>
@@ -615,6 +746,18 @@ export default function RoadmapPage() {
       <LevelSwitcherModal 
         isOpen={isLevelModalOpen} 
         onClose={() => setIsLevelModalOpen(false)} 
+      />
+
+      {/* Training Mode Modal */}
+      <TrainingModeModal
+        isOpen={showTrainingModal}
+        onClose={() => {
+          setShowTrainingModal(false);
+          setSelectionMode(false);
+        }}
+        selectedItems={getSelectedItems()}
+        itemType={trainingType}
+        selectedData={getSelectedData()}
       />
     </div>
   );
