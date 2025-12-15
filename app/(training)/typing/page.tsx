@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Volume2, RotateCcw, ArrowRight, CheckCircle, X } from 'lucide-react';
 import TrainingHeader from '@/components/TrainingHeader';
@@ -15,7 +15,7 @@ interface TypingItem {
   type: 'hiragana' | 'katakana' | 'vocabulary';
 }
 
-export default function TypingTrainingPage() {
+function TypingTrainingContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -471,5 +471,17 @@ export default function TypingTrainingPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function TypingTrainingPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500"></div>
+      </div>
+    }>
+      <TypingTrainingContent />
+    </Suspense>
   );
 }
