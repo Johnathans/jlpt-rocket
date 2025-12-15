@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight, BookMarked, ClipboardCheck, Volume2, Brush, GraduationCap, Lock } from 'lucide-react';
+import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight, BookMarked, ClipboardCheck, Volume2, Brush, GraduationCap, Lock, Star } from 'lucide-react';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 import { getContentCounts, getKanjiByLevel, getVocabularyByLevel, getSentencesByLevel } from '@/lib/supabase-data';
 import { StreakSystem } from '@/lib/streakSystem';
@@ -36,11 +36,77 @@ export default function RoadmapPage() {
   const [trainingType, setTrainingType] = useState<'kanji' | 'vocabulary'>('kanji');
   const [selectedKanji, setSelectedKanji] = useState<Set<string>>(new Set());
   const [selectedVocabulary, setSelectedVocabulary] = useState<Set<string>>(new Set());
+  const [selectedHiragana, setSelectedHiragana] = useState<Set<string>>(new Set());
+  const [selectedKatakana, setSelectedKatakana] = useState<Set<string>>(new Set());
+  const [knownKatakana, setKnownKatakana] = useState<Set<string>>(new Set());
+  const [knownHiragana, setKnownHiragana] = useState<Set<string>>(new Set());
+  const [knownKanji, setKnownKanji] = useState<Set<string>>(new Set());
+  const [knownVocabulary, setKnownVocabulary] = useState<Set<string>>(new Set());
   const [selectionMode, setSelectionMode] = useState(false);
+  const [markKnownMode, setMarkKnownMode] = useState(false);
 
   // Get user's first name
   const userName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || 'there';
   const firstName = userName.split(' ')[0];
+
+  // Define hiragana and katakana data
+  const hiraganaData = [
+    { char: 'あ', romaji: 'a' }, { char: 'い', romaji: 'i' }, { char: 'う', romaji: 'u' }, { char: 'え', romaji: 'e' }, { char: 'お', romaji: 'o' },
+    { char: 'か', romaji: 'ka' }, { char: 'き', romaji: 'ki' }, { char: 'く', romaji: 'ku' }, { char: 'け', romaji: 'ke' }, { char: 'こ', romaji: 'ko' },
+    { char: 'が', romaji: 'ga' }, { char: 'ぎ', romaji: 'gi' }, { char: 'ぐ', romaji: 'gu' }, { char: 'げ', romaji: 'ge' }, { char: 'ご', romaji: 'go' },
+    { char: 'さ', romaji: 'sa' }, { char: 'し', romaji: 'shi' }, { char: 'す', romaji: 'su' }, { char: 'せ', romaji: 'se' }, { char: 'そ', romaji: 'so' },
+    { char: 'ざ', romaji: 'za' }, { char: 'じ', romaji: 'ji' }, { char: 'ず', romaji: 'zu' }, { char: 'ぜ', romaji: 'ze' }, { char: 'ぞ', romaji: 'zo' },
+    { char: 'た', romaji: 'ta' }, { char: 'ち', romaji: 'chi' }, { char: 'つ', romaji: 'tsu' }, { char: 'て', romaji: 'te' }, { char: 'と', romaji: 'to' },
+    { char: 'だ', romaji: 'da' }, { char: 'ぢ', romaji: 'ji' }, { char: 'づ', romaji: 'zu' }, { char: 'で', romaji: 'de' }, { char: 'ど', romaji: 'do' },
+    { char: 'な', romaji: 'na' }, { char: 'に', romaji: 'ni' }, { char: 'ぬ', romaji: 'nu' }, { char: 'ね', romaji: 'ne' }, { char: 'の', romaji: 'no' },
+    { char: 'は', romaji: 'ha' }, { char: 'ひ', romaji: 'hi' }, { char: 'ふ', romaji: 'fu' }, { char: 'へ', romaji: 'he' }, { char: 'ほ', romaji: 'ho' },
+    { char: 'ば', romaji: 'ba' }, { char: 'び', romaji: 'bi' }, { char: 'ぶ', romaji: 'bu' }, { char: 'べ', romaji: 'be' }, { char: 'ぼ', romaji: 'bo' },
+    { char: 'ぱ', romaji: 'pa' }, { char: 'ぴ', romaji: 'pi' }, { char: 'ぷ', romaji: 'pu' }, { char: 'ぺ', romaji: 'pe' }, { char: 'ぽ', romaji: 'po' },
+    { char: 'ま', romaji: 'ma' }, { char: 'み', romaji: 'mi' }, { char: 'む', romaji: 'mu' }, { char: 'め', romaji: 'me' }, { char: 'も', romaji: 'mo' },
+    { char: 'や', romaji: 'ya' }, { char: 'ゆ', romaji: 'yu' }, { char: 'よ', romaji: 'yo' },
+    { char: 'ら', romaji: 'ra' }, { char: 'り', romaji: 'ri' }, { char: 'る', romaji: 'ru' }, { char: 'れ', romaji: 're' }, { char: 'ろ', romaji: 'ro' },
+    { char: 'わ', romaji: 'wa' }, { char: 'を', romaji: 'wo' }, { char: 'ん', romaji: 'n' },
+    { char: 'きゃ', romaji: 'kya' }, { char: 'きゅ', romaji: 'kyu' }, { char: 'きょ', romaji: 'kyo' },
+    { char: 'ぎゃ', romaji: 'gya' }, { char: 'ぎゅ', romaji: 'gyu' }, { char: 'ぎょ', romaji: 'gyo' },
+    { char: 'しゃ', romaji: 'sha' }, { char: 'しゅ', romaji: 'shu' }, { char: 'しょ', romaji: 'sho' },
+    { char: 'じゃ', romaji: 'ja' }, { char: 'じゅ', romaji: 'ju' }, { char: 'じょ', romaji: 'jo' },
+    { char: 'ちゃ', romaji: 'cha' }, { char: 'ちゅ', romaji: 'chu' }, { char: 'ちょ', romaji: 'cho' },
+    { char: 'にゃ', romaji: 'nya' }, { char: 'にゅ', romaji: 'nyu' }, { char: 'にょ', romaji: 'nyo' },
+    { char: 'ひゃ', romaji: 'hya' }, { char: 'ひゅ', romaji: 'hyu' }, { char: 'ひょ', romaji: 'hyo' },
+    { char: 'びゃ', romaji: 'bya' }, { char: 'びゅ', romaji: 'byu' }, { char: 'びょ', romaji: 'byo' },
+    { char: 'ぴゃ', romaji: 'pya' }, { char: 'ぴゅ', romaji: 'pyu' }, { char: 'ぴょ', romaji: 'pyo' },
+    { char: 'みゃ', romaji: 'mya' }, { char: 'みゅ', romaji: 'myu' }, { char: 'みょ', romaji: 'myo' },
+    { char: 'りゃ', romaji: 'rya' }, { char: 'りゅ', romaji: 'ryu' }, { char: 'りょ', romaji: 'ryo' }
+  ];
+
+  const katakanaData = [
+    { char: 'ア', romaji: 'a' }, { char: 'イ', romaji: 'i' }, { char: 'ウ', romaji: 'u' }, { char: 'エ', romaji: 'e' }, { char: 'オ', romaji: 'o' },
+    { char: 'カ', romaji: 'ka' }, { char: 'キ', romaji: 'ki' }, { char: 'ク', romaji: 'ku' }, { char: 'ケ', romaji: 'ke' }, { char: 'コ', romaji: 'ko' },
+    { char: 'ガ', romaji: 'ga' }, { char: 'ギ', romaji: 'gi' }, { char: 'グ', romaji: 'gu' }, { char: 'ゲ', romaji: 'ge' }, { char: 'ゴ', romaji: 'go' },
+    { char: 'サ', romaji: 'sa' }, { char: 'シ', romaji: 'shi' }, { char: 'ス', romaji: 'su' }, { char: 'セ', romaji: 'se' }, { char: 'ソ', romaji: 'so' },
+    { char: 'ザ', romaji: 'za' }, { char: 'ジ', romaji: 'ji' }, { char: 'ズ', romaji: 'zu' }, { char: 'ゼ', romaji: 'ze' }, { char: 'ゾ', romaji: 'zo' },
+    { char: 'タ', romaji: 'ta' }, { char: 'チ', romaji: 'chi' }, { char: 'ツ', romaji: 'tsu' }, { char: 'テ', romaji: 'te' }, { char: 'ト', romaji: 'to' },
+    { char: 'ダ', romaji: 'da' }, { char: 'ヂ', romaji: 'ji' }, { char: 'ヅ', romaji: 'zu' }, { char: 'デ', romaji: 'de' }, { char: 'ド', romaji: 'do' },
+    { char: 'ナ', romaji: 'na' }, { char: 'ニ', romaji: 'ni' }, { char: 'ヌ', romaji: 'nu' }, { char: 'ネ', romaji: 'ne' }, { char: 'ノ', romaji: 'no' },
+    { char: 'ハ', romaji: 'ha' }, { char: 'ヒ', romaji: 'hi' }, { char: 'フ', romaji: 'fu' }, { char: 'ヘ', romaji: 'he' }, { char: 'ホ', romaji: 'ho' },
+    { char: 'バ', romaji: 'ba' }, { char: 'ビ', romaji: 'bi' }, { char: 'ブ', romaji: 'bu' }, { char: 'ベ', romaji: 'be' }, { char: 'ボ', romaji: 'bo' },
+    { char: 'パ', romaji: 'pa' }, { char: 'ピ', romaji: 'pi' }, { char: 'プ', romaji: 'pu' }, { char: 'ペ', romaji: 'pe' }, { char: 'ポ', romaji: 'po' },
+    { char: 'マ', romaji: 'ma' }, { char: 'ミ', romaji: 'mi' }, { char: 'ム', romaji: 'mu' }, { char: 'メ', romaji: 'me' }, { char: 'モ', romaji: 'mo' },
+    { char: 'ヤ', romaji: 'ya' }, { char: 'ユ', romaji: 'yu' }, { char: 'ヨ', romaji: 'yo' },
+    { char: 'ラ', romaji: 'ra' }, { char: 'リ', romaji: 'ri' }, { char: 'ル', romaji: 'ru' }, { char: 'レ', romaji: 're' }, { char: 'ロ', romaji: 'ro' },
+    { char: 'ワ', romaji: 'wa' }, { char: 'ヲ', romaji: 'wo' }, { char: 'ン', romaji: 'n' },
+    { char: 'キャ', romaji: 'kya' }, { char: 'キュ', romaji: 'kyu' }, { char: 'キョ', romaji: 'kyo' },
+    { char: 'ギャ', romaji: 'gya' }, { char: 'ギュ', romaji: 'gyu' }, { char: 'ギョ', romaji: 'gyo' },
+    { char: 'シャ', romaji: 'sha' }, { char: 'シュ', romaji: 'shu' }, { char: 'ショ', romaji: 'sho' },
+    { char: 'ジャ', romaji: 'ja' }, { char: 'ジュ', romaji: 'ju' }, { char: 'ジョ', romaji: 'jo' },
+    { char: 'チャ', romaji: 'cha' }, { char: 'チュ', romaji: 'chu' }, { char: 'チョ', romaji: 'cho' },
+    { char: 'ニャ', romaji: 'nya' }, { char: 'ニュ', romaji: 'nyu' }, { char: 'ニョ', romaji: 'nyo' },
+    { char: 'ヒャ', romaji: 'hya' }, { char: 'ヒュ', romaji: 'hyu' }, { char: 'ヒョ', romaji: 'hyo' },
+    { char: 'ビャ', romaji: 'bya' }, { char: 'ビュ', romaji: 'byu' }, { char: 'ビョ', romaji: 'byo' },
+    { char: 'ピャ', romaji: 'pya' }, { char: 'ピュ', romaji: 'pyu' }, { char: 'ピョ', romaji: 'pyo' },
+    { char: 'ミャ', romaji: 'mya' }, { char: 'ミュ', romaji: 'myu' }, { char: 'ミョ', romaji: 'myo' },
+    { char: 'リャ', romaji: 'rya' }, { char: 'リュ', romaji: 'ryu' }, { char: 'リョ', romaji: 'ryo' }
+  ];
 
   // Helper functions for selection (optimized with useCallback)
   const toggleKanjiSelection = useCallback((id: string) => {
@@ -67,8 +133,111 @@ export default function RoadmapPage() {
     });
   }, []);
 
-  const handleStartTraining = (type: 'kanji' | 'vocabulary') => {
-    setTrainingType(type);
+  const toggleHiraganaSelection = useCallback((id: string) => {
+    setSelectedHiragana(prev => {
+      const newSelected = new Set(prev);
+      if (newSelected.has(id)) {
+        newSelected.delete(id);
+      } else {
+        newSelected.add(id);
+      }
+      return newSelected;
+    });
+  }, []);
+
+  const toggleKatakanaSelection = useCallback((id: string) => {
+    setSelectedKatakana(prev => {
+      const newSelected = new Set(prev);
+      if (newSelected.has(id)) {
+        newSelected.delete(id);
+      } else {
+        newSelected.add(id);
+      }
+      return newSelected;
+    });
+  }, []);
+
+  const toggleKatakanaKnown = useCallback((id: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    setKnownKatakana(prev => {
+      const newKnown = new Set(prev);
+      if (newKnown.has(id)) {
+        newKnown.delete(id);
+      } else {
+        newKnown.add(id);
+      }
+      return newKnown;
+    });
+  }, []);
+
+  const toggleHiraganaKnown = useCallback((id: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    setKnownHiragana(prev => {
+      const newKnown = new Set(prev);
+      if (newKnown.has(id)) {
+        newKnown.delete(id);
+      } else {
+        newKnown.add(id);
+      }
+      return newKnown;
+    });
+  }, []);
+
+  const toggleKanjiKnown = useCallback((id: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    setKnownKanji(prev => {
+      const newKnown = new Set(prev);
+      if (newKnown.has(id)) {
+        newKnown.delete(id);
+      } else {
+        newKnown.add(id);
+      }
+      return newKnown;
+    });
+  }, []);
+
+  const toggleVocabularyKnown = useCallback((id: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    setKnownVocabulary(prev => {
+      const newKnown = new Set(prev);
+      if (newKnown.has(id)) {
+        newKnown.delete(id);
+      } else {
+        newKnown.add(id);
+      }
+      return newKnown;
+    });
+  }, []);
+
+  const handleStartTraining = (type: 'kanji' | 'vocabulary' | 'hiragana' | 'katakana') => {
+    // Hiragana and katakana use typing mode directly, not the training modal
+    if (type === 'hiragana' || type === 'katakana') {
+      // Auto-select all if none selected
+      if (type === 'hiragana' && selectedHiragana.size === 0) {
+        setSelectedHiragana(new Set(hiraganaData.map(h => h.romaji)));
+      } else if (type === 'katakana' && selectedKatakana.size === 0) {
+        setSelectedKatakana(new Set(katakanaData.map(k => k.romaji)));
+      }
+      
+      // Navigate to typing page with selected items
+      const selectedItems = type === 'hiragana' 
+        ? Array.from(selectedHiragana.size > 0 ? selectedHiragana : new Set(hiraganaData.map(h => h.romaji)))
+        : Array.from(selectedKatakana.size > 0 ? selectedKatakana : new Set(katakanaData.map(k => k.romaji)));
+      
+      router.push(`/typing?type=${type}&items=${selectedItems.join(',')}`);
+      setSelectionMode(false);
+      return;
+    }
+    
+    setTrainingType(type as any);
     
     // If in selection mode and items are selected, use selected items
     // Otherwise, select all items automatically
@@ -81,8 +250,8 @@ export default function RoadmapPage() {
     setShowTrainingModal(true);
   };
 
-  const handleSelectMode = (type: 'kanji' | 'vocabulary') => {
-    setTrainingType(type);
+  const handleSelectMode = (type: 'kanji' | 'vocabulary' | 'hiragana' | 'katakana') => {
+    setTrainingType(type as any);
     setSelectionMode(true);
   };
 
@@ -364,74 +533,103 @@ export default function RoadmapPage() {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white">Hiragana</h3>
-                  <Link
-                    href="/typing?type=hiragana"
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
-                  >
-                    Start Practice
-                    <ChevronRight className="h-4 w-4" />
-                  </Link>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => {
+                        setMarkKnownMode(!markKnownMode);
+                        setSelectionMode(false);
+                      }}
+                      className={`flex items-center gap-2 px-4 py-2 border-2 font-medium rounded-lg transition-all text-sm ${
+                        markKnownMode
+                          ? 'bg-green-50 border-green-500 text-green-600'
+                          : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-50'
+                      }`}
+                    >
+                      {markKnownMode ? 'Done Marking' : 'Mark Known'}
+                    </button>
+                    <button
+                      onClick={() => handleSelectMode('hiragana')}
+                      className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-pink-500 text-pink-600 hover:bg-pink-50 font-medium rounded-lg transition-all text-sm"
+                    >
+                      Select Items to Study
+                    </button>
+                    <button
+                      onClick={() => handleStartTraining('hiragana')}
+                      className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
+                    >
+                      Start Practice
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
                 <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-3">
-                  {[
-                    // Basic vowels
-                    { char: 'あ', romaji: 'a' }, { char: 'い', romaji: 'i' }, { char: 'う', romaji: 'u' }, { char: 'え', romaji: 'e' }, { char: 'お', romaji: 'o' },
-                    // K row
-                    { char: 'か', romaji: 'ka' }, { char: 'き', romaji: 'ki' }, { char: 'く', romaji: 'ku' }, { char: 'け', romaji: 'ke' }, { char: 'こ', romaji: 'ko' },
-                    // G row (dakuten)
-                    { char: 'が', romaji: 'ga' }, { char: 'ぎ', romaji: 'gi' }, { char: 'ぐ', romaji: 'gu' }, { char: 'げ', romaji: 'ge' }, { char: 'ご', romaji: 'go' },
-                    // S row
-                    { char: 'さ', romaji: 'sa' }, { char: 'し', romaji: 'shi' }, { char: 'す', romaji: 'su' }, { char: 'せ', romaji: 'se' }, { char: 'そ', romaji: 'so' },
-                    // Z row (dakuten)
-                    { char: 'ざ', romaji: 'za' }, { char: 'じ', romaji: 'ji' }, { char: 'ず', romaji: 'zu' }, { char: 'ぜ', romaji: 'ze' }, { char: 'ぞ', romaji: 'zo' },
-                    // T row
-                    { char: 'た', romaji: 'ta' }, { char: 'ち', romaji: 'chi' }, { char: 'つ', romaji: 'tsu' }, { char: 'て', romaji: 'te' }, { char: 'と', romaji: 'to' },
-                    // D row (dakuten)
-                    { char: 'だ', romaji: 'da' }, { char: 'ぢ', romaji: 'ji' }, { char: 'づ', romaji: 'zu' }, { char: 'で', romaji: 'de' }, { char: 'ど', romaji: 'do' },
-                    // N row
-                    { char: 'な', romaji: 'na' }, { char: 'に', romaji: 'ni' }, { char: 'ぬ', romaji: 'nu' }, { char: 'ね', romaji: 'ne' }, { char: 'の', romaji: 'no' },
-                    // H row
-                    { char: 'は', romaji: 'ha' }, { char: 'ひ', romaji: 'hi' }, { char: 'ふ', romaji: 'fu' }, { char: 'へ', romaji: 'he' }, { char: 'ほ', romaji: 'ho' },
-                    // B row (dakuten)
-                    { char: 'ば', romaji: 'ba' }, { char: 'び', romaji: 'bi' }, { char: 'ぶ', romaji: 'bu' }, { char: 'べ', romaji: 'be' }, { char: 'ぼ', romaji: 'bo' },
-                    // P row (handakuten)
-                    { char: 'ぱ', romaji: 'pa' }, { char: 'ぴ', romaji: 'pi' }, { char: 'ぷ', romaji: 'pu' }, { char: 'ぺ', romaji: 'pe' }, { char: 'ぽ', romaji: 'po' },
-                    // M row
-                    { char: 'ま', romaji: 'ma' }, { char: 'み', romaji: 'mi' }, { char: 'む', romaji: 'mu' }, { char: 'め', romaji: 'me' }, { char: 'も', romaji: 'mo' },
-                    // Y row
-                    { char: 'や', romaji: 'ya' }, { char: 'ゆ', romaji: 'yu' }, { char: 'よ', romaji: 'yo' },
-                    // R row
-                    { char: 'ら', romaji: 'ra' }, { char: 'り', romaji: 'ri' }, { char: 'る', romaji: 'ru' }, { char: 'れ', romaji: 're' }, { char: 'ろ', romaji: 'ro' },
-                    // W row
-                    { char: 'わ', romaji: 'wa' }, { char: 'を', romaji: 'wo' }, { char: 'ん', romaji: 'n' },
-                    // Combination sounds (きゃ, きゅ, きょ, etc.)
-                    { char: 'きゃ', romaji: 'kya' }, { char: 'きゅ', romaji: 'kyu' }, { char: 'きょ', romaji: 'kyo' },
-                    { char: 'ぎゃ', romaji: 'gya' }, { char: 'ぎゅ', romaji: 'gyu' }, { char: 'ぎょ', romaji: 'gyo' },
-                    { char: 'しゃ', romaji: 'sha' }, { char: 'しゅ', romaji: 'shu' }, { char: 'しょ', romaji: 'sho' },
-                    { char: 'じゃ', romaji: 'ja' }, { char: 'じゅ', romaji: 'ju' }, { char: 'じょ', romaji: 'jo' },
-                    { char: 'ちゃ', romaji: 'cha' }, { char: 'ちゅ', romaji: 'chu' }, { char: 'ちょ', romaji: 'cho' },
-                    { char: 'にゃ', romaji: 'nya' }, { char: 'にゅ', romaji: 'nyu' }, { char: 'にょ', romaji: 'nyo' },
-                    { char: 'ひゃ', romaji: 'hya' }, { char: 'ひゅ', romaji: 'hyu' }, { char: 'ひょ', romaji: 'hyo' },
-                    { char: 'びゃ', romaji: 'bya' }, { char: 'びゅ', romaji: 'byu' }, { char: 'びょ', romaji: 'byo' },
-                    { char: 'ぴゃ', romaji: 'pya' }, { char: 'ぴゅ', romaji: 'pyu' }, { char: 'ぴょ', romaji: 'pyo' },
-                    { char: 'みゃ', romaji: 'mya' }, { char: 'みゅ', romaji: 'myu' }, { char: 'みょ', romaji: 'myo' },
-                    { char: 'りゃ', romaji: 'rya' }, { char: 'りゅ', romaji: 'ryu' }, { char: 'りょ', romaji: 'ryo' }
-                  ].map((item, idx) => (
-                    <Link
-                      key={idx}
-                      href="/typing?type=hiragana"
-                      className="relative bg-white rounded-lg border border-gray-200 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-400 hover:shadow-md transition-all duration-200 p-3 text-center group overflow-hidden"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-br from-pink-50 to-orange-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg"></div>
-                      <div className="relative">
-                        <div className="text-3xl font-bold text-gray-900 mb-1 group-hover:text-pink-600 transition-colors font-japanese">
+                  {hiraganaData.map((item) => (
+                    selectionMode ? (
+                      <button
+                        key={item.romaji}
+                        onClick={() => toggleHiraganaSelection(item.romaji)}
+                        className={`relative rounded-lg border border-gray-200 border-b-4 p-3 text-center ${
+                          selectedHiragana.has(item.romaji)
+                            ? 'bg-pink-50 border-pink-300 border-b-pink-500'
+                            : 'bg-white border-b-gray-300'
+                        }`}
+                      >
+                        {selectedHiragana.has(item.romaji) && (
+                          <div className="absolute top-1 right-1 w-5 h-5 bg-pink-500 rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">✓</span>
+                          </div>
+                        )}
+                        <div className="text-3xl font-bold text-gray-900 mb-1 font-japanese">
+                          {item.char}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {item.romaji}
+                        </div>
+                      </button>
+                    ) : markKnownMode ? (
+                      <button
+                        key={item.romaji}
+                        onClick={() => toggleHiraganaKnown(item.romaji)}
+                        className={`relative rounded-lg border border-gray-200 border-b-4 p-3 text-center ${
+                          knownHiragana.has(item.romaji)
+                            ? 'bg-green-50 border-green-300 border-b-green-500'
+                            : 'bg-white border-b-gray-300 hover:border-green-200'
+                        }`}
+                      >
+                        {knownHiragana.has(item.romaji) && (
+                          <div className="absolute top-1 right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">✓</span>
+                          </div>
+                        )}
+                        <div className="text-3xl font-bold text-gray-900 mb-1 font-japanese">
+                          {item.char}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {item.romaji}
+                        </div>
+                      </button>
+                    ) : (
+                      <div
+                        key={item.romaji}
+                        className={`relative rounded-lg border border-gray-200 border-b-4 p-3 text-center ${
+                          knownHiragana.has(item.romaji)
+                            ? 'bg-green-50 border-green-300 border-b-green-500'
+                            : 'bg-white border-b-gray-300'
+                        }`}
+                      >
+                        {knownHiragana.has(item.romaji) && (
+                          <div className="absolute top-1 right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">✓</span>
+                          </div>
+                        )}
+                        <div className="text-3xl font-bold text-gray-900 mb-1 font-japanese">
                           {item.char}
                         </div>
                         <div className="text-xs text-gray-500">
                           {item.romaji}
                         </div>
                       </div>
-                    </Link>
+                    )
                   ))}
                 </div>
               </div>
@@ -441,74 +639,108 @@ export default function RoadmapPage() {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white">Katakana</h3>
-                  <Link
-                    href="/typing?type=katakana"
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
-                  >
-                    Start Practice
-                    <ChevronRight className="h-4 w-4" />
-                  </Link>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => {
+                        setMarkKnownMode(!markKnownMode);
+                        setSelectionMode(false);
+                      }}
+                      className={`flex items-center gap-2 px-4 py-2 border-2 font-medium rounded-lg transition-all text-sm ${
+                        markKnownMode
+                          ? 'bg-green-50 border-green-500 text-green-600'
+                          : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-50'
+                      }`}
+                    >
+                      {markKnownMode ? 'Done Marking' : 'Mark Known'}
+                    </button>
+                    <button
+                      onClick={() => handleSelectMode('katakana')}
+                      className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-pink-500 text-pink-600 hover:bg-pink-50 font-medium rounded-lg transition-all text-sm"
+                    >
+                      Select Items to Study
+                    </button>
+                    <button
+                      onClick={() => handleStartTraining('katakana')}
+                      className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
+                    >
+                      Start Practice
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
                 <div className="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-3">
-                  {[
-                    // Basic vowels
-                    { char: 'ア', romaji: 'a' }, { char: 'イ', romaji: 'i' }, { char: 'ウ', romaji: 'u' }, { char: 'エ', romaji: 'e' }, { char: 'オ', romaji: 'o' },
-                    // K row
-                    { char: 'カ', romaji: 'ka' }, { char: 'キ', romaji: 'ki' }, { char: 'ク', romaji: 'ku' }, { char: 'ケ', romaji: 'ke' }, { char: 'コ', romaji: 'ko' },
-                    // G row (dakuten)
-                    { char: 'ガ', romaji: 'ga' }, { char: 'ギ', romaji: 'gi' }, { char: 'グ', romaji: 'gu' }, { char: 'ゲ', romaji: 'ge' }, { char: 'ゴ', romaji: 'go' },
-                    // S row
-                    { char: 'サ', romaji: 'sa' }, { char: 'シ', romaji: 'shi' }, { char: 'ス', romaji: 'su' }, { char: 'セ', romaji: 'se' }, { char: 'ソ', romaji: 'so' },
-                    // Z row (dakuten)
-                    { char: 'ザ', romaji: 'za' }, { char: 'ジ', romaji: 'ji' }, { char: 'ズ', romaji: 'zu' }, { char: 'ゼ', romaji: 'ze' }, { char: 'ゾ', romaji: 'zo' },
-                    // T row
-                    { char: 'タ', romaji: 'ta' }, { char: 'チ', romaji: 'chi' }, { char: 'ツ', romaji: 'tsu' }, { char: 'テ', romaji: 'te' }, { char: 'ト', romaji: 'to' },
-                    // D row (dakuten)
-                    { char: 'ダ', romaji: 'da' }, { char: 'ヂ', romaji: 'ji' }, { char: 'ヅ', romaji: 'zu' }, { char: 'デ', romaji: 'de' }, { char: 'ド', romaji: 'do' },
-                    // N row
-                    { char: 'ナ', romaji: 'na' }, { char: 'ニ', romaji: 'ni' }, { char: 'ヌ', romaji: 'nu' }, { char: 'ネ', romaji: 'ne' }, { char: 'ノ', romaji: 'no' },
-                    // H row
-                    { char: 'ハ', romaji: 'ha' }, { char: 'ヒ', romaji: 'hi' }, { char: 'フ', romaji: 'fu' }, { char: 'ヘ', romaji: 'he' }, { char: 'ホ', romaji: 'ho' },
-                    // B row (dakuten)
-                    { char: 'バ', romaji: 'ba' }, { char: 'ビ', romaji: 'bi' }, { char: 'ブ', romaji: 'bu' }, { char: 'ベ', romaji: 'be' }, { char: 'ボ', romaji: 'bo' },
-                    // P row (handakuten)
-                    { char: 'パ', romaji: 'pa' }, { char: 'ピ', romaji: 'pi' }, { char: 'プ', romaji: 'pu' }, { char: 'ペ', romaji: 'pe' }, { char: 'ポ', romaji: 'po' },
-                    // M row
-                    { char: 'マ', romaji: 'ma' }, { char: 'ミ', romaji: 'mi' }, { char: 'ム', romaji: 'mu' }, { char: 'メ', romaji: 'me' }, { char: 'モ', romaji: 'mo' },
-                    // Y row
-                    { char: 'ヤ', romaji: 'ya' }, { char: 'ユ', romaji: 'yu' }, { char: 'ヨ', romaji: 'yo' },
-                    // R row
-                    { char: 'ラ', romaji: 'ra' }, { char: 'リ', romaji: 'ri' }, { char: 'ル', romaji: 'ru' }, { char: 'レ', romaji: 're' }, { char: 'ロ', romaji: 'ro' },
-                    // W row
-                    { char: 'ワ', romaji: 'wa' }, { char: 'ヲ', romaji: 'wo' }, { char: 'ン', romaji: 'n' },
-                    // Combination sounds
-                    { char: 'キャ', romaji: 'kya' }, { char: 'キュ', romaji: 'kyu' }, { char: 'キョ', romaji: 'kyo' },
-                    { char: 'ギャ', romaji: 'gya' }, { char: 'ギュ', romaji: 'gyu' }, { char: 'ギョ', romaji: 'gyo' },
-                    { char: 'シャ', romaji: 'sha' }, { char: 'シュ', romaji: 'shu' }, { char: 'ショ', romaji: 'sho' },
-                    { char: 'ジャ', romaji: 'ja' }, { char: 'ジュ', romaji: 'ju' }, { char: 'ジョ', romaji: 'jo' },
-                    { char: 'チャ', romaji: 'cha' }, { char: 'チュ', romaji: 'chu' }, { char: 'チョ', romaji: 'cho' },
-                    { char: 'ニャ', romaji: 'nya' }, { char: 'ニュ', romaji: 'nyu' }, { char: 'ニョ', romaji: 'nyo' },
-                    { char: 'ヒャ', romaji: 'hya' }, { char: 'ヒュ', romaji: 'hyu' }, { char: 'ヒョ', romaji: 'hyo' },
-                    { char: 'ビャ', romaji: 'bya' }, { char: 'ビュ', romaji: 'byu' }, { char: 'ビョ', romaji: 'byo' },
-                    { char: 'ピャ', romaji: 'pya' }, { char: 'ピュ', romaji: 'pyu' }, { char: 'ピョ', romaji: 'pyo' },
-                    { char: 'ミャ', romaji: 'mya' }, { char: 'ミュ', romaji: 'myu' }, { char: 'ミョ', romaji: 'myo' },
-                    { char: 'リャ', romaji: 'rya' }, { char: 'リュ', romaji: 'ryu' }, { char: 'リョ', romaji: 'ryo' }
-                  ].map((item, idx) => (
-                    <Link
-                      key={idx}
-                      href="/typing?type=katakana"
-                      className="relative bg-white rounded-lg border border-gray-200 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-400 hover:shadow-md transition-all duration-200 p-3 text-center group overflow-hidden"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-br from-pink-50 to-orange-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg"></div>
-                      <div className="relative">
-                        <div className="text-3xl font-bold text-gray-900 mb-1 group-hover:text-pink-600 transition-colors font-japanese">
+                  {katakanaData.map((item) => (
+                    selectionMode ? (
+                      <button
+                        key={item.romaji}
+                        onClick={() => toggleKatakanaSelection(item.romaji)}
+                        className={`relative rounded-lg border border-gray-200 border-b-4 p-3 text-center ${
+                          selectedKatakana.has(item.romaji)
+                            ? 'bg-pink-50 border-pink-300 border-b-pink-500'
+                            : 'bg-white border-b-gray-300'
+                        }`}
+                      >
+                        {selectedKatakana.has(item.romaji) && (
+                          <div className="absolute top-1 right-1 w-5 h-5 bg-pink-500 rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">✓</span>
+                          </div>
+                        )}
+                        {knownKatakana.has(item.romaji) && (
+                          <div className="absolute bottom-1 right-1 px-2 py-0.5 bg-green-500 text-white text-xs rounded-full font-medium">
+                            Known
+                          </div>
+                        )}
+                        <div className="text-3xl font-bold text-gray-900 mb-1 font-japanese">
+                          {item.char}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {item.romaji}
+                        </div>
+                      </button>
+                    ) : markKnownMode ? (
+                      <button
+                        key={item.romaji}
+                        onClick={() => toggleKatakanaKnown(item.romaji)}
+                        className={`relative rounded-lg border border-gray-200 border-b-4 p-3 text-center ${
+                          knownKatakana.has(item.romaji)
+                            ? 'bg-green-50 border-green-300 border-b-green-500'
+                            : 'bg-white border-b-gray-300 hover:border-green-200'
+                        }`}
+                      >
+                        {knownKatakana.has(item.romaji) && (
+                          <div className="absolute top-1 right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">✓</span>
+                          </div>
+                        )}
+                        <div className="text-3xl font-bold text-gray-900 mb-1 font-japanese">
+                          {item.char}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {item.romaji}
+                        </div>
+                      </button>
+                    ) : (
+                      <div
+                        key={item.romaji}
+                        className={`relative rounded-lg border border-gray-200 border-b-4 p-3 text-center ${
+                          knownKatakana.has(item.romaji)
+                            ? 'bg-green-50 border-green-300 border-b-green-500'
+                            : 'bg-white border-b-gray-300'
+                        }`}
+                      >
+                        {knownKatakana.has(item.romaji) && (
+                          <div className="absolute top-1 right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">✓</span>
+                          </div>
+                        )}
+                        <div className="text-3xl font-bold text-gray-900 mb-1 font-japanese">
                           {item.char}
                         </div>
                         <div className="text-xs text-gray-500">
                           {item.romaji}
                         </div>
                       </div>
-                    </Link>
+                    )
                   ))}
                 </div>
               </div>
@@ -519,6 +751,19 @@ export default function RoadmapPage() {
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white">Kanji Preview</h3>
                   <div className="flex gap-2">
+                    <button
+                      onClick={() => {
+                        setMarkKnownMode(!markKnownMode);
+                        setSelectionMode(false);
+                      }}
+                      className={`flex items-center gap-2 px-4 py-2 border-2 font-medium rounded-lg transition-all text-sm ${
+                        markKnownMode
+                          ? 'bg-green-50 border-green-500 text-green-600'
+                          : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-50'
+                      }`}
+                    >
+                      {markKnownMode ? 'Done Marking' : 'Mark Known'}
+                    </button>
                     <button
                       onClick={() => handleSelectMode('kanji')}
                       className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-pink-500 text-pink-600 hover:bg-pink-50 font-medium rounded-lg transition-all text-sm"
@@ -563,11 +808,42 @@ export default function RoadmapPage() {
                             {item.meaning}
                           </div>
                         </button>
+                      ) : markKnownMode ? (
+                        <button
+                          key={item.id}
+                          onClick={() => toggleKanjiKnown(item.id)}
+                          className={`relative rounded-lg border border-gray-200 border-b-4 p-3 text-center ${
+                            knownKanji.has(item.id)
+                              ? 'bg-green-50 border-green-300 border-b-green-500'
+                              : 'bg-white border-b-gray-300 hover:border-green-200'
+                          }`}
+                        >
+                          {knownKanji.has(item.id) && (
+                            <div className="absolute top-1 right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                              <span className="text-white text-xs font-bold">✓</span>
+                            </div>
+                          )}
+                          <div className="text-4xl font-bold text-gray-900 mb-1 font-japanese">
+                            {item.character}
+                          </div>
+                          <div className="text-xs text-gray-500 line-clamp-1">
+                            {item.meaning}
+                          </div>
+                        </button>
                       ) : (
                         <div
                           key={item.id}
-                          className="relative bg-white rounded-lg border border-gray-200 border-b-4 border-b-gray-300 p-3 text-center"
+                          className={`relative rounded-lg border border-gray-200 border-b-4 p-3 text-center ${
+                            knownKanji.has(item.id)
+                              ? 'bg-green-50 border-green-300 border-b-green-500'
+                              : 'bg-white border-b-gray-300'
+                          }`}
                         >
+                          {knownKanji.has(item.id) && (
+                            <div className="absolute top-1 right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                              <span className="text-white text-xs font-bold">✓</span>
+                            </div>
+                          )}
                           <div className="text-4xl font-bold text-gray-900 mb-1 font-japanese">
                             {item.character}
                           </div>
@@ -587,6 +863,19 @@ export default function RoadmapPage() {
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white">Vocabulary Preview</h3>
                   <div className="flex gap-2">
+                    <button
+                      onClick={() => {
+                        setMarkKnownMode(!markKnownMode);
+                        setSelectionMode(false);
+                      }}
+                      className={`flex items-center gap-2 px-4 py-2 border-2 font-medium rounded-lg transition-all text-sm ${
+                        markKnownMode
+                          ? 'bg-green-50 border-green-500 text-green-600'
+                          : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-50'
+                      }`}
+                    >
+                      {markKnownMode ? 'Done Marking' : 'Mark Known'}
+                    </button>
                     <button
                       onClick={() => handleSelectMode('vocabulary')}
                       className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-pink-500 text-pink-600 hover:bg-pink-50 font-medium rounded-lg transition-all text-sm"
@@ -634,11 +923,45 @@ export default function RoadmapPage() {
                             {item.meaning}
                           </div>
                         </button>
+                      ) : markKnownMode ? (
+                        <button
+                          key={item.id}
+                          onClick={() => toggleVocabularyKnown(item.id)}
+                          className={`relative rounded-lg border border-gray-200 border-b-4 p-3 text-center ${
+                            knownVocabulary.has(item.id)
+                              ? 'bg-green-50 border-green-300 border-b-green-500'
+                              : 'bg-white border-b-gray-300 hover:border-green-200'
+                          }`}
+                        >
+                          {knownVocabulary.has(item.id) && (
+                            <div className="absolute top-1 right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                              <span className="text-white text-xs font-bold">✓</span>
+                            </div>
+                          )}
+                          <div className="text-2xl font-bold text-gray-900 mb-1 font-japanese">
+                            {item.word}
+                          </div>
+                          <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">
+                            {item.reading}
+                          </div>
+                          <div className="text-xs text-gray-500 line-clamp-2">
+                            {item.meaning}
+                          </div>
+                        </button>
                       ) : (
                         <div
                           key={item.id}
-                          className="relative rounded-lg border border-gray-200 border-b-4 border-b-gray-300 p-3 text-center bg-white"
+                          className={`relative rounded-lg border border-gray-200 border-b-4 p-3 text-center ${
+                            knownVocabulary.has(item.id)
+                              ? 'bg-green-50 border-green-300 border-b-green-500'
+                              : 'bg-white border-b-gray-300'
+                          }`}
                         >
+                          {knownVocabulary.has(item.id) && (
+                            <div className="absolute top-1 right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                              <span className="text-white text-xs font-bold">✓</span>
+                            </div>
+                          )}
                           <div className="text-2xl font-bold text-gray-900 mb-1 font-japanese">
                             {item.word}
                           </div>
