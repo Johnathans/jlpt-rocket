@@ -564,22 +564,17 @@ export default function RoadmapPage() {
                           </div>
                         </button>
                       ) : (
-                        <Link
+                        <div
                           key={item.id}
-                          href="/kanji"
-                          className="relative bg-white rounded-lg border border-gray-200 border-b-4 border-b-gray-300 hover:border-pink-200 hover:border-b-pink-400 hover:shadow-md transition-all duration-200 p-3 text-center group overflow-hidden"
+                          className="relative bg-white rounded-lg border border-gray-200 border-b-4 border-b-gray-300 p-3 text-center"
                         >
-                          <div className="absolute inset-0 bg-gradient-to-br from-pink-50 to-orange-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg"></div>
-                          
-                          <div className="relative">
-                            <div className="text-4xl font-bold text-gray-900 mb-1 group-hover:text-pink-600 transition-colors font-japanese">
-                              {item.character}
-                            </div>
-                            <div className="text-xs text-gray-500 line-clamp-1">
-                              {item.meaning}
-                            </div>
+                          <div className="text-4xl font-bold text-gray-900 mb-1 font-japanese">
+                            {item.character}
                           </div>
-                        </Link>
+                          <div className="text-xs text-gray-500 line-clamp-1">
+                            {item.meaning}
+                          </div>
+                        </div>
                       )
                     ))}
                   </div>
@@ -612,46 +607,48 @@ export default function RoadmapPage() {
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500 mx-auto"></div>
                   </div>
                 ) : (
-                  <div className="space-y-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
                     {vocabularyData.map((item: any) => (
                       selectionMode ? (
                         <button
                           key={item.id}
                           onClick={() => toggleVocabularySelection(item.id)}
-                          className={`flex items-center justify-between p-4 border-2 rounded-lg w-full text-left relative ${
+                          className={`relative rounded-lg border border-gray-200 border-b-4 p-3 text-center ${
                             selectedVocabulary.has(item.id)
-                              ? 'bg-pink-50 border-pink-300'
-                              : 'bg-white border-gray-200'
+                              ? 'bg-pink-50 border-pink-300 border-b-pink-500'
+                              : 'bg-white border-b-gray-300'
                           }`}
                         >
                           {selectedVocabulary.has(item.id) && (
-                            <div className="absolute top-2 right-2 w-6 h-6 bg-pink-500 rounded-full flex items-center justify-center">
+                            <div className="absolute top-1 right-1 w-5 h-5 bg-pink-500 rounded-full flex items-center justify-center">
                               <span className="text-white text-xs font-bold">✓</span>
                             </div>
                           )}
-                          <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-1">
-                              <span className="text-2xl font-bold text-black font-japanese">{item.word}</span>
-                              <span className="text-sm text-gray-600 dark:text-gray-300">{item.reading}</span>
-                            </div>
-                            <p className="text-sm text-gray-700">{item.meaning}</p>
+                          <div className="text-2xl font-bold text-gray-900 mb-1 font-japanese">
+                            {item.word}
+                          </div>
+                          <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">
+                            {item.reading}
+                          </div>
+                          <div className="text-xs text-gray-500 line-clamp-2">
+                            {item.meaning}
                           </div>
                         </button>
                       ) : (
-                        <Link
+                        <div
                           key={item.id}
-                          href="/vocabulary"
-                          className="flex items-center justify-between p-4 bg-white border-2 border-gray-200 hover:border-pink-300 hover:bg-pink-50 rounded-lg transition-all group"
+                          className="relative rounded-lg border border-gray-200 border-b-4 border-b-gray-300 p-3 text-center bg-white"
                         >
-                          <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-1">
-                              <span className="text-2xl font-bold text-black font-japanese">{item.word}</span>
-                              <span className="text-sm text-gray-600 dark:text-gray-300">{item.reading}</span>
-                            </div>
-                            <p className="text-sm text-gray-700">{item.meaning}</p>
+                          <div className="text-2xl font-bold text-gray-900 mb-1 font-japanese">
+                            {item.word}
                           </div>
-                          <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-pink-500" />
-                        </Link>
+                          <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">
+                            {item.reading}
+                          </div>
+                          <div className="text-xs text-gray-500 line-clamp-2">
+                            {item.meaning}
+                          </div>
+                        </div>
                       )
                     ))}
                   </div>
