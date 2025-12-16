@@ -187,10 +187,12 @@ export default function RoadmapPage() {
     });
   }, []);
 
-  const toggleKanjiKnown = useCallback((id: string, e?: React.MouseEvent) => {
+  const toggleKanjiKnown = useCallback(async (id: string, e?: React.MouseEvent) => {
     if (e) {
       e.stopPropagation();
     }
+    const isCurrentlyKnown = knownKanji.has(id);
+    
     setKnownKanji(prev => {
       const newKnown = new Set(prev);
       if (newKnown.has(id)) {
@@ -200,12 +202,21 @@ export default function RoadmapPage() {
       }
       return newKnown;
     });
-  }, []);
+    
+    // Update ReviewSystem for persistence
+    if (isCurrentlyKnown) {
+      await ReviewSystemSupabase.resetItemProgress(id, 'kanji');
+    } else {
+      await ReviewSystemSupabase.setItemMastered(id, 'kanji');
+    }
+  }, [knownKanji]);
 
-  const toggleVocabularyKnown = useCallback((id: string, e?: React.MouseEvent) => {
+  const toggleVocabularyKnown = useCallback(async (id: string, e?: React.MouseEvent) => {
     if (e) {
       e.stopPropagation();
     }
+    const isCurrentlyKnown = knownVocabulary.has(id);
+    
     setKnownVocabulary(prev => {
       const newKnown = new Set(prev);
       if (newKnown.has(id)) {
@@ -215,7 +226,14 @@ export default function RoadmapPage() {
       }
       return newKnown;
     });
-  }, []);
+    
+    // Update ReviewSystem for persistence
+    if (isCurrentlyKnown) {
+      await ReviewSystemSupabase.resetItemProgress(id, 'vocabulary');
+    } else {
+      await ReviewSystemSupabase.setItemMastered(id, 'vocabulary');
+    }
+  }, [knownVocabulary]);
 
   const handleStartTraining = (type: 'kanji' | 'vocabulary' | 'hiragana' | 'katakana') => {
     // Hiragana and katakana use typing mode directly, not the training modal
@@ -347,6 +365,43 @@ export default function RoadmapPage() {
     loadStats();
   }, [currentLevel]);
 
+  // Load all content data on mount for progress meter
+  useEffect(() => {
+    const loadAllContent = async () => {
+      try {
+        // Load kanji data and mastered state
+        const kanjiDataResult = await getKanjiByLevel(currentLevel);
+        setKanjiData(kanjiDataResult);
+        
+        const masteredKanjiIds = new Set<string>();
+        for (const item of kanjiDataResult) {
+          const progress = await ReviewSystemSupabase.getItemProgress(item.id, 'kanji');
+          if (progress.masteryLevel >= 100) {
+            masteredKanjiIds.add(item.id);
+          }
+        }
+        setKnownKanji(masteredKanjiIds);
+        
+        // Load vocabulary data and mastered state
+        const vocabDataResult = await getVocabularyByLevel(currentLevel);
+        setVocabularyData(vocabDataResult);
+        
+        const masteredVocabIds = new Set<string>();
+        for (const item of vocabDataResult) {
+          const progress = await ReviewSystemSupabase.getItemProgress(item.id, 'vocabulary');
+          if (progress.masteryLevel >= 100) {
+            masteredVocabIds.add(item.id);
+          }
+        }
+        setKnownVocabulary(masteredVocabIds);
+      } catch (error) {
+        console.error('Error loading content:', error);
+      }
+    };
+
+    loadAllContent();
+  }, [currentLevel]);
+
   // Load content data when tab changes
   useEffect(() => {
     const loadContent = async () => {
@@ -354,13 +409,13 @@ export default function RoadmapPage() {
       try {
         if (activeTab === 'kanji') {
           const data = await getKanjiByLevel(currentLevel);
-          setKanjiData(data); // Show all kanji
+          setKanjiData(data);
         } else if (activeTab === 'vocabulary') {
           const data = await getVocabularyByLevel(currentLevel);
-          setVocabularyData(data); // Show all vocabulary
+          setVocabularyData(data);
         } else if (activeTab === 'sentences') {
           const data = await getSentencesByLevel(currentLevel);
-          setSentencesData(data); // Show all sentences
+          setSentencesData(data);
         }
       } catch (error) {
         console.error('Error loading content:', error);
@@ -445,9 +500,10 @@ export default function RoadmapPage() {
           {/* Progress Meter */}
           <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 p-6 flex flex-col items-center justify-center">
             {(() => {
-              const totalMastered = (stats?.kanji.mastered || 0) + (stats?.vocabulary.mastered || 0) + (stats?.sentences.mastered || 0);
-              const totalItems = (stats?.kanji.total || 0) + (stats?.vocabulary.total || 0) + (stats?.sentences.total || 0);
-              const progressPercent = totalItems > 0 ? Math.round((totalMastered / totalItems) * 100) : 0;
+              // Use knownKanji and knownVocabulary sets for real-time updates
+              const totalKnown = knownKanji.size + knownVocabulary.size;
+              const totalItems = kanjiData.length + vocabularyData.length;
+              const progressPercent = totalItems > 0 ? Math.round((totalKnown / totalItems) * 100) : 0;
               const filledSegments = Math.round((progressPercent / 100) * 8);
               
               return (
@@ -492,7 +548,7 @@ export default function RoadmapPage() {
                     </div>
                   </div>
                   <span className="text-sm text-gray-600 dark:text-gray-400 mt-2 font-medium">
-                    {totalMastered} / {totalItems} mastered
+                    {totalKnown} / {totalItems} mastered
                   </span>
                 </>
               );
