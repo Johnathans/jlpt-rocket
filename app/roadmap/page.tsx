@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { BookOpen, FileText, MessageSquare, Flame, TrendingUp, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight, BookMarked, ClipboardCheck, Volume2, Brush, GraduationCap, Lock, Star } from 'lucide-react';
+import { BookOpen, FileText, MessageSquare, Flame, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight, BookMarked, ClipboardCheck, Volume2, Brush, GraduationCap, Lock, Star } from 'lucide-react';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 import { getContentCounts, getKanjiByLevel, getVocabularyByLevel, getSentencesByLevel } from '@/lib/supabase-data';
 import { StreakSystem } from '@/lib/streakSystem';
@@ -442,30 +442,61 @@ export default function RoadmapPage() {
             <div className="text-sm text-gray-600 mt-1">items to review</div>
           </div>
 
-          {/* Progress Card - Combined Mastered & Learning */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 p-6">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Your Progress</span>
-              <TrendingUp className="h-5 w-5 text-pink-500" />
-            </div>
-            <div className="space-y-3">
-              <div>
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-medium text-gray-500">Mastered</span>
-                  <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                    {(stats?.kanji.mastered || 0) + (stats?.vocabulary.mastered || 0) + (stats?.sentences.mastered || 0)}
+          {/* Progress Meter */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 p-6 flex flex-col items-center justify-center">
+            {(() => {
+              const totalMastered = (stats?.kanji.mastered || 0) + (stats?.vocabulary.mastered || 0) + (stats?.sentences.mastered || 0);
+              const totalItems = (stats?.kanji.total || 0) + (stats?.vocabulary.total || 0) + (stats?.sentences.total || 0);
+              const progressPercent = totalItems > 0 ? Math.round((totalMastered / totalItems) * 100) : 0;
+              const filledSegments = Math.round((progressPercent / 100) * 8);
+              
+              return (
+                <>
+                  <div className="relative w-32 h-32">
+                    <svg className="w-32 h-32 transform -rotate-90">
+                      {/* Background segments */}
+                      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+                        <circle
+                          key={`bg-${i}`}
+                          cx="64"
+                          cy="64"
+                          r="56"
+                          fill="none"
+                          stroke="#e5e7eb"
+                          strokeWidth="12"
+                          strokeDasharray="43.98 307.86"
+                          strokeDashoffset={-i * 43.98}
+                          strokeLinecap="round"
+                        />
+                      ))}
+                      {/* Progress segments */}
+                      {Array.from({ length: filledSegments }).map((_, i) => (
+                        <circle
+                          key={`progress-${i}`}
+                          cx="64"
+                          cy="64"
+                          r="56"
+                          fill="none"
+                          stroke={i < filledSegments / 2 ? "#ec4899" : "#f97316"}
+                          strokeWidth="12"
+                          strokeDasharray="43.98 307.86"
+                          strokeDashoffset={-i * 43.98}
+                          strokeLinecap="round"
+                          className="transition-all duration-500"
+                        />
+                      ))}
+                    </svg>
+                    {/* Center text */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-3xl font-bold text-gray-900 dark:text-white">{progressPercent}%</span>
+                    </div>
+                  </div>
+                  <span className="text-sm text-gray-600 dark:text-gray-400 mt-2 font-medium">
+                    {totalMastered} / {totalItems} mastered
                   </span>
-                </div>
-              </div>
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-gray-500">Learning</span>
-                  <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                    {(stats?.kanji.learning || 0) + (stats?.vocabulary.learning || 0) + (stats?.sentences.learning || 0)}
-                  </span>
-                </div>
-              </div>
-            </div>
+                </>
+              );
+            })()}
           </div>
         </div>
 
