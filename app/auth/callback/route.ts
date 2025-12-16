@@ -3,8 +3,9 @@ import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest) {
-  const requestUrl = new URL(request.url)
-  const code = requestUrl.searchParams.get('code')
+  const { searchParams, origin } = new URL(request.url)
+  const code = searchParams.get('code')
+  const next = searchParams.get('next') ?? '/roadmap'
 
   if (code) {
     const cookieStore = await cookies()
@@ -24,15 +25,16 @@ export async function GET(request: NextRequest) {
         },
       }
     )
-    
+
     const { error } = await supabase.auth.exchangeCodeForSession(code)
-    
-    if (error) {
-      console.error('OAuth callback error:', error)
-      return NextResponse.redirect(`${requestUrl.origin}/?error=auth_failed`)
+
+    if (!error) {
+      return NextResponse.redirect(`${origin}${next}`)
     }
+    
+    console.error('OAuth callback error:', error)
   }
 
-  // URL to redirect to after sign in process completes
-  return NextResponse.redirect(`${requestUrl.origin}/roadmap`)
+  // Return to login on error
+  return NextResponse.redirect(`${origin}/login`)
 }
