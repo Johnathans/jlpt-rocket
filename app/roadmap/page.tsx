@@ -501,7 +501,16 @@ export default function RoadmapPage() {
               <RotateCcw className="h-5 w-5 text-pink-500" />
             </div>
             <div className="text-4xl font-bold text-gray-900 dark:text-white">{stats?.reviewDue || 0}</div>
-            <div className="text-sm text-gray-600 mt-1">items to review</div>
+            <div className="text-sm text-gray-600 mt-1 mb-3">items to review</div>
+            {(stats?.reviewDue || 0) > 0 && (
+              <Link
+                href="/review"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-sm font-medium rounded-lg hover:from-pink-600 hover:to-orange-600 transition-all"
+              >
+                <Play className="h-4 w-4" />
+                Start Reviews
+              </Link>
+            )}
           </div>
 
           {/* Progress Meter */}
