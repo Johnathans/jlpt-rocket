@@ -12,7 +12,7 @@ interface TypingItem {
   character: string;
   romaji: string;
   meaning?: string;
-  type: 'hiragana' | 'katakana' | 'vocabulary';
+  type: 'hiragana' | 'katakana' | 'vocabulary' | 'kanji';
 }
 
 function TypingTrainingContent() {
@@ -28,10 +28,10 @@ function TypingTrainingContent() {
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
   const [totalXP, setTotalXP] = useState(0);
-  const [shouldPlayAudio, setShouldPlayAudio] = useState(false);
   const audioCacheRef = useRef<Record<string, string>>({});
 
   const trainingType = searchParams.get('type') || 'hiragana';
+  const itemsParam = searchParams.get('items');
   const currentItem = items[currentIndex];
   const progress = items.length > 0 ? Math.round(((currentIndex + 1) / items.length) * 100) : 0;
 
@@ -57,9 +57,9 @@ function TypingTrainingContent() {
         const wasHidden = !showAnswer;
         setShowAnswer(prev => !prev);
         setIsCorrect(null); // Clear any previous correct/incorrect state
-        // Trigger audio when revealing
+        // Play audio immediately when revealing
         if (wasHidden) {
-          setShouldPlayAudio(true);
+          playAudio(currentItem.character);
         }
       }
       // Right Arrow to go to next card (always works)
@@ -102,7 +102,18 @@ function TypingTrainingContent() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [showAnswer, currentItem, currentIndex, items.length]);
 
-  const loadItems = async () => {
+  const loadItems = () => {
+    // Load items from URL parameter if provided
+    if (itemsParam) {
+      try {
+        const parsedItems = JSON.parse(decodeURIComponent(itemsParam));
+        setItems(parsedItems);
+        return;
+      } catch (error) {
+        console.error('Failed to parse items:', error);
+      }
+    }
+
     // Mock data for now - replace with actual data loading
     if (trainingType === 'hiragana') {
       const hiraganaItems: TypingItem[] = [
@@ -129,18 +140,51 @@ function TypingTrainingContent() {
         { id: '3', character: 'きのう', romaji: 'kinou', meaning: 'yesterday', type: 'vocabulary' },
       ];
       setItems(vocabItems);
+    } else if (trainingType === 'kanji') {
+      const kanjiItems: TypingItem[] = [
+        { id: '1', character: '一', romaji: 'ichi', meaning: 'one', type: 'kanji' },
+        { id: '2', character: '水', romaji: 'mizu', meaning: 'water', type: 'kanji' },
+        { id: '3', character: '日', romaji: 'hi', meaning: 'day, sun', type: 'kanji' },
+      ];
+      setItems(kanjiItems);
     }
   };
 
+  // Get pre-generated audio file path for hiragana
+  const getAudioPath = (text: string, type: string) => {
+    if (type === 'hiragana') {
+      // Use pre-generated audio files for hiragana
+      const charCode = text.charCodeAt(0);
+      return `/audio/hiragana/${charCode}.mp3`;
+    }
+    // For kanji, use the character itself for TTS
+    // For other types, return null (will use API)
+    return null;
+  };
+
   // Preload audio for all items
-  const preloadAudio = async (text: string) => {
+  const preloadAudio = async (text: string, type: string) => {
     if (audioCacheRef.current[text]) {
       console.log('Already cached:', text);
       return audioCacheRef.current[text];
     }
     
+    // Check if we have pre-generated audio
+    const preGeneratedPath = getAudioPath(text, type);
+    if (preGeneratedPath) {
+      // Actually preload the audio file into browser cache
+      const audio = new Audio(preGeneratedPath);
+      audio.preload = 'auto';
+      audio.load();
+      
+      audioCacheRef.current[text] = preGeneratedPath;
+      console.log('Using pre-generated audio for:', text);
+      return preGeneratedPath;
+    }
+    
+    // Fallback to API for non-hiragana
     try {
-      console.log('Fetching audio for:', text);
+      console.log('Fetching audio from API for:', text);
       const response = await fetch('/api/tts', {
         method: 'POST',
         headers: {
@@ -168,13 +212,13 @@ function TypingTrainingContent() {
     const preloadAll = async () => {
       if (items.length > 0) {
         console.log('Preloading audio for', items.length, 'items...');
-        const promises = items.map(item => preloadAudio(item.character));
+        const promises = items.map(item => preloadAudio(item.character, item.type));
         await Promise.all(promises);
         console.log('All audio preloaded!');
       }
     };
     preloadAll();
-  }, [items]);
+  }, [items, trainingType]);
 
   const playAudio = (text: string) => {
     try {
@@ -190,26 +234,30 @@ function TypingTrainingContent() {
       }
       
       console.log('Playing from cache:', text);
+      console.log('Audio URL:', audioUrl);
+      console.log('Is pre-generated file?', audioUrl.startsWith('/audio/'));
+      
       const audio = new Audio(audioUrl);
       audio.volume = 1.0;
-      audio.play().then(() => {
-        console.log('Audio played successfully');
-      }).catch(err => {
-        console.error('Audio play failed:', err);
-      });
+      audio.preload = 'auto';
+      
+      // Wait for audio to be loaded before playing
+      audio.addEventListener('canplaythrough', () => {
+        audio.play().then(() => {
+          console.log('Audio played successfully');
+        }).catch(err => {
+          console.error('Audio play failed:', err);
+        });
+      }, { once: true });
+      
+      // Trigger load
+      audio.load();
     } catch (error) {
       console.error('TTS failed:', error);
     }
   };
 
-  // Play audio when triggered
-  useEffect(() => {
-    if (shouldPlayAudio && currentItem) {
-      console.log('Playing audio for:', currentItem.character);
-      playAudio(currentItem.character);
-      setShouldPlayAudio(false);
-    }
-  }, [shouldPlayAudio, currentItem]);
+  // Removed useEffect for audio - now plays immediately
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -230,8 +278,8 @@ function TypingTrainingContent() {
       incorrectSound.play().catch(err => console.log('Sound play failed:', err));
     }
 
-    // Trigger audio playback
-    setShouldPlayAudio(true);
+    // Play audio immediately
+    playAudio(currentItem.character);
   };
 
   const handleToggleAnswer = () => {
@@ -246,6 +294,8 @@ function TypingTrainingContent() {
         setScore(score + 1);
         setTotalXP(totalXP + 10);
       }
+      // Play audio immediately when revealing
+      playAudio(currentItem.character);
     } else {
       // Hide answer
       setShowAnswer(false);
@@ -368,29 +418,32 @@ function TypingTrainingContent() {
         }
       />
 
-      <div className="flex-1 flex flex-col items-center px-4">
-        <div className="w-full max-w-3xl flex flex-col" style={{ minHeight: 'calc(100vh - 80px)' }}>
+      <div className="flex-1 flex flex-col items-center justify-center px-4">
+        <div className="w-full max-w-2xl flex flex-col" style={{ minHeight: 'calc(100vh - 80px)' }}>
           {/* Character Display - Massive and Centered */}
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center">
+              {/* Show character (kanji, hiragana, katakana, or vocabulary word) */}
               <div className={`transition-all leading-none ${
                 showAnswer 
                   ? isCorrect 
                     ? 'text-gray-300 dark:text-gray-700' 
                     : 'text-gray-900 dark:text-white'
                   : 'text-gray-900 dark:text-white'
-              }`} style={{ fontSize: '15rem', fontWeight: 700 }}>
+              }`} style={{ fontSize: 'clamp(6rem, 18vw, 11rem)', fontWeight: 700 }}>
                 {currentItem.character}
               </div>
               
+              {/* Show meaning as hint (for kanji and vocabulary) */}
               {currentItem.meaning && !showAnswer && (
-                <div className="text-2xl text-gray-400 dark:text-gray-500 mt-6">
+                <div className="text-xl text-gray-400 dark:text-gray-500 mt-6">
                   {currentItem.meaning}
                 </div>
               )}
 
+              {/* Show answer (hiragana reading) when revealed */}
               {showAnswer && (
-                <div className={`text-5xl font-normal mt-6 ${
+                <div className={`text-4xl font-normal mt-6 ${
                   isCorrect 
                     ? 'text-gray-400 dark:text-gray-600' 
                     : 'text-gray-900 dark:text-white'
@@ -404,7 +457,7 @@ function TypingTrainingContent() {
           {/* Bottom Section - Input Only */}
           <div className="pb-12 flex flex-col items-center">
             {/* Input Section */}
-            <form onSubmit={handleSubmit} className="w-full max-w-xl">
+            <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto">
               <div className="relative">
                 <input
                   ref={inputRef}
@@ -413,7 +466,7 @@ function TypingTrainingContent() {
                   onChange={(e) => setUserInput(e.target.value)}
                   readOnly={showAnswer}
                   placeholder="type phonetic english..."
-                  className="w-full px-6 py-4 text-lg border-b-2 bg-transparent transition-all text-center focus:outline-none border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:border-gray-900 dark:focus:border-gray-400"
+                  className="w-full px-8 py-4 text-xl font-medium rounded-lg border-2 bg-white dark:bg-gray-800 transition-all text-center focus:outline-none border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white focus:border-pink-400 dark:focus:border-pink-500 focus:ring-2 focus:ring-pink-100 dark:focus:ring-pink-900/30 shadow-sm"
                 />
                 {isCorrect === true && (
                   <div className="absolute -bottom-14 left-1/2 -translate-x-1/2 flex items-center gap-2 text-green-600 dark:text-green-400 text-xl font-bold">

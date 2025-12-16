@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { X, Zap, BookOpen, Keyboard } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { hiraganaToRomaji } from '@/lib/kana-converter';
 
 interface TrainingModeModalProps {
   isOpen: boolean;
@@ -38,7 +39,36 @@ export default function TrainingModeModal({
       } else if (mode === 'flashcard') {
         router.push(`/flashcard?type=${itemType}&items=${selectedItems.join(',')}`);
       } else if (mode === 'input') {
-        router.push(`/input?type=${itemType}&items=${selectedItems.join(',')}`);
+        // Transform kanji data for typing page
+        if (itemType === 'kanji') {
+          const typingItems = selectedData.map(kanji => {
+            // Use kun'yomi (native Japanese reading) as primary for standalone meanings
+            // This matches the English meaning shown (e.g., "water" = mizu, "tree" = ki)
+            // Fallback to on'yomi only if no kun'yomi exists
+            let hiraganaReading = '';
+            
+            if (kanji.kun_reading && kanji.kun_reading.length > 0) {
+              hiraganaReading = kanji.kun_reading[0];
+            } else if (kanji.on_reading && kanji.on_reading.length > 0) {
+              hiraganaReading = kanji.on_reading[0];
+            }
+            
+            // Convert hiragana reading to romaji for typing comparison
+            const romajiReading = hiraganaToRomaji(hiraganaReading);
+            
+            return {
+              id: kanji.id,
+              character: kanji.character,
+              romaji: romajiReading, // Now in romaji format (e.g., mizu, ki)
+              meaning: kanji.meaning,
+              type: 'kanji'
+            };
+          });
+          const itemsParam = encodeURIComponent(JSON.stringify(typingItems));
+          router.push(`/typing?type=kanji&items=${itemsParam}`);
+        } else {
+          router.push(`/input?type=${itemType}&items=${selectedItems.join(',')}`);
+        }
       }
       
       onClose();

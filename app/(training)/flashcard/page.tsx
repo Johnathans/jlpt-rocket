@@ -140,20 +140,34 @@ function FlashcardPageContent() {
         case ' ': // Spacebar
         case 'enter':
           event.preventDefault();
-          handleFlipCard();
+          if (!isFlipped) {
+            handleFlipCard();
+          } else {
+            handleDifficulty('good');
+          }
           break;
         case '1':
-        case 'x':
           event.preventDefault();
           if (isFlipped) {
-            handleForget();
+            handleDifficulty('again');
           }
           break;
         case '2':
-        case 'c':
           event.preventDefault();
           if (isFlipped) {
-            handleRemember();
+            handleDifficulty('hard');
+          }
+          break;
+        case '3':
+          event.preventDefault();
+          if (isFlipped) {
+            handleDifficulty('good');
+          }
+          break;
+        case '4':
+          event.preventDefault();
+          if (isFlipped) {
+            handleDifficulty('easy');
           }
           break;
         case 'a':
@@ -179,18 +193,48 @@ function FlashcardPageContent() {
     }
   };
 
-  const handleRemember = async () => {
+  // Anki-style difficulty handlers
+  const handleDifficulty = async (difficulty: 'again' | 'hard' | 'good' | 'easy') => {
     playButtonClickSound();
-    playCorrectSound();
+    
+    const isCorrect = difficulty !== 'again';
+    
+    if (isCorrect) {
+      playCorrectSound();
+      setScore(score + 1);
+    } else {
+      playIncorrectSound();
+      // Add to wrong answers
+      setWrongAnswers([...wrongAnswers, {
+        id: currentItem.id.toString(),
+        character: currentItem.character,
+        meaning: currentItem.meaning,
+        reading: currentItem.reading,
+        userAnswer: 'forgot',
+        correctAnswer: currentItem.meaning || 'unknown',
+        type: currentItem.type
+      }]);
+    }
     
     // Update review system
-    await ReviewSystemSupabase.updateItemProgress(currentItem.id, currentItem.type, true, currentItem);
+    await ReviewSystemSupabase.updateItemProgress(currentItem.id, currentItem.type, isCorrect, currentItem);
     
-    setScore(score + 1);
     setSeenCount(seenCount + 1);
     
-    // Remove from queue (correct answer = don't re-queue)
+    // Queue management based on difficulty
     const newQueue = itemQueue.slice(1);
+    
+    if (difficulty === 'again') {
+      // Re-queue soon (1-3 cards ahead)
+      const insertPosition = Math.min(Math.floor(Math.random() * 2) + 1, newQueue.length);
+      newQueue.splice(insertPosition, 0, currentItem);
+    } else if (difficulty === 'hard') {
+      // Re-queue later (5-7 cards ahead)
+      const insertPosition = Math.min(Math.floor(Math.random() * 2) + 5, newQueue.length);
+      newQueue.splice(insertPosition, 0, currentItem);
+    }
+    // 'good' and 'easy' don't re-queue
+    
     setItemQueue(newQueue);
     setIsFlipped(false);
     
@@ -201,36 +245,6 @@ function FlashcardPageContent() {
       StreakSystem.recordSession();
       setShowCompletion(true);
     }
-  };
-
-  const handleForget = async () => {
-    playButtonClickSound();
-    playIncorrectSound();
-    
-    // Update review system
-    await ReviewSystemSupabase.updateItemProgress(currentItem.id, currentItem.type, false, currentItem);
-    
-    // Add to wrong answers
-    setWrongAnswers([...wrongAnswers, {
-      id: currentItem.id.toString(),
-      character: currentItem.character,
-      meaning: currentItem.meaning,
-      reading: currentItem.reading,
-      userAnswer: 'forgot',
-      correctAnswer: currentItem.meaning || 'unknown',
-      type: currentItem.type
-    }]);
-    
-    setSeenCount(seenCount + 1);
-    
-    // Re-queue the item (Anki-style: wrong items come back)
-    // Insert it 3-5 positions ahead in the queue
-    const newQueue = itemQueue.slice(1);
-    const insertPosition = Math.min(Math.floor(Math.random() * 3) + 3, newQueue.length);
-    newQueue.splice(insertPosition, 0, currentItem);
-    
-    setItemQueue(newQueue);
-    setIsFlipped(false);
   };
 
   const handleClose = () => {
@@ -305,103 +319,147 @@ function FlashcardPageContent() {
       <TrainingHeader
         progress={((trainingItems.length - itemQueue.length) / trainingItems.length) * 100}
         onClose={handleClose}
+        rightButton={
+          <div className="flex items-center gap-4 text-sm text-gray-600 mr-2">
+            <span>{itemQueue.length} left</span>
+            <span className="text-gray-400">•</span>
+            <span>{score}/{trainingItems.length}</span>
+          </div>
+        }
       />
 
-      <div className="flex flex-col items-center justify-center px-6 py-12" style={{ minHeight: 'calc(100vh - 120px)' }}>
+      <div className="flex flex-col items-center justify-center px-6 py-8" style={{ minHeight: 'calc(100vh - 120px)' }}>
         {/* Flashcard */}
-        <div className="relative w-full max-w-xl h-[30rem] mb-10">
-          <div 
-            className={`absolute inset-0 w-full h-full transition-transform duration-700 transform-style-preserve-3d cursor-pointer ${
-              isFlipped ? 'rotate-y-180' : ''
-            }`}
-            onClick={handleFlipCard}
-            style={{ transformStyle: 'preserve-3d' }}
-          >
-            {/* Front of card */}
-            <div 
-              className="absolute inset-0 w-full h-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl border-2 border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center backface-hidden"
-              style={{ backfaceVisibility: 'hidden' }}
-            >
-              <div className="text-center">
-                <div className="text-6xl sm:text-7xl md:text-8xl font-bold font-japanese leading-none mb-4 text-gray-900 dark:text-white">
-                  {currentItem.character}
-                </div>
-                {currentItem.reading && (
-                  <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 font-japanese">
-                    {currentItem.reading}
-                  </p>
-                )}
-              </div>
-              <div className="absolute bottom-4 text-sm text-gray-400">
-                Tap to flip
-              </div>
-            </div>
-
-            {/* Back of card */}
-            <div 
-              className="absolute inset-0 w-full h-full bg-white dark:bg-gray-800 rounded-2xl shadow-xl border-2 border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center backface-hidden rotate-y-180"
-              style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-            >
-              {/* Audio icon */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (currentItem.character) {
-                    playJapaneseAudio(currentItem.character);
-                  }
-                }}
-                className="absolute top-4 right-4 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white transition-colors duration-200"
+        <div className="relative w-full max-w-2xl mb-6">
+          <div className="relative w-full min-h-[28rem]">
+            {!isFlipped ? (
+              /* Front of card */
+              <div 
+                className="w-full bg-white rounded-lg shadow border border-gray-200 p-12 flex flex-col items-center justify-center min-h-[28rem] cursor-pointer relative"
+                onClick={handleFlipCard}
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M6 15h3l4.5 4.5V4.5L9 9H6v6z" />
-                </svg>
-              </button>
-              
-              <div className="text-center">
-                <div className="text-4xl sm:text-5xl md:text-6xl font-black text-gray-800 dark:text-white mb-4">
-                  {currentItem.meaning}
+                <div className="text-center">
+                  <div className="text-8xl font-bold font-japanese leading-none mb-6 text-gray-900">
+                    {currentItem.character}
+                  </div>
+                  {currentItem.reading && (
+                    <p className="text-2xl text-gray-500 font-japanese">
+                      {currentItem.reading}
+                    </p>
+                  )}
                 </div>
-                {currentItem.reading && (
-                  <p className="text-xl font-japanese font-semibold text-green-600 bg-green-100 px-3 py-1 rounded-lg inline-block mt-2">
-                    {currentItem.reading}
-                  </p>
-                )}
+                <div className="absolute bottom-6 text-sm text-gray-400">
+                  Click to reveal • Press <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">Space</kbd>
+                </div>
               </div>
-              <div className="absolute bottom-4 text-sm text-gray-400 dark:text-gray-500">
-                Tap to flip back
+            ) : (
+              /* Back of card */
+              <div className="w-full bg-white rounded-lg shadow border border-gray-200 p-12 flex flex-col items-center justify-center min-h-[28rem] relative">
+                {/* Audio button */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (currentItem.character) {
+                      playJapaneseAudio(currentItem.character);
+                    }
+                  }}
+                  className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600"
+                  title="Play audio (A)"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M6 15h3l4.5 4.5V4.5L9 9H6v6z" />
+                  </svg>
+                </button>
+                
+                <div className="text-center">
+                  <div className="text-5xl font-bold text-gray-900 mb-6">
+                    {currentItem.meaning}
+                  </div>
+                  <div className="text-6xl font-bold font-japanese text-gray-400 mb-4">
+                    {currentItem.character}
+                  </div>
+                  {currentItem.reading && (
+                    <p className="text-xl font-japanese text-gray-500">
+                      {currentItem.reading}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
-        {/* Prompt */}
-        <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-700 dark:text-gray-200">
-            Do you remember?
-          </h2>
-        </div>
-        <div className="flex gap-6">
-          <button
-            onClick={handleForget}
-            className="px-20 py-5 rounded-lg font-semibold transition-all duration-200 border-b-4 min-w-[240px] bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 border-gray-400 dark:border-gray-600 cursor-pointer"
-          >
-            ✗&nbsp;&nbsp;&nbsp;&nbsp;Forgot
-          </button>
-          <button
-            onClick={handleRemember}
-            className="px-20 py-5 rounded-lg font-semibold transition-all duration-200 border-b-4 min-w-[240px] bg-green-500 hover:bg-green-600 text-white border-green-700 cursor-pointer"
-          >
-            ✓&nbsp;&nbsp;&nbsp;&nbsp;Remember
-          </button>
-        </div>
-
-        {/* Keyboard Shortcuts Display */}
-        <div className="fixed bottom-2 left-1/2 transform -translate-x-1/2 px-4">
-          <div className="flex flex-wrap justify-center gap-1 sm:gap-2 md:gap-3 text-xs text-gray-400">
-            <span className="whitespace-nowrap text-xs"><kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-xs">Space</kbd> Flip</span>
-            <span className="whitespace-nowrap text-xs"><kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-xs">1</kbd> or <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-xs">X</kbd> Forgot</span>
-            <span className="whitespace-nowrap text-xs"><kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-xs">2</kbd> or <kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-xs">C</kbd> Remember</span>
-            <span className="whitespace-nowrap text-xs"><kbd className="px-1.5 py-0.5 bg-gray-100 rounded text-xs">A</kbd> Audio</span>
+        {/* Difficulty Buttons - Always Visible */}
+        <div className="w-full max-w-2xl">
+          <div className="flex justify-center gap-2">
+            <button
+              onClick={() => isFlipped && handleDifficulty('again')}
+              disabled={!isFlipped}
+              className={`px-4 py-1.5 bg-white rounded border border-gray-200 flex items-center gap-2 ${
+                isFlipped ? 'hover:border-gray-300 hover:shadow-sm cursor-pointer' : 'opacity-50 cursor-not-allowed'
+              }`}
+            >
+              <div className="flex gap-0.5 h-5 items-end">
+                <div className="w-1.5 h-1.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
+                <div className="w-1.5 h-2.5 bg-gray-200 rounded-sm"></div>
+                <div className="w-1.5 h-3.5 bg-gray-200 rounded-sm"></div>
+                <div className="w-1.5 h-5 bg-gray-200 rounded-sm"></div>
+              </div>
+              <div className="text-xs font-medium text-gray-700">Again</div>
+            </button>
+            <button
+              onClick={() => isFlipped && handleDifficulty('hard')}
+              disabled={!isFlipped}
+              className={`px-4 py-1.5 bg-white rounded border border-gray-200 flex items-center gap-2 ${
+                isFlipped ? 'hover:border-gray-300 hover:shadow-sm cursor-pointer' : 'opacity-50 cursor-not-allowed'
+              }`}
+            >
+              <div className="flex gap-0.5 h-5 items-end">
+                <div className="w-1.5 h-1.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
+                <div className="w-1.5 h-2.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
+                <div className="w-1.5 h-3.5 bg-gray-200 rounded-sm"></div>
+                <div className="w-1.5 h-5 bg-gray-200 rounded-sm"></div>
+              </div>
+              <div className="text-xs font-medium text-gray-700">Hard</div>
+            </button>
+            <button
+              onClick={() => isFlipped && handleDifficulty('good')}
+              disabled={!isFlipped}
+              className={`px-4 py-1.5 bg-white rounded border border-gray-200 flex items-center gap-2 ${
+                isFlipped ? 'hover:border-gray-300 hover:shadow-sm cursor-pointer' : 'opacity-50 cursor-not-allowed'
+              }`}
+            >
+              <div className="flex gap-0.5 h-5 items-end">
+                <div className="w-1.5 h-1.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
+                <div className="w-1.5 h-2.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
+                <div className="w-1.5 h-3.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
+                <div className="w-1.5 h-5 bg-gray-200 rounded-sm"></div>
+              </div>
+              <div className="text-xs font-medium text-gray-700">Good</div>
+            </button>
+            <button
+              onClick={() => isFlipped && handleDifficulty('easy')}
+              disabled={!isFlipped}
+              className={`px-4 py-1.5 bg-white rounded border border-gray-200 flex items-center gap-2 ${
+                isFlipped ? 'hover:border-gray-300 hover:shadow-sm cursor-pointer' : 'opacity-50 cursor-not-allowed'
+              }`}
+            >
+              <div className="flex gap-0.5 h-5 items-end">
+                <div className="w-1.5 h-1.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
+                <div className="w-1.5 h-2.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
+                <div className="w-1.5 h-3.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
+                <div className="w-1.5 h-5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
+              </div>
+              <div className="text-xs font-medium text-gray-700">Easy</div>
+            </button>
+          </div>
+          
+          {/* Keyboard Shortcuts */}
+          <div className="mt-3 flex justify-center gap-4 text-xs text-gray-400">
+            <span><kbd className="px-1.5 py-0.5 bg-gray-100 rounded">1</kbd> Again</span>
+            <span><kbd className="px-1.5 py-0.5 bg-gray-100 rounded">2</kbd> Hard</span>
+            <span><kbd className="px-1.5 py-0.5 bg-gray-100 rounded">3</kbd> Good</span>
+            <span><kbd className="px-1.5 py-0.5 bg-gray-100 rounded">4</kbd> Easy</span>
           </div>
         </div>
       </div>

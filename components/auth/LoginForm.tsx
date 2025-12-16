@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useAuth } from '@/lib/auth';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Eye, EyeOff, Mail, Lock, Rocket } from 'lucide-react';
 
@@ -17,6 +17,7 @@ export default function LoginForm() {
   
   const { signIn, signInWithGoogle } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,7 +30,9 @@ export default function LoginForm() {
       setError(error.message);
       setIsLoading(false);
     } else {
-      router.push('/dashboard');
+      // Redirect to the page they were trying to access, or roadmap by default
+      const redirectTo = searchParams.get('redirect') || '/roadmap';
+      router.push(redirectTo);
     }
   };
 
