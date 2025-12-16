@@ -69,14 +69,68 @@ export default function ReviewPage() {
     const reviewStats = await getReviewStats();
     setStats(reviewStats);
     
-    // Get item details from stored content (no API calls needed)
+    // Fetch actual content from database for review items
     const detailsMap = new Map();
     const currentReviewItems = useReviewStore.getState().reviewItems;
     
-    for (const item of currentReviewItems) {
-      const details = getItemDetails(item);
-      if (details) {
-        detailsMap.set(item.id, details);
+    // Group items by type for batch fetching
+    const kanjiIds = currentReviewItems.filter(i => i.type === 'kanji').map(i => i.id);
+    const vocabIds = currentReviewItems.filter(i => i.type === 'vocabulary').map(i => i.id);
+    const sentenceIds = currentReviewItems.filter(i => i.type === 'sentences').map(i => i.id);
+    
+    // Fetch all content in parallel
+    const levels: JLPTLevel[] = ['N5', 'N4', 'N3', 'N2', 'N1'];
+    
+    // Fetch kanji data
+    if (kanjiIds.length > 0) {
+      for (const level of levels) {
+        const kanjiData = await getKanjiByLevel(level);
+        for (const kanji of kanjiData) {
+          if (kanjiIds.includes(kanji.id)) {
+            detailsMap.set(kanji.id, {
+              id: kanji.id,
+              kanji: kanji.character,
+              meaning: kanji.meaning,
+              level: kanji.jlpt_level
+            });
+          }
+        }
+      }
+    }
+    
+    // Fetch vocabulary data
+    if (vocabIds.length > 0) {
+      for (const level of levels) {
+        const vocabData = await getVocabularyByLevel(level);
+        for (const vocab of vocabData) {
+          if (vocabIds.includes(vocab.id)) {
+            detailsMap.set(vocab.id, {
+              id: vocab.id,
+              word: vocab.word,
+              reading: vocab.reading,
+              meaning: vocab.meaning,
+              level: vocab.jlpt_level
+            });
+          }
+        }
+      }
+    }
+    
+    // Fetch sentence data
+    if (sentenceIds.length > 0) {
+      for (const level of levels) {
+        const sentenceData = await getSentencesByLevel(level);
+        for (const sentence of sentenceData) {
+          if (sentenceIds.includes(sentence.id)) {
+            detailsMap.set(sentence.id, {
+              id: sentence.id,
+              fullSentence: sentence.japanese_text,
+              fullReading: sentence.japanese_text,
+              meaning: sentence.english_translation,
+              level: sentence.jlpt_level
+            });
+          }
+        }
       }
     }
     
