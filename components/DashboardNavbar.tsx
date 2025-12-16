@@ -121,7 +121,7 @@ export default function DashboardNavbar() {
           <div className="flex items-center justify-between h-16">
             {/* Logo Section */}
             <div className="flex items-center">
-              <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+              <Link href="/roadmap" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
                 <Rocket className="h-6 w-6 text-pink-500 flex-shrink-0" />
                 <span className="text-2xl text-gray-900 dark:text-white">
                   <span className="font-light">Rocket</span>
