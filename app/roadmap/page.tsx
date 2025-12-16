@@ -369,27 +369,34 @@ export default function RoadmapPage() {
   useEffect(() => {
     const loadAllContent = async () => {
       try {
-        // Load kanji data and mastered state
+        // Load all progress data in one batch call (instead of individual calls per item)
+        const allProgress = await ReviewSystemSupabase.loadProgressFromSupabase();
+        
+        // Load kanji data
         const kanjiDataResult = await getKanjiByLevel(currentLevel);
         setKanjiData(kanjiDataResult);
         
+        // Filter mastered kanji from batch progress data
         const masteredKanjiIds = new Set<string>();
         for (const item of kanjiDataResult) {
-          const progress = await ReviewSystemSupabase.getItemProgress(item.id, 'kanji');
-          if (progress.masteryLevel >= 100) {
+          const key = `kanji_${item.id}`;
+          const progress = allProgress.get(key);
+          if (progress && progress.masteryLevel >= 100) {
             masteredKanjiIds.add(item.id);
           }
         }
         setKnownKanji(masteredKanjiIds);
         
-        // Load vocabulary data and mastered state
+        // Load vocabulary data
         const vocabDataResult = await getVocabularyByLevel(currentLevel);
         setVocabularyData(vocabDataResult);
         
+        // Filter mastered vocabulary from batch progress data
         const masteredVocabIds = new Set<string>();
         for (const item of vocabDataResult) {
-          const progress = await ReviewSystemSupabase.getItemProgress(item.id, 'vocabulary');
-          if (progress.masteryLevel >= 100) {
+          const key = `vocabulary_${item.id}`;
+          const progress = allProgress.get(key);
+          if (progress && progress.masteryLevel >= 100) {
             masteredVocabIds.add(item.id);
           }
         }
