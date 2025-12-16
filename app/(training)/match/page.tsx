@@ -9,7 +9,7 @@ import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { StreakSystem } from '@/lib/streakSystem';
 import { speakText, useTTS } from '@/lib/useTTS';
 import { playIncorrectSound, playCorrectSound, shouldPlayVoice, playButtonClickSound } from '@/lib/audioUtils';
-import { getKanjiByLevel, getVocabularyByLevel } from '@/lib/supabase-data';
+import { getKanjiByLevel, getVocabularyByLevel, getSentencesByLevel } from '@/lib/supabase-data';
 import type { JLPTLevel } from '@/lib/supabase-data';
 
 interface TrainingItem {
@@ -93,17 +93,75 @@ function MatchPageContent() {
         let selectedItems: TrainingItem[] = [];
         
         if (isReviewMode) {
-          // Review mode: get items from ReviewSystem
-          const reviewItems = await ReviewSystemSupabase.getItemsDueForReview();
-          selectedItems = reviewItems
-            .filter(item => itemIds.includes(item.id))
-            .map(item => ({
-              id: item.id,
-              character: item.content?.word || item.content?.character || item.content?.sentence || `Item ${item.id}`,
-              meaning: item.content?.meaning || 'No meaning available',
-              reading: item.content?.reading,
-              type: item.type
-            }));
+          // Review mode: fetch actual content from database for each item
+          const reviewIds = searchParams.get('ids')?.split(',') || [];
+          const reviewTypes = searchParams.get('types')?.split(',') || [];
+          
+          // Group items by type
+          const kanjiIds: string[] = [];
+          const vocabIds: string[] = [];
+          const sentenceIds: string[] = [];
+          
+          reviewIds.forEach((id, index) => {
+            const itemType = reviewTypes[index];
+            if (itemType === 'kanji') kanjiIds.push(id);
+            else if (itemType === 'vocabulary') vocabIds.push(id);
+            else if (itemType === 'sentences') sentenceIds.push(id);
+          });
+          
+          const levels: JLPTLevel[] = ['N5', 'N4', 'N3', 'N2', 'N1'];
+          
+          // Fetch kanji data
+          if (kanjiIds.length > 0) {
+            for (const level of levels) {
+              const kanjiData = await getKanjiByLevel(level);
+              for (const kanji of kanjiData) {
+                if (kanjiIds.includes(kanji.id)) {
+                  selectedItems.push({
+                    id: kanji.id,
+                    character: kanji.character,
+                    meaning: kanji.meaning,
+                    type: 'kanji'
+                  });
+                }
+              }
+            }
+          }
+          
+          // Fetch vocabulary data
+          if (vocabIds.length > 0) {
+            for (const level of levels) {
+              const vocabData = await getVocabularyByLevel(level);
+              for (const vocab of vocabData) {
+                if (vocabIds.includes(vocab.id)) {
+                  selectedItems.push({
+                    id: vocab.id,
+                    character: vocab.word,
+                    meaning: vocab.meaning,
+                    reading: vocab.reading,
+                    type: 'vocabulary'
+                  });
+                }
+              }
+            }
+          }
+          
+          // Fetch sentence data
+          if (sentenceIds.length > 0) {
+            for (const level of levels) {
+              const sentenceData = await getSentencesByLevel(level);
+              for (const sentence of sentenceData) {
+                if (sentenceIds.includes(sentence.id)) {
+                  selectedItems.push({
+                    id: sentence.id,
+                    character: sentence.japanese_text,
+                    meaning: sentence.english_translation,
+                    type: 'sentences'
+                  });
+                }
+              }
+            }
+          }
         } else if (type === 'vocabulary') {
           // Try to get vocabulary data from localStorage first (passed from vocabulary page)
           const storedVocabData = localStorage.getItem('selectedVocabularyData');
