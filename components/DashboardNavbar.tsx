@@ -11,7 +11,7 @@ import {
   MessageSquare,
   ClipboardCheck,
   BookMarked,
-  BarChart3,
+  RotateCcw,
   Settings,
   CreditCard,
   Rocket,
@@ -145,17 +145,17 @@ export default function DashboardNavbar() {
                 <Home className="h-5 w-5" />
               </Link>
 
-              {/* Combined Progress + Review Link - Icon with Badge */}
+              {/* Review Link - Icon with Badge */}
               <Link
-                href="/progress"
+                href="/review"
                 className={`flex items-center gap-2 px-3 py-2 transition-all rounded-lg ${
-                  pathname === '/progress' || pathname === '/review'
+                  pathname === '/review'
                     ? 'text-pink-600 bg-pink-50'
                     : 'text-gray-700 hover:text-pink-600 hover:bg-gray-50'
                 }`}
-                title="Progress & Review"
+                title="Review"
               >
-                <BarChart3 className="h-5 w-5" />
+                <RotateCcw className="h-5 w-5" />
                 {reviewCount > 0 && (
                   <span className="bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs rounded-full px-2 py-0.5 font-bold">
                     {reviewCount > 99 ? '99+' : reviewCount}
