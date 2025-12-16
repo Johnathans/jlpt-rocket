@@ -1,52 +1,63 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { TextToSpeechClient } from '@google-cloud/text-to-speech';
 
-// Initialize the TTS client with API key
-const client = new TextToSpeechClient({
-  apiKey: process.env.GOOGLE_CLOUD_API_KEY,
-});
+const TTS_API_URL = 'https://texttospeech.googleapis.com/v1/text:synthesize';
 
 export async function POST(request: NextRequest) {
   try {
-    const { text, languageCode = 'ja-JP', voiceName = 'ja-JP-Chirp3-HD-Leda' } = await request.json();
+    const { text, languageCode = 'ja-JP', voiceName = 'ja-JP-Wavenet-A' } = await request.json();
 
     if (!text) {
       return NextResponse.json({ error: 'Text is required' }, { status: 400 });
     }
 
-    if (!process.env.GOOGLE_CLOUD_API_KEY) {
+    const apiKey = process.env.GOOGLE_CLOUD_API_KEY;
+    if (!apiKey) {
       console.error('GOOGLE_CLOUD_API_KEY is not set');
       return NextResponse.json({ error: 'TTS service not configured' }, { status: 500 });
     }
 
-    // Construct the request for Chirp 3 (HD-Leda voice)
+    // Construct the request for Google TTS REST API
     const ttsRequest = {
       input: { text },
       voice: {
         languageCode,
         name: voiceName,
-        ssmlGender: 'FEMALE' as const,
+        ssmlGender: 'FEMALE',
       },
       audioConfig: {
-        audioEncoding: 'MP3' as const,
-        speakingRate: 0.75,
+        audioEncoding: 'MP3',
+        speakingRate: 0.85,
         pitch: 0.0,
-        effectsProfileId: ['telephony-class-application'],
       },
     };
 
-    // Perform the text-to-speech request
-    const [response] = await client.synthesizeSpeech(ttsRequest);
+    // Call Google TTS REST API with API key
+    const response = await fetch(`${TTS_API_URL}?key=${apiKey}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(ttsRequest),
+    });
 
-    if (!response.audioContent) {
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error('TTS API Error:', response.status, errorData);
+      return NextResponse.json(
+        { error: 'TTS API request failed', details: errorData },
+        { status: response.status }
+      );
+    }
+
+    const data = await response.json();
+
+    if (!data.audioContent) {
       console.error('No audio content in response');
       return NextResponse.json({ error: 'Failed to generate audio' }, { status: 500 });
     }
 
-    // Convert to base64 and return as data URL
-    const audioBuffer = Buffer.from(response.audioContent as Uint8Array);
-    const base64Audio = audioBuffer.toString('base64');
-    const dataUrl = `data:audio/mpeg;base64,${base64Audio}`;
+    // Return base64 audio as data URL
+    const dataUrl = `data:audio/mpeg;base64,${data.audioContent}`;
 
     return NextResponse.json({
       audioUrl: dataUrl,
