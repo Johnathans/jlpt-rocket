@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import LoginForm from '@/components/auth/LoginForm';
 
 export default function LoginPage() {
@@ -21,5 +21,9 @@ export default function LoginPage() {
     updateMetaTag('keywords', 'rocket jlpt login, sign in, jlpt account, japanese learning login');
   }, []);
 
-  return <LoginForm />;
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500"></div></div>}>
+      <LoginForm />
+    </Suspense>
+  );
 }
