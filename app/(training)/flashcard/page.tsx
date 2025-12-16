@@ -287,7 +287,7 @@ function FlashcardPageContent() {
   };
 
   const handleGoHome = () => {
-    router.push('/');
+    router.push('/roadmap');
   };
 
   const handleFlipCard = () => {

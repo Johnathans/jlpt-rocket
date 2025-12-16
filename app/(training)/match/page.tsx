@@ -381,18 +381,7 @@ function MatchPageContent() {
 
   const handleQuit = () => {
     setShowQuitModal(false);
-    // Navigate back to the original page based on the training type
-    const type = searchParams.get('type');
-    if (type === 'vocabulary') {
-      router.push('/vocabulary');
-    } else if (type === 'kanji') {
-      router.push('/kanji');
-    } else if (type === 'sentences') {
-      router.push('/sentences');
-    } else {
-      // Fallback to home page if type is unknown
-      router.push('/');
-    }
+    router.push('/roadmap');
   };
 
 
@@ -405,18 +394,7 @@ function MatchPageContent() {
   };
 
   const handleGoHome = () => {
-    // Navigate back to the original page based on the training type
-    const type = searchParams.get('type');
-    if (type === 'vocabulary') {
-      router.push('/vocabulary');
-    } else if (type === 'kanji') {
-      router.push('/kanji');
-    } else if (type === 'sentences') {
-      router.push('/sentences');
-    } else {
-      // Fallback to roadmap page for logged in users
-      router.push('/roadmap');
-    }
+    router.push('/roadmap');
   };
 
   // Show completion screen
