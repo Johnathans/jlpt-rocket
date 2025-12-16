@@ -257,9 +257,30 @@ export default function RoadmapPage() {
 
   const getSelectedData = () => {
     if (trainingType === 'kanji') {
-      return kanjiData.filter(k => selectedKanji.has(k.id));
+      // Transform to match the format expected by training pages (same as kanji page)
+      return kanjiData
+        .filter(k => selectedKanji.has(k.id))
+        .map(k => ({
+          id: k.id,
+          kanji: k.character, // Training pages expect 'kanji' property
+          character: k.character, // Keep original for compatibility
+          meaning: k.meaning,
+          level: k.jlpt_level,
+          strokes: k.stroke_count,
+          kun_reading: k.kun_reading,
+          on_reading: k.on_reading
+        }));
     } else {
-      return vocabularyData.filter(v => selectedVocabulary.has(v.id));
+      // Transform to match the format expected by training pages (same as vocabulary page)
+      return vocabularyData
+        .filter(v => selectedVocabulary.has(v.id))
+        .map(v => ({
+          id: v.id,
+          word: v.word,
+          reading: v.reading,
+          meaning: v.meaning,
+          level: v.jlpt_level
+        }));
     }
   };
 

@@ -95,7 +95,7 @@ function FlashcardPageContent() {
               const parsedKanjiData = JSON.parse(storedKanjiData);
               selectedItems = parsedKanjiData.map((item: any) => ({
                 id: item.id,
-                character: item.kanji,
+                character: item.kanji || item.character, // Support both 'kanji' (from kanji page) and 'character' (from roadmap)
                 meaning: item.meaning,
                 type: 'kanji' as const
               }));
