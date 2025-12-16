@@ -150,14 +150,18 @@ function TypingTrainingContent() {
     }
   };
 
-  // Get pre-generated audio file path for hiragana
+  // Get pre-generated audio file path for hiragana and kanji
   const getAudioPath = (text: string, type: string) => {
     if (type === 'hiragana') {
       // Use pre-generated audio files for hiragana
       const charCode = text.charCodeAt(0);
       return `/audio/hiragana/${charCode}.mp3`;
     }
-    // For kanji, use the character itself for TTS
+    if (type === 'kanji') {
+      // Use pre-generated audio files for kanji
+      const charCode = text.charCodeAt(0);
+      return `/audio/kanji/${charCode}.mp3`;
+    }
     // For other types, return null (will use API)
     return null;
   };
@@ -195,11 +199,20 @@ function TypingTrainingContent() {
           languageCode: 'ja-JP',
         }),
       });
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error('TTS API error:', response.status, errorData);
+        return null;
+      }
+      
       const data = await response.json();
       if (data.audioUrl) {
         audioCacheRef.current[text] = data.audioUrl;
         console.log('Cached audio for:', text);
         return data.audioUrl;
+      } else if (data.error) {
+        console.error('TTS API returned error:', data.error, data.details);
       }
     } catch (error) {
       console.error('Preload failed for', text, ':', error);
