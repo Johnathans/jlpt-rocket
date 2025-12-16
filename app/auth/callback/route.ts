@@ -24,8 +24,11 @@ export async function GET(request: Request) {
         return NextResponse.redirect(`${origin}${next}`)
       }
     }
+    // Log the error for debugging
+    console.error('exchangeCodeForSession error:', error.message, error)
+    return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent(error.message)}`)
   }
 
-  // return the user to an error page with instructions
-  return NextResponse.redirect(`${origin}/login?error=auth_callback_error`)
+  // No code parameter received
+  return NextResponse.redirect(`${origin}/login?error=no_code_received`)
 }
