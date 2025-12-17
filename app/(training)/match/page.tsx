@@ -366,10 +366,12 @@ function MatchPageContent() {
       // Update review system for correct answer
       await ReviewSystemSupabase.updateItemProgress(currentItem.id, currentItem.type, true, currentItem);
       
-      // Auto-advance to next question after 1.5 seconds for correct answers
-      setTimeout(() => {
-        handleNext();
-      }, 1500);
+      // Auto-advance to next question after 1.5 seconds for correct answers (but not on last item)
+      if (itemQueue.length > 1) {
+        setTimeout(() => {
+          handleNext();
+        }, 1500);
+      }
     } else {
       // Play Japanese audio immediately for incorrect answers if voice is enabled
       if (shouldPlayVoice()) {
@@ -394,10 +396,12 @@ function MatchPageContent() {
       // Update review system for incorrect answer
       await ReviewSystemSupabase.updateItemProgress(currentItem.id, currentItem.type, false, currentItem);
       
-      // Auto-advance to next question after 2 seconds for incorrect answers
-      setTimeout(() => {
-        handleNext();
-      }, 2000);
+      // Auto-advance to next question after 2 seconds for incorrect answers (but not on last item)
+      if (itemQueue.length > 1) {
+        setTimeout(() => {
+          handleNext();
+        }, 2000);
+      }
     }
   };
 
