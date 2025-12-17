@@ -365,6 +365,11 @@ function MatchPageContent() {
       setScore(score + 1);
       // Update review system for correct answer
       await ReviewSystemSupabase.updateItemProgress(currentItem.id, currentItem.type, true, currentItem);
+      
+      // Auto-advance to next question after 1.5 seconds for correct answers
+      setTimeout(() => {
+        handleNext();
+      }, 1500);
     } else {
       // Play Japanese audio immediately for incorrect answers if voice is enabled
       if (shouldPlayVoice()) {
@@ -388,6 +393,11 @@ function MatchPageContent() {
       setWrongAnswers([...wrongAnswers, wrongAnswer]);
       // Update review system for incorrect answer
       await ReviewSystemSupabase.updateItemProgress(currentItem.id, currentItem.type, false, currentItem);
+      
+      // Auto-advance to next question after 2 seconds for incorrect answers
+      setTimeout(() => {
+        handleNext();
+      }, 2000);
     }
   };
 
@@ -480,7 +490,8 @@ function MatchPageContent() {
     );
   }
 
-  const totalCompleted = trainingItems.length - itemQueue.length;
+  // Calculate progress based on seen items (not just completed)
+  const totalCompleted = seenCount;
   const progress = trainingItems.length > 0 ? (totalCompleted / trainingItems.length) * 100 : 0;
   const accuracy = totalCompleted > 0 ? Math.round((score / totalCompleted) * 100) : 0;
 
