@@ -141,33 +141,21 @@ function FlashcardPageContent() {
           event.preventDefault();
           handleFlipCard();
           break;
-        case 'arrowleft':
-        case 'arrowright':
-          // Allow arrow keys for browser navigation - don't prevent default
-          break;
         case '1':
           event.preventDefault();
-          if (isFlipped) {
-            handleDifficulty('again');
-          }
+          handleDifficulty('again');
           break;
         case '2':
           event.preventDefault();
-          if (isFlipped) {
-            handleDifficulty('hard');
-          }
+          handleDifficulty('hard');
           break;
         case '3':
           event.preventDefault();
-          if (isFlipped) {
-            handleDifficulty('good');
-          }
+          handleDifficulty('good');
           break;
         case '4':
           event.preventDefault();
-          if (isFlipped) {
-            handleDifficulty('easy');
-          }
+          handleDifficulty('easy');
           break;
         case 'a':
           event.preventDefault();
@@ -391,50 +379,30 @@ function FlashcardPageContent() {
         <div className="w-full max-w-2xl">
           <div className="flex justify-center gap-4">
             <button
-              onClick={() => isFlipped && handleDifficulty('again')}
-              disabled={!isFlipped}
+              onClick={() => handleDifficulty('again')}
               onFocus={(e) => e.target.blur()}
-              className={`px-8 py-4 rounded-lg font-semibold text-base transition-all border-2 focus:outline-none ${
-                isFlipped 
-                  ? 'bg-white border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 cursor-pointer' 
-                  : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
-              }`}
+              className="px-8 py-4 rounded-lg font-semibold text-base transition-all border-2 focus:outline-none bg-white border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 cursor-pointer"
             >
               Again
             </button>
             <button
-              onClick={() => isFlipped && handleDifficulty('hard')}
-              disabled={!isFlipped}
+              onClick={() => handleDifficulty('hard')}
               onFocus={(e) => e.target.blur()}
-              className={`px-8 py-4 rounded-lg font-semibold text-base transition-all border-2 focus:outline-none ${
-                isFlipped 
-                  ? 'bg-white border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 cursor-pointer' 
-                  : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
-              }`}
+              className="px-8 py-4 rounded-lg font-semibold text-base transition-all border-2 focus:outline-none bg-white border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 cursor-pointer"
             >
               Hard
             </button>
             <button
-              onClick={() => isFlipped && handleDifficulty('good')}
-              disabled={!isFlipped}
+              onClick={() => handleDifficulty('good')}
               onFocus={(e) => e.target.blur()}
-              className={`px-8 py-4 rounded-lg font-semibold text-base transition-all border-2 focus:outline-none ${
-                isFlipped 
-                  ? 'bg-white border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 cursor-pointer' 
-                  : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
-              }`}
+              className="px-8 py-4 rounded-lg font-semibold text-base transition-all border-2 focus:outline-none bg-white border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 cursor-pointer"
             >
               Good
             </button>
             <button
-              onClick={() => isFlipped && handleDifficulty('easy')}
-              disabled={!isFlipped}
+              onClick={() => handleDifficulty('easy')}
               onFocus={(e) => e.target.blur()}
-              className={`px-8 py-4 rounded-lg font-semibold text-base transition-all border-2 focus:outline-none ${
-                isFlipped 
-                  ? 'bg-white border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 cursor-pointer' 
-                  : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
-              }`}
+              className="px-8 py-4 rounded-lg font-semibold text-base transition-all border-2 focus:outline-none bg-white border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 cursor-pointer"
             >
               Easy
             </button>
