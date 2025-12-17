@@ -141,18 +141,6 @@ function FlashcardPageContent() {
           event.preventDefault();
           handleFlipCard();
           break;
-        case 'arrowright': // Right arrow - next card (good)
-          event.preventDefault();
-          if (isFlipped) {
-            handleDifficulty('good');
-          }
-          break;
-        case 'arrowleft': // Left arrow - previous/again
-          event.preventDefault();
-          if (isFlipped) {
-            handleDifficulty('again');
-          }
-          break;
         case '1':
           event.preventDefault();
           if (isFlipped) {
@@ -450,9 +438,10 @@ function FlashcardPageContent() {
           
           {/* Keyboard Shortcuts */}
           <div className="mt-4 flex justify-center gap-6 text-xs text-gray-400">
-            <span><kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">←</kbd> Again</span>
-            <span><kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">Space</kbd> Flip</span>
-            <span><kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">→</kbd> Good</span>
+            <span><kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">1</kbd> Again</span>
+            <span><kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">2</kbd> Hard</span>
+            <span><kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">3</kbd> Good</span>
+            <span><kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">4</kbd> Easy</span>
           </div>
         </div>
       </div>
