@@ -542,20 +542,22 @@ export default function RoadmapPage() {
                         />
                       ))}
                       {/* Progress segments */}
-                      {Array.from({ length: filledSegments }).map((_, i) => (
-                        <circle
-                          key={`progress-${i}`}
-                          cx="64"
-                          cy="64"
-                          r="56"
-                          fill="none"
-                          stroke={i < filledSegments / 2 ? "#ec4899" : "#f97316"}
-                          strokeWidth="12"
-                          strokeDasharray="43.98 307.86"
-                          strokeDashoffset={-i * 43.98}
-                          strokeLinecap="round"
-                          className="transition-all duration-500"
-                        />
+                      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+                        i < filledSegments ? (
+                          <circle
+                            key={`progress-${i}`}
+                            cx="64"
+                            cy="64"
+                            r="56"
+                            fill="none"
+                            stroke={i < 4 ? "#ec4899" : "#f97316"}
+                            strokeWidth="12"
+                            strokeDasharray="43.98 307.86"
+                            strokeDashoffset={-i * 43.98}
+                            strokeLinecap="round"
+                            className="transition-all duration-500"
+                          />
+                        ) : null
                       ))}
                     </svg>
                     {/* Center text */}

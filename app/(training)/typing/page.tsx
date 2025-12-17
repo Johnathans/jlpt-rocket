@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Volume2, RotateCcw, ArrowRight, CheckCircle, X } from 'lucide-react';
 import TrainingHeader from '@/components/TrainingHeader';
+import QuitConfirmationModal from '@/components/QuitConfirmationModal';
 import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { StreakSystem } from '@/lib/streakSystem';
 
@@ -28,6 +29,7 @@ function TypingTrainingContent() {
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
   const [totalXP, setTotalXP] = useState(0);
+  const [showQuitModal, setShowQuitModal] = useState(false);
   const audioCacheRef = useRef<Record<string, string>>({});
 
   const trainingType = searchParams.get('type') || 'hiragana';
@@ -406,11 +408,24 @@ function TypingTrainingContent() {
 
   const accuracy = items.length > 0 ? Math.round((score / (currentIndex + (showAnswer ? 1 : 0))) * 100) || 0 : 0;
 
+  const handleClose = () => {
+    setShowQuitModal(true);
+  };
+
+  const handleKeepLearning = () => {
+    setShowQuitModal(false);
+  };
+
+  const handleQuit = () => {
+    setShowQuitModal(false);
+    router.push('/roadmap');
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 flex flex-col">
       <TrainingHeader
         progress={progress}
-        closeHref="/roadmap"
+        onClose={handleClose}
         rightButton={
           <div className="flex items-center gap-3 mr-2">
             <div className="flex flex-col items-center">
@@ -536,6 +551,13 @@ function TypingTrainingContent() {
           </div>
         </div>
       </div>
+
+      {/* Quit Confirmation Modal */}
+      <QuitConfirmationModal
+        isOpen={showQuitModal}
+        onKeepLearning={handleKeepLearning}
+        onQuit={handleQuit}
+      />
     </div>
   );
 }
