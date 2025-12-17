@@ -141,6 +141,10 @@ function FlashcardPageContent() {
           event.preventDefault();
           handleFlipCard();
           break;
+        case 'arrowleft':
+        case 'arrowright':
+          // Allow arrow keys for browser navigation - don't prevent default
+          break;
         case '1':
           event.preventDefault();
           if (isFlipped) {
