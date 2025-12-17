@@ -444,15 +444,11 @@ export default function RoadmapPage() {
     return () => window.removeEventListener('open-level-switcher', handleOpenLevelSwitcher);
   }, []);
 
-  // Calculate progress metrics with useMemo to ensure proper re-rendering
-  const progressMetrics = useMemo(() => {
-    const totalKnown = knownKanji.size + knownVocabulary.size;
-    const totalItems = kanjiData.length + vocabularyData.length;
-    const progressPercent = totalItems > 0 ? Math.round((totalKnown / totalItems) * 100) : 0;
-    const filledSegments = Math.round((progressPercent / 100) * 8);
-    
-    return { totalKnown, totalItems, progressPercent, filledSegments };
-  }, [knownKanji.size, knownVocabulary.size, kanjiData.length, vocabularyData.length]);
+  // Calculate progress metrics directly - React will re-render when state changes
+  const totalKnown = knownKanji.size + knownVocabulary.size;
+  const totalItems = kanjiData.length + vocabularyData.length;
+  const progressPercent = totalItems > 0 ? Math.round((totalKnown / totalItems) * 100) : 0;
+  const filledSegments = Math.round((progressPercent / 100) * 8);
 
   if (loading) {
     return (
@@ -529,7 +525,7 @@ export default function RoadmapPage() {
               <svg className="w-32 h-32 transform -rotate-90">
                 {/* All segments - render each one with appropriate color */}
                 {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
-                  const isFilled = i < progressMetrics.filledSegments;
+                  const isFilled = i < filledSegments;
                   const strokeColor = isFilled 
                     ? (i < 4 ? "#ec4899" : "#f97316")
                     : "#e5e7eb";
@@ -553,11 +549,11 @@ export default function RoadmapPage() {
               </svg>
               {/* Center text */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">{progressMetrics.progressPercent}%</span>
+                <span className="text-3xl font-bold text-gray-900 dark:text-white">{progressPercent}%</span>
               </div>
             </div>
             <span className="text-sm text-gray-600 dark:text-gray-400 mt-2 font-medium">
-              {progressMetrics.totalKnown} / {progressMetrics.totalItems} mastered
+              {totalKnown} / {totalItems} mastered
             </span>
           </div>
         </div>
