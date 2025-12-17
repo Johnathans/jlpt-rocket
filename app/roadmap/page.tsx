@@ -526,39 +526,29 @@ export default function RoadmapPage() {
                 <>
                   <div className="relative w-32 h-32">
                     <svg className="w-32 h-32 transform -rotate-90">
-                      {/* Background segments */}
-                      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-                        <circle
-                          key={`bg-${i}`}
-                          cx="64"
-                          cy="64"
-                          r="56"
-                          fill="none"
-                          stroke="#e5e7eb"
-                          strokeWidth="12"
-                          strokeDasharray="43.98 307.86"
-                          strokeDashoffset={-i * 43.98}
-                          strokeLinecap="round"
-                        />
-                      ))}
-                      {/* Progress segments */}
-                      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-                        i < filledSegments ? (
+                      {/* All segments - render each one with appropriate color */}
+                      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
+                        const isFilled = i < filledSegments;
+                        const strokeColor = isFilled 
+                          ? (i < 4 ? "#ec4899" : "#f97316")
+                          : "#e5e7eb";
+                        
+                        return (
                           <circle
-                            key={`progress-${i}`}
+                            key={`segment-${i}`}
                             cx="64"
                             cy="64"
                             r="56"
                             fill="none"
-                            stroke={i < 4 ? "#ec4899" : "#f97316"}
+                            stroke={strokeColor}
                             strokeWidth="12"
                             strokeDasharray="43.98 307.86"
                             strokeDashoffset={-i * 43.98}
                             strokeLinecap="round"
                             className="transition-all duration-500"
                           />
-                        ) : null
-                      ))}
+                        );
+                      })}
                     </svg>
                     {/* Center text */}
                     <div className="absolute inset-0 flex items-center justify-center">
