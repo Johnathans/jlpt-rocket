@@ -252,7 +252,6 @@ function MatchPageContent() {
 
   const currentItem = itemQueue[0];
   const isComplete = itemQueue.length === 0;
-  const progress = trainingItems.length > 0 ? ((trainingItems.length - itemQueue.length) / trainingItems.length) * 100 : 0;
 
   useEffect(() => {
     if (currentItem && trainingItems.length > 0) {
@@ -481,11 +480,33 @@ function MatchPageContent() {
     );
   }
 
+  const totalCompleted = trainingItems.length - itemQueue.length;
+  const progress = trainingItems.length > 0 ? (totalCompleted / trainingItems.length) * 100 : 0;
+  const accuracy = totalCompleted > 0 ? Math.round((score / totalCompleted) * 100) : 0;
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 flex flex-col">
       <TrainingHeader 
-        progress={(currentIndex / trainingItems.length) * 100}
+        progress={progress}
         onClose={handleClose}
+        rightButton={
+          <div className="flex items-center gap-3 mr-2">
+            <div className="flex flex-col items-center">
+              <div className="text-xs text-gray-500 dark:text-gray-400">Accuracy</div>
+              <div className="text-base font-bold text-gray-900 dark:text-white">{accuracy}%</div>
+            </div>
+            <div className="w-px h-8 bg-gray-300 dark:bg-gray-600"></div>
+            <div className="flex flex-col items-center">
+              <div className="text-xs text-gray-500 dark:text-gray-400">Score</div>
+              <div className="text-base font-bold text-gray-900 dark:text-white">{score}/{totalCompleted}</div>
+            </div>
+            <div className="w-px h-8 bg-gray-300 dark:bg-gray-600"></div>
+            <div className="flex flex-col items-center">
+              <div className="text-xs text-gray-500 dark:text-gray-400">Cards</div>
+              <div className="text-base font-bold text-gray-900 dark:text-white">{totalCompleted}/{trainingItems.length}</div>
+            </div>
+          </div>
+        }
       />
 
       {/* Main Content Area */}
@@ -519,11 +540,11 @@ function MatchPageContent() {
                 }
               } else {
                 if (isSelected && isCorrectAnswer) {
-                  buttonClass += "bg-green-50 text-green-700";
+                  buttonClass += "bg-emerald-50 text-emerald-700";
                 } else if (isSelected && !isCorrectAnswer) {
                   buttonClass += "bg-red-50 text-red-600";
                 } else if (isCorrectAnswer) {
-                  buttonClass += "bg-green-50 text-green-700";
+                  buttonClass += "bg-emerald-50 text-emerald-700";
                 } else {
                   buttonClass += "bg-gray-100 text-gray-500";
                 }
@@ -538,7 +559,7 @@ function MatchPageContent() {
                 >
                   {option}
                   {showResult && isCorrectAnswer && (
-                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded flex items-center justify-center">
+                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-emerald-500 rounded flex items-center justify-center">
                       <span className="text-white text-xs font-bold">✓</span>
                     </div>
                   )}
@@ -564,7 +585,7 @@ function MatchPageContent() {
               onClick={handleNext}
               className="py-4 px-32 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white"
             >
-              {itemQueue.length > 1 ? 'CONTINUE' : 'FINISH'}
+              FINISH
             </button>
           )}
         </div>
