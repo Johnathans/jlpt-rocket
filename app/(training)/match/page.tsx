@@ -519,11 +519,11 @@ function MatchPageContent() {
                 }
               } else {
                 if (isSelected && isCorrectAnswer) {
-                  buttonClass += "bg-emerald-100 text-emerald-800";
+                  buttonClass += "bg-green-100 text-green-800";
                 } else if (isSelected && !isCorrectAnswer) {
                   buttonClass += "bg-red-50 text-red-600";
                 } else if (isCorrectAnswer) {
-                  buttonClass += "bg-emerald-100 text-emerald-800";
+                  buttonClass += "bg-green-100 text-green-800";
                 } else {
                   buttonClass += "bg-gray-100 text-gray-500";
                 }
@@ -538,8 +538,8 @@ function MatchPageContent() {
                 >
                   {option}
                   {showResult && isCorrectAnswer && (
-                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: '#dfef87' }}>
-                      <span className="text-gray-800 text-xs font-bold">✓</span>
+                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">✓</span>
                     </div>
                   )}
                   {showResult && isSelected && !isCorrectAnswer && (
