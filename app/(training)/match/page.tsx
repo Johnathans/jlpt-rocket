@@ -519,11 +519,11 @@ function MatchPageContent() {
                 }
               } else {
                 if (isSelected && isCorrectAnswer) {
-                  buttonClass += "bg-green-100 text-green-800";
+                  buttonClass += "bg-green-50 text-green-700";
                 } else if (isSelected && !isCorrectAnswer) {
                   buttonClass += "bg-red-50 text-red-600";
                 } else if (isCorrectAnswer) {
-                  buttonClass += "bg-green-100 text-green-800";
+                  buttonClass += "bg-green-50 text-green-700";
                 } else {
                   buttonClass += "bg-gray-100 text-gray-500";
                 }
