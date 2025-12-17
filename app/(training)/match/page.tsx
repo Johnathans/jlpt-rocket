@@ -61,6 +61,7 @@ function MatchPageContent() {
   const [seenCount, setSeenCount] = useState(0);
   const [preloadedAudio, setPreloadedAudio] = useState<string | null>(null);
   const [showQuitModal, setShowQuitModal] = useState(false);
+  const [correctlyAnsweredIds, setCorrectlyAnsweredIds] = useState<Set<string>>(new Set());
   
   const { speak, playAudio } = useTTS();
 
@@ -363,11 +364,24 @@ function MatchPageContent() {
       }
       
       setScore(score + 1);
+      
+      // Mark this item as correctly answered
+      setCorrectlyAnsweredIds(prev => {
+        const newSet = new Set(prev);
+        newSet.add(currentItem.id);
+        return newSet;
+      });
+      
       // Update review system for correct answer
       await ReviewSystemSupabase.updateItemProgress(currentItem.id, currentItem.type, true, currentItem);
       
-      // Auto-advance to next question after 1.5 seconds for correct answers (but not on last item)
-      if (itemQueue.length > 1) {
+      // Check if all original items have been answered correctly
+      const allAnsweredCorrectly = trainingItems.every(item => 
+        correctlyAnsweredIds.has(item.id) || item.id === currentItem.id
+      );
+      
+      // Auto-advance to next question after 1.5 seconds for correct answers (but not if all items done)
+      if (!allAnsweredCorrectly) {
         setTimeout(() => {
           handleNext();
         }, 1500);
@@ -406,23 +420,10 @@ function MatchPageContent() {
   };
 
   const handleNext = () => {
-    // Remove current item from queue
-    const newQueue = itemQueue.slice(1);
+    // Check if all original items have been answered correctly
+    const allAnsweredCorrectly = trainingItems.every(item => correctlyAnsweredIds.has(item.id));
     
-    // If answer was incorrect, re-queue the item (Anki-style)
-    if (!isCorrect && currentItem) {
-      const insertPosition = Math.min(Math.floor(Math.random() * 3) + 3, newQueue.length);
-      newQueue.splice(insertPosition, 0, currentItem);
-    }
-    
-    setItemQueue(newQueue);
-    setSelectedAnswer(null);
-    setShowResult(false);
-    setIsCorrect(null);
-    setPreloadedAudio(null);
-    
-    // Check if training is complete
-    if (newQueue.length === 0) {
+    if (allAnsweredCorrectly) {
       setShowCompletion(true);
       
       // Calculate and save XP
@@ -439,7 +440,23 @@ function MatchPageContent() {
       StreakSystem.recordSession();
       
       setEarnedXP(totalXP);
+      return;
     }
+    
+    // Remove current item from queue
+    const newQueue = itemQueue.slice(1);
+    
+    // If answer was incorrect, re-queue the item (Anki-style)
+    if (!isCorrect && currentItem) {
+      const insertPosition = Math.min(Math.floor(Math.random() * 3) + 3, newQueue.length);
+      newQueue.splice(insertPosition, 0, currentItem);
+    }
+    
+    setItemQueue(newQueue);
+    setSelectedAnswer(null);
+    setShowResult(false);
+    setIsCorrect(null);
+    setPreloadedAudio(null);
   };
 
   const handleClose = () => {
@@ -592,10 +609,12 @@ function MatchPageContent() {
 
       </div>
 
-      {/* Bottom Row with Finish Button - Only show on last item */}
+      {/* Bottom Row with Finish Button - Show when all items answered correctly */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6">
         <div className="max-w-2xl mx-auto flex justify-center">
-          {showResult && itemQueue.length === 1 && (
+          {showResult && isCorrect && trainingItems.every(item => 
+            correctlyAnsweredIds.has(item.id) || item.id === currentItem.id
+          ) && (
             <button
               onClick={handleNext}
               className="py-4 px-32 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white"
