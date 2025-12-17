@@ -428,7 +428,7 @@ function FlashcardPageContent() {
               onFocus={(e) => e.target.blur()}
               className={`px-8 py-4 rounded-lg font-semibold text-base transition-all border-2 focus:outline-none ${
                 isFlipped 
-                  ? 'bg-gradient-to-r from-pink-500 to-orange-500 border-transparent text-white hover:from-pink-600 hover:to-orange-600 cursor-pointer' 
+                  ? 'bg-white border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 cursor-pointer' 
                   : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
