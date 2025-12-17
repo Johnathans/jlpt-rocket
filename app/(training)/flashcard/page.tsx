@@ -396,16 +396,16 @@ function FlashcardPageContent() {
           </div>
         </div>
 
-        {/* Difficulty Buttons - Simple design */}
+        {/* Difficulty Buttons - Subtle design */}
         <div className="w-full max-w-2xl">
           <div className="flex justify-center gap-3">
             <button
               onClick={() => isFlipped && handleDifficulty('again')}
               disabled={!isFlipped}
-              className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all ${
+              className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all border-2 ${
                 isFlipped 
-                  ? 'bg-red-500 text-white hover:bg-red-600 cursor-pointer' 
-                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  ? 'bg-white border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 cursor-pointer' 
+                  : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
               Again
@@ -413,10 +413,10 @@ function FlashcardPageContent() {
             <button
               onClick={() => isFlipped && handleDifficulty('hard')}
               disabled={!isFlipped}
-              className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all ${
+              className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all border-2 ${
                 isFlipped 
-                  ? 'bg-orange-500 text-white hover:bg-orange-600 cursor-pointer' 
-                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  ? 'bg-white border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 cursor-pointer' 
+                  : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
               Hard
@@ -424,10 +424,10 @@ function FlashcardPageContent() {
             <button
               onClick={() => isFlipped && handleDifficulty('good')}
               disabled={!isFlipped}
-              className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all ${
+              className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all border-2 ${
                 isFlipped 
-                  ? 'bg-gradient-to-r from-pink-500 to-orange-500 text-white hover:from-pink-600 hover:to-orange-600 cursor-pointer' 
-                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  ? 'bg-gradient-to-r from-pink-500 to-orange-500 border-transparent text-white hover:from-pink-600 hover:to-orange-600 cursor-pointer' 
+                  : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
               Good
@@ -435,10 +435,10 @@ function FlashcardPageContent() {
             <button
               onClick={() => isFlipped && handleDifficulty('easy')}
               disabled={!isFlipped}
-              className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all ${
+              className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all border-2 ${
                 isFlipped 
-                  ? 'bg-green-500 text-white hover:bg-green-600 cursor-pointer' 
-                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  ? 'bg-white border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50 cursor-pointer' 
+                  : 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
               Easy
