@@ -44,6 +44,8 @@ function FlashcardPageContent() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [itemQueue, setItemQueue] = useState<TrainingItem[]>([]);
   const [seenCount, setSeenCount] = useState(0);
+  const [cardHistory, setCardHistory] = useState<TrainingItem[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
   
   const { speak, playAudio } = useTTS();
 
@@ -120,13 +122,19 @@ function FlashcardPageContent() {
         
         setTrainingItems(selectedItems);
         setItemQueue(selectedItems);
+        // Initialize history with first card
+        if (selectedItems.length > 0) {
+          setCardHistory([selectedItems[0]]);
+          setHistoryIndex(0);
+          setItemQueue(selectedItems.slice(1));
+        }
       }
     };
 
     fetchTrainingItems();
   }, [searchParams]);
 
-  const currentItem = itemQueue[0];
+  const currentItem = historyIndex >= 0 ? cardHistory[historyIndex] : null;
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -140,6 +148,27 @@ function FlashcardPageContent() {
         case ' ': // Spacebar - only flips card
           event.preventDefault();
           handleFlipCard();
+          break;
+        case 'arrowleft': // Go back to previous card
+          event.preventDefault();
+          if (historyIndex > 0) {
+            setHistoryIndex(historyIndex - 1);
+            setIsFlipped(false);
+          }
+          break;
+        case 'arrowright': // Go forward to next card
+          event.preventDefault();
+          if (historyIndex < cardHistory.length - 1) {
+            setHistoryIndex(historyIndex + 1);
+            setIsFlipped(false);
+          } else if (historyIndex === cardHistory.length - 1 && itemQueue.length > 0) {
+            // Move to next new card from queue
+            const nextCard = itemQueue[0];
+            setCardHistory([...cardHistory, nextCard]);
+            setHistoryIndex(cardHistory.length);
+            setItemQueue(itemQueue.slice(1));
+            setIsFlipped(false);
+          }
           break;
         case '1':
           event.preventDefault();
@@ -168,7 +197,7 @@ function FlashcardPageContent() {
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [isFlipped, currentItem, itemQueue]);
+  }, [isFlipped, currentItem, itemQueue, cardHistory, historyIndex]);
 
   const playJapaneseAudio = async (text: string) => {
     if (shouldPlayVoice()) {
@@ -182,7 +211,7 @@ function FlashcardPageContent() {
 
   // Anki-style difficulty handlers
   const handleDifficulty = async (difficulty: 'again' | 'hard' | 'good' | 'easy') => {
-    if (!isFlipped) return; // Prevent execution if card not flipped
+    if (!isFlipped || !currentItem) return; // Prevent execution if card not flipped or no current item
     
     playButtonClickSound();
     
