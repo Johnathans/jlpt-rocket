@@ -577,10 +577,10 @@ function MatchPageContent() {
 
       </div>
 
-      {/* Bottom Row with Continue Button */}
+      {/* Bottom Row with Finish Button - Only show on last item */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6">
         <div className="max-w-2xl mx-auto flex justify-center">
-          {showResult && (
+          {showResult && itemQueue.length === 1 && (
             <button
               onClick={handleNext}
               className="py-4 px-32 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white"
