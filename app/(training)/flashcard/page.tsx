@@ -137,13 +137,20 @@ function FlashcardPageContent() {
       }
 
       switch (event.key.toLowerCase()) {
-        case ' ': // Spacebar
-        case 'enter':
+        case ' ': // Spacebar - only flips card
           event.preventDefault();
-          if (!isFlipped) {
-            handleFlipCard();
-          } else {
+          handleFlipCard();
+          break;
+        case 'arrowright': // Right arrow - next card (good)
+          event.preventDefault();
+          if (isFlipped) {
             handleDifficulty('good');
+          }
+          break;
+        case 'arrowleft': // Left arrow - previous/again
+          event.preventDefault();
+          if (isFlipped) {
+            handleDifficulty('again');
           }
           break;
         case '1':
@@ -181,7 +188,7 @@ function FlashcardPageContent() {
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [isFlipped, currentItem]);
+  }, [isFlipped, currentItem, itemQueue]);
 
   const playJapaneseAudio = async (text: string) => {
     if (shouldPlayVoice()) {
@@ -314,72 +321,72 @@ function FlashcardPageContent() {
     return <div>Loading...</div>;
   }
 
+  const totalCompleted = trainingItems.length - itemQueue.length;
+  const progress = trainingItems.length > 0 ? (totalCompleted / trainingItems.length) * 100 : 0;
+  const accuracy = totalCompleted > 0 ? Math.round((score / totalCompleted) * 100) : 0;
+
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       <TrainingHeader
-        progress={((trainingItems.length - itemQueue.length) / trainingItems.length) * 100}
+        progress={progress}
         onClose={handleClose}
         rightButton={
-          <div className="flex items-center gap-4 text-sm text-gray-600 mr-2">
-            <span>{itemQueue.length} left</span>
-            <span className="text-gray-400">•</span>
-            <span>{score}/{trainingItems.length}</span>
+          <div className="flex items-center gap-3 mr-2">
+            <div className="flex flex-col items-center">
+              <div className="text-xs text-gray-500 dark:text-gray-400">Accuracy</div>
+              <div className="text-base font-bold text-gray-900 dark:text-white">{accuracy}%</div>
+            </div>
+            <div className="w-px h-8 bg-gray-300 dark:bg-gray-600"></div>
+            <div className="flex flex-col items-center">
+              <div className="text-xs text-gray-500 dark:text-gray-400">Score</div>
+              <div className="text-base font-bold text-gray-900 dark:text-white">{score}/{totalCompleted}</div>
+            </div>
+            <div className="w-px h-8 bg-gray-300 dark:bg-gray-600"></div>
+            <div className="flex flex-col items-center">
+              <div className="text-xs text-gray-500 dark:text-gray-400">Cards</div>
+              <div className="text-base font-bold text-gray-900 dark:text-white">{totalCompleted}/{trainingItems.length}</div>
+            </div>
           </div>
         }
       />
 
       <div className="flex flex-col items-center justify-center px-6 py-8" style={{ minHeight: 'calc(100vh - 120px)' }}>
-        {/* Flashcard */}
-        <div className="relative w-full max-w-2xl mb-6">
-          <div className="relative w-full min-h-[28rem]">
+        {/* Flashcard - Clean design without box */}
+        <div className="relative w-full max-w-2xl mb-12">
+          <div className="relative w-full" style={{ minHeight: '400px' }}>
             {!isFlipped ? (
               /* Front of card */
               <div 
-                className="w-full bg-white rounded-lg shadow border border-gray-200 p-12 flex flex-col items-center justify-center min-h-[28rem] cursor-pointer relative"
+                className="w-full flex flex-col items-center justify-center cursor-pointer"
                 onClick={handleFlipCard}
+                style={{ minHeight: '400px' }}
               >
                 <div className="text-center">
-                  <div className="text-8xl font-bold font-japanese leading-none mb-6 text-gray-900">
+                  <div className="text-[10rem] sm:text-9xl md:text-[12rem] lg:text-[14rem] font-bold font-japanese leading-none mb-8 text-gray-900 dark:text-white">
                     {currentItem.character}
                   </div>
                   {currentItem.reading && (
-                    <p className="text-2xl text-gray-500 font-japanese">
+                    <p className="text-3xl text-gray-600 dark:text-gray-300 font-japanese">
                       {currentItem.reading}
                     </p>
                   )}
                 </div>
-                <div className="absolute bottom-6 text-sm text-gray-400">
-                  Click to reveal • Press <kbd className="px-2 py-1 bg-gray-100 rounded text-xs">Space</kbd>
+                <div className="mt-12 text-sm text-gray-400">
+                  Press <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">Space</kbd> to flip
                 </div>
               </div>
             ) : (
               /* Back of card */
-              <div className="w-full bg-white rounded-lg shadow border border-gray-200 p-12 flex flex-col items-center justify-center min-h-[28rem] relative">
-                {/* Audio button */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (currentItem.character) {
-                      playJapaneseAudio(currentItem.character);
-                    }
-                  }}
-                  className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600"
-                  title="Play audio (A)"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M6 15h3l4.5 4.5V4.5L9 9H6v6z" />
-                  </svg>
-                </button>
-                
+              <div className="w-full flex flex-col items-center justify-center" style={{ minHeight: '400px' }}>
                 <div className="text-center">
-                  <div className="text-5xl font-bold text-gray-900 mb-6">
+                  <div className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-8">
                     {currentItem.meaning}
                   </div>
-                  <div className="text-6xl font-bold font-japanese text-gray-400 mb-4">
+                  <div className="text-7xl sm:text-8xl font-bold font-japanese text-gray-400 dark:text-gray-600 mb-6">
                     {currentItem.character}
                   </div>
                   {currentItem.reading && (
-                    <p className="text-xl font-japanese text-gray-500">
+                    <p className="text-2xl font-japanese text-gray-500 dark:text-gray-400">
                       {currentItem.reading}
                     </p>
                   )}
@@ -389,77 +396,60 @@ function FlashcardPageContent() {
           </div>
         </div>
 
-        {/* Difficulty Buttons - Always Visible */}
+        {/* Difficulty Buttons - Simple design */}
         <div className="w-full max-w-2xl">
-          <div className="flex justify-center gap-2">
+          <div className="flex justify-center gap-3">
             <button
               onClick={() => isFlipped && handleDifficulty('again')}
               disabled={!isFlipped}
-              className={`px-4 py-1.5 bg-white rounded border border-gray-200 flex items-center gap-2 ${
-                isFlipped ? 'hover:border-gray-300 hover:shadow-sm cursor-pointer' : 'opacity-50 cursor-not-allowed'
+              className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all ${
+                isFlipped 
+                  ? 'bg-red-500 text-white hover:bg-red-600 cursor-pointer' 
+                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
-              <div className="flex gap-0.5 h-5 items-end">
-                <div className="w-1.5 h-1.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
-                <div className="w-1.5 h-2.5 bg-gray-200 rounded-sm"></div>
-                <div className="w-1.5 h-3.5 bg-gray-200 rounded-sm"></div>
-                <div className="w-1.5 h-5 bg-gray-200 rounded-sm"></div>
-              </div>
-              <div className="text-xs font-medium text-gray-700">Again</div>
+              Again
             </button>
             <button
               onClick={() => isFlipped && handleDifficulty('hard')}
               disabled={!isFlipped}
-              className={`px-4 py-1.5 bg-white rounded border border-gray-200 flex items-center gap-2 ${
-                isFlipped ? 'hover:border-gray-300 hover:shadow-sm cursor-pointer' : 'opacity-50 cursor-not-allowed'
+              className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all ${
+                isFlipped 
+                  ? 'bg-orange-500 text-white hover:bg-orange-600 cursor-pointer' 
+                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
-              <div className="flex gap-0.5 h-5 items-end">
-                <div className="w-1.5 h-1.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
-                <div className="w-1.5 h-2.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
-                <div className="w-1.5 h-3.5 bg-gray-200 rounded-sm"></div>
-                <div className="w-1.5 h-5 bg-gray-200 rounded-sm"></div>
-              </div>
-              <div className="text-xs font-medium text-gray-700">Hard</div>
+              Hard
             </button>
             <button
               onClick={() => isFlipped && handleDifficulty('good')}
               disabled={!isFlipped}
-              className={`px-4 py-1.5 bg-white rounded border border-gray-200 flex items-center gap-2 ${
-                isFlipped ? 'hover:border-gray-300 hover:shadow-sm cursor-pointer' : 'opacity-50 cursor-not-allowed'
+              className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all ${
+                isFlipped 
+                  ? 'bg-gradient-to-r from-pink-500 to-orange-500 text-white hover:from-pink-600 hover:to-orange-600 cursor-pointer' 
+                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
-              <div className="flex gap-0.5 h-5 items-end">
-                <div className="w-1.5 h-1.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
-                <div className="w-1.5 h-2.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
-                <div className="w-1.5 h-3.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
-                <div className="w-1.5 h-5 bg-gray-200 rounded-sm"></div>
-              </div>
-              <div className="text-xs font-medium text-gray-700">Good</div>
+              Good
             </button>
             <button
               onClick={() => isFlipped && handleDifficulty('easy')}
               disabled={!isFlipped}
-              className={`px-4 py-1.5 bg-white rounded border border-gray-200 flex items-center gap-2 ${
-                isFlipped ? 'hover:border-gray-300 hover:shadow-sm cursor-pointer' : 'opacity-50 cursor-not-allowed'
+              className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all ${
+                isFlipped 
+                  ? 'bg-green-500 text-white hover:bg-green-600 cursor-pointer' 
+                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
-              <div className="flex gap-0.5 h-5 items-end">
-                <div className="w-1.5 h-1.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
-                <div className="w-1.5 h-2.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
-                <div className="w-1.5 h-3.5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
-                <div className="w-1.5 h-5 bg-gradient-to-br from-pink-500 to-orange-500 rounded-sm"></div>
-              </div>
-              <div className="text-xs font-medium text-gray-700">Easy</div>
+              Easy
             </button>
           </div>
           
           {/* Keyboard Shortcuts */}
-          <div className="mt-3 flex justify-center gap-4 text-xs text-gray-400">
-            <span><kbd className="px-1.5 py-0.5 bg-gray-100 rounded">1</kbd> Again</span>
-            <span><kbd className="px-1.5 py-0.5 bg-gray-100 rounded">2</kbd> Hard</span>
-            <span><kbd className="px-1.5 py-0.5 bg-gray-100 rounded">3</kbd> Good</span>
-            <span><kbd className="px-1.5 py-0.5 bg-gray-100 rounded">4</kbd> Easy</span>
+          <div className="mt-4 flex justify-center gap-6 text-xs text-gray-400">
+            <span><kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">←</kbd> Again</span>
+            <span><kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">Space</kbd> Flip</span>
+            <span><kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">→</kbd> Good</span>
           </div>
         </div>
       </div>
