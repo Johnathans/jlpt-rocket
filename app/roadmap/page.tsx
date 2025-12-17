@@ -448,7 +448,7 @@ export default function RoadmapPage() {
   const totalKnown = knownKanji.size + knownVocabulary.size;
   const totalItems = kanjiData.length + vocabularyData.length;
   const progressPercent = totalItems > 0 ? Math.round((totalKnown / totalItems) * 100) : 0;
-  const filledSegments = Math.round((progressPercent / 100) * 8);
+  const filledSegments = Math.round((progressPercent / 100) * 20); // 20 segments = 5% each
 
   if (loading) {
     return (
@@ -524,10 +524,10 @@ export default function RoadmapPage() {
             <div className="relative w-32 h-32">
               <svg className="w-32 h-32 transform -rotate-90">
                 {/* All segments - render each one with appropriate color */}
-                {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
+                {Array.from({ length: 20 }, (_, i) => {
                   const isFilled = i < filledSegments;
                   const strokeColor = isFilled 
-                    ? (i < 4 ? "#ec4899" : "#f97316")
+                    ? (i < 10 ? "#ec4899" : "#f97316")
                     : "#e5e7eb";
                   
                   return (
@@ -539,8 +539,8 @@ export default function RoadmapPage() {
                       fill="none"
                       stroke={strokeColor}
                       strokeWidth="12"
-                      strokeDasharray="43.98 307.86"
-                      strokeDashoffset={-i * 43.98}
+                      strokeDasharray="16.5 335"
+                      strokeDashoffset={-i * 17.59}
                       strokeLinecap="round"
                       className="transition-all duration-500"
                     />
