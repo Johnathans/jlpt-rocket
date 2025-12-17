@@ -202,22 +202,25 @@ function FlashcardPageContent() {
 
   // Anki-style difficulty handlers
   const handleDifficulty = async (difficulty: 'again' | 'hard' | 'good' | 'easy') => {
+    if (!isFlipped) return; // Prevent execution if card not flipped
+    
     playButtonClickSound();
     
-    const isCorrect = difficulty !== 'again';
+    // Only 'good' and 'easy' count as correct/known
+    const isCorrect = difficulty === 'good' || difficulty === 'easy';
     
     if (isCorrect) {
       playCorrectSound();
       setScore(score + 1);
     } else {
       playIncorrectSound();
-      // Add to wrong answers
+      // Add to wrong answers for 'again' and 'hard'
       setWrongAnswers([...wrongAnswers, {
         id: currentItem.id.toString(),
         character: currentItem.character,
         meaning: currentItem.meaning,
         reading: currentItem.reading,
-        userAnswer: 'forgot',
+        userAnswer: difficulty === 'again' ? 'forgot' : 'struggled',
         correctAnswer: currentItem.meaning || 'unknown',
         type: currentItem.type
       }]);
