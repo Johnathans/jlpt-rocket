@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { BookOpen, FileText, MessageSquare, Flame, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight, BookMarked, ClipboardCheck, Volume2, Brush, GraduationCap, Lock, Star } from 'lucide-react';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 import { getContentCounts, getKanjiByLevel, getVocabularyByLevel, getSentencesByLevel } from '@/lib/supabase-data';
@@ -444,6 +444,16 @@ export default function RoadmapPage() {
     return () => window.removeEventListener('open-level-switcher', handleOpenLevelSwitcher);
   }, []);
 
+  // Calculate progress metrics with useMemo to ensure proper re-rendering
+  const progressMetrics = useMemo(() => {
+    const totalKnown = knownKanji.size + knownVocabulary.size;
+    const totalItems = kanjiData.length + vocabularyData.length;
+    const progressPercent = totalItems > 0 ? Math.round((totalKnown / totalItems) * 100) : 0;
+    const filledSegments = Math.round((progressPercent / 100) * 8);
+    
+    return { totalKnown, totalItems, progressPercent, filledSegments };
+  }, [knownKanji.size, knownVocabulary.size, kanjiData.length, vocabularyData.length]);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
@@ -515,52 +525,40 @@ export default function RoadmapPage() {
 
           {/* Progress Meter */}
           <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 p-6 flex flex-col items-center justify-center">
-            {(() => {
-              // Use knownKanji and knownVocabulary sets for real-time updates
-              const totalKnown = knownKanji.size + knownVocabulary.size;
-              const totalItems = kanjiData.length + vocabularyData.length;
-              const progressPercent = totalItems > 0 ? Math.round((totalKnown / totalItems) * 100) : 0;
-              const filledSegments = Math.round((progressPercent / 100) * 8);
-              
-              return (
-                <>
-                  <div className="relative w-32 h-32">
-                    <svg className="w-32 h-32 transform -rotate-90">
-                      {/* All segments - render each one with appropriate color */}
-                      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
-                        const isFilled = i < filledSegments;
-                        const strokeColor = isFilled 
-                          ? (i < 4 ? "#ec4899" : "#f97316")
-                          : "#e5e7eb";
-                        
-                        return (
-                          <circle
-                            key={`segment-${i}`}
-                            cx="64"
-                            cy="64"
-                            r="56"
-                            fill="none"
-                            stroke={strokeColor}
-                            strokeWidth="12"
-                            strokeDasharray="43.98 307.86"
-                            strokeDashoffset={-i * 43.98}
-                            strokeLinecap="round"
-                            className="transition-all duration-500"
-                          />
-                        );
-                      })}
-                    </svg>
-                    {/* Center text */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-3xl font-bold text-gray-900 dark:text-white">{progressPercent}%</span>
-                    </div>
-                  </div>
-                  <span className="text-sm text-gray-600 dark:text-gray-400 mt-2 font-medium">
-                    {totalKnown} / {totalItems} mastered
-                  </span>
-                </>
-              );
-            })()}
+            <div className="relative w-32 h-32">
+              <svg className="w-32 h-32 transform -rotate-90">
+                {/* All segments - render each one with appropriate color */}
+                {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
+                  const isFilled = i < progressMetrics.filledSegments;
+                  const strokeColor = isFilled 
+                    ? (i < 4 ? "#ec4899" : "#f97316")
+                    : "#e5e7eb";
+                  
+                  return (
+                    <circle
+                      key={`segment-${i}`}
+                      cx="64"
+                      cy="64"
+                      r="56"
+                      fill="none"
+                      stroke={strokeColor}
+                      strokeWidth="12"
+                      strokeDasharray="43.98 307.86"
+                      strokeDashoffset={-i * 43.98}
+                      strokeLinecap="round"
+                      className="transition-all duration-500"
+                    />
+                  );
+                })}
+              </svg>
+              {/* Center text */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-3xl font-bold text-gray-900 dark:text-white">{progressMetrics.progressPercent}%</span>
+              </div>
+            </div>
+            <span className="text-sm text-gray-600 dark:text-gray-400 mt-2 font-medium">
+              {progressMetrics.totalKnown} / {progressMetrics.totalItems} mastered
+            </span>
           </div>
         </div>
 
