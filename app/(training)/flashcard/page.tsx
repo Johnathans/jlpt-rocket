@@ -318,9 +318,8 @@ function FlashcardPageContent() {
     return <div>Loading...</div>;
   }
 
-  const totalCompleted = trainingItems.length - itemQueue.length;
-  const progress = trainingItems.length > 0 ? (totalCompleted / trainingItems.length) * 100 : 0;
-  const accuracy = totalCompleted > 0 ? Math.round((score / totalCompleted) * 100) : 0;
+  const progress = trainingItems.length > 0 ? (seenCount / trainingItems.length) * 100 : 0;
+  const accuracy = seenCount > 0 ? Math.round((score / seenCount) * 100) : 0;
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
@@ -336,12 +335,12 @@ function FlashcardPageContent() {
             <div className="w-px h-8 bg-gray-300 dark:bg-gray-600"></div>
             <div className="flex flex-col items-center">
               <div className="text-xs text-gray-500 dark:text-gray-400">Score</div>
-              <div className="text-base font-bold text-gray-900 dark:text-white">{score}/{totalCompleted}</div>
+              <div className="text-base font-bold text-gray-900 dark:text-white">{score}/{seenCount}</div>
             </div>
             <div className="w-px h-8 bg-gray-300 dark:bg-gray-600"></div>
             <div className="flex flex-col items-center">
               <div className="text-xs text-gray-500 dark:text-gray-400">Cards</div>
-              <div className="text-base font-bold text-gray-900 dark:text-white">{totalCompleted}/{trainingItems.length}</div>
+              <div className="text-base font-bold text-gray-900 dark:text-white">{seenCount}/{trainingItems.length}</div>
             </div>
           </div>
         }
@@ -421,6 +420,7 @@ function FlashcardPageContent() {
             <button
               onClick={() => isFlipped && handleDifficulty('good')}
               disabled={!isFlipped}
+              onFocus={(e) => e.target.blur()}
               className={`px-8 py-4 rounded-lg font-semibold text-base transition-all border-2 ${
                 isFlipped 
                   ? 'bg-gradient-to-r from-pink-500 to-orange-500 border-transparent text-white hover:from-pink-600 hover:to-orange-600 cursor-pointer' 
