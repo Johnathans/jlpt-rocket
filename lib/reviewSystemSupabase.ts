@@ -1,7 +1,10 @@
 // Enhanced Review System with Supabase Sync + localStorage Fallback
 
-import { supabase } from './supabase';
+import { createClient } from './supabase/client';
 import { ReviewSettings, DEFAULT_REVIEW_SETTINGS, ItemProgress } from './reviewSystem';
+
+// Use the same client instance as auth.tsx to ensure session is shared
+const getSupabase = () => createClient();
 
 export class ReviewSystemSupabase {
   private static STORAGE_KEY = 'jlpt_review_progress';
@@ -12,6 +15,7 @@ export class ReviewSystemSupabase {
 
   // Get current user ID - use getSession() which is more reliable than getUser()
   private static async getUserId(): Promise<string | null> {
+    const supabase = getSupabase();
     // First try getSession() which uses cached session data
     const { data: { session } } = await supabase.auth.getSession();
     if (session?.user?.id) {
@@ -40,6 +44,7 @@ export class ReviewSystemSupabase {
     }
 
     try {
+      const supabase = getSupabase();
       const { data, error } = await supabase
         .from('user_progress')
         .select('*')
@@ -95,6 +100,7 @@ export class ReviewSystemSupabase {
     this.syncInProgress = true;
 
     try {
+      const supabase = getSupabase();
       const updates: any[] = [];
       
       progressMap.forEach((progress, key) => {
@@ -488,6 +494,7 @@ export class ReviewSystemSupabase {
     
     if (userId) {
       try {
+        const supabase = getSupabase();
         const { error } = await supabase
           .from('user_progress')
           .delete()
