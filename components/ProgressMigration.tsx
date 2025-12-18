@@ -5,27 +5,29 @@ import { supabase } from '@/lib/supabase';
 import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 
 /**
- * Component that automatically migrates localStorage progress to Supabase
- * when a user logs in. Should be included in the main layout.
+ * Component that automatically syncs localStorage progress to Supabase
+ * when a user logs in. Merges local data with server data (server is source of truth).
+ * Should be included in the main layout.
  */
 export function ProgressMigration() {
-  const [migrationStatus, setMigrationStatus] = useState<'idle' | 'migrating' | 'complete' | 'error'>('idle');
+  const [syncStatus, setSyncStatus] = useState<'idle' | 'syncing' | 'complete' | 'error'>('idle');
 
   useEffect(() => {
     const handleAuthChange = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       
-      if (user && migrationStatus === 'idle') {
-        setMigrationStatus('migrating');
-        console.log('[ProgressMigration] User logged in, checking for migration...');
+      if (user && syncStatus === 'idle') {
+        setSyncStatus('syncing');
+        console.log('[ProgressSync] User logged in, syncing local data to Supabase...');
         
         try {
-          await ReviewSystemSupabase.migrateLocalStorageToSupabase();
-          setMigrationStatus('complete');
-          console.log('[ProgressMigration] Migration check complete');
+          // Sync any local data to Supabase (one-time merge)
+          await ReviewSystemSupabase.syncLocalDataToSupabase();
+          setSyncStatus('complete');
+          console.log('[ProgressSync] Sync complete - server is now source of truth');
         } catch (error) {
-          console.error('[ProgressMigration] Migration failed:', error);
-          setMigrationStatus('error');
+          console.error('[ProgressSync] Sync failed:', error);
+          setSyncStatus('error');
         }
       }
     };
@@ -43,7 +45,7 @@ export function ProgressMigration() {
     return () => {
       subscription.unsubscribe();
     };
-  }, [migrationStatus]);
+  }, [syncStatus]);
 
   // This component doesn't render anything visible
   return null;

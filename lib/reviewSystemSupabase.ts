@@ -6,8 +6,9 @@ import { ReviewSettings, DEFAULT_REVIEW_SETTINGS, ItemProgress } from './reviewS
 export class ReviewSystemSupabase {
   private static STORAGE_KEY = 'jlpt_review_progress';
   private static SETTINGS_KEY = 'jlpt_review_settings';
-  private static MIGRATION_KEY = 'jlpt_migrated_to_supabase';
+  private static LAST_SYNC_KEY = 'jlpt_last_sync_time';
   private static syncInProgress = false;
+  private static CACHE_DURATION_MS = 5 * 60 * 1000; // 5 minutes cache
 
   // Get current user ID
   private static async getUserId(): Promise<string | null> {
@@ -21,7 +22,7 @@ export class ReviewSystemSupabase {
     return userId !== null;
   }
 
-  // Load progress from Supabase
+  // Load progress from Supabase (always authoritative when authenticated)
   static async loadProgressFromSupabase(): Promise<Map<string, ItemProgress>> {
     const userId = await this.getUserId();
     if (!userId) {
@@ -50,19 +51,20 @@ export class ReviewSystemSupabase {
           nextReviewDate: row.next_review_date ? new Date(row.next_review_date) : new Date(),
           masteryLevel: row.mastery_level,
           isInReview: row.mastery_level < 100 && (row.correct_count > 0 || row.incorrect_count > 0),
-          streak: 0, // Calculate from correct/incorrect counts
+          streak: 0,
         });
       });
 
-      console.log(`[ReviewSystem] Loaded ${progressMap.size} items from Supabase`);
+      console.log(`[ReviewSystem] ✓ Loaded ${progressMap.size} items from Supabase (source of truth)`);
       
-      // Also save to localStorage for offline access
+      // Cache to localStorage for offline access only
       this.saveProgressToLocalStorage(progressMap);
+      this.updateLastSyncTime();
       
       return progressMap;
     } catch (error) {
       console.error('[ReviewSystem] Error loading from Supabase:', error);
-      // Fallback to localStorage
+      console.log('[ReviewSystem] Falling back to localStorage cache');
       return this.getProgressFromLocalStorage();
     }
   }
@@ -156,35 +158,24 @@ export class ReviewSystemSupabase {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
   }
 
-  // Migrate localStorage data to Supabase (merge strategy)
-  static async migrateLocalStorageToSupabase(): Promise<void> {
+  // One-time sync: Merge local data with Supabase (for users with existing local data)
+  static async syncLocalDataToSupabase(): Promise<void> {
     const userId = await this.getUserId();
     if (!userId) {
-      console.log('[ReviewSystem] No user logged in, cannot migrate');
-      return;
-    }
-
-    // Check if already migrated on this device
-    const migrated = localStorage.getItem(this.MIGRATION_KEY);
-    if (migrated === 'true') {
-      console.log('[ReviewSystem] Already migrated on this device, loading from Supabase');
-      // Load from Supabase and update localStorage to sync
-      const supabaseProgress = await this.loadProgressFromSupabase();
-      this.saveProgressToLocalStorage(supabaseProgress);
+      console.log('[ReviewSystem] No user logged in, cannot sync');
       return;
     }
 
     const localProgress = this.getProgressFromLocalStorage();
     if (localProgress.size === 0) {
-      console.log('[ReviewSystem] No local data to migrate');
-      localStorage.setItem(this.MIGRATION_KEY, 'true');
+      console.log('[ReviewSystem] No local data to sync');
       return;
     }
 
-    console.log(`[ReviewSystem] Migrating ${localProgress.size} items to Supabase...`);
+    console.log(`[ReviewSystem] Syncing ${localProgress.size} local items to Supabase...`);
     
     try {
-      // Load existing Supabase data
+      // Load existing Supabase data (source of truth)
       const supabaseProgress = await this.loadProgressFromSupabase();
       
       // Merge: Keep the higher progress for each item
@@ -192,37 +183,35 @@ export class ReviewSystemSupabase {
         const supabaseItem = supabaseProgress.get(key);
         
         if (!supabaseItem) {
-          // Item only exists locally, add it
+          // Item only exists locally, add it to server
           supabaseProgress.set(key, localItem);
         } else {
           // Item exists in both, keep the one with higher mastery
           if (localItem.masteryLevel > supabaseItem.masteryLevel) {
             supabaseProgress.set(key, localItem);
           }
-          // If Supabase has higher mastery, keep it (already in map)
         }
       });
       
-      // Save merged data to Supabase
+      // Save merged data to Supabase (source of truth)
       await this.saveProgressToSupabase(supabaseProgress);
       
-      // Update localStorage with merged data
-      this.saveProgressToLocalStorage(supabaseProgress);
-      
-      localStorage.setItem(this.MIGRATION_KEY, 'true');
-      console.log(`[ReviewSystem] Migration completed successfully. Merged ${supabaseProgress.size} total items.`);
+      console.log(`[ReviewSystem] ✓ Synced successfully. Total items: ${supabaseProgress.size}`);
     } catch (error) {
-      console.error('[ReviewSystem] Migration failed:', error);
+      console.error('[ReviewSystem] Sync failed:', error);
     }
   }
 
-  // Get all progress data (tries Supabase first, falls back to localStorage)
+  // Get all progress data - ALWAYS from Supabase when authenticated (source of truth)
   static async getProgressData(): Promise<Map<string, ItemProgress>> {
     const isAuth = await this.isAuthenticated();
     
     if (isAuth) {
+      // Always fetch from server when authenticated
       return await this.loadProgressFromSupabase();
     } else {
+      // Only use localStorage when offline/not authenticated
+      console.log('[ReviewSystem] Using localStorage (offline mode)');
       return this.getProgressFromLocalStorage();
     }
   }
@@ -464,12 +453,24 @@ export class ReviewSystemSupabase {
     console.log(`[ReviewSystem] Synced ${supabaseProgress.size} items from Supabase`);
   }
 
-  // Clear migration flag to force re-migration (for debugging)
-  static clearMigrationFlag(): void {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem(this.MIGRATION_KEY);
-      console.log('[ReviewSystem] Cleared migration flag');
-    }
+  // Get last sync time
+  private static getLastSyncTime(): Date | null {
+    if (typeof window === 'undefined') return null;
+    const timestamp = localStorage.getItem(this.LAST_SYNC_KEY);
+    return timestamp ? new Date(parseInt(timestamp)) : null;
+  }
+
+  // Update last sync time
+  private static updateLastSyncTime(): void {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem(this.LAST_SYNC_KEY, Date.now().toString());
+  }
+
+  // Check if cache is fresh (for potential future optimizations)
+  static isCacheFresh(): boolean {
+    const lastSync = this.getLastSyncTime();
+    if (!lastSync) return false;
+    return (Date.now() - lastSync.getTime()) < this.CACHE_DURATION_MS;
   }
 
   // Clear all review data (for testing/reset)
@@ -484,17 +485,17 @@ export class ReviewSystemSupabase {
           .eq('user_id', userId);
         
         if (error) throw error;
-        console.log('[ReviewSystem] Cleared all Supabase data');
+        console.log('[ReviewSystem] ✓ Cleared all Supabase data');
       } catch (error) {
         console.error('[ReviewSystem] Error clearing Supabase data:', error);
       }
     }
     
-    // Also clear localStorage
+    // Also clear localStorage cache
     if (typeof window !== 'undefined') {
       localStorage.removeItem(this.STORAGE_KEY);
-      localStorage.removeItem(this.MIGRATION_KEY);
-      console.log('[ReviewSystem] Cleared localStorage data');
+      localStorage.removeItem(this.LAST_SYNC_KEY);
+      console.log('[ReviewSystem] ✓ Cleared localStorage cache');
     }
   }
 }
