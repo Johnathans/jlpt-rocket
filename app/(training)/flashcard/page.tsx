@@ -16,6 +16,8 @@ interface TrainingItem {
   character: string;
   meaning: string;
   reading?: string;
+  primary_reading?: string;
+  primary_meaning?: string;
   type: 'kanji' | 'vocabulary' | 'sentences';
 }
 
@@ -99,6 +101,8 @@ function FlashcardPageContent() {
                 id: item.id,
                 character: item.kanji || item.character, // Support both 'kanji' (from kanji page) and 'character' (from roadmap)
                 meaning: item.meaning,
+                primary_reading: item.primary_reading,
+                primary_meaning: item.primary_meaning,
                 type: 'kanji' as const
               }));
               localStorage.removeItem('selectedKanjiData');
@@ -115,6 +119,8 @@ function FlashcardPageContent() {
                 id: item.id,
                 character: item.character,
                 meaning: item.meaning,
+                primary_reading: (item as any).primary_reading,
+                primary_meaning: (item as any).primary_meaning,
                 type: 'kanji' as const
               }));
           }
@@ -189,7 +195,9 @@ function FlashcardPageContent() {
         case 'a':
           event.preventDefault();
           if (currentItem?.character) {
-            playJapaneseAudio(currentItem.character);
+            // Use primary_reading for kanji TTS (natural word pronunciation)
+            const audioText = currentItem.primary_reading || currentItem.reading || currentItem.character;
+            playJapaneseAudio(audioText);
           }
           break;
       }

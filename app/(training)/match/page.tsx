@@ -373,7 +373,7 @@ function MatchPageContent() {
       
       // Play Japanese audio after a small delay if voice is enabled
       if (shouldPlayVoice()) {
-        const audioText = currentItem.reading || currentItem.character;
+        const audioText = currentItem.primary_reading || currentItem.reading || currentItem.character;
         setTimeout(() => {
           playJapaneseAudio(audioText);
         }, 300);
@@ -405,7 +405,7 @@ function MatchPageContent() {
     } else {
       // Play Japanese audio immediately for incorrect answers if voice is enabled
       if (shouldPlayVoice()) {
-        const audioText = currentItem.reading || currentItem.character;
+        const audioText = currentItem.primary_reading || currentItem.reading || currentItem.character;
         playJapaneseAudio(audioText);
       }
       
