@@ -310,7 +310,7 @@ export default function RoadmapPage() {
     }
   };
 
-  // Load progress stats
+  // Load progress stats from Supabase (source of truth)
   useEffect(() => {
     const loadStats = async () => {
       try {
@@ -318,34 +318,41 @@ export default function RoadmapPage() {
         const counts = await getContentCountsByLevel(currentLevel);
         const reviewItems = await ReviewSystemSupabase.getItemsDueForReview();
         
-        // Get all progress data from localStorage
-        const kanjiProgress = JSON.parse(localStorage.getItem('kanjiProgress') || '{}');
-        const vocabProgress = JSON.parse(localStorage.getItem('vocabularyProgress') || '{}');
-        const sentenceProgress = JSON.parse(localStorage.getItem('sentencesProgress') || '{}');
+        // Get all progress data from Supabase (source of truth)
+        const allProgress = await ReviewSystemSupabase.getProgressData();
         
-        const getMastered = (progress: any) => {
-          return Object.values(progress).filter((p: any) => p.masteryLevel >= 100).length;
-        };
+        // Count mastered and learning items by type
+        let kanjiMastered = 0, kanjiLearning = 0;
+        let vocabMastered = 0, vocabLearning = 0;
+        let sentencesMastered = 0, sentencesLearning = 0;
         
-        const getLearning = (progress: any) => {
-          return Object.values(progress).filter((p: any) => p.masteryLevel > 0 && p.masteryLevel < 100).length;
-        };
+        allProgress.forEach((progress, key) => {
+          if (progress.masteryLevel >= 100) {
+            if (progress.type === 'kanji') kanjiMastered++;
+            else if (progress.type === 'vocabulary') vocabMastered++;
+            else if (progress.type === 'sentences') sentencesMastered++;
+          } else if (progress.masteryLevel > 0) {
+            if (progress.type === 'kanji') kanjiLearning++;
+            else if (progress.type === 'vocabulary') vocabLearning++;
+            else if (progress.type === 'sentences') sentencesLearning++;
+          }
+        });
         
         setStats({
           kanji: {
             total: counts.kanji,
-            mastered: getMastered(kanjiProgress),
-            learning: getLearning(kanjiProgress)
+            mastered: kanjiMastered,
+            learning: kanjiLearning
           },
           vocabulary: {
             total: counts.vocabulary,
-            mastered: getMastered(vocabProgress),
-            learning: getLearning(vocabProgress)
+            mastered: vocabMastered,
+            learning: vocabLearning
           },
           sentences: {
             total: counts.sentences,
-            mastered: getMastered(sentenceProgress),
-            learning: getLearning(sentenceProgress)
+            mastered: sentencesMastered,
+            learning: sentencesLearning
           },
           reviewDue: reviewItems.length
         });
@@ -366,11 +373,12 @@ export default function RoadmapPage() {
   }, [currentLevel]);
 
   // Load all content data on mount for progress meter
+  // IMPORTANT: Always fetch from Supabase (source of truth) when authenticated
   useEffect(() => {
     const loadAllContent = async () => {
       try {
-        // Load all progress data in one batch call (instead of individual calls per item)
-        const allProgress = await ReviewSystemSupabase.loadProgressFromSupabase();
+        // Load all progress data from Supabase (source of truth)
+        const allProgress = await ReviewSystemSupabase.getProgressData();
         
         // Load kanji data
         const kanjiDataResult = await getKanjiByLevel(currentLevel);
@@ -401,12 +409,29 @@ export default function RoadmapPage() {
           }
         }
         setKnownVocabulary(masteredVocabIds);
+        
+        console.log(`[Roadmap] Synced from Supabase: ${masteredKanjiIds.size} kanji, ${masteredVocabIds.size} vocabulary mastered`);
       } catch (error) {
         console.error('Error loading content:', error);
       }
     };
 
     loadAllContent();
+    
+    // Refresh data when page becomes visible (returning from training or other device sync)
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        loadAllContent();
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('focus', loadAllContent);
+    
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('focus', loadAllContent);
+    };
   }, [currentLevel]);
 
   // Load content data when tab changes

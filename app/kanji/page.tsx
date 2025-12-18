@@ -237,28 +237,28 @@ function KanjiPageContent() {
   }, [selectedLevel, kanjiExamples]);
 
   // Sync mastery state with ReviewSystem on component mount and when returning from training
+  // IMPORTANT: Supabase is the source of truth - always rebuild local state from server
   useEffect(() => {
     if (kanjiData.length === 0) return;
     
     const syncMasteryState = async () => {
-      const newMasteredKanji = new Set(masteredKanji);
-      let hasChanges = false;
-
+      // Load ALL progress from Supabase (source of truth)
+      const allProgress = await ReviewSystemSupabase.getProgressData();
+      
+      // Build mastered set from Supabase data only
+      const newMasteredKanji = new Set<string>();
+      
       for (const item of kanjiData) {
-        const progress = await ReviewSystemSupabase.getItemProgress(item.id, 'kanji');
-        const isCurrentlyMastered = masteredKanji.has(item.id);
-        const shouldBeMastered = progress.masteryLevel >= 100;
-
-        if (shouldBeMastered && !isCurrentlyMastered) {
+        const key = `kanji_${item.id}`;
+        const progress = allProgress.get(key);
+        if (progress && progress.masteryLevel >= 100) {
           newMasteredKanji.add(item.id);
-          hasChanges = true;
-          console.log(`[KanjiPage] Auto-mastered kanji ${item.id}: ${item.kanji}`);
         }
       }
-
-      if (hasChanges) {
-        setMasteredKanji(newMasteredKanji);
-      }
+      
+      // Always update to match server state
+      setMasteredKanji(newMasteredKanji);
+      console.log(`[KanjiPage] Synced ${newMasteredKanji.size} mastered kanji from Supabase`);
     };
 
     syncMasteryState();
@@ -277,7 +277,7 @@ function KanjiPageContent() {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', syncMasteryState);
     };
-  }, [masteredKanji, kanjiData]);
+  }, [kanjiData]);
 
   const getLevelColor = (level: string) => {
     return 'bg-gray-100 text-gray-900 border-gray-200';

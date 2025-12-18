@@ -214,28 +214,28 @@ function VocabularyPageContent() {
   }, [selectedLevel]);
 
   // Sync mastery state with ReviewSystem on component mount and when returning from training
+  // IMPORTANT: Supabase is the source of truth - always rebuild local state from server
   useEffect(() => {
     if (vocabularyData.length === 0) return;
     
     const syncMasteryState = async () => {
-      const newMasteredVocab = new Set(masteredVocab);
-      let hasChanges = false;
-
+      // Load ALL progress from Supabase (source of truth)
+      const allProgress = await ReviewSystemSupabase.getProgressData();
+      
+      // Build mastered set from Supabase data only
+      const newMasteredVocab = new Set<string>();
+      
       for (const item of vocabularyData) {
-        const progress = await ReviewSystemSupabase.getItemProgress(item.id, 'vocabulary');
-        const isCurrentlyMastered = masteredVocab.has(item.id);
-        const shouldBeMastered = progress.masteryLevel >= 100;
-
-        if (shouldBeMastered && !isCurrentlyMastered) {
+        const key = `vocabulary_${item.id}`;
+        const progress = allProgress.get(key);
+        if (progress && progress.masteryLevel >= 100) {
           newMasteredVocab.add(item.id);
-          hasChanges = true;
-          console.log(`[VocabularyPage] Auto-mastered vocabulary ${item.id}: ${item.word}`);
         }
       }
-
-      if (hasChanges) {
-        setMasteredVocab(newMasteredVocab);
-      }
+      
+      // Always update to match server state
+      setMasteredVocab(newMasteredVocab);
+      console.log(`[VocabularyPage] Synced ${newMasteredVocab.size} mastered vocabulary from Supabase`);
     };
 
     syncMasteryState();
@@ -254,7 +254,7 @@ function VocabularyPageContent() {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', syncMasteryState);
     };
-  }, [masteredVocab, vocabularyData]);
+  }, [vocabularyData]);
 
   const getLevelColor = (level: string) => {
     return 'bg-gray-100 text-gray-900 border-gray-200';
