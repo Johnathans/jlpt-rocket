@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Volume2, BookOpen, MessageSquare, X, Home, RotateCcw } from 'lucide-react';
 import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
-import { StreakSystem } from '@/lib/streakSystem';
+import { StreakSystemSupabase as StreakSystem } from '@/lib/streakSystemSupabase';
 import MatchCompletionScreen from '@/components/MatchCompletionScreen';
 import { getSentencesByLevel, SentenceData, JLPTLevel, parseClozeText } from '@/lib/supabase-data';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
@@ -368,7 +368,7 @@ function SentencesPageContent() {
     }
   };
 
-  const completeTraining = () => {
+  const completeTraining = async () => {
     // Calculate and save XP
     const baseXP = score * 10;
     const bonusXP = trainingItems.length * 5;
@@ -379,7 +379,7 @@ function SentencesPageContent() {
     localStorage.setItem('userXP', newXP.toString());
     
     // Record session for streak tracking
-    StreakSystem.recordSession();
+    await StreakSystem.recordSession();
     
     setEarnedXP(totalXP);
     setShowCompletionScreen(true);

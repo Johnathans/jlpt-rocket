@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import TrainingHeader from '@/components/TrainingHeader';
 import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
-import { StreakSystem } from '@/lib/streakSystem';
+import { StreakSystemSupabase as StreakSystem } from '@/lib/streakSystemSupabase';
 import { useTTS } from '@/lib/useTTS';
 import { playIncorrectSound, playCorrectSound, shouldPlayVoice, playButtonClickSound } from '@/lib/audioUtils';
 import { parseClozeText, getSentencesByLevel, SentenceData, JLPTLevel, getRandomVocabulary } from '@/lib/supabase-data';
@@ -369,7 +369,7 @@ function ClozePageContent() {
     );
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentIndex < trainingItems.length - 1) {
       setCurrentIndex(currentIndex + 1);
       setSelectedAnswer(null);
@@ -377,7 +377,7 @@ function ClozePageContent() {
       setShowResult(false);
     } else {
       // Training complete - record session for streak
-      StreakSystem.recordSession();
+      await StreakSystem.recordSession();
       router.push('/');
     }
   };

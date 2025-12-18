@@ -6,7 +6,7 @@ import TrainingHeader from '@/components/TrainingHeader';
 import MatchCompletionScreen from '@/components/MatchCompletionScreen';
 import QuitConfirmationModal from '@/components/QuitConfirmationModal';
 import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
-import { StreakSystem } from '@/lib/streakSystem';
+import { StreakSystemSupabase as StreakSystem } from '@/lib/streakSystemSupabase';
 import { speakText, useTTS } from '@/lib/useTTS';
 import { playIncorrectSound, playCorrectSound, shouldPlayVoice, playButtonClickSound } from '@/lib/audioUtils';
 import { getKanjiByLevel, getVocabularyByLevel, JLPTLevel } from '@/lib/supabase-data';
@@ -280,7 +280,7 @@ function FlashcardPageContent() {
     if (newQueue.length === 0) {
       const xp = score * 10;
       setEarnedXP(xp);
-      StreakSystem.recordSession();
+      await StreakSystem.recordSession();
       setShowCompletion(true);
     }
   };
@@ -296,7 +296,7 @@ function FlashcardPageContent() {
   const handleQuit = async () => {
     const xp = score * 10;
     setEarnedXP(xp);
-    StreakSystem.recordSession();
+    await StreakSystem.recordSession();
     
     // Record partial completion
     for (const item of trainingItems.slice(0, currentIndex)) {

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import StoryLearningFlow from '../../../../components/StoryLearningFlow';
 import { StoryData } from '../../../../data/storyData';
-import { StreakSystem } from '@/lib/streakSystem';
+import { StreakSystemSupabase as StreakSystem } from '@/lib/streakSystemSupabase';
 
 interface StoryPageClientProps {
   story: StoryData;
@@ -13,9 +13,9 @@ interface StoryPageClientProps {
 export default function StoryPageClient({ story }: StoryPageClientProps) {
   const router = useRouter();
 
-  const handleComplete = () => {
+  const handleComplete = async () => {
     // Record session for streak tracking
-    StreakSystem.recordSession();
+    await StreakSystem.recordSession();
     router.push('/stories');
   };
 

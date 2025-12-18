@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { BookOpen, FileText, MessageSquare, Flame, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight, BookMarked, ClipboardCheck, Volume2, Brush, GraduationCap, Lock, Star } from 'lucide-react';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 import { getContentCounts, getKanjiByLevel, getVocabularyByLevel, getSentencesByLevel } from '@/lib/supabase-data';
-import { StreakSystem } from '@/lib/streakSystem';
+import { StreakSystemSupabase as StreakSystem } from '@/lib/streakSystemSupabase';
 import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -360,7 +360,7 @@ export default function RoadmapPage() {
         });
         
         // Load streak data
-        const streak = StreakSystem.getStreakData();
+        const streak = await StreakSystem.getStreakData();
         setStreakData({
           currentStreak: streak.currentStreak
         });

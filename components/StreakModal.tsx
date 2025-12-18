@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { X, Flame, Calendar, TrendingUp } from 'lucide-react';
-import { StreakSystem } from '@/lib/streakSystem';
+import { StreakSystemSupabase as StreakSystem } from '@/lib/streakSystemSupabase';
 
 interface StreakModalProps {
   isOpen: boolean;
@@ -13,14 +13,17 @@ export default function StreakModal({ isOpen, onClose }: StreakModalProps) {
   const [streakInfo, setStreakInfo] = useState({ currentStreak: 0, totalDays: 0 });
 
   useEffect(() => {
-    if (isOpen) {
-      const data = StreakSystem.getStreakData();
-      const totalDays = Object.values(data.dailyStreaks).filter(Boolean).length;
-      setStreakInfo({
-        currentStreak: data.currentStreak,
-        totalDays
-      });
-    }
+    const loadStreakData = async () => {
+      if (isOpen) {
+        const data = await StreakSystem.getStreakData();
+        const totalDays = Object.values(data.dailyStreaks).filter(Boolean).length;
+        setStreakInfo({
+          currentStreak: data.currentStreak,
+          totalDays
+        });
+      }
+    };
+    loadStreakData();
   }, [isOpen]);
 
   if (!isOpen) return null;

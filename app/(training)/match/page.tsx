@@ -6,7 +6,7 @@ import TrainingHeader from '@/components/TrainingHeader';
 import MatchCompletionScreen from '@/components/MatchCompletionScreen';
 import QuitConfirmationModal from '@/components/QuitConfirmationModal';
 import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
-import { StreakSystem } from '@/lib/streakSystem';
+import { StreakSystemSupabase as StreakSystem } from '@/lib/streakSystemSupabase';
 import { speakText, useTTS } from '@/lib/useTTS';
 import { playIncorrectSound, playCorrectSound, shouldPlayVoice, playButtonClickSound } from '@/lib/audioUtils';
 import { getKanjiByLevel, getVocabularyByLevel, getSentencesByLevel } from '@/lib/supabase-data';
@@ -455,7 +455,7 @@ function MatchPageContent() {
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     // Check if all original items have been answered correctly
     const allAnsweredCorrectly = trainingItems.every(item => correctlyAnsweredIds.has(item.id));
     
@@ -473,7 +473,7 @@ function MatchPageContent() {
       localStorage.setItem('userXP', newXP.toString());
       
       // Record session for streak tracking
-      StreakSystem.recordSession();
+      await StreakSystem.recordSession();
       
       setEarnedXP(totalXP);
       return;
