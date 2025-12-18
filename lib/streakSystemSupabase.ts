@@ -28,6 +28,13 @@ export class StreakSystemSupabase {
   private static async getUserId(): Promise<string | null> {
     if (typeof window === 'undefined') return null;
     
+    // First try getSession() which uses cached session data (more reliable)
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.user?.id) {
+      return session.user.id;
+    }
+    
+    // Fallback to getUser() which makes a network request
     const { data: { user } } = await supabase.auth.getUser();
     return user?.id || null;
   }
