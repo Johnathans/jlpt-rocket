@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
+import { StreakSystemSupabase } from '@/lib/streakSystemSupabase';
 
 /**
  * Component that automatically syncs localStorage progress to Supabase
@@ -23,6 +24,11 @@ export function ProgressMigration() {
         try {
           // Sync any local data to Supabase (one-time merge)
           await ReviewSystemSupabase.syncLocalDataToSupabase();
+          
+          // Sync streak data with Supabase
+          await StreakSystemSupabase.syncWithSupabase();
+          console.log('[ProgressSync] Streak synced with Supabase');
+          
           setSyncStatus('complete');
           console.log('[ProgressSync] Sync complete - server is now source of truth');
         } catch (error) {
