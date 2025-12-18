@@ -364,10 +364,13 @@ function MatchPageContent() {
     }
   };
 
-  const handleAnswerSelect = (answer: string) => {
+  const handleAnswerSelect = (answer: string, event: React.MouseEvent<HTMLButtonElement>) => {
     if (showResult) return;
     playButtonClickSound();
     setSelectedAnswer(answer);
+    
+    // Remove focus from the button to prevent hover state persistence
+    event.currentTarget.blur();
     
     // Auto-submit the answer after a brief delay
     setTimeout(() => {
@@ -622,7 +625,7 @@ function MatchPageContent() {
               return (
                 <button
                   key={index}
-                  onClick={() => handleAnswerSelect(option)}
+                  onClick={(e) => handleAnswerSelect(option, e)}
                   className={`${buttonClass} relative`}
                   disabled={showResult}
                 >
