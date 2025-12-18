@@ -17,6 +17,7 @@ interface TrainingItem {
   character: string;
   meaning: string;
   reading?: string;
+  primary_reading?: string;
   type: 'kanji' | 'vocabulary' | 'sentences';
 }
 
@@ -210,6 +211,7 @@ function MatchPageContent() {
                 id: item.id,
                 character: item.kanji || item.character, // Support both 'kanji' (from kanji page) and 'character' (from roadmap)
                 meaning: item.meaning,
+                primary_reading: item.primary_reading,
                 type: 'kanji' as const
               }));
               localStorage.removeItem('selectedKanjiData'); // Clear localStorage immediately
@@ -230,6 +232,7 @@ function MatchPageContent() {
                   id: item.id,
                   character: item.character,
                   meaning: item.meaning,
+                  primary_reading: (item as any).primary_reading,
                   type: 'kanji' as const
                 }));
             } catch (error) {
@@ -280,7 +283,9 @@ function MatchPageContent() {
   
   const preloadCurrentAudio = async () => {
     if (currentItem) {
-      const audioText = currentItem.reading || currentItem.character;
+      // For kanji, use primary_reading (e.g., "ひとつ" for 一) for natural TTS
+      // Falls back to reading array or character if primary_reading not available
+      const audioText = currentItem.primary_reading || currentItem.reading || currentItem.character;
       try {
         console.log('Preloading audio for:', audioText);
         const audioUrl = await speak(audioText, {
