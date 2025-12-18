@@ -528,11 +528,11 @@ export default function RoadmapPage() {
             className="bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-lg border-2 border-pink-500 dark:border-pink-400 p-6 hover:border-pink-600 dark:hover:border-pink-500 hover:shadow-md transition-all text-left w-full"
           >
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400">Current Level</h3>
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Current Level</span>
               <ArrowLeftRight className="h-5 w-5 text-pink-500" />
             </div>
-            <p className="text-3xl font-bold text-gray-900 dark:text-white">{currentLevel}</p>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">click to change</p>
+            <div className="text-6xl font-bold text-gray-900 dark:text-white">{currentLevel}</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">click to change</div>
           </button>
 
           {/* Streak Card */}
