@@ -282,8 +282,9 @@ function TypingTrainingContent() {
     e.preventDefault();
     if (!currentItem) return;
 
-    // For kanji, accept primary_reading as valid answer
-    const expectedAnswer = currentItem.primary_reading || currentItem.romaji;
+    // Use romaji for answer comparison (user types in romaji)
+    // Remove dots from romaji (e.g., "maru.i" -> "marui") since dots indicate okurigana boundaries
+    const expectedAnswer = currentItem.romaji.replace(/\./g, '');
     const correct = userInput.toLowerCase().trim() === expectedAnswer.toLowerCase();
     setIsCorrect(correct);
     setShowAnswer(true);
@@ -307,8 +308,9 @@ function TypingTrainingContent() {
     if (!currentItem) return;
     
     if (!showAnswer) {
-      // Reveal answer - use primary_reading for kanji
-      const expectedAnswer = currentItem.primary_reading || currentItem.romaji;
+      // Reveal answer - use romaji for comparison (user types in romaji)
+      // Remove dots from romaji (e.g., "maru.i" -> "marui")
+      const expectedAnswer = currentItem.romaji.replace(/\./g, '');
       const correct = userInput.toLowerCase().trim() === expectedAnswer.toLowerCase();
       setIsCorrect(correct);
       setShowAnswer(true);
@@ -476,14 +478,14 @@ function TypingTrainingContent() {
                 </div>
               )}
 
-              {/* Show answer (reading) when revealed - show primary_reading for kanji */}
+              {/* Show answer (romaji) when revealed - remove dots */}
               {showAnswer && (
                 <div className={`text-4xl font-normal mt-6 ${
                   isCorrect 
                     ? 'text-gray-400 dark:text-gray-600' 
                     : 'text-gray-900 dark:text-white'
                 }`}>
-                  {currentItem.primary_reading || currentItem.romaji}
+                  {currentItem.romaji.replace(/\./g, '')}
                 </div>
               )}
             </div>
