@@ -1,4 +1,7 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from './supabase/client';
+
+// Use the same client instance as auth.tsx to ensure session is shared
+const getSupabase = () => createClient();
 
 export interface StreakData {
   currentStreak: number;
@@ -29,6 +32,7 @@ export class StreakSystemSupabase {
     if (typeof window === 'undefined') return null;
     
     // First try getSession() which uses cached session data (more reliable)
+    const supabase = getSupabase();
     const { data: { session } } = await supabase.auth.getSession();
     if (session?.user?.id) {
       return session.user.id;
@@ -92,6 +96,7 @@ export class StreakSystemSupabase {
 
     console.log('[StreakSystem] loadFromSupabase: Querying for user:', userId);
     
+    const supabase = getSupabase();
     const { data, error } = await supabase
       .from('user_streaks')
       .select('*')
@@ -134,6 +139,7 @@ export class StreakSystemSupabase {
       return false;
     }
 
+    const supabase = getSupabase();
     const { error } = await supabase
       .from('user_streaks')
       .upsert({
