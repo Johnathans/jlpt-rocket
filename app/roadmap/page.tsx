@@ -957,7 +957,7 @@ export default function RoadmapPage() {
                             {item.character}
                           </div>
                           <div className="text-xs text-gray-500 line-clamp-1">
-                            {item.meaning}
+                            {item.primary_meaning || item.meaning?.split(',')[0]}
                           </div>
                         </button>
                       ) : markKnownMode ? (
@@ -979,7 +979,7 @@ export default function RoadmapPage() {
                             {item.character}
                           </div>
                           <div className="text-xs text-gray-500 line-clamp-1">
-                            {item.meaning}
+                            {item.primary_meaning || item.meaning?.split(',')[0]}
                           </div>
                         </button>
                       ) : (
@@ -1000,7 +1000,7 @@ export default function RoadmapPage() {
                             {item.character}
                           </div>
                           <div className="text-xs text-gray-500 line-clamp-1">
-                            {item.meaning}
+                            {item.primary_meaning || item.meaning?.split(',')[0]}
                           </div>
                         </div>
                       )

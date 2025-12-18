@@ -18,6 +18,7 @@ interface TrainingItem {
   meaning: string;
   reading?: string;
   primary_reading?: string;
+  primary_meaning?: string;
   type: 'kanji' | 'vocabulary' | 'sentences';
 }
 
@@ -212,6 +213,7 @@ function MatchPageContent() {
                 character: item.kanji || item.character, // Support both 'kanji' (from kanji page) and 'character' (from roadmap)
                 meaning: item.meaning,
                 primary_reading: item.primary_reading,
+                primary_meaning: item.primary_meaning,
                 type: 'kanji' as const
               }));
               localStorage.removeItem('selectedKanjiData'); // Clear localStorage immediately
@@ -233,6 +235,7 @@ function MatchPageContent() {
                   character: item.character,
                   meaning: item.meaning,
                   primary_reading: (item as any).primary_reading,
+                  primary_meaning: (item as any).primary_meaning,
                   type: 'kanji' as const
                 }));
             } catch (error) {
@@ -260,12 +263,18 @@ function MatchPageContent() {
   useEffect(() => {
     if (currentItem && trainingItems.length > 0) {
       // Create options: correct answer + 3 random wrong answers
-      const correctAnswer = currentItem.meaning;
+      // Use primary_meaning for kanji (single word), fall back to first meaning
+      const getDisplayMeaning = (item: TrainingItem) => {
+        if (item.primary_meaning) return item.primary_meaning;
+        return item.meaning?.split(',')[0]?.trim() || item.meaning;
+      };
+      
+      const correctAnswer = getDisplayMeaning(currentItem);
       
       // Get wrong answers from training items and sample items
       const allMeanings = [
-        ...trainingItems.map(item => item.meaning),
-        ...sampleItems.map(item => item.meaning)
+        ...trainingItems.map(item => getDisplayMeaning(item)),
+        ...sampleItems.map(item => getDisplayMeaning(item))
       ];
       
       const wrongAnswers = allMeanings
@@ -350,7 +359,9 @@ function MatchPageContent() {
     const answerToCheck = answer || selectedAnswer;
     if (!answerToCheck) return;
     
-    const correct = answerToCheck === currentItem.meaning;
+    // Use primary_meaning for comparison (same as options generation)
+    const correctMeaning = currentItem.primary_meaning || currentItem.meaning?.split(',')[0]?.trim() || currentItem.meaning;
+    const correct = answerToCheck === correctMeaning;
     setIsCorrect(correct);
     setShowResult(true);
     
@@ -565,7 +576,8 @@ function MatchPageContent() {
           <div className="grid grid-cols-2 gap-4">
             {shuffledOptions.map((option, index) => {
               const isSelected = selectedAnswer === option;
-              const isCorrectAnswer = option === currentItem.meaning;
+              const correctMeaning = currentItem.primary_meaning || currentItem.meaning?.split(',')[0]?.trim() || currentItem.meaning;
+              const isCorrectAnswer = option === correctMeaning;
               
               let buttonClass = "w-full p-4 text-center text-base font-semibold rounded-lg transition-all duration-200 border-2 border-black ";
               
