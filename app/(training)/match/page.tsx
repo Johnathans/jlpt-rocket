@@ -496,6 +496,11 @@ function MatchPageContent() {
     setShowResult(false);
     setIsCorrect(null);
     setPreloadedAudio(null);
+    
+    // Remove focus from any active element to prevent highlight persistence
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
   };
 
   const handleClose = () => {
@@ -602,7 +607,7 @@ function MatchPageContent() {
               const correctMeaning = currentItem.primary_meaning || currentItem.meaning?.split(',')[0]?.trim() || currentItem.meaning;
               const isCorrectAnswer = option === correctMeaning;
               
-              let buttonClass = "w-full p-4 text-center text-base font-semibold rounded-lg transition-all duration-200 border-2 border-black ";
+              let buttonClass = "w-full p-4 text-center text-base font-semibold rounded-lg transition-all duration-200 border-2 border-black [-webkit-tap-highlight-color:transparent] focus:outline-none active:outline-none ";
               
               if (!showResult) {
                 if (isSelected) {
