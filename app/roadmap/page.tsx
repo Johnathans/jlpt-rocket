@@ -359,7 +359,8 @@ export default function RoadmapPage() {
           reviewDue: reviewItems.length
         });
         
-        // Load streak data
+        // Load streak data and sync with Supabase
+        await StreakSystem.syncWithSupabase();
         const streak = await StreakSystem.getStreakData();
         setStreakData({
           currentStreak: streak.currentStreak

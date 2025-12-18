@@ -78,18 +78,34 @@ export class StreakSystemSupabase {
    */
   private static async loadFromSupabase(): Promise<StreakData | null> {
     const userId = await this.getUserId();
-    if (!userId) return null;
+    if (!userId) {
+      console.log('[StreakSystem] loadFromSupabase: No user ID');
+      return null;
+    }
 
+    console.log('[StreakSystem] loadFromSupabase: Querying for user:', userId);
+    
     const { data, error } = await supabase
       .from('user_streaks')
       .select('*')
       .eq('user_id', userId)
       .single();
 
-    if (error || !data) {
-      console.log('[StreakSystem] No streak data in Supabase or error:', error?.message);
+    if (error) {
+      console.log('[StreakSystem] Supabase query error:', error.code, error.message);
+      // PGRST116 means no rows found - this is expected for new users
+      if (error.code !== 'PGRST116') {
+        console.error('[StreakSystem] Unexpected error loading streak:', error);
+      }
       return null;
     }
+    
+    if (!data) {
+      console.log('[StreakSystem] No streak data found in Supabase');
+      return null;
+    }
+    
+    console.log('[StreakSystem] Found streak data in Supabase:', data);
 
     const row = data as SupabaseStreakRow;
     return {
@@ -136,16 +152,25 @@ export class StreakSystemSupabase {
    * Get current streak data - tries Supabase first, falls back to localStorage
    */
   static async getStreakData(): Promise<StreakData> {
-    // Try to load from Supabase first
-    const supabaseData = await this.loadFromSupabase();
-    if (supabaseData) {
-      // Update local cache
-      this.saveLocalStreakData(supabaseData);
-      return supabaseData;
+    const userId = await this.getUserId();
+    
+    // If user is logged in, always try Supabase first
+    if (userId) {
+      console.log('[StreakSystem] User logged in, loading from Supabase...');
+      const supabaseData = await this.loadFromSupabase();
+      if (supabaseData) {
+        console.log('[StreakSystem] Loaded streak from Supabase:', supabaseData.currentStreak);
+        // Update local cache
+        this.saveLocalStreakData(supabaseData);
+        return supabaseData;
+      }
+      console.log('[StreakSystem] No Supabase data, using localStorage');
     }
 
     // Fall back to localStorage
-    return this.getLocalStreakData();
+    const localData = this.getLocalStreakData();
+    console.log('[StreakSystem] Using localStorage streak:', localData.currentStreak);
+    return localData;
   }
 
   /**
