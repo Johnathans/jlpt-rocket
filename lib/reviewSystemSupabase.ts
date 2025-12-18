@@ -10,8 +10,15 @@ export class ReviewSystemSupabase {
   private static syncInProgress = false;
   private static CACHE_DURATION_MS = 5 * 60 * 1000; // 5 minutes cache
 
-  // Get current user ID
+  // Get current user ID - use getSession() which is more reliable than getUser()
   private static async getUserId(): Promise<string | null> {
+    // First try getSession() which uses cached session data
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.user?.id) {
+      return session.user.id;
+    }
+    
+    // Fallback to getUser() which makes a network request
     const { data: { user } } = await supabase.auth.getUser();
     return user?.id || null;
   }
@@ -19,7 +26,9 @@ export class ReviewSystemSupabase {
   // Check if user is authenticated
   static async isAuthenticated(): Promise<boolean> {
     const userId = await this.getUserId();
-    return userId !== null;
+    const isAuth = userId !== null;
+    console.log(`[ReviewSystem] Auth check: ${isAuth ? 'authenticated' : 'not authenticated'} (userId: ${userId?.slice(0, 8)}...)`);
+    return isAuth;
   }
 
   // Load progress from Supabase (always authoritative when authenticated)
