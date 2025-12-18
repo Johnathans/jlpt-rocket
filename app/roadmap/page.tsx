@@ -380,9 +380,20 @@ export default function RoadmapPage() {
         // Load all progress data from Supabase (source of truth)
         const allProgress = await ReviewSystemSupabase.getProgressData();
         
+        // Debug: Log all progress keys
+        console.log(`[Roadmap] Total progress items from Supabase: ${allProgress.size}`);
+        const progressKeys = Array.from(allProgress.keys());
+        console.log(`[Roadmap] Progress keys sample:`, progressKeys.slice(0, 5));
+        
         // Load kanji data
         const kanjiDataResult = await getKanjiByLevel(currentLevel);
         setKanjiData(kanjiDataResult);
+        
+        // Debug: Log kanji IDs
+        console.log(`[Roadmap] Kanji items for ${currentLevel}: ${kanjiDataResult.length}`);
+        if (kanjiDataResult.length > 0) {
+          console.log(`[Roadmap] Sample kanji ID: ${kanjiDataResult[0].id}`);
+        }
         
         // Filter mastered kanji from batch progress data
         const masteredKanjiIds = new Set<string>();
@@ -398,6 +409,12 @@ export default function RoadmapPage() {
         // Load vocabulary data
         const vocabDataResult = await getVocabularyByLevel(currentLevel);
         setVocabularyData(vocabDataResult);
+        
+        // Debug: Log vocabulary IDs
+        console.log(`[Roadmap] Vocabulary items for ${currentLevel}: ${vocabDataResult.length}`);
+        if (vocabDataResult.length > 0) {
+          console.log(`[Roadmap] Sample vocabulary ID: ${vocabDataResult[0].id}`);
+        }
         
         // Filter mastered vocabulary from batch progress data
         const masteredVocabIds = new Set<string>();
