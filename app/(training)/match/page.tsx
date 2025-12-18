@@ -292,15 +292,27 @@ function MatchPageContent() {
   
   const preloadCurrentAudio = async () => {
     if (currentItem) {
-      // For kanji, use primary_reading (e.g., "ひとつ" for 一) for natural TTS
-      // Falls back to reading array or character if primary_reading not available
-      const audioText = currentItem.primary_reading || currentItem.reading || currentItem.character;
+      // For kanji, use pre-generated audio files based on character code
+      if (currentItem.type === 'kanji') {
+        const charCode = currentItem.character.charCodeAt(0);
+        const audioPath = `/audio/kanji/${charCode}.mp3`;
+        setPreloadedAudio(audioPath);
+        // Preload the audio file
+        const audio = new Audio(audioPath);
+        audio.preload = 'auto';
+        audio.load();
+        console.log('Preloaded kanji audio:', audioPath);
+        return;
+      }
+      
+      // For vocabulary, use TTS API
+      const audioText = currentItem.reading || currentItem.character;
       try {
         console.log('Preloading audio for:', audioText);
         const audioUrl = await speak(audioText, {
           languageCode: 'ja-JP',
           voiceName: 'ja-JP-Chirp3-HD-Leda',
-          autoPlay: false // Don't play automatically, just preload
+          autoPlay: false
         });
         setPreloadedAudio(audioUrl);
         console.log('Audio preloaded successfully');
@@ -314,11 +326,19 @@ function MatchPageContent() {
   const playJapaneseAudio = async (text: string) => {
     console.log('Playing Japanese audio for:', text);
     try {
-      // If we have preloaded audio, play it immediately
+      // If we have preloaded audio (either file path or data URL), play it
       if (preloadedAudio) {
-        console.log('Playing preloaded audio');
-        await playAudio(preloadedAudio);
-        console.log('Preloaded audio played successfully');
+        console.log('Playing preloaded audio:', preloadedAudio);
+        // Check if it's a file path (starts with /) or data URL
+        if (preloadedAudio.startsWith('/audio/')) {
+          const audio = new Audio(preloadedAudio);
+          audio.volume = 1.0;
+          await audio.play();
+          console.log('Preloaded file audio played successfully');
+        } else {
+          await playAudio(preloadedAudio);
+          console.log('Preloaded TTS audio played successfully');
+        }
         return;
       }
       

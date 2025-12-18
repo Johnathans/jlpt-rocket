@@ -195,9 +195,9 @@ function FlashcardPageContent() {
         case 'a':
           event.preventDefault();
           if (currentItem?.character) {
-            // Use primary_reading for kanji TTS (natural word pronunciation)
+            // Use pre-generated audio files for kanji, TTS for vocabulary
             const audioText = currentItem.primary_reading || currentItem.reading || currentItem.character;
-            playJapaneseAudio(audioText);
+            playJapaneseAudio(audioText, currentItem.type === 'kanji', currentItem.character);
           }
           break;
       }
@@ -207,9 +207,20 @@ function FlashcardPageContent() {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [isFlipped, currentItem, itemQueue, cardHistory, historyIndex]);
 
-  const playJapaneseAudio = async (text: string) => {
+  const playJapaneseAudio = async (text: string, isKanji: boolean = false, character?: string) => {
     if (shouldPlayVoice()) {
       try {
+        // For kanji, use pre-generated audio files
+        if (isKanji && character) {
+          const charCode = character.charCodeAt(0);
+          const audioPath = `/audio/kanji/${charCode}.mp3`;
+          const audio = new Audio(audioPath);
+          audio.volume = 1.0;
+          await audio.play();
+          console.log('Playing kanji audio file:', audioPath);
+          return;
+        }
+        // For vocabulary, use TTS API
         await speakText(text);
       } catch (error) {
         console.error('Error playing Japanese audio:', error);
