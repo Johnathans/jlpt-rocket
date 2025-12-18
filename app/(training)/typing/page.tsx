@@ -13,6 +13,8 @@ interface TypingItem {
   character: string;
   romaji: string;
   meaning?: string;
+  primary_reading?: string;
+  primary_meaning?: string;
   type: 'hiragana' | 'katakana' | 'vocabulary' | 'kanji';
 }
 
@@ -153,15 +155,17 @@ function TypingTrainingContent() {
   };
 
   // Get pre-generated audio file path for hiragana and kanji
-  const getAudioPath = (text: string, type: string) => {
+  // For kanji, we use the character code since audio files are named by the kanji character code
+  // The audio files contain the primary_reading pronunciation
+  const getAudioPath = (character: string, type: string) => {
     if (type === 'hiragana') {
       // Use pre-generated audio files for hiragana
-      const charCode = text.charCodeAt(0);
+      const charCode = character.charCodeAt(0);
       return `/audio/hiragana/${charCode}.mp3`;
     }
     if (type === 'kanji') {
-      // Use pre-generated audio files for kanji
-      const charCode = text.charCodeAt(0);
+      // Use pre-generated audio files for kanji (contains primary_reading audio)
+      const charCode = character.charCodeAt(0);
       return `/audio/kanji/${charCode}.mp3`;
     }
     // For other types, return null (will use API)
@@ -278,7 +282,9 @@ function TypingTrainingContent() {
     e.preventDefault();
     if (!currentItem) return;
 
-    const correct = userInput.toLowerCase().trim() === currentItem.romaji.toLowerCase();
+    // For kanji, accept primary_reading as valid answer
+    const expectedAnswer = currentItem.primary_reading || currentItem.romaji;
+    const correct = userInput.toLowerCase().trim() === expectedAnswer.toLowerCase();
     setIsCorrect(correct);
     setShowAnswer(true);
 
@@ -301,8 +307,9 @@ function TypingTrainingContent() {
     if (!currentItem) return;
     
     if (!showAnswer) {
-      // Reveal answer
-      const correct = userInput.toLowerCase().trim() === currentItem.romaji.toLowerCase();
+      // Reveal answer - use primary_reading for kanji
+      const expectedAnswer = currentItem.primary_reading || currentItem.romaji;
+      const correct = userInput.toLowerCase().trim() === expectedAnswer.toLowerCase();
       setIsCorrect(correct);
       setShowAnswer(true);
       if (correct) {
@@ -462,21 +469,21 @@ function TypingTrainingContent() {
                 {currentItem.character}
               </div>
               
-              {/* Show meaning as hint (for kanji and vocabulary) */}
-              {currentItem.meaning && !showAnswer && (
+              {/* Show meaning as hint (for kanji and vocabulary) - use primary_meaning for kanji */}
+              {(currentItem.primary_meaning || currentItem.meaning) && !showAnswer && (
                 <div className="text-xl text-gray-400 dark:text-gray-500 mt-6">
-                  {currentItem.meaning}
+                  {currentItem.primary_meaning || currentItem.meaning?.split(',')[0]}
                 </div>
               )}
 
-              {/* Show answer (hiragana reading) when revealed */}
+              {/* Show answer (reading) when revealed - show primary_reading for kanji */}
               {showAnswer && (
                 <div className={`text-4xl font-normal mt-6 ${
                   isCorrect 
                     ? 'text-gray-400 dark:text-gray-600' 
                     : 'text-gray-900 dark:text-white'
                 }`}>
-                  {currentItem.romaji}
+                  {currentItem.primary_reading || currentItem.romaji}
                 </div>
               )}
             </div>
