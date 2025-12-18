@@ -613,7 +613,7 @@ function MatchPageContent() {
                 if (isSelected) {
                   buttonClass += "bg-gradient-to-r from-pink-100 to-orange-100 text-pink-700 shadow-md";
                 } else {
-                  buttonClass += "bg-white dark:bg-gray-800 hover:bg-pink-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 shadow-sm hover:shadow-md cursor-pointer";
+                  buttonClass += "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 shadow-sm cursor-pointer";
                 }
               } else {
                 if (isSelected && isCorrectAnswer) {
