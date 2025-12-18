@@ -1,0 +1,8912 @@
+[
+  {
+    "character": "力",
+    "meaning": [
+      "power",
+      "strength",
+      "strong",
+      "strain",
+      "bear up",
+      "exert"
+    ],
+    "primary_meaning": "power",
+    "on_reading": [
+      "リョク",
+      "リキ",
+      "リイ"
+    ],
+    "kun_reading": [
+      "ちから"
+    ],
+    "primary_word": "力",
+    "primary_reading": "ちから",
+    "kun_examples": [
+      {
+        "word": "力",
+        "reading": "ちから",
+        "meaning": "force"
+      },
+      {
+        "word": "力強い",
+        "reading": "ちからづよい",
+        "meaning": "powerful"
+      },
+      {
+        "word": "強い力",
+        "reading": "つよいちから",
+        "meaning": "strong interaction"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "力",
+        "reading": "リョク",
+        "meaning": "strength"
+      },
+      {
+        "word": "力作",
+        "reading": "リキサク",
+        "meaning": "painstaking piece of work"
+      },
+      {
+        "word": "水力",
+        "reading": "スイリョク",
+        "meaning": "hydraulic power"
+      }
+    ],
+    "stroke_count": 2,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "口",
+    "meaning": [
+      "mouth"
+    ],
+    "primary_meaning": "mouth",
+    "on_reading": [
+      "コウ",
+      "ク"
+    ],
+    "kun_reading": [
+      "くち"
+    ],
+    "primary_word": "口",
+    "primary_reading": "くち",
+    "kun_examples": [
+      {
+        "word": "口",
+        "reading": "くち",
+        "meaning": "mouth"
+      },
+      {
+        "word": "口利き",
+        "reading": "くちきき",
+        "meaning": "mediation"
+      },
+      {
+        "word": "切り口",
+        "reading": "きりくち",
+        "meaning": "cut end"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "口",
+        "reading": "ク",
+        "meaning": "mouth"
+      },
+      {
+        "word": "口径",
+        "reading": "コウケイ",
+        "meaning": "aperture"
+      },
+      {
+        "word": "開口",
+        "reading": "カイコウ",
+        "meaning": "opening"
+      }
+    ],
+    "stroke_count": 3,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "工",
+    "meaning": [
+      "craft",
+      "construction",
+      "katakana e radical (no. 48)"
+    ],
+    "primary_meaning": "craft",
+    "on_reading": [
+      "コウ",
+      "ク",
+      "グ"
+    ],
+    "kun_reading": null,
+    "primary_word": "工",
+    "primary_reading": "コウ",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "工",
+        "reading": "コウ",
+        "meaning": "(factory) worker"
+      },
+      {
+        "word": "工員",
+        "reading": "コウイン",
+        "meaning": "factory worker"
+      },
+      {
+        "word": "起工",
+        "reading": "キコウ",
+        "meaning": "setting to work"
+      }
+    ],
+    "stroke_count": 3,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "夕",
+    "meaning": [
+      "evening"
+    ],
+    "primary_meaning": "evening",
+    "on_reading": [
+      "セキ"
+    ],
+    "kun_reading": [
+      "ゆう"
+    ],
+    "primary_word": "夕",
+    "primary_reading": "ゆう",
+    "kun_examples": [
+      {
+        "word": "夕",
+        "reading": "ゆう",
+        "meaning": "evening"
+      },
+      {
+        "word": "夕べ",
+        "reading": "ゆうべ",
+        "meaning": "evening"
+      },
+      {
+        "word": "昨夕",
+        "reading": "さくゆう",
+        "meaning": "yesterday evening"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "勺",
+        "reading": "シャク",
+        "meaning": "shaku"
+      },
+      {
+        "word": "夕日",
+        "reading": "ユウヒ",
+        "meaning": "evening sun"
+      },
+      {
+        "word": "秋夕",
+        "reading": "シュウセキ",
+        "meaning": "autumn evening"
+      }
+    ],
+    "stroke_count": 3,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "手",
+    "meaning": [
+      "hand"
+    ],
+    "primary_meaning": "hand",
+    "on_reading": [
+      "シュ",
+      "ズ"
+    ],
+    "kun_reading": [
+      "て",
+      "て-",
+      "-て",
+      "た-"
+    ],
+    "primary_word": "手",
+    "primary_reading": "て",
+    "kun_examples": [
+      {
+        "word": "手",
+        "reading": "て",
+        "meaning": "hand"
+      },
+      {
+        "word": "手足",
+        "reading": "てあし",
+        "meaning": "hands and feet"
+      },
+      {
+        "word": "逆手",
+        "reading": "さかて",
+        "meaning": "underhand grip (e.g. in gymnastics"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "手術",
+        "reading": "シュジュツ",
+        "meaning": "surgery"
+      },
+      {
+        "word": "手記",
+        "reading": "シュキ",
+        "meaning": "note"
+      },
+      {
+        "word": "二塁手",
+        "reading": "ニルイシュ",
+        "meaning": "second baseman"
+      }
+    ],
+    "stroke_count": 4,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "文",
+    "meaning": [
+      "sentence",
+      "literature",
+      "style",
+      "art",
+      "decoration",
+      "figures",
+      "plan",
+      "literary radical (no. 67)"
+    ],
+    "primary_meaning": "sentence",
+    "on_reading": [
+      "ブン",
+      "モン"
+    ],
+    "kun_reading": [
+      "ふみ",
+      "あや"
+    ],
+    "primary_word": "文",
+    "primary_reading": "ふみ",
+    "kun_examples": [
+      {
+        "word": "文",
+        "reading": "ふみ",
+        "meaning": "letter"
+      },
+      {
+        "word": "文香",
+        "reading": "ふみこう",
+        "meaning": "scented insert (to enclose with a letter)"
+      },
+      {
+        "word": "御文",
+        "reading": "おふみ",
+        "meaning": "Gobunsho (The Epistles"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "文",
+        "reading": "ブン",
+        "meaning": "sentence"
+      },
+      {
+        "word": "文化",
+        "reading": "ブンカ",
+        "meaning": "culture"
+      },
+      {
+        "word": "公文",
+        "reading": "コウブン",
+        "meaning": "official document"
+      }
+    ],
+    "stroke_count": 4,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "犬",
+    "meaning": [
+      "dog"
+    ],
+    "primary_meaning": "dog",
+    "on_reading": [
+      "ケン"
+    ],
+    "kun_reading": [
+      "いぬ",
+      "いぬ-"
+    ],
+    "primary_word": "犬",
+    "primary_reading": "いぬ",
+    "kun_examples": [
+      {
+        "word": "犬",
+        "reading": "いぬ",
+        "meaning": "dog (Canis (lupus) familiaris)"
+      },
+      {
+        "word": "犬合わせ",
+        "reading": "いぬあわせ",
+        "meaning": "dogfighting"
+      },
+      {
+        "word": "野良犬",
+        "reading": "のらいぬ",
+        "meaning": "stray dog"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "犬猿の仲",
+        "reading": "ケンエンノナカ",
+        "meaning": "like cats and dogs"
+      },
+      {
+        "word": "犬猿",
+        "reading": "ケンエン",
+        "meaning": "cats and dogs (as an example of a bad relationship)"
+      },
+      {
+        "word": "柴犬",
+        "reading": "シバイヌ",
+        "meaning": "shiba inu (dog breed)"
+      }
+    ],
+    "stroke_count": 4,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "売",
+    "meaning": [
+      "sell"
+    ],
+    "primary_meaning": "sell",
+    "on_reading": [
+      "バイ"
+    ],
+    "kun_reading": [
+      "う.る",
+      "う.れる"
+    ],
+    "primary_word": "売る",
+    "primary_reading": "うる",
+    "kun_examples": [
+      {
+        "word": "売る",
+        "reading": "うる",
+        "meaning": "to sell"
+      },
+      {
+        "word": "売るほど",
+        "reading": "うるほど",
+        "meaning": "so many (that one would want to sell some)"
+      },
+      {
+        "word": "売れる",
+        "reading": "うれる",
+        "meaning": "to sell (well)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "売春",
+        "reading": "バイシュン",
+        "meaning": "prostitution"
+      },
+      {
+        "word": "売却",
+        "reading": "バイキャク",
+        "meaning": "selling off"
+      },
+      {
+        "word": "乱売",
+        "reading": "ランバイ",
+        "meaning": "selling at a fire-sale price"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "正",
+    "meaning": [
+      "correct",
+      "justice",
+      "righteous",
+      "10**40"
+    ],
+    "primary_meaning": "correct",
+    "on_reading": [
+      "セイ",
+      "ショウ"
+    ],
+    "kun_reading": [
+      "ただ.しい",
+      "ただ.す",
+      "まさ",
+      "まさ.に"
+    ],
+    "primary_word": "正しい",
+    "primary_reading": "ただしい",
+    "kun_examples": [
+      {
+        "word": "正しい",
+        "reading": "ただしい",
+        "meaning": "right"
+      },
+      {
+        "word": "正しい行い",
+        "reading": "ただしいおこない",
+        "meaning": "conducting oneself properly"
+      },
+      {
+        "word": "正す",
+        "reading": "ただす",
+        "meaning": "to correct"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "正",
+        "reading": "セイ",
+        "meaning": "(logical) true"
+      },
+      {
+        "word": "正解",
+        "reading": "セイカイ",
+        "meaning": "correct answer"
+      },
+      {
+        "word": "検事正",
+        "reading": "ケンジセイ",
+        "meaning": "chief public prosecutor"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "田",
+    "meaning": [
+      "rice field",
+      "rice paddy"
+    ],
+    "primary_meaning": "rice field",
+    "on_reading": [
+      "デン"
+    ],
+    "kun_reading": [
+      "た"
+    ],
+    "primary_word": "田",
+    "primary_reading": "た",
+    "kun_examples": [
+      {
+        "word": "田",
+        "reading": "た",
+        "meaning": "rice field"
+      },
+      {
+        "word": "田植え",
+        "reading": "たうえ",
+        "meaning": "rice planting"
+      },
+      {
+        "word": "新田",
+        "reading": "しんでん",
+        "meaning": "new rice field"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "田畑",
+        "reading": "タハタ",
+        "meaning": "fields (of rice and other crops)"
+      },
+      {
+        "word": "田園",
+        "reading": "デンエン",
+        "meaning": "the country"
+      },
+      {
+        "word": "桑田",
+        "reading": "ソウデン",
+        "meaning": "mulberry plantation"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "目",
+    "meaning": [
+      "eye",
+      "class",
+      "look",
+      "insight",
+      "experience",
+      "care",
+      "favor"
+    ],
+    "primary_meaning": "eye",
+    "on_reading": [
+      "モク",
+      "ボク"
+    ],
+    "kun_reading": [
+      "め",
+      "-め",
+      "ま-"
+    ],
+    "primary_word": "目",
+    "primary_reading": "め",
+    "kun_examples": [
+      {
+        "word": "目",
+        "reading": "め",
+        "meaning": "eye"
+      },
+      {
+        "word": "目当て",
+        "reading": "めあて",
+        "meaning": "mark"
+      },
+      {
+        "word": "蛇の目",
+        "reading": "じゃのめ",
+        "meaning": "bull's-eye (pattern)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "目",
+        "reading": "モク",
+        "meaning": "order"
+      },
+      {
+        "word": "目撃",
+        "reading": "モクゲキ",
+        "meaning": "witnessing"
+      },
+      {
+        "word": "着目",
+        "reading": "チャクモク",
+        "meaning": "attention"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "立",
+    "meaning": [
+      "stand up",
+      "rise",
+      "set up",
+      "erect"
+    ],
+    "primary_meaning": "stand up",
+    "on_reading": [
+      "リツ",
+      "リュウ",
+      "リットル"
+    ],
+    "kun_reading": [
+      "た.つ",
+      "-た.つ",
+      "た.ち-",
+      "た.てる",
+      "-た.てる",
+      "た.て-",
+      "たて-",
+      "-た.て",
+      "-だ.て",
+      "-だ.てる"
+    ],
+    "primary_word": "立つ",
+    "primary_reading": "たつ",
+    "kun_examples": [
+      {
+        "word": "立つ",
+        "reading": "たつ",
+        "meaning": "to stand (up)"
+      },
+      {
+        "word": "立つ瀬",
+        "reading": "たつせ",
+        "meaning": "one's position"
+      },
+      {
+        "word": "突立",
+        "reading": "とったつ",
+        "meaning": "stand straight up"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "立案",
+        "reading": "リツアン",
+        "meaning": "planning"
+      },
+      {
+        "word": "立像",
+        "reading": "リツゾウ",
+        "meaning": "standing statue"
+      },
+      {
+        "word": "並立",
+        "reading": "ヘイリツ",
+        "meaning": "standing abreast"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "元",
+    "meaning": [
+      "beginning",
+      "former time",
+      "origin"
+    ],
+    "primary_meaning": "beginning",
+    "on_reading": [
+      "ゲン",
+      "ガン"
+    ],
+    "kun_reading": [
+      "もと"
+    ],
+    "primary_word": "元",
+    "primary_reading": "もと",
+    "kun_examples": [
+      {
+        "word": "元",
+        "reading": "もと",
+        "meaning": "origin"
+      },
+      {
+        "word": "元",
+        "reading": "もと",
+        "meaning": "former"
+      },
+      {
+        "word": "家元",
+        "reading": "いえもと",
+        "meaning": "head of a school (of music"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "元",
+        "reading": "ゲン",
+        "meaning": "unknown (e.g. in an equation)"
+      },
+      {
+        "word": "原価",
+        "reading": "ゲンカ",
+        "meaning": "cost price"
+      },
+      {
+        "word": "中元",
+        "reading": "チュウゲン",
+        "meaning": "15th day of the 7th lunar month"
+      }
+    ],
+    "stroke_count": 4,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "公",
+    "meaning": [
+      "public",
+      "prince",
+      "official",
+      "governmental"
+    ],
+    "primary_meaning": "public",
+    "on_reading": [
+      "コウ",
+      "ク"
+    ],
+    "kun_reading": [
+      "おおやけ"
+    ],
+    "primary_word": "公",
+    "primary_reading": "おおやけ",
+    "kun_examples": [
+      {
+        "word": "公",
+        "reading": "おおやけ",
+        "meaning": "official"
+      },
+      {
+        "word": "公所",
+        "reading": "おおやけどころ",
+        "meaning": "imperial court"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "公",
+        "reading": "コウ",
+        "meaning": "public affair"
+      },
+      {
+        "word": "公安",
+        "reading": "コウアン",
+        "meaning": "public peace"
+      },
+      {
+        "word": "大公",
+        "reading": "タイコウ",
+        "meaning": "archduke"
+      }
+    ],
+    "stroke_count": 4,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "切",
+    "meaning": [
+      "cut",
+      "cutoff",
+      "be sharp"
+    ],
+    "primary_meaning": "cut",
+    "on_reading": [
+      "セツ",
+      "サイ"
+    ],
+    "kun_reading": [
+      "き.る",
+      "-き.る",
+      "き.り",
+      "-き.り",
+      "-ぎ.り",
+      "き.れる",
+      "-き.れる",
+      "き.れ",
+      "-き.れ",
+      "-ぎ.れ"
+    ],
+    "primary_word": "切る",
+    "primary_reading": "きる",
+    "kun_examples": [
+      {
+        "word": "切る",
+        "reading": "きる",
+        "meaning": "to cut"
+      },
+      {
+        "word": "切り",
+        "reading": "きり",
+        "meaning": "end"
+      },
+      {
+        "word": "切り替え",
+        "reading": "きりかえ",
+        "meaning": "exchange"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "切",
+        "reading": "セツ",
+        "meaning": "eager"
+      },
+      {
+        "word": "切実",
+        "reading": "セツジツ",
+        "meaning": "earnest"
+      },
+      {
+        "word": "懇切",
+        "reading": "コンセツ",
+        "meaning": "kind and careful (instruction"
+      }
+    ],
+    "stroke_count": 4,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "少",
+    "meaning": [
+      "few",
+      "little"
+    ],
+    "primary_meaning": "few",
+    "on_reading": [
+      "ショウ"
+    ],
+    "kun_reading": [
+      "すく.ない",
+      "すこ.し"
+    ],
+    "primary_word": "少ない",
+    "primary_reading": "すくない",
+    "kun_examples": [
+      {
+        "word": "少ない",
+        "reading": "すくない",
+        "meaning": "few"
+      },
+      {
+        "word": "少し",
+        "reading": "すこし",
+        "meaning": "a little"
+      },
+      {
+        "word": "少しも",
+        "reading": "すこしも",
+        "meaning": "(not) at all"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "少",
+        "reading": "ショウ",
+        "meaning": "small"
+      },
+      {
+        "word": "少輔",
+        "reading": "ショウ",
+        "meaning": "assistant vice-minister (ritsuryō system"
+      },
+      {
+        "word": "最少",
+        "reading": "サイショウ",
+        "meaning": "fewest"
+      }
+    ],
+    "stroke_count": 4,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "心",
+    "meaning": [
+      "heart",
+      "mind",
+      "spirit",
+      "heart radical (no. 61)"
+    ],
+    "primary_meaning": "heart",
+    "on_reading": [
+      "シン"
+    ],
+    "kun_reading": [
+      "こころ",
+      "-ごころ"
+    ],
+    "primary_word": "心",
+    "primary_reading": "こころ",
+    "kun_examples": [
+      {
+        "word": "心",
+        "reading": "こころ",
+        "meaning": "mind"
+      },
+      {
+        "word": "心意気",
+        "reading": "こころいき",
+        "meaning": "spirit"
+      },
+      {
+        "word": "我が心",
+        "reading": "わがこころ",
+        "meaning": "my heart"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "心",
+        "reading": "シン",
+        "meaning": "heart"
+      },
+      {
+        "word": "心から",
+        "reading": "ココロカラ",
+        "meaning": "from the bottom of one's heart"
+      },
+      {
+        "word": "重心",
+        "reading": "ジュウシン",
+        "meaning": "centre of gravity (center)"
+      }
+    ],
+    "stroke_count": 4,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "方",
+    "meaning": [
+      "direction",
+      "person",
+      "alternative"
+    ],
+    "primary_meaning": "direction",
+    "on_reading": [
+      "ホウ"
+    ],
+    "kun_reading": [
+      "かた",
+      "-かた",
+      "-がた"
+    ],
+    "primary_word": "方",
+    "primary_reading": "かた",
+    "kun_examples": [
+      {
+        "word": "方",
+        "reading": "かた",
+        "meaning": "direction"
+      },
+      {
+        "word": "方々",
+        "reading": "かたがた",
+        "meaning": "people"
+      },
+      {
+        "word": "親方",
+        "reading": "おやかた",
+        "meaning": "master"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "方",
+        "reading": "ホウ",
+        "meaning": "direction"
+      },
+      {
+        "word": "方言",
+        "reading": "ホウゲン",
+        "meaning": "dialect"
+      },
+      {
+        "word": "途方",
+        "reading": "トホウ",
+        "meaning": "way"
+      }
+    ],
+    "stroke_count": 4,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "牛",
+    "meaning": [
+      "cow"
+    ],
+    "primary_meaning": "cow",
+    "on_reading": [
+      "ギュウ"
+    ],
+    "kun_reading": [
+      "うし"
+    ],
+    "primary_word": "牛",
+    "primary_reading": "うし",
+    "kun_examples": [
+      {
+        "word": "牛",
+        "reading": "うし",
+        "meaning": "cattle (Bos taurus)"
+      },
+      {
+        "word": "牛車",
+        "reading": "ぎゅうしゃ",
+        "meaning": "ox carriage (for Heian-era nobles)"
+      },
+      {
+        "word": "去勢牛",
+        "reading": "きょせいうし",
+        "meaning": "ox"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "妓夫",
+        "reading": "ギュウ",
+        "meaning": "pimp"
+      },
+      {
+        "word": "牛",
+        "reading": "ウシ",
+        "meaning": "cattle (Bos taurus)"
+      },
+      {
+        "word": "肉牛",
+        "reading": "ニクギュウ",
+        "meaning": "beef cattle"
+      }
+    ],
+    "stroke_count": 4,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "止",
+    "meaning": [
+      "stop",
+      "halt"
+    ],
+    "primary_meaning": "stop",
+    "on_reading": [
+      "シ"
+    ],
+    "kun_reading": [
+      "と.まる",
+      "-ど.まり",
+      "と.める",
+      "-と.める",
+      "-ど.め",
+      "とど.める",
+      "とど.め",
+      "とど.まる",
+      "や.める",
+      "や.む",
+      "-や.む",
+      "よ.す",
+      "-さ.す",
+      "-さ.し"
+    ],
+    "primary_word": "止まる",
+    "primary_reading": "とまる",
+    "kun_examples": [
+      {
+        "word": "止まる",
+        "reading": "とまる",
+        "meaning": "to stop (moving)"
+      },
+      {
+        "word": "止める",
+        "reading": "とめる",
+        "meaning": "to stop"
+      },
+      {
+        "word": "留める",
+        "reading": "とどめる",
+        "meaning": "to stop"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "止血",
+        "reading": "シケツ",
+        "meaning": "stopping of bleeding"
+      },
+      {
+        "word": "止音器",
+        "reading": "シオンキ",
+        "meaning": "(piano) damper"
+      },
+      {
+        "word": "抑止",
+        "reading": "ヨクシ",
+        "meaning": "check"
+      }
+    ],
+    "stroke_count": 4,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "兄",
+    "meaning": [
+      "elder brother",
+      "big brother"
+    ],
+    "primary_meaning": "elder brother",
+    "on_reading": [
+      "ケイ",
+      "キョウ"
+    ],
+    "kun_reading": [
+      "あに"
+    ],
+    "primary_word": "兄",
+    "primary_reading": "あに",
+    "kun_examples": [
+      {
+        "word": "兄",
+        "reading": "あに",
+        "meaning": "older brother"
+      },
+      {
+        "word": "兄貴",
+        "reading": "あにき",
+        "meaning": "elder brother"
+      },
+      {
+        "word": "中の兄",
+        "reading": "なかのあに",
+        "meaning": "middle brother"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "兄",
+        "reading": "ケイ",
+        "meaning": "you"
+      },
+      {
+        "word": "兄弟",
+        "reading": "キョウダイ",
+        "meaning": "siblings"
+      },
+      {
+        "word": "実兄",
+        "reading": "ジッケイ",
+        "meaning": "biological older brother"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "冬",
+    "meaning": [
+      "winter"
+    ],
+    "primary_meaning": "winter",
+    "on_reading": [
+      "トウ"
+    ],
+    "kun_reading": [
+      "ふゆ"
+    ],
+    "primary_word": "冬",
+    "primary_reading": "ふゆ",
+    "kun_examples": [
+      {
+        "word": "冬",
+        "reading": "ふゆ",
+        "meaning": "winter"
+      },
+      {
+        "word": "冬場",
+        "reading": "ふゆば",
+        "meaning": "wintertime"
+      },
+      {
+        "word": "初冬",
+        "reading": "しょとう",
+        "meaning": "early winter"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "冬季",
+        "reading": "トウキ",
+        "meaning": "winter season"
+      },
+      {
+        "word": "冬期",
+        "reading": "トウキ",
+        "meaning": "winter"
+      },
+      {
+        "word": "越冬",
+        "reading": "エットウ",
+        "meaning": "passing the winter"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "古",
+    "meaning": [
+      "old"
+    ],
+    "primary_meaning": "old",
+    "on_reading": [
+      "コ"
+    ],
+    "kun_reading": [
+      "ふる.い",
+      "ふる-",
+      "-ふる.す"
+    ],
+    "primary_word": "古い",
+    "primary_reading": "ふるい",
+    "kun_examples": [
+      {
+        "word": "古い",
+        "reading": "ふるい",
+        "meaning": "old"
+      },
+      {
+        "word": "古家",
+        "reading": "ふるいえ",
+        "meaning": "old house"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "古参",
+        "reading": "コサン",
+        "meaning": "senior"
+      },
+      {
+        "word": "古今",
+        "reading": "ココン",
+        "meaning": "ancient and modern times"
+      },
+      {
+        "word": "蒙古",
+        "reading": "モウコ",
+        "meaning": "Mongolia (region)"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "台",
+    "meaning": [
+      "pedestal",
+      "a stand",
+      "counter for machines and vehicles"
+    ],
+    "primary_meaning": "pedestal",
+    "on_reading": [
+      "ダイ",
+      "タイ"
+    ],
+    "kun_reading": [
+      "うてな",
+      "われ",
+      "つかさ"
+    ],
+    "primary_word": "台",
+    "primary_reading": "うてな",
+    "kun_examples": [
+      {
+        "word": "台",
+        "reading": "うてな",
+        "meaning": "tower"
+      },
+      {
+        "word": "弾正台",
+        "reading": "だんじょうだい",
+        "meaning": "Imperial Prosecuting and Investigating Office (1869-1871)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "台",
+        "reading": "ダイ",
+        "meaning": "stand"
+      },
+      {
+        "word": "台車",
+        "reading": "ダイシャ",
+        "meaning": "platform truck"
+      },
+      {
+        "word": "管区気象台",
+        "reading": "カンクキショウダイ",
+        "meaning": "district meteorological observatory"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "広",
+    "meaning": [
+      "wide",
+      "broad",
+      "spacious"
+    ],
+    "primary_meaning": "wide",
+    "on_reading": [
+      "コウ"
+    ],
+    "kun_reading": [
+      "ひろ.い",
+      "ひろ.まる",
+      "ひろ.める",
+      "ひろ.がる",
+      "ひろ.げる"
+    ],
+    "primary_word": "広い",
+    "primary_reading": "ひろい",
+    "kun_examples": [
+      {
+        "word": "広い",
+        "reading": "ひろい",
+        "meaning": "spacious"
+      },
+      {
+        "word": "広い支持",
+        "reading": "ひろいしじ",
+        "meaning": "broad support"
+      },
+      {
+        "word": "広まる",
+        "reading": "ひろまる",
+        "meaning": "to spread"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "広告",
+        "reading": "コウコク",
+        "meaning": "advertisement"
+      },
+      {
+        "word": "広域",
+        "reading": "コウイキ",
+        "meaning": "wide area"
+      },
+      {
+        "word": "曠々",
+        "reading": "コウコウ",
+        "meaning": "extensive"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "用",
+    "meaning": [
+      "utilize",
+      "business",
+      "service",
+      "use",
+      "employ"
+    ],
+    "primary_meaning": "utilize",
+    "on_reading": [
+      "ヨウ"
+    ],
+    "kun_reading": [
+      "もち.いる"
+    ],
+    "primary_word": "用いる",
+    "primary_reading": "もちいる",
+    "kun_examples": [
+      {
+        "word": "用いる",
+        "reading": "もちいる",
+        "meaning": "to use"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "用",
+        "reading": "ヨウ",
+        "meaning": "business"
+      },
+      {
+        "word": "用意",
+        "reading": "ヨウイ",
+        "meaning": "preparation"
+      },
+      {
+        "word": "登用",
+        "reading": "トウヨウ",
+        "meaning": "appointment"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "世",
+    "meaning": [
+      "generation",
+      "world",
+      "society",
+      "public"
+    ],
+    "primary_meaning": "generation",
+    "on_reading": [
+      "セイ",
+      "セ",
+      "ソウ"
+    ],
+    "kun_reading": [
+      "よ"
+    ],
+    "primary_word": "世",
+    "primary_reading": "よ",
+    "kun_examples": [
+      {
+        "word": "世",
+        "reading": "よ",
+        "meaning": "world"
+      },
+      {
+        "word": "世の中",
+        "reading": "よのなか",
+        "meaning": "society"
+      },
+      {
+        "word": "千代",
+        "reading": "ちよ",
+        "meaning": "thousand years"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "世",
+        "reading": "セイ",
+        "meaning": "counter for generations"
+      },
+      {
+        "word": "世紀",
+        "reading": "セイキ",
+        "meaning": "century"
+      },
+      {
+        "word": "近世",
+        "reading": "キンセイ",
+        "meaning": "recent past"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "主",
+    "meaning": [
+      "lord",
+      "chief",
+      "master",
+      "main thing",
+      "principal"
+    ],
+    "primary_meaning": "lord",
+    "on_reading": [
+      "シュ",
+      "ス",
+      "シュウ"
+    ],
+    "kun_reading": [
+      "ぬし",
+      "おも",
+      "あるじ"
+    ],
+    "primary_word": "主",
+    "primary_reading": "ぬし",
+    "kun_examples": [
+      {
+        "word": "主",
+        "reading": "ぬし",
+        "meaning": "head (of a household"
+      },
+      {
+        "word": "馬主",
+        "reading": "うまぬし",
+        "meaning": "owner of a horse (esp. racehorse)"
+      },
+      {
+        "word": "船主",
+        "reading": "せんしゅ",
+        "meaning": "shipowner"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "主",
+        "reading": "シュ",
+        "meaning": "(one's) master"
+      },
+      {
+        "word": "主",
+        "reading": "シュウ",
+        "meaning": "(one's) master"
+      },
+      {
+        "word": "自主",
+        "reading": "ジシュ",
+        "meaning": "independence"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "代",
+    "meaning": [
+      "substitute",
+      "change",
+      "convert",
+      "replace",
+      "period",
+      "age",
+      "counter for decades of ages",
+      "eras",
+      "etc.",
+      "generation",
+      "charge",
+      "rate",
+      "fee"
+    ],
+    "primary_meaning": "substitute",
+    "on_reading": [
+      "ダイ",
+      "タイ"
+    ],
+    "kun_reading": [
+      "か.わる",
+      "かわ.る",
+      "かわ.り",
+      "か.わり",
+      "-がわ.り",
+      "-が.わり",
+      "か.える",
+      "よ",
+      "しろ"
+    ],
+    "primary_word": "替わる",
+    "primary_reading": "かわる",
+    "kun_examples": [
+      {
+        "word": "替わる",
+        "reading": "かわる",
+        "meaning": "to succeed"
+      },
+      {
+        "word": "代わる代わる",
+        "reading": "かわるがわる",
+        "meaning": "alternately"
+      },
+      {
+        "word": "替わる",
+        "reading": "かわる",
+        "meaning": "to succeed"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "代",
+        "reading": "ダイ",
+        "meaning": "charge"
+      },
+      {
+        "word": "代官",
+        "reading": "ダイカン",
+        "meaning": "local governor (Edo period)"
+      },
+      {
+        "word": "大時代",
+        "reading": "オオジダイ",
+        "meaning": "old-fashioned"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "写",
+    "meaning": [
+      "copy",
+      "be photographed",
+      "describe"
+    ],
+    "primary_meaning": "copy",
+    "on_reading": [
+      "シャ",
+      "ジャ"
+    ],
+    "kun_reading": [
+      "うつ.す",
+      "うつ.る",
+      "うつ-",
+      "うつ.し"
+    ],
+    "primary_word": "写す",
+    "primary_reading": "うつす",
+    "kun_examples": [
+      {
+        "word": "写す",
+        "reading": "うつす",
+        "meaning": "to copy"
+      },
+      {
+        "word": "写る",
+        "reading": "うつる",
+        "meaning": "to be photographed"
+      },
+      {
+        "word": "写ルンです",
+        "reading": "うつルンです",
+        "meaning": "QuickSnap (brand of disposable cameras produced by Fujifilm)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "写真集",
+        "reading": "シャシンシュウ",
+        "meaning": "photo book (esp. one featuring photos of female celebrities"
+      },
+      {
+        "word": "写真",
+        "reading": "シャシン",
+        "meaning": "photograph"
+      },
+      {
+        "word": "実写",
+        "reading": "ジッシャ",
+        "meaning": "live action (as opposed to animation)"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "去",
+    "meaning": [
+      "gone",
+      "past",
+      "quit",
+      "leave",
+      "elapse",
+      "eliminate",
+      "divorce"
+    ],
+    "primary_meaning": "gone",
+    "on_reading": [
+      "キョ",
+      "コ"
+    ],
+    "kun_reading": [
+      "さ.る",
+      "-さ.る"
+    ],
+    "primary_word": "去る",
+    "primary_reading": "さる",
+    "kun_examples": [
+      {
+        "word": "去る",
+        "reading": "さる",
+        "meaning": "to leave"
+      },
+      {
+        "word": "去る者追わず",
+        "reading": "さるものおわず",
+        "meaning": "do not chase the one who leaves"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "去年",
+        "reading": "キョネン",
+        "meaning": "last year"
+      },
+      {
+        "word": "去就",
+        "reading": "キョシュウ",
+        "meaning": "leaving or staying"
+      },
+      {
+        "word": "消去",
+        "reading": "ショウキョ",
+        "meaning": "erasure"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "字",
+    "meaning": [
+      "character",
+      "letter",
+      "word",
+      "section of village"
+    ],
+    "primary_meaning": "character",
+    "on_reading": [
+      "ジ"
+    ],
+    "kun_reading": [
+      "あざ",
+      "あざな",
+      "-な"
+    ],
+    "primary_word": "字",
+    "primary_reading": "あざ",
+    "kun_examples": [
+      {
+        "word": "字",
+        "reading": "あざ",
+        "meaning": "section of village"
+      },
+      {
+        "word": "字",
+        "reading": "あざな",
+        "meaning": "Chinese courtesy name (name formerly given to adult Chinese men"
+      },
+      {
+        "word": "大字",
+        "reading": "おおあざ",
+        "meaning": "larger section (of village)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "字",
+        "reading": "ジ",
+        "meaning": "character (esp. kanji)"
+      },
+      {
+        "word": "字形",
+        "reading": "ジケイ",
+        "meaning": "character style"
+      },
+      {
+        "word": "題字",
+        "reading": "ダイジ",
+        "meaning": "title lettering"
+      }
+    ],
+    "stroke_count": 6,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "早",
+    "meaning": [
+      "early",
+      "fast"
+    ],
+    "primary_meaning": "early",
+    "on_reading": [
+      "ソウ",
+      "サッ"
+    ],
+    "kun_reading": [
+      "はや.い",
+      "はや",
+      "はや-",
+      "はや.まる",
+      "はや.める",
+      "さ-"
+    ],
+    "primary_word": "早い",
+    "primary_reading": "はやい",
+    "kun_examples": [
+      {
+        "word": "早い",
+        "reading": "はやい",
+        "meaning": "fast"
+      },
+      {
+        "word": "早いこと",
+        "reading": "はやいこと",
+        "meaning": "quickly"
+      },
+      {
+        "word": "早",
+        "reading": "はや",
+        "meaning": "already"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "早急",
+        "reading": "ソウキュウ",
+        "meaning": "immediate"
+      },
+      {
+        "word": "早期",
+        "reading": "ソウキ",
+        "meaning": "early stage"
+      },
+      {
+        "word": "時期早々",
+        "reading": "ジキソウソウ",
+        "meaning": "premature"
+      }
+    ],
+    "stroke_count": 6,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "町",
+    "meaning": [
+      "town",
+      "village",
+      "block",
+      "street"
+    ],
+    "primary_meaning": "town",
+    "on_reading": [
+      "チョウ"
+    ],
+    "kun_reading": [
+      "まち"
+    ],
+    "primary_word": "町",
+    "primary_reading": "まち",
+    "kun_examples": [
+      {
+        "word": "町",
+        "reading": "まち",
+        "meaning": "town"
+      },
+      {
+        "word": "街角",
+        "reading": "まちかど",
+        "meaning": "street corner"
+      },
+      {
+        "word": "室町",
+        "reading": "むろまち",
+        "meaning": "Muromachi period (1336-1573)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "町",
+        "reading": "チョウ",
+        "meaning": "town"
+      },
+      {
+        "word": "町議会",
+        "reading": "チョウギカイ",
+        "meaning": "town council"
+      },
+      {
+        "word": "同町",
+        "reading": "ドウチョウ",
+        "meaning": "the same town"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "花",
+    "meaning": [
+      "flower"
+    ],
+    "primary_meaning": "flower",
+    "on_reading": [
+      "カ",
+      "ケ"
+    ],
+    "kun_reading": [
+      "はな"
+    ],
+    "primary_word": "花",
+    "primary_reading": "はな",
+    "kun_examples": [
+      {
+        "word": "花",
+        "reading": "はな",
+        "meaning": "flower"
+      },
+      {
+        "word": "花形",
+        "reading": "はながた",
+        "meaning": "floral pattern"
+      },
+      {
+        "word": "菜の花",
+        "reading": "なのはな",
+        "meaning": "rape blossoms"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "花形",
+        "reading": "ハナガタ",
+        "meaning": "floral pattern"
+      },
+      {
+        "word": "花園",
+        "reading": "ハナゾノ",
+        "meaning": "flower garden"
+      },
+      {
+        "word": "献花",
+        "reading": "ケンカ",
+        "meaning": "flower offering"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "赤",
+    "meaning": [
+      "red"
+    ],
+    "primary_meaning": "red",
+    "on_reading": [
+      "セキ",
+      "シャク"
+    ],
+    "kun_reading": [
+      "あか",
+      "あか-",
+      "あか.い",
+      "あか.らむ",
+      "あか.らめる"
+    ],
+    "primary_word": "赤",
+    "primary_reading": "あか",
+    "kun_examples": [
+      {
+        "word": "赤",
+        "reading": "あか",
+        "meaning": "red"
+      },
+      {
+        "word": "銅",
+        "reading": "どう",
+        "meaning": "copper (Cu)"
+      },
+      {
+        "word": "紅赤",
+        "reading": "べにあか",
+        "meaning": "beniaka"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "赤軍",
+        "reading": "セキグン",
+        "meaning": "Red Army (Soviet Union"
+      },
+      {
+        "word": "赤外線",
+        "reading": "セキガイセン",
+        "meaning": "infrared rays"
+      },
+      {
+        "word": "七赤",
+        "reading": "シチセキ",
+        "meaning": "seventh of nine traditional astrological signs (corresponding to Venus and west)"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "足",
+    "meaning": [
+      "leg",
+      "foot",
+      "be sufficient",
+      "counter for pairs of footwear"
+    ],
+    "primary_meaning": "leg",
+    "on_reading": [
+      "ソク"
+    ],
+    "kun_reading": [
+      "あし",
+      "た.りる",
+      "た.る",
+      "た.す"
+    ],
+    "primary_word": "足",
+    "primary_reading": "あし",
+    "kun_examples": [
+      {
+        "word": "足",
+        "reading": "あし",
+        "meaning": "foot"
+      },
+      {
+        "word": "足跡",
+        "reading": "あしあと",
+        "meaning": "footprints"
+      },
+      {
+        "word": "出足",
+        "reading": "であし",
+        "meaning": "turnout (of people)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "足",
+        "reading": "ソク",
+        "meaning": "counter for pairs of socks"
+      },
+      {
+        "word": "足跡",
+        "reading": "アシアト",
+        "meaning": "footprints"
+      },
+      {
+        "word": "俊足",
+        "reading": "シュンソク",
+        "meaning": "swiftness of foot"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "不",
+    "meaning": [
+      "negative",
+      "non-",
+      "bad",
+      "ugly",
+      "clumsy"
+    ],
+    "primary_meaning": "negative",
+    "on_reading": [
+      "フ",
+      "ブ"
+    ],
+    "kun_reading": null,
+    "primary_word": "不",
+    "primary_reading": "フ",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "不",
+        "reading": "フ",
+        "meaning": "un-"
+      },
+      {
+        "word": "不安",
+        "reading": "フアン",
+        "meaning": "anxiety"
+      },
+      {
+        "word": "意味不",
+        "reading": "イミフ",
+        "meaning": "of uncertain meaning"
+      }
+    ],
+    "stroke_count": 4,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "仕",
+    "meaning": [
+      "attend",
+      "doing",
+      "official",
+      "serve"
+    ],
+    "primary_meaning": "attend",
+    "on_reading": [
+      "シ",
+      "ジ"
+    ],
+    "kun_reading": [
+      "つか.える"
+    ],
+    "primary_word": "仕える",
+    "primary_reading": "つかえる",
+    "kun_examples": [
+      {
+        "word": "仕える",
+        "reading": "つかえる",
+        "meaning": "to serve"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "仕",
+        "reading": "シ",
+        "meaning": "official"
+      },
+      {
+        "word": "試合",
+        "reading": "シアイ",
+        "meaning": "match"
+      },
+      {
+        "word": "勤労奉仕",
+        "reading": "キンロウホウシ",
+        "meaning": "labor service"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "会",
+    "meaning": [
+      "meeting",
+      "meet",
+      "party",
+      "association",
+      "interview",
+      "join"
+    ],
+    "primary_meaning": "meeting",
+    "on_reading": [
+      "カイ",
+      "エ"
+    ],
+    "kun_reading": [
+      "あ.う",
+      "あ.わせる",
+      "あつ.まる"
+    ],
+    "primary_word": "会う",
+    "primary_reading": "あう",
+    "kun_examples": [
+      {
+        "word": "会う",
+        "reading": "あう",
+        "meaning": "to meet"
+      },
+      {
+        "word": "逢うは別れの始め",
+        "reading": "あうはわかれのはじめ",
+        "meaning": "we meet only to part"
+      },
+      {
+        "word": "会わせる",
+        "reading": "あわせる",
+        "meaning": "to make (someone) to meet"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "会",
+        "reading": "カイ",
+        "meaning": "meeting"
+      },
+      {
+        "word": "会員",
+        "reading": "カイイン",
+        "meaning": "member"
+      },
+      {
+        "word": "例会",
+        "reading": "レイカイ",
+        "meaning": "regular meeting"
+      }
+    ],
+    "stroke_count": 6,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "同",
+    "meaning": [
+      "same",
+      "agree",
+      "equal"
+    ],
+    "primary_meaning": "same",
+    "on_reading": [
+      "ドウ"
+    ],
+    "kun_reading": [
+      "おな.じ"
+    ],
+    "primary_word": "同じ",
+    "primary_reading": "おなじ",
+    "kun_examples": [
+      {
+        "word": "同じ",
+        "reading": "おなじ",
+        "meaning": "same"
+      },
+      {
+        "word": "同じく",
+        "reading": "おなじく",
+        "meaning": "in the same way"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "同",
+        "reading": "ドウ",
+        "meaning": "the same"
+      },
+      {
+        "word": "同意",
+        "reading": "ドウイ",
+        "meaning": "agreement"
+      },
+      {
+        "word": "合同",
+        "reading": "ゴウドウ",
+        "meaning": "combination"
+      }
+    ],
+    "stroke_count": 6,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "多",
+    "meaning": [
+      "many",
+      "frequent",
+      "much"
+    ],
+    "primary_meaning": "many",
+    "on_reading": [
+      "タ"
+    ],
+    "kun_reading": [
+      "おお.い",
+      "まさ.に",
+      "まさ.る"
+    ],
+    "primary_word": "多い",
+    "primary_reading": "おおい",
+    "kun_examples": [
+      {
+        "word": "多い",
+        "reading": "おおい",
+        "meaning": "many"
+      },
+      {
+        "word": "大いに",
+        "reading": "おおいに",
+        "meaning": "very"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "多",
+        "reading": "タ",
+        "meaning": "multi-"
+      },
+      {
+        "word": "多角",
+        "reading": "タカク",
+        "meaning": "many-sided"
+      },
+      {
+        "word": "過多",
+        "reading": "カタ",
+        "meaning": "excess"
+      }
+    ],
+    "stroke_count": 6,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "考",
+    "meaning": [
+      "consider",
+      "think over"
+    ],
+    "primary_meaning": "consider",
+    "on_reading": [
+      "コウ"
+    ],
+    "kun_reading": [
+      "かんが.える",
+      "かんが.え"
+    ],
+    "primary_word": "考える",
+    "primary_reading": "かんがえる",
+    "kun_examples": [
+      {
+        "word": "考える",
+        "reading": "かんがえる",
+        "meaning": "to think (about"
+      },
+      {
+        "word": "考え",
+        "reading": "かんがえ",
+        "meaning": "thinking"
+      },
+      {
+        "word": "考え方",
+        "reading": "かんがえかた",
+        "meaning": "way of thinking"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "考",
+        "reading": "コウ",
+        "meaning": "thought"
+      },
+      {
+        "word": "考古学",
+        "reading": "コウコガク",
+        "meaning": "archaeology"
+      },
+      {
+        "word": "備考",
+        "reading": "ビコウ",
+        "meaning": "note (for reference)"
+      }
+    ],
+    "stroke_count": 6,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "肉",
+    "meaning": [
+      "meat"
+    ],
+    "primary_meaning": "meat",
+    "on_reading": [
+      "ニク"
+    ],
+    "kun_reading": [
+      "しし"
+    ],
+    "primary_word": "肉",
+    "primary_reading": "しし",
+    "kun_examples": [
+      {
+        "word": "肉",
+        "reading": "しし",
+        "meaning": "flesh (esp. of an animal)"
+      },
+      {
+        "word": "肉合い",
+        "reading": "ししあい",
+        "meaning": "fleshiness"
+      },
+      {
+        "word": "鹿",
+        "reading": "かのしし",
+        "meaning": "venison"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "肉",
+        "reading": "ニク",
+        "meaning": "flesh"
+      },
+      {
+        "word": "肉親",
+        "reading": "ニクシン",
+        "meaning": "blood relationship"
+      },
+      {
+        "word": "食肉",
+        "reading": "ショクニク",
+        "meaning": "meat (for consumption)"
+      }
+    ],
+    "stroke_count": 6,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "自",
+    "meaning": [
+      "oneself"
+    ],
+    "primary_meaning": "oneself",
+    "on_reading": [
+      "ジ",
+      "シ"
+    ],
+    "kun_reading": [
+      "みずか.ら",
+      "おの.ずから",
+      "おの.ずと"
+    ],
+    "primary_word": "自ら",
+    "primary_reading": "みずから",
+    "kun_examples": [
+      {
+        "word": "自ら",
+        "reading": "みずから",
+        "meaning": "oneself"
+      },
+      {
+        "word": "自ら進んで",
+        "reading": "みずからすすんで",
+        "meaning": "by choice"
+      },
+      {
+        "word": "自ずから",
+        "reading": "おのずから",
+        "meaning": "naturally"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "自",
+        "reading": "ジ",
+        "meaning": "self-"
+      },
+      {
+        "word": "自営",
+        "reading": "ジエイ",
+        "meaning": "running one's own business"
+      },
+      {
+        "word": "出自",
+        "reading": "シュツジ",
+        "meaning": "origin"
+      }
+    ],
+    "stroke_count": 6,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "色",
+    "meaning": [
+      "color"
+    ],
+    "primary_meaning": "color",
+    "on_reading": [
+      "ショク",
+      "シキ"
+    ],
+    "kun_reading": [
+      "いろ"
+    ],
+    "primary_word": "色",
+    "primary_reading": "いろ",
+    "kun_examples": [
+      {
+        "word": "色",
+        "reading": "いろ",
+        "meaning": "colour"
+      },
+      {
+        "word": "色合い",
+        "reading": "いろあい",
+        "meaning": "colouring"
+      },
+      {
+        "word": "紫色",
+        "reading": "むらさきいろ",
+        "meaning": "purple"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "色",
+        "reading": "ショク",
+        "meaning": "counter for colours"
+      },
+      {
+        "word": "紫色",
+        "reading": "ムラサキイロ",
+        "meaning": "purple"
+      },
+      {
+        "word": "彩色",
+        "reading": "サイシキ",
+        "meaning": "colouring"
+      }
+    ],
+    "stroke_count": 6,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "体",
+    "meaning": [
+      "body",
+      "substance",
+      "object",
+      "reality",
+      "counter for images"
+    ],
+    "primary_meaning": "body",
+    "on_reading": [
+      "タイ",
+      "テイ"
+    ],
+    "kun_reading": [
+      "からだ",
+      "かたち"
+    ],
+    "primary_word": "体",
+    "primary_reading": "からだ",
+    "kun_examples": [
+      {
+        "word": "体",
+        "reading": "からだ",
+        "meaning": "body"
+      },
+      {
+        "word": "体つき",
+        "reading": "からだつき",
+        "meaning": "body build"
+      },
+      {
+        "word": "お体",
+        "reading": "おからだ",
+        "meaning": "body"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "体",
+        "reading": "タイ",
+        "meaning": "body"
+      },
+      {
+        "word": "体育",
+        "reading": "タイイク",
+        "meaning": "physical education"
+      },
+      {
+        "word": "生体",
+        "reading": "セイタイ",
+        "meaning": "organism"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "作",
+    "meaning": [
+      "make",
+      "production",
+      "prepare",
+      "build"
+    ],
+    "primary_meaning": "make",
+    "on_reading": [
+      "サク",
+      "サ"
+    ],
+    "kun_reading": [
+      "つく.る",
+      "つく.り",
+      "-づく.り"
+    ],
+    "primary_word": "作る",
+    "primary_reading": "つくる",
+    "kun_examples": [
+      {
+        "word": "作る",
+        "reading": "つくる",
+        "meaning": "to make"
+      },
+      {
+        "word": "作り",
+        "reading": "つくり",
+        "meaning": "making"
+      },
+      {
+        "word": "作り上げる",
+        "reading": "つくりあげる",
+        "meaning": "to build up"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "作",
+        "reading": "サク",
+        "meaning": "work (e.g. of art)"
+      },
+      {
+        "word": "作柄",
+        "reading": "サクガラ",
+        "meaning": "crop (conditions)"
+      },
+      {
+        "word": "大作",
+        "reading": "タイサク",
+        "meaning": "large-scale work"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "図",
+    "meaning": [
+      "map",
+      "drawing",
+      "plan",
+      "extraordinary",
+      "audacious"
+    ],
+    "primary_meaning": "map",
+    "on_reading": [
+      "ズ",
+      "ト"
+    ],
+    "kun_reading": [
+      "え",
+      "はか.る"
+    ],
+    "primary_word": "図る",
+    "primary_reading": "はかる",
+    "kun_examples": [
+      {
+        "word": "図る",
+        "reading": "はかる",
+        "meaning": "to plan"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "図",
+        "reading": "ズ",
+        "meaning": "drawing"
+      },
+      {
+        "word": "図鑑",
+        "reading": "ズカン",
+        "meaning": "pictorial book"
+      },
+      {
+        "word": "一途",
+        "reading": "イチズ",
+        "meaning": "single-minded"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "弟",
+    "meaning": [
+      "younger brother",
+      "faithful service to elders"
+    ],
+    "primary_meaning": "younger brother",
+    "on_reading": [
+      "テイ",
+      "ダイ",
+      "デ"
+    ],
+    "kun_reading": [
+      "おとうと"
+    ],
+    "primary_word": "弟",
+    "primary_reading": "おとうと",
+    "kun_examples": [
+      {
+        "word": "弟",
+        "reading": "おとうと",
+        "meaning": "younger brother"
+      },
+      {
+        "word": "弟君",
+        "reading": "おとうとぎみ",
+        "meaning": "younger brother"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "弟",
+        "reading": "オトウト",
+        "meaning": "younger brother"
+      },
+      {
+        "word": "弟子",
+        "reading": "デシ",
+        "meaning": "pupil"
+      },
+      {
+        "word": "実弟",
+        "reading": "ジッテイ",
+        "meaning": "biological younger brother"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "社",
+    "meaning": [
+      "company",
+      "firm",
+      "office",
+      "association",
+      "shrine"
+    ],
+    "primary_meaning": "company",
+    "on_reading": [
+      "シャ"
+    ],
+    "kun_reading": [
+      "やしろ"
+    ],
+    "primary_word": "社",
+    "primary_reading": "やしろ",
+    "kun_examples": [
+      {
+        "word": "社",
+        "reading": "やしろ",
+        "meaning": "(Shinto) shrine"
+      },
+      {
+        "word": "大社",
+        "reading": "たいしゃ",
+        "meaning": "grand shrine"
+      },
+      {
+        "word": "村のお社",
+        "reading": "むらのおやしろ",
+        "meaning": "village shrine"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "社",
+        "reading": "シャ",
+        "meaning": "company"
+      },
+      {
+        "word": "社員",
+        "reading": "シャイン",
+        "meaning": "company employee"
+      },
+      {
+        "word": "大社",
+        "reading": "タイシャ",
+        "meaning": "grand shrine"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "言",
+    "meaning": [
+      "say",
+      "word"
+    ],
+    "primary_meaning": "say",
+    "on_reading": [
+      "ゲン",
+      "ゴン"
+    ],
+    "kun_reading": [
+      "い.う",
+      "こと"
+    ],
+    "primary_word": "言う",
+    "primary_reading": "いう",
+    "kun_examples": [
+      {
+        "word": "言う",
+        "reading": "いう",
+        "meaning": "to say"
+      },
+      {
+        "word": "言うまでもない",
+        "reading": "いうまでもない",
+        "meaning": "goes without saying"
+      },
+      {
+        "word": "言",
+        "reading": "げん",
+        "meaning": "word"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "言",
+        "reading": "ゲン",
+        "meaning": "word"
+      },
+      {
+        "word": "言及",
+        "reading": "ゲンキュウ",
+        "meaning": "reference"
+      },
+      {
+        "word": "過言",
+        "reading": "カゴン",
+        "meaning": "exaggeration"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "走",
+    "meaning": [
+      "run"
+    ],
+    "primary_meaning": "run",
+    "on_reading": [
+      "ソウ"
+    ],
+    "kun_reading": [
+      "はし.る"
+    ],
+    "primary_word": "走る",
+    "primary_reading": "はしる",
+    "kun_examples": [
+      {
+        "word": "走る",
+        "reading": "はしる",
+        "meaning": "to run"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "走",
+        "reading": "ソウ",
+        "meaning": "run"
+      },
+      {
+        "word": "走行",
+        "reading": "ソウコウ",
+        "meaning": "running (of a car"
+      },
+      {
+        "word": "代走",
+        "reading": "ダイソウ",
+        "meaning": "substitute runner"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "近",
+    "meaning": [
+      "near",
+      "early",
+      "akin",
+      "tantamount"
+    ],
+    "primary_meaning": "near",
+    "on_reading": [
+      "キン",
+      "コン"
+    ],
+    "kun_reading": [
+      "ちか.い"
+    ],
+    "primary_word": "近い",
+    "primary_reading": "ちかい",
+    "kun_examples": [
+      {
+        "word": "近い",
+        "reading": "ちかい",
+        "meaning": "near"
+      },
+      {
+        "word": "近いうちに",
+        "reading": "ちかいうちに",
+        "meaning": "soon"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "近畿",
+        "reading": "キンキ",
+        "meaning": "Kinki (region around Osaka"
+      },
+      {
+        "word": "近海",
+        "reading": "キンカイ",
+        "meaning": "coastal waters"
+      },
+      {
+        "word": "ごく最近",
+        "reading": "ゴクサイキン",
+        "meaning": "very recently"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "空",
+    "meaning": [
+      "empty",
+      "sky",
+      "void",
+      "vacant",
+      "vacuum"
+    ],
+    "primary_meaning": "empty",
+    "on_reading": [
+      "クウ"
+    ],
+    "kun_reading": [
+      "そら",
+      "あ.く",
+      "あ.き",
+      "あ.ける",
+      "から",
+      "す.く",
+      "す.かす",
+      "むな.しい"
+    ],
+    "primary_word": "空",
+    "primary_reading": "そら",
+    "kun_examples": [
+      {
+        "word": "空",
+        "reading": "そら",
+        "meaning": "sky"
+      },
+      {
+        "word": "空模様",
+        "reading": "そらもよう",
+        "meaning": "look of the sky"
+      },
+      {
+        "word": "定めなき空",
+        "reading": "さだめなきそら",
+        "meaning": "changeable weather"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "空",
+        "reading": "クウ",
+        "meaning": "empty air"
+      },
+      {
+        "word": "空域",
+        "reading": "クウイキ",
+        "meaning": "airspace"
+      },
+      {
+        "word": "領空",
+        "reading": "リョウクウ",
+        "meaning": "territorial airspace"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "青",
+    "meaning": [
+      "blue",
+      "green"
+    ],
+    "primary_meaning": "blue",
+    "on_reading": [
+      "セイ",
+      "ショウ"
+    ],
+    "kun_reading": [
+      "あお",
+      "あお-",
+      "あお.い"
+    ],
+    "primary_word": "青",
+    "primary_reading": "あお",
+    "kun_examples": [
+      {
+        "word": "青",
+        "reading": "あお",
+        "meaning": "blue"
+      },
+      {
+        "word": "青梅",
+        "reading": "あおうめ",
+        "meaning": "unripe plum"
+      },
+      {
+        "word": "プロシア青",
+        "reading": "プロシアあお",
+        "meaning": "Prussian blue"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "青果",
+        "reading": "セイカ",
+        "meaning": "fruits and vegetables"
+      },
+      {
+        "word": "青雲",
+        "reading": "セイウン",
+        "meaning": "blue sky"
+      },
+      {
+        "word": "回青",
+        "reading": "カイセイ",
+        "meaning": "Mohammedan blue (pigment used in porcelain painting)"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "音",
+    "meaning": [
+      "sound",
+      "noise"
+    ],
+    "primary_meaning": "sound",
+    "on_reading": [
+      "オン",
+      "イン",
+      "-ノン"
+    ],
+    "kun_reading": [
+      "おと",
+      "ね"
+    ],
+    "primary_word": "音",
+    "primary_reading": "おと",
+    "kun_examples": [
+      {
+        "word": "音",
+        "reading": "おと",
+        "meaning": "sound"
+      },
+      {
+        "word": "音孔",
+        "reading": "おとあな",
+        "meaning": "tone hole"
+      },
+      {
+        "word": "鈍い音",
+        "reading": "にぶいおと",
+        "meaning": "dull sound"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "音",
+        "reading": "オン",
+        "meaning": "sound"
+      },
+      {
+        "word": "音楽",
+        "reading": "オンガク",
+        "meaning": "music"
+      },
+      {
+        "word": "爆音",
+        "reading": "バクオン",
+        "meaning": "(sound of an) explosion or detonation"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "地",
+    "meaning": [
+      "ground",
+      "earth"
+    ],
+    "primary_meaning": "ground",
+    "on_reading": [
+      "チ",
+      "ジ"
+    ],
+    "kun_reading": null,
+    "primary_word": "地",
+    "primary_reading": "チ",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "地",
+        "reading": "チ",
+        "meaning": "earth"
+      },
+      {
+        "word": "地位",
+        "reading": "チイ",
+        "meaning": "(social) position"
+      },
+      {
+        "word": "奥地",
+        "reading": "オクチ",
+        "meaning": "interior"
+      }
+    ],
+    "stroke_count": 6,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "安",
+    "meaning": [
+      "relax",
+      "cheap",
+      "low",
+      "quiet",
+      "rested",
+      "contented",
+      "peaceful"
+    ],
+    "primary_meaning": "relax",
+    "on_reading": [
+      "アン"
+    ],
+    "kun_reading": [
+      "やす.い",
+      "やす.まる",
+      "やす",
+      "やす.らか"
+    ],
+    "primary_word": "安い",
+    "primary_reading": "やすい",
+    "kun_examples": [
+      {
+        "word": "安い",
+        "reading": "やすい",
+        "meaning": "cheap"
+      },
+      {
+        "word": "休まる",
+        "reading": "やすまる",
+        "meaning": "to be rested"
+      },
+      {
+        "word": "安",
+        "reading": "やす",
+        "meaning": "cheap"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "安価",
+        "reading": "アンカ",
+        "meaning": "low-priced"
+      },
+      {
+        "word": "安易",
+        "reading": "アンイ",
+        "meaning": "easy"
+      },
+      {
+        "word": "平安",
+        "reading": "ヘイアン",
+        "meaning": "peace"
+      }
+    ],
+    "stroke_count": 6,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "有",
+    "meaning": [
+      "possess",
+      "have",
+      "exist",
+      "happen",
+      "occur",
+      "approx"
+    ],
+    "primary_meaning": "possess",
+    "on_reading": [
+      "ユウ",
+      "ウ"
+    ],
+    "kun_reading": [
+      "あ.る"
+    ],
+    "primary_word": "有る",
+    "primary_reading": "ある",
+    "kun_examples": [
+      {
+        "word": "有る",
+        "reading": "ある",
+        "meaning": "to be"
+      },
+      {
+        "word": "ある限り",
+        "reading": "あるかぎり",
+        "meaning": "all (there is)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "有",
+        "reading": "ユウ",
+        "meaning": "existence"
+      },
+      {
+        "word": "有意義",
+        "reading": "ユウイギ",
+        "meaning": "significant"
+      },
+      {
+        "word": "領有",
+        "reading": "リョウユウ",
+        "meaning": "possession (esp. of a territory)"
+      }
+    ],
+    "stroke_count": 6,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "死",
+    "meaning": [
+      "death",
+      "die"
+    ],
+    "primary_meaning": "death",
+    "on_reading": [
+      "シ"
+    ],
+    "kun_reading": [
+      "し.ぬ",
+      "し.に-"
+    ],
+    "primary_word": "死ぬ",
+    "primary_reading": "しぬ",
+    "kun_examples": [
+      {
+        "word": "死ぬ",
+        "reading": "しぬ",
+        "meaning": "to die"
+      },
+      {
+        "word": "死ぬ気で",
+        "reading": "しぬきで",
+        "meaning": "all out"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "死",
+        "reading": "シ",
+        "meaning": "death"
+      },
+      {
+        "word": "死因",
+        "reading": "シイン",
+        "meaning": "cause of death"
+      },
+      {
+        "word": "安楽死",
+        "reading": "アンラクシ",
+        "meaning": "euthanasia"
+      }
+    ],
+    "stroke_count": 6,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "京",
+    "meaning": [
+      "capital",
+      "10**16"
+    ],
+    "primary_meaning": "capital",
+    "on_reading": [
+      "キョウ",
+      "ケイ",
+      "キン"
+    ],
+    "kun_reading": [
+      "みやこ"
+    ],
+    "primary_word": "都",
+    "primary_reading": "みやこ",
+    "kun_examples": [
+      {
+        "word": "都",
+        "reading": "みやこ",
+        "meaning": "capital (esp. Kyoto"
+      },
+      {
+        "word": "長岡京",
+        "reading": "ながおかきょう",
+        "meaning": "Nagaoka-kyō (capital of Japan 784-794)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "京",
+        "reading": "キョウ",
+        "meaning": "imperial capital (esp. Kyoto)"
+      },
+      {
+        "word": "京都",
+        "reading": "キョウト",
+        "meaning": "Kyoto (city"
+      },
+      {
+        "word": "中京",
+        "reading": "チュウキョウ",
+        "meaning": "Nagoya"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "夜",
+    "meaning": [
+      "night",
+      "evening"
+    ],
+    "primary_meaning": "night",
+    "on_reading": [
+      "ヤ"
+    ],
+    "kun_reading": [
+      "よ",
+      "よる"
+    ],
+    "primary_word": "夜",
+    "primary_reading": "よる",
+    "kun_examples": [
+      {
+        "word": "夜",
+        "reading": "よる",
+        "meaning": "night"
+      },
+      {
+        "word": "夜明け",
+        "reading": "よあけ",
+        "meaning": "dawn"
+      },
+      {
+        "word": "毎夜",
+        "reading": "まいよ",
+        "meaning": "every evening"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "夜",
+        "reading": "ヤ",
+        "meaning": "counter for nights"
+      },
+      {
+        "word": "夜間",
+        "reading": "ヤカン",
+        "meaning": "night"
+      },
+      {
+        "word": "同夜",
+        "reading": "ドウヤ",
+        "meaning": "the same night"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "妹",
+    "meaning": [
+      "younger sister"
+    ],
+    "primary_meaning": "younger sister",
+    "on_reading": [
+      "マイ"
+    ],
+    "kun_reading": [
+      "いもうと"
+    ],
+    "primary_word": "妹",
+    "primary_reading": "いもうと",
+    "kun_examples": [
+      {
+        "word": "妹",
+        "reading": "いもうと",
+        "meaning": "younger sister"
+      },
+      {
+        "word": "妹君",
+        "reading": "いもうとぎみ",
+        "meaning": "(younger) sister"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "妹君",
+        "reading": "イモウトギミ",
+        "meaning": "(younger) sister"
+      },
+      {
+        "word": "義妹",
+        "reading": "ギマイ",
+        "meaning": "sister-in-law (spouse's younger sister or younger brother's wife)"
+      },
+      {
+        "word": "弟妹",
+        "reading": "テイマイ",
+        "meaning": "younger brother and sister"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "姉",
+    "meaning": [
+      "elder sister"
+    ],
+    "primary_meaning": "elder sister",
+    "on_reading": [
+      "シ"
+    ],
+    "kun_reading": [
+      "あね",
+      "はは"
+    ],
+    "primary_word": "姉",
+    "primary_reading": "あね",
+    "kun_examples": [
+      {
+        "word": "姉",
+        "reading": "あね",
+        "meaning": "older sister"
+      },
+      {
+        "word": "姉さん",
+        "reading": "ねえさん",
+        "meaning": "older sister"
+      },
+      {
+        "word": "大姉",
+        "reading": "おおあね",
+        "meaning": "eldest sister"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "姉",
+        "reading": "シ",
+        "meaning": "honorific suffix used after the name of a woman of equal or higher status"
+      },
+      {
+        "word": "姉妹",
+        "reading": "シマイ",
+        "meaning": "sisters"
+      },
+      {
+        "word": "実姉",
+        "reading": "ジッシ",
+        "meaning": "biological older sister"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "店",
+    "meaning": [
+      "store",
+      "shop"
+    ],
+    "primary_meaning": "store",
+    "on_reading": [
+      "テン"
+    ],
+    "kun_reading": [
+      "みせ",
+      "たな"
+    ],
+    "primary_word": "店",
+    "primary_reading": "みせ",
+    "kun_examples": [
+      {
+        "word": "店",
+        "reading": "みせ",
+        "meaning": "store"
+      },
+      {
+        "word": "店先",
+        "reading": "みせさき",
+        "meaning": "storefront"
+      },
+      {
+        "word": "酒店",
+        "reading": "さかだな",
+        "meaning": "liquor store"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "店",
+        "reading": "テン",
+        "meaning": "store"
+      },
+      {
+        "word": "店員",
+        "reading": "テンイン",
+        "meaning": "employee (of a store)"
+      },
+      {
+        "word": "酒店",
+        "reading": "サカダナ",
+        "meaning": "liquor store"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "明",
+    "meaning": [
+      "bright",
+      "light"
+    ],
+    "primary_meaning": "bright",
+    "on_reading": [
+      "メイ",
+      "ミョウ",
+      "ミン"
+    ],
+    "kun_reading": [
+      "あ.かり",
+      "あか.るい",
+      "あか.るむ",
+      "あか.らむ",
+      "あき.らか",
+      "あ.ける",
+      "-あ.け",
+      "あ.く",
+      "あ.くる",
+      "あ.かす"
+    ],
+    "primary_word": "明かり",
+    "primary_reading": "あかり",
+    "kun_examples": [
+      {
+        "word": "明かり",
+        "reading": "あかり",
+        "meaning": "light"
+      },
+      {
+        "word": "明り先",
+        "reading": "あかりさき",
+        "meaning": "source of light"
+      },
+      {
+        "word": "軒明かり",
+        "reading": "のきあかり",
+        "meaning": "eaves lantern"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "明",
+        "reading": "メイ",
+        "meaning": "brightness"
+      },
+      {
+        "word": "明暗",
+        "reading": "メイアン",
+        "meaning": "light and darkness"
+      },
+      {
+        "word": "光明",
+        "reading": "コウミョウ",
+        "meaning": "bright light"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "歩",
+    "meaning": [
+      "walk",
+      "counter for steps"
+    ],
+    "primary_meaning": "walk",
+    "on_reading": [
+      "ホ",
+      "ブ",
+      "フ"
+    ],
+    "kun_reading": [
+      "ある.く",
+      "あゆ.む"
+    ],
+    "primary_word": "歩く",
+    "primary_reading": "あるく",
+    "kun_examples": [
+      {
+        "word": "歩く",
+        "reading": "あるく",
+        "meaning": "to walk"
+      },
+      {
+        "word": "歩む",
+        "reading": "あゆむ",
+        "meaning": "to walk"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "歩",
+        "reading": "ホ",
+        "meaning": "step"
+      },
+      {
+        "word": "歩行",
+        "reading": "ホコウ",
+        "meaning": "walking"
+      },
+      {
+        "word": "遊歩",
+        "reading": "ユウホ",
+        "meaning": "walk"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "画",
+    "meaning": [
+      "brush-stroke",
+      "picture"
+    ],
+    "primary_meaning": "brush-stroke",
+    "on_reading": [
+      "ガ",
+      "カク",
+      "エ",
+      "カイ"
+    ],
+    "kun_reading": [
+      "えが.く",
+      "かく.する",
+      "かぎ.る",
+      "はかりごと",
+      "はか.る"
+    ],
+    "primary_word": "描く",
+    "primary_reading": "えがく",
+    "kun_examples": [
+      {
+        "word": "描く",
+        "reading": "えがく",
+        "meaning": "to draw"
+      },
+      {
+        "word": "画する",
+        "reading": "かくする",
+        "meaning": "to draw (a line)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "絵",
+        "reading": "エ",
+        "meaning": "picture"
+      },
+      {
+        "word": "画家",
+        "reading": "ガカ",
+        "meaning": "painter"
+      },
+      {
+        "word": "洋画",
+        "reading": "ヨウガ",
+        "meaning": "Western painting"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "知",
+    "meaning": [
+      "know",
+      "wisdom"
+    ],
+    "primary_meaning": "know",
+    "on_reading": [
+      "チ"
+    ],
+    "kun_reading": [
+      "し.る",
+      "し.らせる"
+    ],
+    "primary_word": "知る",
+    "primary_reading": "しる",
+    "kun_examples": [
+      {
+        "word": "知る",
+        "reading": "しる",
+        "meaning": "to know"
+      },
+      {
+        "word": "知るか",
+        "reading": "しるか",
+        "meaning": "I don't care"
+      },
+      {
+        "word": "吾唯足知",
+        "reading": "われただたるをしる",
+        "meaning": "I am content with what I am (have)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "知",
+        "reading": "チ",
+        "meaning": "wisdom"
+      },
+      {
+        "word": "知恵",
+        "reading": "チエ",
+        "meaning": "wisdom"
+      },
+      {
+        "word": "認知",
+        "reading": "ニンチ",
+        "meaning": "acknowledgement"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "室",
+    "meaning": [
+      "room",
+      "apartment",
+      "chamber",
+      "greenhouse",
+      "cellar"
+    ],
+    "primary_meaning": "room",
+    "on_reading": [
+      "シツ"
+    ],
+    "kun_reading": [
+      "むろ"
+    ],
+    "primary_word": "室",
+    "primary_reading": "むろ",
+    "kun_examples": [
+      {
+        "word": "室",
+        "reading": "むろ",
+        "meaning": "greenhouse"
+      },
+      {
+        "word": "室町",
+        "reading": "むろまち",
+        "meaning": "Muromachi period (1336-1573)"
+      },
+      {
+        "word": "石室",
+        "reading": "せきしつ",
+        "meaning": "stone hut"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "室",
+        "reading": "シツ",
+        "meaning": "room"
+      },
+      {
+        "word": "室長",
+        "reading": "シツチョウ",
+        "meaning": "section chief"
+      },
+      {
+        "word": "同室",
+        "reading": "ドウシツ",
+        "meaning": "same room"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "思",
+    "meaning": [
+      "think"
+    ],
+    "primary_meaning": "think",
+    "on_reading": [
+      "シ"
+    ],
+    "kun_reading": [
+      "おも.う",
+      "おもえら.く",
+      "おぼ.す"
+    ],
+    "primary_word": "思う",
+    "primary_reading": "おもう",
+    "kun_examples": [
+      {
+        "word": "思う",
+        "reading": "おもう",
+        "meaning": "to think"
+      },
+      {
+        "word": "思う存分",
+        "reading": "おもうぞんぶん",
+        "meaning": "to one's heart's content"
+      },
+      {
+        "word": "思す",
+        "reading": "おぼす",
+        "meaning": "to think"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "思春期",
+        "reading": "シシュンキ",
+        "meaning": "puberty"
+      },
+      {
+        "word": "思考",
+        "reading": "シコウ",
+        "meaning": "thought"
+      },
+      {
+        "word": "相思",
+        "reading": "ソウシ",
+        "meaning": "mutual affection"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "海",
+    "meaning": [
+      "sea",
+      "ocean"
+    ],
+    "primary_meaning": "sea",
+    "on_reading": [
+      "カイ"
+    ],
+    "kun_reading": [
+      "うみ"
+    ],
+    "primary_word": "海",
+    "primary_reading": "うみ",
+    "kun_examples": [
+      {
+        "word": "海",
+        "reading": "うみ",
+        "meaning": "sea"
+      },
+      {
+        "word": "海辺",
+        "reading": "うみべ",
+        "meaning": "beach"
+      },
+      {
+        "word": "内海",
+        "reading": "ないかい",
+        "meaning": "inland sea"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "海運",
+        "reading": "カイウン",
+        "meaning": "maritime transport"
+      },
+      {
+        "word": "海域",
+        "reading": "カイイキ",
+        "meaning": "area of sea"
+      },
+      {
+        "word": "公海",
+        "reading": "コウカイ",
+        "meaning": "high seas"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "茶",
+    "meaning": [
+      "tea"
+    ],
+    "primary_meaning": "tea",
+    "on_reading": [
+      "チャ",
+      "サ"
+    ],
+    "kun_reading": null,
+    "primary_word": "茶",
+    "primary_reading": "チャ",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "茶",
+        "reading": "チャ",
+        "meaning": "tea"
+      },
+      {
+        "word": "茶色",
+        "reading": "チャイロ",
+        "meaning": "brown"
+      },
+      {
+        "word": "煎茶",
+        "reading": "センチャ",
+        "meaning": "green tea"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "以",
+    "meaning": [
+      "by means of",
+      "because",
+      "in view of",
+      "compared with"
+    ],
+    "primary_meaning": "by means of",
+    "on_reading": [
+      "イ"
+    ],
+    "kun_reading": [
+      "もっ.て"
+    ],
+    "primary_word": "以て",
+    "primary_reading": "もって",
+    "kun_examples": [
+      {
+        "word": "以て",
+        "reading": "もって",
+        "meaning": "with"
+      },
+      {
+        "word": "以ってしても",
+        "reading": "もってしても",
+        "meaning": "(not) even when using ..."
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "以降",
+        "reading": "イコウ",
+        "meaning": "on and after"
+      },
+      {
+        "word": "以下",
+        "reading": "イカ",
+        "meaning": "not exceeding ..."
+      },
+      {
+        "word": "縞曹以",
+        "reading": "シマソイ",
+        "meaning": "threestripe rockfish (Sebastes trivittatus)"
+      }
+    ],
+    "stroke_count": 5,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "夏",
+    "meaning": [
+      "summer"
+    ],
+    "primary_meaning": "summer",
+    "on_reading": [
+      "カ",
+      "ガ",
+      "ゲ"
+    ],
+    "kun_reading": [
+      "なつ"
+    ],
+    "primary_word": "夏",
+    "primary_reading": "なつ",
+    "kun_examples": [
+      {
+        "word": "夏",
+        "reading": "なつ",
+        "meaning": "summer"
+      },
+      {
+        "word": "夏季",
+        "reading": "かき",
+        "meaning": "summer season"
+      },
+      {
+        "word": "初夏",
+        "reading": "しょか",
+        "meaning": "early summer"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "夏",
+        "reading": "カ",
+        "meaning": "Xia dynasty (of China; ca. 2070-1600 BCE; possibly mythological)"
+      },
+      {
+        "word": "夏季",
+        "reading": "カキ",
+        "meaning": "summer season"
+      },
+      {
+        "word": "初夏",
+        "reading": "ショカ",
+        "meaning": "early summer"
+      }
+    ],
+    "stroke_count": 10,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "家",
+    "meaning": [
+      "house",
+      "home",
+      "family",
+      "professional",
+      "expert",
+      "performer"
+    ],
+    "primary_meaning": "house",
+    "on_reading": [
+      "カ",
+      "ケ"
+    ],
+    "kun_reading": [
+      "いえ",
+      "や",
+      "うち"
+    ],
+    "primary_word": "家",
+    "primary_reading": "いえ",
+    "kun_examples": [
+      {
+        "word": "家",
+        "reading": "いえ",
+        "meaning": "house"
+      },
+      {
+        "word": "家主",
+        "reading": "やぬし",
+        "meaning": "landlord"
+      },
+      {
+        "word": "小家",
+        "reading": "こいえ",
+        "meaning": "small and simple home"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "家",
+        "reading": "カ",
+        "meaning": "-ist"
+      },
+      {
+        "word": "家屋",
+        "reading": "カオク",
+        "meaning": "house"
+      },
+      {
+        "word": "研究家",
+        "reading": "ケンキュウカ",
+        "meaning": "researcher"
+      }
+    ],
+    "stroke_count": 10,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "紙",
+    "meaning": [
+      "paper"
+    ],
+    "primary_meaning": "paper",
+    "on_reading": [
+      "シ"
+    ],
+    "kun_reading": [
+      "かみ"
+    ],
+    "primary_word": "紙",
+    "primary_reading": "かみ",
+    "kun_examples": [
+      {
+        "word": "紙",
+        "reading": "かみ",
+        "meaning": "paper"
+      },
+      {
+        "word": "紙芝居",
+        "reading": "かみしばい",
+        "meaning": "kamishibai"
+      },
+      {
+        "word": "インディア紙",
+        "reading": "インディアかみ",
+        "meaning": "India paper"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "紙",
+        "reading": "シ",
+        "meaning": "newspaper"
+      },
+      {
+        "word": "紙上",
+        "reading": "シジョウ",
+        "meaning": "on paper"
+      },
+      {
+        "word": "原稿用紙",
+        "reading": "ゲンコウヨウシ",
+        "meaning": "Japanese writing paper (lined with a square grid"
+      }
+    ],
+    "stroke_count": 10,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "通",
+    "meaning": [
+      "traffic",
+      "pass through",
+      "avenue",
+      "commute",
+      "counter for letters",
+      "notes",
+      "documents",
+      "etc."
+    ],
+    "primary_meaning": "traffic",
+    "on_reading": [
+      "ツウ",
+      "ツ"
+    ],
+    "kun_reading": [
+      "とお.る",
+      "とお.り",
+      "-とお.り",
+      "-どお.り",
+      "とお.す",
+      "とお.し",
+      "-どお.し",
+      "かよ.う"
+    ],
+    "primary_word": "通る",
+    "primary_reading": "とおる",
+    "kun_examples": [
+      {
+        "word": "通る",
+        "reading": "とおる",
+        "meaning": "to go by"
+      },
+      {
+        "word": "通り",
+        "reading": "とおり",
+        "meaning": "street"
+      },
+      {
+        "word": "通り過ぎる",
+        "reading": "とおりすぎる",
+        "meaning": "to go past"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "通",
+        "reading": "ツウ",
+        "meaning": "authority"
+      },
+      {
+        "word": "通院",
+        "reading": "ツウイン",
+        "meaning": "going to the hospital for regular treatment"
+      },
+      {
+        "word": "富士通",
+        "reading": "フジツウ",
+        "meaning": "Fujitsu"
+      }
+    ],
+    "stroke_count": 10,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "強",
+    "meaning": [
+      "strong"
+    ],
+    "primary_meaning": "strong",
+    "on_reading": [
+      "キョウ",
+      "ゴウ"
+    ],
+    "kun_reading": [
+      "つよ.い",
+      "つよ.まる",
+      "つよ.める",
+      "し.いる",
+      "こわ.い"
+    ],
+    "primary_word": "強い",
+    "primary_reading": "つよい",
+    "kun_examples": [
+      {
+        "word": "強い",
+        "reading": "つよい",
+        "meaning": "strong"
+      },
+      {
+        "word": "強い雨",
+        "reading": "つよいあめ",
+        "meaning": "heavy rain (specifically 20-29 mm per hour in JMA use)"
+      },
+      {
+        "word": "強まる",
+        "reading": "つよまる",
+        "meaning": "to get strong"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "強",
+        "reading": "キョウ",
+        "meaning": "a little over"
+      },
+      {
+        "word": "強化",
+        "reading": "キョウカ",
+        "meaning": "strengthening"
+      },
+      {
+        "word": "列強",
+        "reading": "レッキョウ",
+        "meaning": "major powers of the world"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "教",
+    "meaning": [
+      "teach",
+      "faith",
+      "doctrine"
+    ],
+    "primary_meaning": "teach",
+    "on_reading": [
+      "キョウ"
+    ],
+    "kun_reading": [
+      "おし.える",
+      "おそ.わる"
+    ],
+    "primary_word": "教える",
+    "primary_reading": "おしえる",
+    "kun_examples": [
+      {
+        "word": "教える",
+        "reading": "おしえる",
+        "meaning": "to teach"
+      },
+      {
+        "word": "教わる",
+        "reading": "おそわる",
+        "meaning": "to be taught"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "教育委員会",
+        "reading": "キョウイクイインカイ",
+        "meaning": "Board of Education"
+      },
+      {
+        "word": "教育",
+        "reading": "キョウイク",
+        "meaning": "education"
+      },
+      {
+        "word": "政教",
+        "reading": "セイキョウ",
+        "meaning": "religion and politics"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "理",
+    "meaning": [
+      "logic",
+      "arrangement",
+      "reason",
+      "justice",
+      "truth"
+    ],
+    "primary_meaning": "logic",
+    "on_reading": [
+      "リ"
+    ],
+    "kun_reading": [
+      "ことわり"
+    ],
+    "primary_word": "理",
+    "primary_reading": "ことわり",
+    "kun_examples": [
+      {
+        "word": "理",
+        "reading": "ことわり",
+        "meaning": "reason"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "理",
+        "reading": "リ",
+        "meaning": "reason"
+      },
+      {
+        "word": "理科",
+        "reading": "リカ",
+        "meaning": "science (inc. mathematics"
+      },
+      {
+        "word": "合理",
+        "reading": "ゴウリ",
+        "meaning": "rationality"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "週",
+    "meaning": [
+      "week"
+    ],
+    "primary_meaning": "week",
+    "on_reading": [
+      "シュウ"
+    ],
+    "kun_reading": null,
+    "primary_word": "週",
+    "primary_reading": "シュウ",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "週",
+        "reading": "シュウ",
+        "meaning": "week"
+      },
+      {
+        "word": "週明け",
+        "reading": "シュウアケ",
+        "meaning": "beginning of next week (usu. Monday)"
+      },
+      {
+        "word": "前週",
+        "reading": "ゼンシュウ",
+        "meaning": "last week"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "魚",
+    "meaning": [
+      "fish"
+    ],
+    "primary_meaning": "fish",
+    "on_reading": [
+      "ギョ"
+    ],
+    "kun_reading": [
+      "うお",
+      "さかな",
+      "-ざかな"
+    ],
+    "primary_word": "魚",
+    "primary_reading": "さかな",
+    "kun_examples": [
+      {
+        "word": "魚",
+        "reading": "さかな",
+        "meaning": "fish"
+      },
+      {
+        "word": "魚市場",
+        "reading": "うおいちば",
+        "meaning": "fish market"
+      },
+      {
+        "word": "川魚",
+        "reading": "かわうお",
+        "meaning": "river fish"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "魚類",
+        "reading": "ギョルイ",
+        "meaning": "fish"
+      },
+      {
+        "word": "魚介類",
+        "reading": "ギョカイルイ",
+        "meaning": "marine products"
+      },
+      {
+        "word": "鮮魚",
+        "reading": "センギョ",
+        "meaning": "fresh fish"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "鳥",
+    "meaning": [
+      "bird",
+      "chicken"
+    ],
+    "primary_meaning": "bird",
+    "on_reading": [
+      "チョウ"
+    ],
+    "kun_reading": [
+      "とり"
+    ],
+    "primary_word": "鳥",
+    "primary_reading": "とり",
+    "kun_examples": [
+      {
+        "word": "鳥",
+        "reading": "とり",
+        "meaning": "bird"
+      },
+      {
+        "word": "鳥居",
+        "reading": "とりい",
+        "meaning": "torii (Shinto shrine archway)"
+      },
+      {
+        "word": "焼き鳥",
+        "reading": "やきとり",
+        "meaning": "yakitori"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "鶏肉",
+        "reading": "トリニク",
+        "meaning": "chicken meat"
+      },
+      {
+        "word": "鳥獣",
+        "reading": "チョウジュウ",
+        "meaning": "birds and wild animals"
+      },
+      {
+        "word": "海鳥",
+        "reading": "ウミドリ",
+        "meaning": "sea bird"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "黒",
+    "meaning": [
+      "black"
+    ],
+    "primary_meaning": "black",
+    "on_reading": [
+      "コク"
+    ],
+    "kun_reading": [
+      "くろ",
+      "くろ.ずむ",
+      "くろ.い"
+    ],
+    "primary_word": "黒",
+    "primary_reading": "くろ",
+    "kun_examples": [
+      {
+        "word": "黒",
+        "reading": "くろ",
+        "meaning": "black"
+      },
+      {
+        "word": "黒い",
+        "reading": "くろい",
+        "meaning": "black"
+      },
+      {
+        "word": "黒ずむ",
+        "reading": "くろずむ",
+        "meaning": "to blacken"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "黒煙",
+        "reading": "コクエン",
+        "meaning": "black smoke"
+      },
+      {
+        "word": "黒衣",
+        "reading": "コクイ",
+        "meaning": "black clothes"
+      },
+      {
+        "word": "大黒",
+        "reading": "ダイコク",
+        "meaning": "god of wealth"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "住",
+    "meaning": [
+      "dwell",
+      "reside",
+      "live",
+      "inhabit"
+    ],
+    "primary_meaning": "dwell",
+    "on_reading": [
+      "ジュウ",
+      "ヂュウ",
+      "チュウ"
+    ],
+    "kun_reading": [
+      "す.む",
+      "す.まう",
+      "-ず.まい"
+    ],
+    "primary_word": "住む",
+    "primary_reading": "すむ",
+    "kun_examples": [
+      {
+        "word": "住む",
+        "reading": "すむ",
+        "meaning": "to live (of humans)"
+      },
+      {
+        "word": "住まう",
+        "reading": "すまう",
+        "meaning": "to live"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "住",
+        "reading": "ジュウ",
+        "meaning": "dwelling"
+      },
+      {
+        "word": "住居",
+        "reading": "ジュウキョ",
+        "meaning": "dwelling"
+      },
+      {
+        "word": "先住",
+        "reading": "センジュウ",
+        "meaning": "original inhabitant"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "医",
+    "meaning": [
+      "doctor",
+      "medicine"
+    ],
+    "primary_meaning": "doctor",
+    "on_reading": [
+      "イ"
+    ],
+    "kun_reading": [
+      "い.やす",
+      "い.する",
+      "くすし"
+    ],
+    "primary_word": "医する",
+    "primary_reading": "いする",
+    "kun_examples": [
+      {
+        "word": "医する",
+        "reading": "いする",
+        "meaning": "to cure"
+      },
+      {
+        "word": "薬師",
+        "reading": "くすし",
+        "meaning": "doctor"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "医",
+        "reading": "イ",
+        "meaning": "medicine"
+      },
+      {
+        "word": "医院",
+        "reading": "イイン",
+        "meaning": "doctor's office"
+      },
+      {
+        "word": "軍医",
+        "reading": "グンイ",
+        "meaning": "military physician or surgeon"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "究",
+    "meaning": [
+      "research",
+      "study"
+    ],
+    "primary_meaning": "research",
+    "on_reading": [
+      "キュウ",
+      "ク"
+    ],
+    "kun_reading": [
+      "きわ.める"
+    ],
+    "primary_word": "究める",
+    "primary_reading": "きわめる",
+    "kun_examples": [
+      {
+        "word": "究める",
+        "reading": "きわめる",
+        "meaning": "to investigate thoroughly"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "究明",
+        "reading": "キュウメイ",
+        "meaning": "investigation (esp. in academic and scientific contexts)"
+      },
+      {
+        "word": "究極",
+        "reading": "キュウキョク",
+        "meaning": "ultimate"
+      },
+      {
+        "word": "最新研究",
+        "reading": "サイシンケンキュウ",
+        "meaning": "the newest research"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "者",
+    "meaning": [
+      "someone",
+      "person"
+    ],
+    "primary_meaning": "someone",
+    "on_reading": [
+      "シャ"
+    ],
+    "kun_reading": [
+      "もの"
+    ],
+    "primary_word": "者",
+    "primary_reading": "もの",
+    "kun_examples": [
+      {
+        "word": "者",
+        "reading": "もの",
+        "meaning": "person"
+      },
+      {
+        "word": "者ども",
+        "reading": "ものども",
+        "meaning": "you"
+      },
+      {
+        "word": "弱き者",
+        "reading": "よわきもの",
+        "meaning": "weak person"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "者",
+        "reading": "シャ",
+        "meaning": "person"
+      },
+      {
+        "word": "芸者",
+        "reading": "ゲイシャ",
+        "meaning": "geisha"
+      },
+      {
+        "word": "加害者",
+        "reading": "カガイシャ",
+        "meaning": "perpetrator"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "研",
+    "meaning": [
+      "polish",
+      "study of",
+      "sharpen"
+    ],
+    "primary_meaning": "polish",
+    "on_reading": [
+      "ケン"
+    ],
+    "kun_reading": [
+      "と.ぐ"
+    ],
+    "primary_word": "研ぐ",
+    "primary_reading": "とぐ",
+    "kun_examples": [
+      {
+        "word": "研ぐ",
+        "reading": "とぐ",
+        "meaning": "to sharpen"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "研究員",
+        "reading": "ケンキュウイン",
+        "meaning": "researcher"
+      },
+      {
+        "word": "研究",
+        "reading": "ケンキュウ",
+        "meaning": "research"
+      },
+      {
+        "word": "予研",
+        "reading": "ヨケン",
+        "meaning": "National Institute of Health"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "場",
+    "meaning": [
+      "location",
+      "place"
+    ],
+    "primary_meaning": "location",
+    "on_reading": [
+      "ジョウ",
+      "チョウ"
+    ],
+    "kun_reading": [
+      "ば"
+    ],
+    "primary_word": "場",
+    "primary_reading": "ば",
+    "kun_examples": [
+      {
+        "word": "場",
+        "reading": "ば",
+        "meaning": "place"
+      },
+      {
+        "word": "場合",
+        "reading": "ばあい",
+        "meaning": "case"
+      },
+      {
+        "word": "木場",
+        "reading": "きば",
+        "meaning": "lumberyard"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "場",
+        "reading": "ジョウ",
+        "meaning": "place"
+      },
+      {
+        "word": "場外",
+        "reading": "ジョウガイ",
+        "meaning": "outside the hall (or stadium"
+      },
+      {
+        "word": "斎場",
+        "reading": "サイジョウ",
+        "meaning": "funeral hall"
+      }
+    ],
+    "stroke_count": 12,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "朝",
+    "meaning": [
+      "morning",
+      "dynasty",
+      "regime",
+      "epoch",
+      "period",
+      "(North) Korea"
+    ],
+    "primary_meaning": "morning",
+    "on_reading": [
+      "チョウ"
+    ],
+    "kun_reading": [
+      "あさ"
+    ],
+    "primary_word": "朝",
+    "primary_reading": "あさ",
+    "kun_examples": [
+      {
+        "word": "朝",
+        "reading": "あさ",
+        "meaning": "morning"
+      },
+      {
+        "word": "朝方",
+        "reading": "あさがた",
+        "meaning": "early morning"
+      },
+      {
+        "word": "後の朝",
+        "reading": "のちのあした",
+        "meaning": "the morning after (having slept together)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "朝",
+        "reading": "チョウ",
+        "meaning": "dynasty"
+      },
+      {
+        "word": "朝刊",
+        "reading": "チョウカン",
+        "meaning": "morning newspaper"
+      },
+      {
+        "word": "本朝",
+        "reading": "ホンチョウ",
+        "meaning": "this land"
+      }
+    ],
+    "stroke_count": 12,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "答",
+    "meaning": [
+      "solution",
+      "answer"
+    ],
+    "primary_meaning": "solution",
+    "on_reading": [
+      "トウ"
+    ],
+    "kun_reading": [
+      "こた.える",
+      "こた.え"
+    ],
+    "primary_word": "答える",
+    "primary_reading": "こたえる",
+    "kun_examples": [
+      {
+        "word": "答える",
+        "reading": "こたえる",
+        "meaning": "to answer"
+      },
+      {
+        "word": "答え",
+        "reading": "こたえ",
+        "meaning": "answer"
+      },
+      {
+        "word": "答える",
+        "reading": "こたえる",
+        "meaning": "to answer"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "答申",
+        "reading": "トウシン",
+        "meaning": "report"
+      },
+      {
+        "word": "答案",
+        "reading": "トウアン",
+        "meaning": "examination paper"
+      },
+      {
+        "word": "贈答",
+        "reading": "ゾウトウ",
+        "meaning": "exchange of presents"
+      }
+    ],
+    "stroke_count": 12,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "買",
+    "meaning": [
+      "buy"
+    ],
+    "primary_meaning": "buy",
+    "on_reading": [
+      "バイ"
+    ],
+    "kun_reading": [
+      "か.う"
+    ],
+    "primary_word": "買う",
+    "primary_reading": "かう",
+    "kun_examples": [
+      {
+        "word": "買う",
+        "reading": "かう",
+        "meaning": "to buy"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "買収",
+        "reading": "バイシュウ",
+        "meaning": "acquisition (esp. corporate)"
+      },
+      {
+        "word": "買収計画",
+        "reading": "バイシュウケイカク",
+        "meaning": "purchasing plan"
+      },
+      {
+        "word": "不買",
+        "reading": "フバイ",
+        "meaning": "not buying"
+      }
+    ],
+    "stroke_count": 12,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "道",
+    "meaning": [
+      "road-way",
+      "street",
+      "district",
+      "journey",
+      "course",
+      "moral",
+      "teachings"
+    ],
+    "primary_meaning": "road-way",
+    "on_reading": [
+      "ドウ",
+      "トウ"
+    ],
+    "kun_reading": [
+      "みち",
+      "いう"
+    ],
+    "primary_word": "道",
+    "primary_reading": "みち",
+    "kun_examples": [
+      {
+        "word": "道",
+        "reading": "みち",
+        "meaning": "road"
+      },
+      {
+        "word": "道筋",
+        "reading": "みちすじ",
+        "meaning": "path"
+      },
+      {
+        "word": "花道",
+        "reading": "はなみち",
+        "meaning": "elevated walkway through the audience to the stage"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "道",
+        "reading": "ドウ",
+        "meaning": "road"
+      },
+      {
+        "word": "道義",
+        "reading": "ドウギ",
+        "meaning": "morality"
+      },
+      {
+        "word": "正道",
+        "reading": "セイドウ",
+        "meaning": "path of righteousness"
+      }
+    ],
+    "stroke_count": 12,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "楽",
+    "meaning": [
+      "music",
+      "comfort",
+      "ease"
+    ],
+    "primary_meaning": "music",
+    "on_reading": [
+      "ガク",
+      "ラク",
+      "ゴウ"
+    ],
+    "kun_reading": [
+      "たの.しい",
+      "たの.しむ",
+      "この.む"
+    ],
+    "primary_word": "楽しい",
+    "primary_reading": "たのしい",
+    "kun_examples": [
+      {
+        "word": "楽しい",
+        "reading": "たのしい",
+        "meaning": "enjoyable"
+      },
+      {
+        "word": "楽しい思い出",
+        "reading": "たのしいおもいで",
+        "meaning": "happy memory"
+      },
+      {
+        "word": "楽しむ",
+        "reading": "たのしむ",
+        "meaning": "to enjoy"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "楽",
+        "reading": "ガク",
+        "meaning": "music"
+      },
+      {
+        "word": "楽章",
+        "reading": "ガクショウ",
+        "meaning": "movement"
+      },
+      {
+        "word": "邦楽",
+        "reading": "ホウガク",
+        "meaning": "Japanese music (esp. traditional Japanese music)"
+      }
+    ],
+    "stroke_count": 13,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "事",
+    "meaning": [
+      "matter",
+      "thing",
+      "fact",
+      "business",
+      "reason",
+      "possibly"
+    ],
+    "primary_meaning": "matter",
+    "on_reading": [
+      "ジ",
+      "ズ"
+    ],
+    "kun_reading": [
+      "こと",
+      "つか.う",
+      "つか.える"
+    ],
+    "primary_word": "事",
+    "primary_reading": "こと",
+    "kun_examples": [
+      {
+        "word": "事",
+        "reading": "こと",
+        "meaning": "thing"
+      },
+      {
+        "word": "事柄",
+        "reading": "ことがら",
+        "meaning": "matter"
+      },
+      {
+        "word": "神事",
+        "reading": "しんじ",
+        "meaning": "Shinto ritual"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "事",
+        "reading": "ジ",
+        "meaning": "individual concrete phenomenon (as opposed to a general principle)"
+      },
+      {
+        "word": "事業",
+        "reading": "ジギョウ",
+        "meaning": "business"
+      },
+      {
+        "word": "商事",
+        "reading": "ショウジ",
+        "meaning": "commercial affairs"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "使",
+    "meaning": [
+      "use",
+      "send on a mission",
+      "order",
+      "messenger",
+      "envoy",
+      "ambassador",
+      "cause"
+    ],
+    "primary_meaning": "use",
+    "on_reading": [
+      "シ"
+    ],
+    "kun_reading": [
+      "つか.う",
+      "つか.い",
+      "-つか.い",
+      "-づか.い"
+    ],
+    "primary_word": "使う",
+    "primary_reading": "つかう",
+    "kun_examples": [
+      {
+        "word": "使う",
+        "reading": "つかう",
+        "meaning": "to use (a tool"
+      },
+      {
+        "word": "使い",
+        "reading": "つかい",
+        "meaning": "errand"
+      },
+      {
+        "word": "使い方",
+        "reading": "つかいかた",
+        "meaning": "way of using (something)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "使",
+        "reading": "シ",
+        "meaning": "messenger"
+      },
+      {
+        "word": "使者",
+        "reading": "シシャ",
+        "meaning": "messenger"
+      },
+      {
+        "word": "特使",
+        "reading": "トクシ",
+        "meaning": "special envoy"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "始",
+    "meaning": [
+      "commence",
+      "begin"
+    ],
+    "primary_meaning": "commence",
+    "on_reading": [
+      "シ"
+    ],
+    "kun_reading": [
+      "はじ.める",
+      "-はじ.める",
+      "はじ.まる"
+    ],
+    "primary_word": "始める",
+    "primary_reading": "はじめる",
+    "kun_examples": [
+      {
+        "word": "始める",
+        "reading": "はじめる",
+        "meaning": "to start"
+      },
+      {
+        "word": "始まる",
+        "reading": "はじまる",
+        "meaning": "to begin"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "始発",
+        "reading": "シハツ",
+        "meaning": "first departure (of the day)"
+      },
+      {
+        "word": "始業",
+        "reading": "シギョウ",
+        "meaning": "start of work"
+      },
+      {
+        "word": "年始",
+        "reading": "ネンシ",
+        "meaning": "beginning of the year"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "服",
+    "meaning": [
+      "clothing",
+      "admit",
+      "obey",
+      "discharge"
+    ],
+    "primary_meaning": "clothing",
+    "on_reading": [
+      "フク"
+    ],
+    "kun_reading": null,
+    "primary_word": "服",
+    "primary_reading": "フク",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "服",
+        "reading": "フク",
+        "meaning": "clothes (esp. Western clothes)"
+      },
+      {
+        "word": "服役",
+        "reading": "フクエキ",
+        "meaning": "penal servitude"
+      },
+      {
+        "word": "私服",
+        "reading": "シフク",
+        "meaning": "ordinary clothes (i.e. non-uniform)"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "物",
+    "meaning": [
+      "thing",
+      "object",
+      "matter"
+    ],
+    "primary_meaning": "thing",
+    "on_reading": [
+      "ブツ",
+      "モツ"
+    ],
+    "kun_reading": [
+      "もの",
+      "もの-"
+    ],
+    "primary_word": "物",
+    "primary_reading": "もの",
+    "kun_examples": [
+      {
+        "word": "物",
+        "reading": "もの",
+        "meaning": "thing"
+      },
+      {
+        "word": "物言い",
+        "reading": "ものいい",
+        "meaning": "manner of speaking"
+      },
+      {
+        "word": "先物",
+        "reading": "さきもの",
+        "meaning": "futures"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "物",
+        "reading": "ブツ",
+        "meaning": "stock"
+      },
+      {
+        "word": "物議",
+        "reading": "ブツギ",
+        "meaning": "public discussion"
+      },
+      {
+        "word": "異物",
+        "reading": "イブツ",
+        "meaning": "foreign substance"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "屋",
+    "meaning": [
+      "roof",
+      "house",
+      "shop",
+      "dealer",
+      "seller"
+    ],
+    "primary_meaning": "roof",
+    "on_reading": [
+      "オク"
+    ],
+    "kun_reading": [
+      "や"
+    ],
+    "primary_word": "屋",
+    "primary_reading": "や",
+    "kun_examples": [
+      {
+        "word": "屋",
+        "reading": "や",
+        "meaning": "shop"
+      },
+      {
+        "word": "屋敷",
+        "reading": "やしき",
+        "meaning": "residence"
+      },
+      {
+        "word": "居酒屋",
+        "reading": "いざかや",
+        "meaning": "izakaya"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "屋",
+        "reading": "オク",
+        "meaning": "house"
+      },
+      {
+        "word": "屋外",
+        "reading": "オクガイ",
+        "meaning": "outdoors"
+      },
+      {
+        "word": "草屋",
+        "reading": "ソウオク",
+        "meaning": "thatched hut"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "度",
+    "meaning": [
+      "degrees",
+      "occurrence",
+      "time",
+      "counter for occurrences",
+      "consider",
+      "attitude"
+    ],
+    "primary_meaning": "degrees",
+    "on_reading": [
+      "ド",
+      "ト",
+      "タク"
+    ],
+    "kun_reading": [
+      "たび",
+      "-た.い"
+    ],
+    "primary_word": "度",
+    "primary_reading": "たび",
+    "kun_examples": [
+      {
+        "word": "度",
+        "reading": "たび",
+        "meaning": "time (three times"
+      },
+      {
+        "word": "度数",
+        "reading": "どすう",
+        "meaning": "frequency"
+      },
+      {
+        "word": "中度",
+        "reading": "なかたび",
+        "meaning": "midway (through)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "度",
+        "reading": "ド",
+        "meaning": "degree (angle"
+      },
+      {
+        "word": "",
+        "reading": "ド",
+        "meaning": "extreme"
+      },
+      {
+        "word": "重度",
+        "reading": "ジュウド",
+        "meaning": "severe (illness"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "待",
+    "meaning": [
+      "wait",
+      "depend on"
+    ],
+    "primary_meaning": "wait",
+    "on_reading": [
+      "タイ"
+    ],
+    "kun_reading": [
+      "ま.つ",
+      "-ま.ち"
+    ],
+    "primary_word": "待つ",
+    "primary_reading": "まつ",
+    "kun_examples": [
+      {
+        "word": "待つ",
+        "reading": "まつ",
+        "meaning": "to wait"
+      },
+      {
+        "word": "待つ身は長い",
+        "reading": "まつみはながい",
+        "meaning": "a watched pot never boils"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "待遇",
+        "reading": "タイグウ",
+        "meaning": "treatment"
+      },
+      {
+        "word": "待機",
+        "reading": "タイキ",
+        "meaning": "standing by"
+      },
+      {
+        "word": "歓待",
+        "reading": "カンタイ",
+        "meaning": "warm welcome"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "持",
+    "meaning": [
+      "hold",
+      "have"
+    ],
+    "primary_meaning": "hold",
+    "on_reading": [
+      "ジ"
+    ],
+    "kun_reading": [
+      "も.つ",
+      "-も.ち",
+      "も.てる"
+    ],
+    "primary_word": "持つ",
+    "primary_reading": "もつ",
+    "kun_examples": [
+      {
+        "word": "持つ",
+        "reading": "もつ",
+        "meaning": "to hold (in one's hand)"
+      },
+      {
+        "word": "持子",
+        "reading": "もつご",
+        "meaning": "stone moroko (Pseudorasbora parva)"
+      },
+      {
+        "word": "持てる",
+        "reading": "もてる",
+        "meaning": "to be able to possess (hold"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "持",
+        "reading": "ジ",
+        "meaning": "draw (in go"
+      },
+      {
+        "word": "持久",
+        "reading": "ジキュウ",
+        "meaning": "endurance"
+      },
+      {
+        "word": "堅持",
+        "reading": "ケンジ",
+        "meaning": "holding on to"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "界",
+    "meaning": [
+      "world",
+      "boundary"
+    ],
+    "primary_meaning": "world",
+    "on_reading": [
+      "カイ"
+    ],
+    "kun_reading": null,
+    "primary_word": "界",
+    "primary_reading": "カイ",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "界",
+        "reading": "カイ",
+        "meaning": "community"
+      },
+      {
+        "word": "界隈",
+        "reading": "カイワイ",
+        "meaning": "neighborhood"
+      },
+      {
+        "word": "球界",
+        "reading": "キュウカイ",
+        "meaning": "the baseball world"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "発",
+    "meaning": [
+      "departure",
+      "discharge",
+      "publish",
+      "emit",
+      "start from",
+      "disclose",
+      "counter for gunshots"
+    ],
+    "primary_meaning": "departure",
+    "on_reading": [
+      "ハツ",
+      "ホツ"
+    ],
+    "kun_reading": [
+      "た.つ",
+      "あば.く",
+      "おこ.る",
+      "つか.わす",
+      "はな.つ"
+    ],
+    "primary_word": "発つ",
+    "primary_reading": "たつ",
+    "kun_examples": [
+      {
+        "word": "発つ",
+        "reading": "たつ",
+        "meaning": "to depart (on a journey"
+      },
+      {
+        "word": "立つ鳥跡を濁さず",
+        "reading": "たつとりあとをにごさず",
+        "meaning": "it is simply common courtesy to clean up after yourself"
+      },
+      {
+        "word": "暴く",
+        "reading": "あばく",
+        "meaning": "to disclose"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "発",
+        "reading": "ハツ",
+        "meaning": "departure"
+      },
+      {
+        "word": "発",
+        "reading": "ハツ",
+        "meaning": "green dragon tile"
+      },
+      {
+        "word": "偶発",
+        "reading": "グウハツ",
+        "meaning": "sudden outbreak"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "送",
+    "meaning": [
+      "escort",
+      "send"
+    ],
+    "primary_meaning": "escort",
+    "on_reading": [
+      "ソウ"
+    ],
+    "kun_reading": [
+      "おく.る"
+    ],
+    "primary_word": "送る",
+    "primary_reading": "おくる",
+    "kun_examples": [
+      {
+        "word": "送る",
+        "reading": "おくる",
+        "meaning": "to send"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "送球",
+        "reading": "ソウキュウ",
+        "meaning": "throw"
+      },
+      {
+        "word": "送還",
+        "reading": "ソウカン",
+        "meaning": "sending home"
+      },
+      {
+        "word": "葬送",
+        "reading": "ソウソウ",
+        "meaning": "attending a funeral procession"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "重",
+    "meaning": [
+      "heavy",
+      "important",
+      "esteem",
+      "respect",
+      "heap up",
+      "pile up",
+      "nest of boxes",
+      "-fold"
+    ],
+    "primary_meaning": "heavy",
+    "on_reading": [
+      "ジュウ",
+      "チョウ"
+    ],
+    "kun_reading": [
+      "え",
+      "おも.い",
+      "おも.り",
+      "おも.なう",
+      "かさ.ねる",
+      "かさ.なる",
+      "おも"
+    ],
+    "primary_word": "重",
+    "primary_reading": "え",
+    "kun_examples": [
+      {
+        "word": "重",
+        "reading": "え",
+        "meaning": "-fold"
+      },
+      {
+        "word": "八重",
+        "reading": "やえ",
+        "meaning": "multilayered"
+      },
+      {
+        "word": "九重",
+        "reading": "ここのえ",
+        "meaning": "ninefold"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "重",
+        "reading": "ジュウ",
+        "meaning": "jūbako"
+      },
+      {
+        "word": "重圧",
+        "reading": "ジュウアツ",
+        "meaning": "strong pressure"
+      },
+      {
+        "word": "九重",
+        "reading": "ココノエ",
+        "meaning": "ninefold"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "起",
+    "meaning": [
+      "rouse",
+      "wake up",
+      "get up"
+    ],
+    "primary_meaning": "rouse",
+    "on_reading": [
+      "キ"
+    ],
+    "kun_reading": [
+      "お.きる",
+      "お.こる",
+      "お.こす",
+      "おこ.す",
+      "た.つ"
+    ],
+    "primary_word": "起きる",
+    "primary_reading": "おきる",
+    "kun_examples": [
+      {
+        "word": "起きる",
+        "reading": "おきる",
+        "meaning": "to get up"
+      },
+      {
+        "word": "起こる",
+        "reading": "おこる",
+        "meaning": "to occur"
+      },
+      {
+        "word": "起こす",
+        "reading": "おこす",
+        "meaning": "to raise"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "起源",
+        "reading": "キゲン",
+        "meaning": "origin"
+      },
+      {
+        "word": "起因",
+        "reading": "キイン",
+        "meaning": "to be caused by"
+      },
+      {
+        "word": "突起",
+        "reading": "トッキ",
+        "meaning": "protuberance"
+      }
+    ],
+    "stroke_count": 10,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "院",
+    "meaning": [
+      "Inst.",
+      "institution",
+      "temple",
+      "mansion",
+      "school"
+    ],
+    "primary_meaning": "Inst.",
+    "on_reading": [
+      "イン"
+    ],
+    "kun_reading": null,
+    "primary_word": "院",
+    "primary_reading": "イン",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "院",
+        "reading": "イン",
+        "meaning": "house of parliament (congress"
+      },
+      {
+        "word": "院長",
+        "reading": "インチョウ",
+        "meaning": "director (of a hospital"
+      },
+      {
+        "word": "議院",
+        "reading": "ギイン",
+        "meaning": "parliament"
+      }
+    ],
+    "stroke_count": 10,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "終",
+    "meaning": [
+      "end",
+      "finish"
+    ],
+    "primary_meaning": "end",
+    "on_reading": [
+      "シュウ"
+    ],
+    "kun_reading": [
+      "お.わる",
+      "-お.わる",
+      "おわ.る",
+      "お.える",
+      "つい",
+      "つい.に"
+    ],
+    "primary_word": "終わる",
+    "primary_reading": "おわる",
+    "kun_examples": [
+      {
+        "word": "終わる",
+        "reading": "おわる",
+        "meaning": "to end"
+      },
+      {
+        "word": "終わる",
+        "reading": "おわる",
+        "meaning": "to end"
+      },
+      {
+        "word": "終える",
+        "reading": "おえる",
+        "meaning": "to finish"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "終局",
+        "reading": "シュウキョク",
+        "meaning": "end"
+      },
+      {
+        "word": "終焉",
+        "reading": "シュウエン",
+        "meaning": "end (of life)"
+      },
+      {
+        "word": "有終",
+        "reading": "ユウシュウ",
+        "meaning": "carrying out to the end"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "習",
+    "meaning": [
+      "learn"
+    ],
+    "primary_meaning": "learn",
+    "on_reading": [
+      "シュウ",
+      "ジュ"
+    ],
+    "kun_reading": [
+      "なら.う",
+      "なら.い"
+    ],
+    "primary_word": "習う",
+    "primary_reading": "ならう",
+    "kun_examples": [
+      {
+        "word": "習う",
+        "reading": "ならう",
+        "meaning": "to take lessons in"
+      },
+      {
+        "word": "習うより慣れろ",
+        "reading": "ならうよりなれろ",
+        "meaning": "experience is the best teacher"
+      },
+      {
+        "word": "習い",
+        "reading": "ならい",
+        "meaning": "as is habit"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "習性",
+        "reading": "シュウセイ",
+        "meaning": "habit"
+      },
+      {
+        "word": "習慣",
+        "reading": "シュウカン",
+        "meaning": "habit"
+      },
+      {
+        "word": "演習",
+        "reading": "エンシュウ",
+        "meaning": "practice"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "転",
+    "meaning": [
+      "revolve",
+      "turn around",
+      "change"
+    ],
+    "primary_meaning": "revolve",
+    "on_reading": [
+      "テン"
+    ],
+    "kun_reading": [
+      "ころ.がる",
+      "ころ.げる",
+      "ころ.がす",
+      "ころ.ぶ",
+      "まろ.ぶ",
+      "うたた",
+      "うつ.る",
+      "くる.めく"
+    ],
+    "primary_word": "転がる",
+    "primary_reading": "ころがる",
+    "kun_examples": [
+      {
+        "word": "転がる",
+        "reading": "ころがる",
+        "meaning": "to roll"
+      },
+      {
+        "word": "転がる石には苔は付かない",
+        "reading": "ころがるいしにはこけはつかない",
+        "meaning": "a rolling stone gathers no moss"
+      },
+      {
+        "word": "転げる",
+        "reading": "ころげる",
+        "meaning": "to roll over"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "転",
+        "reading": "テン",
+        "meaning": "change in pronunciation or meaning of a word"
+      },
+      {
+        "word": "転移",
+        "reading": "テンイ",
+        "meaning": "moving (location"
+      },
+      {
+        "word": "不退転",
+        "reading": "フタイテン",
+        "meaning": "determination"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "運",
+    "meaning": [
+      "carry",
+      "luck",
+      "destiny",
+      "fate",
+      "lot",
+      "transport",
+      "progress",
+      "advance"
+    ],
+    "primary_meaning": "carry",
+    "on_reading": [
+      "ウン"
+    ],
+    "kun_reading": [
+      "はこ.ぶ"
+    ],
+    "primary_word": "運ぶ",
+    "primary_reading": "はこぶ",
+    "kun_examples": [
+      {
+        "word": "運ぶ",
+        "reading": "はこぶ",
+        "meaning": "to carry"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "運",
+        "reading": "ウン",
+        "meaning": "fortune"
+      },
+      {
+        "word": "運営",
+        "reading": "ウンエイ",
+        "meaning": "management"
+      },
+      {
+        "word": "機運",
+        "reading": "キウン",
+        "meaning": "opportunity"
+      }
+    ],
+    "stroke_count": 12,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "開",
+    "meaning": [
+      "open",
+      "unfold",
+      "unseal"
+    ],
+    "primary_meaning": "open",
+    "on_reading": [
+      "カイ"
+    ],
+    "kun_reading": [
+      "ひら.く",
+      "ひら.き",
+      "-びら.き",
+      "ひら.ける",
+      "あ.く",
+      "あ.ける"
+    ],
+    "primary_word": "開く",
+    "primary_reading": "ひらく",
+    "kun_examples": [
+      {
+        "word": "開く",
+        "reading": "ひらく",
+        "meaning": "to open"
+      },
+      {
+        "word": "開き",
+        "reading": "ひらき",
+        "meaning": "opening"
+      },
+      {
+        "word": "開き直る",
+        "reading": "ひらきなおる",
+        "meaning": "to become defiant"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "開花",
+        "reading": "カイカ",
+        "meaning": "flowering"
+      },
+      {
+        "word": "開演",
+        "reading": "カイエン",
+        "meaning": "curtain raising"
+      },
+      {
+        "word": "疎開",
+        "reading": "ソカイ",
+        "meaning": "evacuation (to the country)"
+      }
+    ],
+    "stroke_count": 12,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "集",
+    "meaning": [
+      "gather",
+      "meet",
+      "congregate",
+      "swarm",
+      "flock"
+    ],
+    "primary_meaning": "gather",
+    "on_reading": [
+      "シュウ"
+    ],
+    "kun_reading": [
+      "あつ.まる",
+      "あつ.める",
+      "つど.う"
+    ],
+    "primary_word": "集まる",
+    "primary_reading": "あつまる",
+    "kun_examples": [
+      {
+        "word": "集まる",
+        "reading": "あつまる",
+        "meaning": "to gather"
+      },
+      {
+        "word": "集める",
+        "reading": "あつめる",
+        "meaning": "to collect"
+      },
+      {
+        "word": "集う",
+        "reading": "つどう",
+        "meaning": "to meet"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "集",
+        "reading": "シュウ",
+        "meaning": "collection"
+      },
+      {
+        "word": "集荷",
+        "reading": "シュウカ",
+        "meaning": "collection of cargo (esp. produce"
+      },
+      {
+        "word": "句集",
+        "reading": "クシュウ",
+        "meaning": "collection of haiku poems"
+      }
+    ],
+    "stroke_count": 12,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "飲",
+    "meaning": [
+      "drink",
+      "smoke",
+      "take"
+    ],
+    "primary_meaning": "drink",
+    "on_reading": [
+      "イン",
+      "オン"
+    ],
+    "kun_reading": [
+      "の.む",
+      "-の.み"
+    ],
+    "primary_word": "飲む",
+    "primary_reading": "のむ",
+    "kun_examples": [
+      {
+        "word": "飲む",
+        "reading": "のむ",
+        "meaning": "to drink"
+      },
+      {
+        "word": "飲む打つ買う",
+        "reading": "のむうつかう",
+        "meaning": "drinking"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "飲",
+        "reading": "イン",
+        "meaning": "drinking (sometimes esp. alcohol)"
+      },
+      {
+        "word": "飲酒",
+        "reading": "インシュ",
+        "meaning": "drinking alcohol"
+      },
+      {
+        "word": "暴飲",
+        "reading": "ボウイン",
+        "meaning": "heavy drinking"
+      }
+    ],
+    "stroke_count": 12,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "業",
+    "meaning": [
+      "business",
+      "vocation",
+      "arts",
+      "performance"
+    ],
+    "primary_meaning": "business",
+    "on_reading": [
+      "ギョウ",
+      "ゴウ"
+    ],
+    "kun_reading": [
+      "わざ"
+    ],
+    "primary_word": "業",
+    "primary_reading": "わざ",
+    "kun_examples": [
+      {
+        "word": "業",
+        "reading": "わざ",
+        "meaning": "deed"
+      },
+      {
+        "word": "業師",
+        "reading": "わざし",
+        "meaning": "tricky wrestler"
+      },
+      {
+        "word": "寝技",
+        "reading": "ねわざ",
+        "meaning": "pinning technique (in wrestling or judo)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "業",
+        "reading": "ギョウ",
+        "meaning": "work"
+      },
+      {
+        "word": "業界",
+        "reading": "ギョウカイ",
+        "meaning": "business world"
+      },
+      {
+        "word": "興業",
+        "reading": "コウギョウ",
+        "meaning": "promotion of industry"
+      }
+    ],
+    "stroke_count": 13,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "漢",
+    "meaning": [
+      "Sino-",
+      "China"
+    ],
+    "primary_meaning": "Sino-",
+    "on_reading": [
+      "カン"
+    ],
+    "kun_reading": null,
+    "primary_word": "漢",
+    "primary_reading": "カン",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "漢",
+        "reading": "カン",
+        "meaning": "China"
+      },
+      {
+        "word": "漢字",
+        "reading": "カンジ",
+        "meaning": "kanji"
+      },
+      {
+        "word": "巨漢",
+        "reading": "キョカン",
+        "meaning": "giant"
+      }
+    ],
+    "stroke_count": 13,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "歌",
+    "meaning": [
+      "song",
+      "sing"
+    ],
+    "primary_meaning": "song",
+    "on_reading": [
+      "カ"
+    ],
+    "kun_reading": [
+      "うた",
+      "うた.う"
+    ],
+    "primary_word": "歌",
+    "primary_reading": "うた",
+    "kun_examples": [
+      {
+        "word": "歌",
+        "reading": "うた",
+        "meaning": "song"
+      },
+      {
+        "word": "歌合",
+        "reading": "うたあわせ",
+        "meaning": "poetry contest"
+      },
+      {
+        "word": "短歌",
+        "reading": "たんか",
+        "meaning": "tanka"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "歌劇",
+        "reading": "カゲキ",
+        "meaning": "opera"
+      },
+      {
+        "word": "歌曲",
+        "reading": "カキョク",
+        "meaning": "melody"
+      },
+      {
+        "word": "演歌",
+        "reading": "エンカ",
+        "meaning": "enka"
+      }
+    ],
+    "stroke_count": 14,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "親",
+    "meaning": [
+      "parent",
+      "intimacy",
+      "relative",
+      "familiarity",
+      "dealer (cards)"
+    ],
+    "primary_meaning": "parent",
+    "on_reading": [
+      "シン"
+    ],
+    "kun_reading": [
+      "おや",
+      "おや-",
+      "した.しい",
+      "した.しむ"
+    ],
+    "primary_word": "親",
+    "primary_reading": "おや",
+    "kun_examples": [
+      {
+        "word": "親",
+        "reading": "おや",
+        "meaning": "parent"
+      },
+      {
+        "word": "親方",
+        "reading": "おやかた",
+        "meaning": "master"
+      },
+      {
+        "word": "生みの親",
+        "reading": "うみのおや",
+        "meaning": "biological parent"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "親",
+        "reading": "シン",
+        "meaning": "intimacy"
+      },
+      {
+        "word": "親衛",
+        "reading": "シンエイ",
+        "meaning": "monarch's guards"
+      },
+      {
+        "word": "懇親",
+        "reading": "コンシン",
+        "meaning": "friendship"
+      }
+    ],
+    "stroke_count": 16,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "病",
+    "meaning": [
+      "ill",
+      "sick"
+    ],
+    "primary_meaning": "ill",
+    "on_reading": [
+      "ビョウ",
+      "ヘイ"
+    ],
+    "kun_reading": [
+      "や.む",
+      "-や.み",
+      "やまい"
+    ],
+    "primary_word": "病む",
+    "primary_reading": "やむ",
+    "kun_examples": [
+      {
+        "word": "病む",
+        "reading": "やむ",
+        "meaning": "to fall ill"
+      },
+      {
+        "word": "病",
+        "reading": "やまい",
+        "meaning": "illness"
+      },
+      {
+        "word": "病が篤い",
+        "reading": "やまいがあつい",
+        "meaning": "seriously ill"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "病",
+        "reading": "ビョウ",
+        "meaning": "disease"
+      },
+      {
+        "word": "病院",
+        "reading": "ビョウイン",
+        "meaning": "hospital"
+      },
+      {
+        "word": "血友病",
+        "reading": "ケツユウビョウ",
+        "meaning": "hemophilia"
+      }
+    ],
+    "stroke_count": 10,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "別",
+    "meaning": [
+      "separate",
+      "branch off",
+      "diverge",
+      "fork",
+      "another",
+      "extra",
+      "specially"
+    ],
+    "primary_meaning": "separate",
+    "on_reading": [
+      "ベツ"
+    ],
+    "kun_reading": [
+      "わか.れる",
+      "わ.ける"
+    ],
+    "primary_word": "別れる",
+    "primary_reading": "わかれる",
+    "kun_examples": [
+      {
+        "word": "別れる",
+        "reading": "わかれる",
+        "meaning": "to part (usu. of people)"
+      },
+      {
+        "word": "分ける",
+        "reading": "わける",
+        "meaning": "to divide (into)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "別",
+        "reading": "ベツ",
+        "meaning": "distinction"
+      },
+      {
+        "word": "別院",
+        "reading": "ベツイン",
+        "meaning": "branch temple"
+      },
+      {
+        "word": "無差別",
+        "reading": "ムサベツ",
+        "meaning": "indiscrimination"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "注",
+    "meaning": [
+      "pour",
+      "irrigate",
+      "shed (tears)",
+      "flow into",
+      "concentrate on",
+      "notes",
+      "comment",
+      "annotate"
+    ],
+    "primary_meaning": "pour",
+    "on_reading": [
+      "チュウ"
+    ],
+    "kun_reading": [
+      "そそ.ぐ",
+      "さ.す",
+      "つ.ぐ"
+    ],
+    "primary_word": "注ぐ",
+    "primary_reading": "そそぐ",
+    "kun_examples": [
+      {
+        "word": "注ぐ",
+        "reading": "そそぐ",
+        "meaning": "to pour (into)"
+      },
+      {
+        "word": "注す",
+        "reading": "さす",
+        "meaning": "to pour"
+      },
+      {
+        "word": "注ぐ",
+        "reading": "つぐ",
+        "meaning": "to pour (into a vessel)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "注",
+        "reading": "チュウ",
+        "meaning": "annotation"
+      },
+      {
+        "word": "注意",
+        "reading": "チュウイ",
+        "meaning": "attention"
+      },
+      {
+        "word": "受注",
+        "reading": "ジュチュウ",
+        "meaning": "accepting an order"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "洋",
+    "meaning": [
+      "ocean",
+      "sea",
+      "foreign",
+      "Western style"
+    ],
+    "primary_meaning": "ocean",
+    "on_reading": [
+      "ヨウ"
+    ],
+    "kun_reading": null,
+    "primary_word": "洋",
+    "primary_reading": "ヨウ",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "洋",
+        "reading": "ヨウ",
+        "meaning": "Occident and Orient (esp. the Occident)"
+      },
+      {
+        "word": "洋画",
+        "reading": "ヨウガ",
+        "meaning": "Western painting"
+      },
+      {
+        "word": "南氷洋",
+        "reading": "ナンヒョウヨウ",
+        "meaning": "Antarctic Ocean"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "特",
+    "meaning": [
+      "special"
+    ],
+    "primary_meaning": "special",
+    "on_reading": [
+      "トク"
+    ],
+    "kun_reading": null,
+    "primary_word": "特産",
+    "primary_reading": "トクサン",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "特産",
+        "reading": "トクサン",
+        "meaning": "being produced in a particular region"
+      },
+      {
+        "word": "特異",
+        "reading": "トクイ",
+        "meaning": "unique"
+      },
+      {
+        "word": "快特",
+        "reading": "カイトク",
+        "meaning": "rapid express (train service)"
+      }
+    ],
+    "stroke_count": 10,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "意",
+    "meaning": [
+      "idea",
+      "mind",
+      "heart",
+      "taste",
+      "thought",
+      "desire",
+      "care",
+      "liking"
+    ],
+    "primary_meaning": "idea",
+    "on_reading": [
+      "イ"
+    ],
+    "kun_reading": null,
+    "primary_word": "意",
+    "primary_reading": "イ",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "意",
+        "reading": "イ",
+        "meaning": "feelings"
+      },
+      {
+        "word": "意外",
+        "reading": "イガイ",
+        "meaning": "unexpected"
+      },
+      {
+        "word": "賛意",
+        "reading": "サンイ",
+        "meaning": "approval"
+      }
+    ],
+    "stroke_count": 13,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "味",
+    "meaning": [
+      "flavor",
+      "taste"
+    ],
+    "primary_meaning": "flavor",
+    "on_reading": [
+      "ミ"
+    ],
+    "kun_reading": [
+      "あじ",
+      "あじ.わう"
+    ],
+    "primary_word": "味",
+    "primary_reading": "あじ",
+    "kun_examples": [
+      {
+        "word": "味",
+        "reading": "あじ",
+        "meaning": "flavor"
+      },
+      {
+        "word": "味付け",
+        "reading": "あじつけ",
+        "meaning": "seasoning"
+      },
+      {
+        "word": "切れ味",
+        "reading": "きれあじ",
+        "meaning": "sharpness"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "味",
+        "reading": "ミ",
+        "meaning": "(sense of) taste"
+      },
+      {
+        "word": "",
+        "reading": "ミ",
+        "meaning": "-ness (as in \"sweetness\")"
+      },
+      {
+        "word": "厚み",
+        "reading": "アツミ",
+        "meaning": "thickness"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "勉",
+    "meaning": [
+      "exertion",
+      "endeavour",
+      "encourage",
+      "strive",
+      "make effort",
+      "diligent"
+    ],
+    "primary_meaning": "exertion",
+    "on_reading": [
+      "ベン"
+    ],
+    "kun_reading": [
+      "つと.める"
+    ],
+    "primary_word": "努める",
+    "primary_reading": "つとめる",
+    "kun_examples": [
+      {
+        "word": "努める",
+        "reading": "つとめる",
+        "meaning": "to endeavor (to do)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "勉強",
+        "reading": "ベンキョウ",
+        "meaning": "study"
+      },
+      {
+        "word": "勉学",
+        "reading": "ベンガク",
+        "meaning": "study"
+      },
+      {
+        "word": "猛勉",
+        "reading": "モウベン",
+        "meaning": "studying hard"
+      }
+    ],
+    "stroke_count": 10,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "旅",
+    "meaning": [
+      "trip",
+      "travel"
+    ],
+    "primary_meaning": "trip",
+    "on_reading": [
+      "リョ"
+    ],
+    "kun_reading": [
+      "たび"
+    ],
+    "primary_word": "旅",
+    "primary_reading": "たび",
+    "kun_examples": [
+      {
+        "word": "旅",
+        "reading": "たび",
+        "meaning": "travel"
+      },
+      {
+        "word": "旅先",
+        "reading": "たびさき",
+        "meaning": "destination"
+      },
+      {
+        "word": "あてなき旅",
+        "reading": "あてなきたび",
+        "meaning": "journey without a destination"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "旅",
+        "reading": "リョ",
+        "meaning": "500-man battalion (Zhou dynasty Chinese army)"
+      },
+      {
+        "word": "旅客",
+        "reading": "リョカク",
+        "meaning": "passenger"
+      },
+      {
+        "word": "行旅",
+        "reading": "コウリョ",
+        "meaning": "traveling"
+      }
+    ],
+    "stroke_count": 10,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "員",
+    "meaning": [
+      "employee",
+      "member",
+      "number",
+      "the one in charge"
+    ],
+    "primary_meaning": "employee",
+    "on_reading": [
+      "イン"
+    ],
+    "kun_reading": null,
+    "primary_word": "員",
+    "primary_reading": "イン",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "員",
+        "reading": "イン",
+        "meaning": "member"
+      },
+      {
+        "word": "員数",
+        "reading": "インズウ",
+        "meaning": "(total) number (of people or things)"
+      },
+      {
+        "word": "随員",
+        "reading": "ズイイン",
+        "meaning": "member of an entourage or retinue or party"
+      }
+    ],
+    "stroke_count": 10,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "動",
+    "meaning": [
+      "move",
+      "motion",
+      "change",
+      "confusion",
+      "shift",
+      "shake"
+    ],
+    "primary_meaning": "move",
+    "on_reading": [
+      "ドウ"
+    ],
+    "kun_reading": [
+      "うご.く",
+      "うご.かす"
+    ],
+    "primary_word": "動く",
+    "primary_reading": "うごく",
+    "kun_examples": [
+      {
+        "word": "動く",
+        "reading": "うごく",
+        "meaning": "to move"
+      },
+      {
+        "word": "動く歩道",
+        "reading": "うごくほどう",
+        "meaning": "moving walkway"
+      },
+      {
+        "word": "動かす",
+        "reading": "うごかす",
+        "meaning": "to move"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "動",
+        "reading": "ドウ",
+        "meaning": "motion"
+      },
+      {
+        "word": "動員",
+        "reading": "ドウイン",
+        "meaning": "mobilization"
+      },
+      {
+        "word": "人事異動",
+        "reading": "ジンジイドウ",
+        "meaning": "personnel change"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "悪",
+    "meaning": [
+      "bad",
+      "vice",
+      "rascal",
+      "false",
+      "evil",
+      "wrong"
+    ],
+    "primary_meaning": "bad",
+    "on_reading": [
+      "アク",
+      "オ"
+    ],
+    "kun_reading": [
+      "わる.い",
+      "わる-",
+      "あ.し",
+      "にく.い",
+      "-にく.い",
+      "ああ",
+      "いずくに",
+      "いずくんぞ",
+      "にく.む"
+    ],
+    "primary_word": "悪い",
+    "primary_reading": "わるい",
+    "kun_examples": [
+      {
+        "word": "悪い",
+        "reading": "わるい",
+        "meaning": "bad"
+      },
+      {
+        "word": "悪い行い",
+        "reading": "わるいおこない",
+        "meaning": "bad deed"
+      },
+      {
+        "word": "悪し",
+        "reading": "あし",
+        "meaning": "bad"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "悪",
+        "reading": "アク",
+        "meaning": "evil"
+      },
+      {
+        "word": "悪質",
+        "reading": "アクシツ",
+        "meaning": "malicious"
+      },
+      {
+        "word": "害悪",
+        "reading": "ガイアク",
+        "meaning": "harm"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "族",
+    "meaning": [
+      "tribe",
+      "family"
+    ],
+    "primary_meaning": "tribe",
+    "on_reading": [
+      "ゾク"
+    ],
+    "kun_reading": null,
+    "primary_word": "族",
+    "primary_reading": "ゾク",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "族",
+        "reading": "ゾク",
+        "meaning": "tribe"
+      },
+      {
+        "word": "族長",
+        "reading": "ゾクチョウ",
+        "meaning": "patriarch"
+      },
+      {
+        "word": "皇族",
+        "reading": "コウゾク",
+        "meaning": "imperial family"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "着",
+    "meaning": [
+      "don",
+      "arrive",
+      "wear",
+      "counter for suits of clothing"
+    ],
+    "primary_meaning": "don",
+    "on_reading": [
+      "チャク",
+      "ジャク"
+    ],
+    "kun_reading": [
+      "き.る",
+      "き.せる",
+      "つ.く",
+      "つ.ける"
+    ],
+    "primary_word": "着る",
+    "primary_reading": "きる",
+    "kun_examples": [
+      {
+        "word": "着る",
+        "reading": "きる",
+        "meaning": "to wear (from the shoulders down)"
+      },
+      {
+        "word": "着類",
+        "reading": "きるい",
+        "meaning": "clothing"
+      },
+      {
+        "word": "着せる",
+        "reading": "きせる",
+        "meaning": "to put clothes on (someone)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "着",
+        "reading": "チャク",
+        "meaning": "arrival"
+      },
+      {
+        "word": "着衣",
+        "reading": "チャクイ",
+        "meaning": "clothes (that one is wearing)"
+      },
+      {
+        "word": "決着",
+        "reading": "ケッチャク",
+        "meaning": "conclusion"
+      }
+    ],
+    "stroke_count": 12,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "野",
+    "meaning": [
+      "plains",
+      "field",
+      "rustic",
+      "civilian life"
+    ],
+    "primary_meaning": "plains",
+    "on_reading": [
+      "ヤ",
+      "ショ"
+    ],
+    "kun_reading": [
+      "の",
+      "の-"
+    ],
+    "primary_word": "野",
+    "primary_reading": "の",
+    "kun_examples": [
+      {
+        "word": "野",
+        "reading": "の",
+        "meaning": "plain"
+      },
+      {
+        "word": "野末",
+        "reading": "のずえ",
+        "meaning": "corners of a field"
+      },
+      {
+        "word": "裾野",
+        "reading": "すその",
+        "meaning": "foot of a mountain"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "野",
+        "reading": "ノ",
+        "meaning": "plain"
+      },
+      {
+        "word": "野外",
+        "reading": "ヤガイ",
+        "meaning": "outdoors"
+      },
+      {
+        "word": "内野",
+        "reading": "ナイヤ",
+        "meaning": "infield"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "風",
+    "meaning": [
+      "wind",
+      "air",
+      "style",
+      "manner"
+    ],
+    "primary_meaning": "wind",
+    "on_reading": [
+      "フウ",
+      "フ"
+    ],
+    "kun_reading": [
+      "かぜ",
+      "かざ-"
+    ],
+    "primary_word": "風",
+    "primary_reading": "かぜ",
+    "kun_examples": [
+      {
+        "word": "風",
+        "reading": "かぜ",
+        "meaning": "wind"
+      },
+      {
+        "word": "風邪",
+        "reading": "かぜ",
+        "meaning": "(common) cold"
+      },
+      {
+        "word": "涼風",
+        "reading": "りょうふう",
+        "meaning": "cool breeze"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "風",
+        "reading": "フウ",
+        "meaning": "method"
+      },
+      {
+        "word": "風格",
+        "reading": "フウカク",
+        "meaning": "personality"
+      },
+      {
+        "word": "逆風",
+        "reading": "ギャクフウ",
+        "meaning": "headwind"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "新",
+    "meaning": [
+      "new"
+    ],
+    "primary_meaning": "new",
+    "on_reading": [
+      "シン"
+    ],
+    "kun_reading": [
+      "あたら.しい",
+      "あら.た",
+      "あら-",
+      "にい-"
+    ],
+    "primary_word": "新しい",
+    "primary_reading": "あたらしい",
+    "kun_examples": [
+      {
+        "word": "新しい",
+        "reading": "あたらしい",
+        "meaning": "new"
+      },
+      {
+        "word": "新しい女",
+        "reading": "あたらしいおんな",
+        "meaning": "liberated woman"
+      },
+      {
+        "word": "新た",
+        "reading": "あらた",
+        "meaning": "new"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "新",
+        "reading": "シン",
+        "meaning": "new"
+      },
+      {
+        "word": "新鋭",
+        "reading": "シンエイ",
+        "meaning": "young and energetic"
+      },
+      {
+        "word": "維新",
+        "reading": "イシン",
+        "meaning": "reformation"
+      }
+    ],
+    "stroke_count": 13,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "問",
+    "meaning": [
+      "question",
+      "ask",
+      "problem"
+    ],
+    "primary_meaning": "question",
+    "on_reading": [
+      "モン"
+    ],
+    "kun_reading": [
+      "と.う",
+      "と.い",
+      "とん"
+    ],
+    "primary_word": "問う",
+    "primary_reading": "とう",
+    "kun_examples": [
+      {
+        "word": "問う",
+        "reading": "とう",
+        "meaning": "to ask"
+      },
+      {
+        "word": "問うに落ちず語るに落ちる",
+        "reading": "とうにおちずかたるにおちる",
+        "meaning": "to keep a secret when asked about it"
+      },
+      {
+        "word": "問い",
+        "reading": "とい",
+        "meaning": "question"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "問",
+        "reading": "モン",
+        "meaning": "counter for questions"
+      },
+      {
+        "word": "問責",
+        "reading": "モンセキ",
+        "meaning": "blame"
+      },
+      {
+        "word": "設問",
+        "reading": "セツモン",
+        "meaning": "posing a question"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "銀",
+    "meaning": [
+      "silver"
+    ],
+    "primary_meaning": "silver",
+    "on_reading": [
+      "ギン"
+    ],
+    "kun_reading": [
+      "しろがね"
+    ],
+    "primary_word": "銀",
+    "primary_reading": "しろがね",
+    "kun_examples": [
+      {
+        "word": "銀",
+        "reading": "しろがね",
+        "meaning": "silver"
+      },
+      {
+        "word": "銀鯵",
+        "reading": "しろがねあじ",
+        "meaning": "lookdown (Selene vomer)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "銀",
+        "reading": "ギン",
+        "meaning": "silver (Ag)"
+      },
+      {
+        "word": "銀色",
+        "reading": "ギンイロ",
+        "meaning": "silver (color"
+      },
+      {
+        "word": "世銀",
+        "reading": "セギン",
+        "meaning": "World Bank"
+      }
+    ],
+    "stroke_count": 14,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "題",
+    "meaning": [
+      "topic",
+      "subject"
+    ],
+    "primary_meaning": "topic",
+    "on_reading": [
+      "ダイ"
+    ],
+    "kun_reading": null,
+    "primary_word": "題",
+    "primary_reading": "ダイ",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "題",
+        "reading": "ダイ",
+        "meaning": "title"
+      },
+      {
+        "word": "題材",
+        "reading": "ダイザイ",
+        "meaning": "subject"
+      },
+      {
+        "word": "表題",
+        "reading": "ヒョウダイ",
+        "meaning": "title"
+      }
+    ],
+    "stroke_count": 18,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "館",
+    "meaning": [
+      "building",
+      "mansion",
+      "large building",
+      "palace"
+    ],
+    "primary_meaning": "building",
+    "on_reading": [
+      "カン"
+    ],
+    "kun_reading": [
+      "やかた",
+      "たて"
+    ],
+    "primary_word": "館",
+    "primary_reading": "やかた",
+    "kun_examples": [
+      {
+        "word": "館",
+        "reading": "やかた",
+        "meaning": "mansion"
+      },
+      {
+        "word": "夏館",
+        "reading": "なつやかた",
+        "meaning": "villa arranged appropriately for summer"
+      },
+      {
+        "word": "恐怖の館",
+        "reading": "きょうふのやかた",
+        "meaning": "house of horrors"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "館",
+        "reading": "カン",
+        "meaning": "(large) building"
+      },
+      {
+        "word": "館長",
+        "reading": "カンチョウ",
+        "meaning": "superintendent"
+      },
+      {
+        "word": "在外公館",
+        "reading": "ザイガイコウカン",
+        "meaning": "diplomatic mission"
+      }
+    ],
+    "stroke_count": 16,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "駅",
+    "meaning": [
+      "station"
+    ],
+    "primary_meaning": "station",
+    "on_reading": [
+      "エキ"
+    ],
+    "kun_reading": null,
+    "primary_word": "駅",
+    "primary_reading": "エキ",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "駅",
+        "reading": "エキ",
+        "meaning": "railway station"
+      },
+      {
+        "word": "駅員",
+        "reading": "エキイン",
+        "meaning": "(train) station attendant"
+      },
+      {
+        "word": "宿駅",
+        "reading": "シュクエキ",
+        "meaning": "relay station"
+      }
+    ],
+    "stroke_count": 14,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "料",
+    "meaning": [
+      "fee",
+      "materials"
+    ],
+    "primary_meaning": "fee",
+    "on_reading": [
+      "リョウ"
+    ],
+    "kun_reading": null,
+    "primary_word": "料",
+    "primary_reading": "リョウ",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "料",
+        "reading": "リョウ",
+        "meaning": "fee"
+      },
+      {
+        "word": "料金",
+        "reading": "リョウキン",
+        "meaning": "fee"
+      },
+      {
+        "word": "史料",
+        "reading": "シリョウ",
+        "meaning": "historical materials"
+      }
+    ],
+    "stroke_count": 10,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "映",
+    "meaning": [
+      "reflect",
+      "reflection",
+      "projection"
+    ],
+    "primary_meaning": "reflect",
+    "on_reading": [
+      "エイ"
+    ],
+    "kun_reading": [
+      "うつ.る",
+      "うつ.す",
+      "は.える",
+      "-ば.え"
+    ],
+    "primary_word": "映る",
+    "primary_reading": "うつる",
+    "kun_examples": [
+      {
+        "word": "映る",
+        "reading": "うつる",
+        "meaning": "to be reflected"
+      },
+      {
+        "word": "映す",
+        "reading": "うつす",
+        "meaning": "to project"
+      },
+      {
+        "word": "映える",
+        "reading": "はえる",
+        "meaning": "to shine"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "映画館",
+        "reading": "エイガカン",
+        "meaning": "movie theatre"
+      },
+      {
+        "word": "映画",
+        "reading": "エイガ",
+        "meaning": "movie"
+      },
+      {
+        "word": "大映",
+        "reading": "ダイエイ",
+        "meaning": "Daiei Motion Picture Company"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "私",
+    "meaning": [
+      "private",
+      "I",
+      "me"
+    ],
+    "primary_meaning": "private",
+    "on_reading": [
+      "シ"
+    ],
+    "kun_reading": [
+      "わたくし",
+      "わたし"
+    ],
+    "primary_word": "私",
+    "primary_reading": "わたくし",
+    "kun_examples": [
+      {
+        "word": "私",
+        "reading": "わたくし",
+        "meaning": "I"
+      },
+      {
+        "word": "私立",
+        "reading": "しりつ",
+        "meaning": "private (establishment)"
+      },
+      {
+        "word": "不肖私",
+        "reading": "ふしょうわたくし",
+        "meaning": "I"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "私",
+        "reading": "シ",
+        "meaning": "private affairs"
+      },
+      {
+        "word": "私案",
+        "reading": "シアン",
+        "meaning": "private plan"
+      },
+      {
+        "word": "無私",
+        "reading": "ムシ",
+        "meaning": "unselfish"
+      }
+    ],
+    "stroke_count": 7,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "帰",
+    "meaning": [
+      "homecoming",
+      "arrive at",
+      "lead to",
+      "result in"
+    ],
+    "primary_meaning": "homecoming",
+    "on_reading": [
+      "キ"
+    ],
+    "kun_reading": [
+      "かえ.る",
+      "かえ.す",
+      "おく.る",
+      "とつ.ぐ"
+    ],
+    "primary_word": "帰る",
+    "primary_reading": "かえる",
+    "kun_examples": [
+      {
+        "word": "帰る",
+        "reading": "かえる",
+        "meaning": "to return"
+      },
+      {
+        "word": "帰す",
+        "reading": "かえす",
+        "meaning": "to send (someone) back"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "帰還",
+        "reading": "キカン",
+        "meaning": "return (home)"
+      },
+      {
+        "word": "帰化",
+        "reading": "キカ",
+        "meaning": "naturalization"
+      },
+      {
+        "word": "社会復帰",
+        "reading": "シャカイフッキ",
+        "meaning": "rehabilitation (in society)"
+      }
+    ],
+    "stroke_count": 10,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "春",
+    "meaning": [
+      "springtime",
+      "spring (season)"
+    ],
+    "primary_meaning": "springtime",
+    "on_reading": [
+      "シュン"
+    ],
+    "kun_reading": [
+      "はる"
+    ],
+    "primary_word": "春",
+    "primary_reading": "はる",
+    "kun_examples": [
+      {
+        "word": "春",
+        "reading": "はる",
+        "meaning": "spring"
+      },
+      {
+        "word": "春秋",
+        "reading": "しゅんじゅう",
+        "meaning": "spring and autumn"
+      },
+      {
+        "word": "小春",
+        "reading": "こはる",
+        "meaning": "10th month of the lunisolar calendar (traditional first month of winter"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "春秋",
+        "reading": "シュンジュウ",
+        "meaning": "spring and autumn"
+      },
+      {
+        "word": "春季",
+        "reading": "シュンキ",
+        "meaning": "spring season"
+      },
+      {
+        "word": "昨春",
+        "reading": "サクシュン",
+        "meaning": "last spring"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "昼",
+    "meaning": [
+      "daytime",
+      "noon"
+    ],
+    "primary_meaning": "daytime",
+    "on_reading": [
+      "チュウ"
+    ],
+    "kun_reading": [
+      "ひる"
+    ],
+    "primary_word": "昼",
+    "primary_reading": "ひる",
+    "kun_examples": [
+      {
+        "word": "昼",
+        "reading": "ひる",
+        "meaning": "noon"
+      },
+      {
+        "word": "昼過ぎ",
+        "reading": "ひるすぎ",
+        "meaning": "just past noon"
+      },
+      {
+        "word": "小昼",
+        "reading": "こひる",
+        "meaning": "just before noon"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "昼食",
+        "reading": "チュウショク",
+        "meaning": "lunch"
+      },
+      {
+        "word": "昼間",
+        "reading": "ヒルマ",
+        "meaning": "daytime"
+      },
+      {
+        "word": "炎昼",
+        "reading": "エンチュウ",
+        "meaning": "hot summer early afternoon"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "秋",
+    "meaning": [
+      "autumn"
+    ],
+    "primary_meaning": "autumn",
+    "on_reading": [
+      "シュウ"
+    ],
+    "kun_reading": [
+      "あき",
+      "とき"
+    ],
+    "primary_word": "秋",
+    "primary_reading": "あき",
+    "kun_examples": [
+      {
+        "word": "秋",
+        "reading": "あき",
+        "meaning": "autumn"
+      },
+      {
+        "word": "秋口",
+        "reading": "あきぐち",
+        "meaning": "beginning of autumn"
+      },
+      {
+        "word": "春秋",
+        "reading": "しゅんじゅう",
+        "meaning": "spring and autumn"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "秋季",
+        "reading": "シュウキ",
+        "meaning": "fall season"
+      },
+      {
+        "word": "秋風",
+        "reading": "アキカゼ",
+        "meaning": "autumn breeze"
+      },
+      {
+        "word": "今秋",
+        "reading": "コンシュウ",
+        "meaning": "this autumn"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "計",
+    "meaning": [
+      "plot",
+      "plan",
+      "scheme",
+      "measure"
+    ],
+    "primary_meaning": "plot",
+    "on_reading": [
+      "ケイ"
+    ],
+    "kun_reading": [
+      "はか.る",
+      "はか.らう"
+    ],
+    "primary_word": "計る",
+    "primary_reading": "はかる",
+    "kun_examples": [
+      {
+        "word": "計る",
+        "reading": "はかる",
+        "meaning": "to measure"
+      },
+      {
+        "word": "計らう",
+        "reading": "はからう",
+        "meaning": "to manage"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "計",
+        "reading": "ケイ",
+        "meaning": "plan"
+      },
+      {
+        "word": "計画",
+        "reading": "ケイカク",
+        "meaning": "plan"
+      },
+      {
+        "word": "生計",
+        "reading": "セイケイ",
+        "meaning": "livelihood"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "建",
+    "meaning": [
+      "build"
+    ],
+    "primary_meaning": "build",
+    "on_reading": [
+      "ケン",
+      "コン"
+    ],
+    "kun_reading": [
+      "た.てる",
+      "た.て",
+      "-だ.て",
+      "た.つ"
+    ],
+    "primary_word": "建てる",
+    "primary_reading": "たてる",
+    "kun_examples": [
+      {
+        "word": "建てる",
+        "reading": "たてる",
+        "meaning": "to build"
+      },
+      {
+        "word": "建て",
+        "reading": "たて",
+        "meaning": "contract"
+      },
+      {
+        "word": "建前",
+        "reading": "たてまえ",
+        "meaning": "face"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "建国",
+        "reading": "ケンコク",
+        "meaning": "founding of a nation"
+      },
+      {
+        "word": "建議",
+        "reading": "ケンギ",
+        "meaning": "proposition"
+      },
+      {
+        "word": "経営再建",
+        "reading": "ケイエイサイケン",
+        "meaning": "management reorganization"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "英",
+    "meaning": [
+      "England",
+      "English",
+      "hero",
+      "outstanding",
+      "calyx"
+    ],
+    "primary_meaning": "England",
+    "on_reading": [
+      "エイ"
+    ],
+    "kun_reading": [
+      "はなぶさ"
+    ],
+    "primary_word": "花房",
+    "primary_reading": "はなぶさ",
+    "kun_examples": [
+      {
+        "word": "花房",
+        "reading": "はなぶさ",
+        "meaning": "calyx"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "英",
+        "reading": "エイ",
+        "meaning": "United Kingdom"
+      },
+      {
+        "word": "英語",
+        "reading": "エイゴ",
+        "meaning": "English (language)"
+      },
+      {
+        "word": "育英",
+        "reading": "イクエイ",
+        "meaning": "education of gifted young people"
+      }
+    ],
+    "stroke_count": 8,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "飯",
+    "meaning": [
+      "meal",
+      "boiled rice"
+    ],
+    "primary_meaning": "meal",
+    "on_reading": [
+      "ハン"
+    ],
+    "kun_reading": [
+      "めし"
+    ],
+    "primary_word": "飯",
+    "primary_reading": "めし",
+    "kun_examples": [
+      {
+        "word": "飯",
+        "reading": "めし",
+        "meaning": "cooked rice"
+      },
+      {
+        "word": "飯売女",
+        "reading": "めしうりおんな",
+        "meaning": "maid at an inn who served clients and worked as a prostitute (Edo period)"
+      },
+      {
+        "word": "握り飯",
+        "reading": "にぎりめし",
+        "meaning": "onigiri"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "飯店",
+        "reading": "ハンテン",
+        "meaning": "Chinese restaurant"
+      },
+      {
+        "word": "飯切",
+        "reading": "ハンギリ",
+        "meaning": "flat-bottomed wooden bowl for preparing sushi rice"
+      },
+      {
+        "word": "米飯",
+        "reading": "ベイハン",
+        "meaning": "cooked rice"
+      }
+    ],
+    "stroke_count": 12,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "曜",
+    "meaning": [
+      "weekday"
+    ],
+    "primary_meaning": "weekday",
+    "on_reading": [
+      "ヨウ"
+    ],
+    "kun_reading": null,
+    "primary_word": "曜日",
+    "primary_reading": "ヨウビ",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "曜日",
+        "reading": "ヨウビ",
+        "meaning": "day of the week"
+      },
+      {
+        "word": "曜霊",
+        "reading": "ヨウレイ",
+        "meaning": "the sun"
+      },
+      {
+        "word": "晃曜",
+        "reading": "コウヨウ",
+        "meaning": "dazzling brightness"
+      }
+    ],
+    "stroke_count": 18,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "品",
+    "meaning": [
+      "goods",
+      "refinement",
+      "dignity",
+      "article",
+      "counter for meal courses"
+    ],
+    "primary_meaning": "goods",
+    "on_reading": [
+      "ヒン",
+      "ホン"
+    ],
+    "kun_reading": [
+      "しな"
+    ],
+    "primary_word": "品",
+    "primary_reading": "しな",
+    "kun_examples": [
+      {
+        "word": "品",
+        "reading": "しな",
+        "meaning": "article"
+      },
+      {
+        "word": "品目",
+        "reading": "ひんもく",
+        "meaning": "item"
+      },
+      {
+        "word": "一品",
+        "reading": "いっぴん",
+        "meaning": "item"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "品",
+        "reading": "ヒン",
+        "meaning": "elegance"
+      },
+      {
+        "word": "品位",
+        "reading": "ヒンイ",
+        "meaning": "dignity"
+      },
+      {
+        "word": "小品",
+        "reading": "ショウヒン",
+        "meaning": "short piece (of music"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "急",
+    "meaning": [
+      "hurry",
+      "emergency",
+      "sudden",
+      "steep"
+    ],
+    "primary_meaning": "hurry",
+    "on_reading": [
+      "キュウ"
+    ],
+    "kun_reading": [
+      "いそ.ぐ",
+      "いそ.ぎ",
+      "せ.く"
+    ],
+    "primary_word": "急ぐ",
+    "primary_reading": "いそぐ",
+    "kun_examples": [
+      {
+        "word": "急ぐ",
+        "reading": "いそぐ",
+        "meaning": "to hurry"
+      },
+      {
+        "word": "急ぎ",
+        "reading": "いそぎ",
+        "meaning": "haste"
+      },
+      {
+        "word": "急ぎ足",
+        "reading": "いそぎあし",
+        "meaning": "fast pace"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "急",
+        "reading": "キュウ",
+        "meaning": "sudden"
+      },
+      {
+        "word": "急遽",
+        "reading": "キュウキョ",
+        "meaning": "hurriedly"
+      },
+      {
+        "word": "準急",
+        "reading": "ジュンキュウ",
+        "meaning": "semi-express train"
+      }
+    ],
+    "stroke_count": 9,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "真",
+    "meaning": [
+      "true",
+      "reality",
+      "Buddhist sect"
+    ],
+    "primary_meaning": "true",
+    "on_reading": [
+      "シン"
+    ],
+    "kun_reading": [
+      "ま",
+      "ま-",
+      "まこと"
+    ],
+    "primary_word": "真",
+    "primary_reading": "ま",
+    "kun_examples": [
+      {
+        "word": "真",
+        "reading": "ま",
+        "meaning": "just"
+      },
+      {
+        "word": "誠",
+        "reading": "まこと",
+        "meaning": "truth"
+      },
+      {
+        "word": "秀真",
+        "reading": "ほつま",
+        "meaning": "Hotsuma (script)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "真",
+        "reading": "シン",
+        "meaning": "truth"
+      },
+      {
+        "word": "真意",
+        "reading": "シンイ",
+        "meaning": "real intention"
+      },
+      {
+        "word": "組み写真",
+        "reading": "クミシャシン",
+        "meaning": "composite or montage photograph"
+      }
+    ],
+    "stroke_count": 10,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "堂",
+    "meaning": [
+      "public chamber",
+      "hall"
+    ],
+    "primary_meaning": "public chamber",
+    "on_reading": [
+      "ドウ"
+    ],
+    "kun_reading": null,
+    "primary_word": "堂",
+    "primary_reading": "ドウ",
+    "kun_examples": [],
+    "on_examples": [
+      {
+        "word": "堂",
+        "reading": "ドウ",
+        "meaning": "temple"
+      },
+      {
+        "word": "堂々",
+        "reading": "ドウドウ",
+        "meaning": "magnificent"
+      },
+      {
+        "word": "殿堂",
+        "reading": "デンドウ",
+        "meaning": "palace"
+      }
+    ],
+    "stroke_count": 11,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "試",
+    "meaning": [
+      "test",
+      "try",
+      "attempt",
+      "experiment",
+      "ordeal"
+    ],
+    "primary_meaning": "test",
+    "on_reading": [
+      "シ"
+    ],
+    "kun_reading": [
+      "こころ.みる",
+      "ため.す"
+    ],
+    "primary_word": "試みる",
+    "primary_reading": "こころみる",
+    "kun_examples": [
+      {
+        "word": "試みる",
+        "reading": "こころみる",
+        "meaning": "to try"
+      },
+      {
+        "word": "試す",
+        "reading": "ためす",
+        "meaning": "to try (out)"
+      },
+      {
+        "word": "試筋",
+        "reading": "ためすじ",
+        "meaning": "patron"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "試",
+        "reading": "シ",
+        "meaning": "testing"
+      },
+      {
+        "word": "試合",
+        "reading": "シアイ",
+        "meaning": "match"
+      },
+      {
+        "word": "公試",
+        "reading": "コウシ",
+        "meaning": "national examinations"
+      }
+    ],
+    "stroke_count": 13,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "借",
+    "meaning": [
+      "borrow",
+      "rent"
+    ],
+    "primary_meaning": "borrow",
+    "on_reading": [
+      "シャク"
+    ],
+    "kun_reading": [
+      "か.りる"
+    ],
+    "primary_word": "借りる",
+    "primary_reading": "かりる",
+    "kun_examples": [
+      {
+        "word": "借りる",
+        "reading": "かりる",
+        "meaning": "to borrow"
+      },
+      {
+        "word": "借りる時の地蔵顔、済す時の閻魔顔",
+        "reading": "かりるときのじぞうがお、なすときのえんまがお",
+        "meaning": "people look friendly when they ask for a loan but not so much when they repay it"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "借家",
+        "reading": "シャクヤ",
+        "meaning": "rented house"
+      },
+      {
+        "word": "借地",
+        "reading": "シャクチ",
+        "meaning": "leased land"
+      },
+      {
+        "word": "賃借",
+        "reading": "チンシャク",
+        "meaning": "renting"
+      }
+    ],
+    "stroke_count": 10,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "験",
+    "meaning": [
+      "verification",
+      "effect",
+      "testing"
+    ],
+    "primary_meaning": "verification",
+    "on_reading": [
+      "ケン",
+      "ゲン"
+    ],
+    "kun_reading": [
+      "あかし",
+      "しるし",
+      "ため.す",
+      "ためし"
+    ],
+    "primary_word": "徴",
+    "primary_reading": "しるし",
+    "kun_examples": [
+      {
+        "word": "徴",
+        "reading": "しるし",
+        "meaning": "sign"
+      },
+      {
+        "word": "試す",
+        "reading": "ためす",
+        "meaning": "to try (out)"
+      },
+      {
+        "word": "試し",
+        "reading": "ためし",
+        "meaning": "trial"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "験",
+        "reading": "ゲン",
+        "meaning": "effect"
+      },
+      {
+        "word": "験者",
+        "reading": "ケンザ",
+        "meaning": "mountaineering ascetic"
+      },
+      {
+        "word": "治験",
+        "reading": "チケン",
+        "meaning": "clinical trial"
+      }
+    ],
+    "stroke_count": 18,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "質",
+    "meaning": [
+      "substance",
+      "quality",
+      "matter",
+      "temperament"
+    ],
+    "primary_meaning": "substance",
+    "on_reading": [
+      "シツ",
+      "シチ",
+      "チ"
+    ],
+    "kun_reading": [
+      "たち",
+      "ただ.す",
+      "もと",
+      "わりふ"
+    ],
+    "primary_word": "質",
+    "primary_reading": "たち",
+    "kun_examples": [
+      {
+        "word": "質",
+        "reading": "たち",
+        "meaning": "nature (of a person)"
+      },
+      {
+        "word": "たちが良い",
+        "reading": "たちがいい",
+        "meaning": "good-natured"
+      },
+      {
+        "word": "質す",
+        "reading": "ただす",
+        "meaning": "to ask (about)"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "質",
+        "reading": "シツ",
+        "meaning": "quality"
+      },
+      {
+        "word": "質疑",
+        "reading": "シツギ",
+        "meaning": "question"
+      },
+      {
+        "word": "変質",
+        "reading": "ヘンシツ",
+        "meaning": "alteration (of character or essence)"
+      }
+    ],
+    "stroke_count": 15,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  },
+  {
+    "character": "貸",
+    "meaning": [
+      "lend"
+    ],
+    "primary_meaning": "lend",
+    "on_reading": [
+      "タイ"
+    ],
+    "kun_reading": [
+      "か.す",
+      "か.し-",
+      "かし-"
+    ],
+    "primary_word": "貸す",
+    "primary_reading": "かす",
+    "kun_examples": [
+      {
+        "word": "貸す",
+        "reading": "かす",
+        "meaning": "to lend"
+      }
+    ],
+    "on_examples": [
+      {
+        "word": "貸与",
+        "reading": "タイヨ",
+        "meaning": "loan"
+      },
+      {
+        "word": "貸借",
+        "reading": "タイシャク",
+        "meaning": "loan"
+      },
+      {
+        "word": "転貸",
+        "reading": "テンタイ",
+        "meaning": "sublease"
+      }
+    ],
+    "stroke_count": 12,
+    "jlpt_level": "N4",
+    "grade": null,
+    "frequency": null
+  }
+]
