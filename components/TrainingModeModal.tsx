@@ -42,13 +42,16 @@ export default function TrainingModeModal({
         // Transform kanji data for typing page
         if (itemType === 'kanji') {
           const typingItems = selectedData.map(kanji => {
-            // Use kun'yomi (native Japanese reading) as primary for standalone meanings
-            // This matches the English meaning shown (e.g., "water" = mizu, "tree" = ki)
-            // Fallback to on'yomi only if no kun'yomi exists
+            // Use primary_reading (matches the audio pronunciation)
+            // This is the natural word reading like "ひとつ" for 一, "まるい" for 円
+            // Fallback to kun_reading or on_reading if primary_reading not available
             let hiraganaReading = '';
             
-            if (kanji.kun_reading && kanji.kun_reading.length > 0) {
-              hiraganaReading = kanji.kun_reading[0];
+            if (kanji.primary_reading) {
+              hiraganaReading = kanji.primary_reading;
+            } else if (kanji.kun_reading && kanji.kun_reading.length > 0) {
+              // Remove dots from kun_reading (e.g., "まる.い" -> "まるい")
+              hiraganaReading = kanji.kun_reading[0].replace(/\./g, '');
             } else if (kanji.on_reading && kanji.on_reading.length > 0) {
               hiraganaReading = kanji.on_reading[0];
             }
@@ -59,8 +62,8 @@ export default function TrainingModeModal({
             return {
               id: kanji.id,
               character: kanji.character,
-              romaji: romajiReading, // Now in romaji format (e.g., mizu, ki)
-              meaning: kanji.meaning,
+              romaji: romajiReading, // Now in romaji format matching audio (e.g., marui, hitotsu)
+              meaning: kanji.primary_meaning || kanji.meaning,
               type: 'kanji'
             };
           });
