@@ -22,6 +22,10 @@ interface KanjiItem {
     level?: string;
   }>;
   mastered?: boolean;
+  primary_reading?: string;
+  primary_meaning?: string;
+  kun_reading?: string[];
+  on_reading?: string[];
 }
 
 const ITEMS_PER_PAGE = 50;
@@ -213,7 +217,11 @@ function KanjiPageContent() {
               word: ex.word,
               reading: ex.reading,
               meaning: ex.meaning
-            }))
+            })),
+            primary_reading: (kanji as any).primary_reading,
+            primary_meaning: (kanji as any).primary_meaning,
+            kun_reading: kanji.kun_reading,
+            on_reading: kanji.on_reading
           };
         });
 

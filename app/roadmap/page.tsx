@@ -286,7 +286,9 @@ export default function RoadmapPage() {
           level: k.jlpt_level,
           strokes: k.stroke_count,
           kun_reading: k.kun_reading,
-          on_reading: k.on_reading
+          on_reading: k.on_reading,
+          primary_reading: (k as any).primary_reading,
+          primary_meaning: (k as any).primary_meaning
         }));
     } else {
       // Transform to match the format expected by training pages (same as vocabulary page)
