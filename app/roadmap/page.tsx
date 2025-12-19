@@ -1156,10 +1156,10 @@ export default function RoadmapPage() {
                       <Link
                         key={item.id}
                         href="/sentences"
-                        className="block p-4 bg-white border-2 border-gray-200 hover:border-pink-300 hover:bg-pink-50 rounded-lg transition-all group"
+                        className="block p-4 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-pink-300 hover:bg-pink-50 dark:hover:bg-pink-900/20 rounded-lg transition-all group"
                       >
-                        <div className="text-xl font-japanese text-black mb-2">{item.japanese}</div>
-                        <p className="text-sm text-gray-700">{item.english}</p>
+                        <div className="text-xl font-japanese text-black dark:text-white mb-2">{item.japanese_text}</div>
+                        <p className="text-sm text-gray-700 dark:text-gray-300">{item.english_translation}</p>
                       </Link>
                     ))}
                   </div>
