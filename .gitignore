@@ -38,8 +38,8 @@ next-env.d.ts
 # audio cache
 /public/audio-cache
 
-# generated sentence audio files (too large for git)
-/public/audio/sentences/**/*.mp3
+# generated sentence audio files (commit N5, ignore others for now)
+# /public/audio/sentences/**/*.mp3
 
 # data files (stored in Supabase, backup in backup-data/)
 /public/data/*.json

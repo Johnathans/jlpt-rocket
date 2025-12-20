@@ -22,7 +22,7 @@ async function generateAudio(text, outputPath) {
     input: { text },
     voice: {
       languageCode: 'ja-JP',
-      name: 'ja-JP-Journey-F', // Chirp 3 voice
+      name: 'ja-JP-Neural2-B', // High quality neural voice
     },
     audioConfig: {
       audioEncoding: 'MP3',
