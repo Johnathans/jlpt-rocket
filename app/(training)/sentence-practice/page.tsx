@@ -62,22 +62,28 @@ function SentencePracticeContent() {
     setIsPlaying(true);
     
     try {
-      const audioUrl = await speak(currentSentence.japanese_text, { autoPlay: true });
+      const audioUrl = await speak(currentSentence.japanese_text, { autoPlay: false });
       setCurrentAudioUrl(audioUrl);
       
-      // Wait for audio to finish, then move to next if autoplay is on
-      if (autoplay) {
-        setTimeout(() => {
-          setIsPlaying(false);
-          if (currentIndex < sentences.length - 1) {
-            setCurrentIndex(prev => prev + 1);
-          } else {
-            setAutoplay(false); // Stop autoplay at end
-          }
-        }, 3000); // Approximate duration, adjust based on sentence length
-      } else {
+      // Create audio element and play
+      const audio = new Audio(audioUrl);
+      
+      audio.onended = () => {
         setIsPlaying(false);
-      }
+        // Move to next if autoplay is on
+        if (autoplay && currentIndex < sentences.length - 1) {
+          setCurrentIndex(prev => prev + 1);
+        } else if (autoplay) {
+          setAutoplay(false); // Stop autoplay at end
+        }
+      };
+      
+      audio.onerror = () => {
+        console.error('Error playing audio');
+        setIsPlaying(false);
+      };
+      
+      await audio.play();
     } catch (error) {
       console.error('Error playing audio:', error);
       setIsPlaying(false);

@@ -56,13 +56,9 @@ export function useTTS() {
         }
 
         const data = await response.json();
-        
-        // Convert base64 to blob URL
-        const audioBlob = new Blob(
-          [Uint8Array.from(atob(data.audio), c => c.charCodeAt(0))],
-          { type: data.contentType }
-        );
-        audioUrl = URL.createObjectURL(audioBlob);
+      
+        // Use the audioUrl directly from the API response (data URL format)
+        audioUrl = data.audioUrl;
         
         // Cache the audio URL
         audioCache.current.set(cacheKey, audioUrl);
@@ -173,12 +169,8 @@ export async function speakText(
 
   const data = await response.json();
   
-  // Convert base64 to blob URL
-  const audioBlob = new Blob(
-    [Uint8Array.from(atob(data.audio), c => c.charCodeAt(0))],
-    { type: data.contentType }
-  );
-  const audioUrl = URL.createObjectURL(audioBlob);
+  // Use the audioUrl directly from the API response (data URL format)
+  const audioUrl = data.audioUrl;
 
   // Auto-play if specified
   if (options.autoPlay !== false) {
