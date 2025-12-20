@@ -34,11 +34,11 @@ export function useTTS() {
       
       let audioUrl: string;
 
-      // Check cache first
+      // Check in-memory cache first
       if (audioCache.current.has(cacheKey)) {
         audioUrl = audioCache.current.get(cacheKey)!;
       } else {
-        // Call our TTS API
+        // Call our TTS API (which will check for cached files)
         const response = await fetch('/api/tts', {
           method: 'POST',
           headers: {
@@ -57,7 +57,7 @@ export function useTTS() {
 
         const data = await response.json();
       
-        // Use the audioUrl directly from the API response (data URL format)
+        // Use the audioUrl directly from the API response (data URL format or file path)
         audioUrl = data.audioUrl;
         
         // Cache the audio URL

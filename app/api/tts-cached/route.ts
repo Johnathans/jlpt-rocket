@@ -11,15 +11,23 @@ function generateSentenceHash(text: string): string {
 }
 
 // Check if cached audio file exists
-function getCachedAudioPath(text: string): string | null {
+function getCachedAudioPath(text: string, level?: string): string | null {
   const hash = generateSentenceHash(text);
   
-  // Try all levels
-  const levels = ['N5', 'N4', 'N3', 'N2', 'N1'];
-  for (const level of levels) {
+  // Try level-specific cache first if level is provided
+  if (level) {
     const levelPath = path.join(process.cwd(), 'public', 'audio', 'sentences', level, `${hash}.mp3`);
     if (fs.existsSync(levelPath)) {
       return `/audio/sentences/${level}/${hash}.mp3`;
+    }
+  }
+  
+  // Try all levels
+  const levels = ['N5', 'N4', 'N3', 'N2', 'N1'];
+  for (const lvl of levels) {
+    const levelPath = path.join(process.cwd(), 'public', 'audio', 'sentences', lvl, `${hash}.mp3`);
+    if (fs.existsSync(levelPath)) {
+      return `/audio/sentences/${lvl}/${hash}.mp3`;
     }
   }
   
@@ -28,14 +36,14 @@ function getCachedAudioPath(text: string): string | null {
 
 export async function POST(request: NextRequest) {
   try {
-    const { text, languageCode = 'ja-JP', voiceName = 'ja-JP-Journey-F' } = await request.json();
+    const { text, languageCode = 'ja-JP', voiceName = 'ja-JP-Journey-F', level } = await request.json();
 
     if (!text) {
       return NextResponse.json({ error: 'Text is required' }, { status: 400 });
     }
 
     // Check for cached audio file first
-    const cachedPath = getCachedAudioPath(text);
+    const cachedPath = getCachedAudioPath(text, level);
     if (cachedPath) {
       return NextResponse.json({
         audioUrl: cachedPath,
@@ -43,19 +51,18 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    // If not cached, generate using TTS API
     const apiKey = process.env.GOOGLE_CLOUD_API_KEY;
     if (!apiKey) {
       console.error('GOOGLE_CLOUD_API_KEY is not set');
       return NextResponse.json({ error: 'TTS service not configured' }, { status: 500 });
     }
 
-    // Construct the request for Google TTS REST API
     const ttsRequest = {
       input: { text },
       voice: {
         languageCode,
         name: voiceName,
-        ssmlGender: 'FEMALE',
       },
       audioConfig: {
         audioEncoding: 'MP3',
@@ -64,7 +71,6 @@ export async function POST(request: NextRequest) {
       },
     };
 
-    // Call Google TTS REST API with API key
     const response = await fetch(`${TTS_API_URL}?key=${apiKey}`, {
       method: 'POST',
       headers: {
