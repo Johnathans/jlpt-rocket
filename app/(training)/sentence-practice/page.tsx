@@ -258,8 +258,8 @@ function SentencePracticeContent() {
       {/* Quit Confirmation Modal */}
       <QuitConfirmationModal
         isOpen={showQuitModal}
-        onClose={() => setShowQuitModal(false)}
-        onConfirm={confirmQuit}
+        onKeepLearning={() => setShowQuitModal(false)}
+        onQuit={confirmQuit}
       />
     </div>
   );
