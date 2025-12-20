@@ -9,7 +9,7 @@ interface TrainingModeModalProps {
   isOpen: boolean;
   onClose: () => void;
   selectedItems: string[];
-  itemType: 'kanji' | 'vocabulary';
+  itemType: 'kanji' | 'vocabulary' | 'sentences';
   selectedData: any[];
 }
 

@@ -33,9 +33,10 @@ export default function RoadmapPage() {
   const [sentencesData, setSentencesData] = useState<any[]>([]);
   const [contentLoading, setContentLoading] = useState(false);
   const [showTrainingModal, setShowTrainingModal] = useState(false);
-  const [trainingType, setTrainingType] = useState<'kanji' | 'vocabulary'>('kanji');
+  const [trainingType, setTrainingType] = useState<'kanji' | 'vocabulary' | 'sentences'>('kanji');
   const [selectedKanji, setSelectedKanji] = useState<Set<string>>(new Set());
   const [selectedVocabulary, setSelectedVocabulary] = useState<Set<string>>(new Set());
+  const [selectedSentences, setSelectedSentences] = useState<Set<string>>(new Set());
   const [selectedHiragana, setSelectedHiragana] = useState<Set<string>>(new Set());
   const [selectedKatakana, setSelectedKatakana] = useState<Set<string>>(new Set());
   const [knownKatakana, setKnownKatakana] = useState<Set<string>>(new Set());
@@ -159,6 +160,18 @@ export default function RoadmapPage() {
     });
   }, []);
 
+  const toggleSentenceSelection = useCallback((id: string) => {
+    setSelectedSentences(prev => {
+      const newSelected = new Set(prev);
+      if (newSelected.has(id)) {
+        newSelected.delete(id);
+      } else {
+        newSelected.add(id);
+      }
+      return newSelected;
+    });
+  }, []);
+
   const toggleKatakanaKnown = useCallback((id: string, e?: React.MouseEvent) => {
     if (e) {
       e.stopPropagation();
@@ -237,8 +250,8 @@ export default function RoadmapPage() {
     }
   }, [knownVocabulary]);
 
-  const handleStartTraining = (type: 'kanji' | 'vocabulary' | 'hiragana' | 'katakana') => {
-    // Hiragana and katakana use typing mode directly, not the training modal
+  const handleStartTraining = (type: 'kanji' | 'vocabulary' | 'hiragana' | 'katakana' | 'sentences') => {
+    // Hiragana, katakana, and sentences use direct navigation
     if (type === 'hiragana' || type === 'katakana') {
       // Auto-select all if none selected
       if (type === 'hiragana' && selectedHiragana.size === 0) {
@@ -257,6 +270,17 @@ export default function RoadmapPage() {
       return;
     }
     
+    // Sentences use sentence practice mode
+    if (type === 'sentences') {
+      const selectedItems = selectedSentences.size > 0 
+        ? Array.from(selectedSentences)
+        : sentencesData.slice((sentencesPage - 1) * SENTENCES_PER_PAGE, sentencesPage * SENTENCES_PER_PAGE).map(s => s.id);
+      
+      router.push(`/sentence-practice?level=${currentLevel}&items=${selectedItems.join(',')}`);
+      setSelectionMode(false);
+      return;
+    }
+    
     setTrainingType(type as any);
     
     // If in selection mode and items are selected, use selected items
@@ -270,7 +294,7 @@ export default function RoadmapPage() {
     setShowTrainingModal(true);
   };
 
-  const handleSelectMode = (type: 'kanji' | 'vocabulary' | 'hiragana' | 'katakana') => {
+  const handleSelectMode = (type: 'kanji' | 'vocabulary' | 'hiragana' | 'katakana' | 'sentences') => {
     setTrainingType(type as any);
     setSelectionMode(true);
   };
@@ -1153,13 +1177,21 @@ export default function RoadmapPage() {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white">Sentences Preview</h3>
-                  <Link
-                    href="/sentences"
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
-                  >
-                    Start Practice
-                    <ChevronRight className="h-4 w-4" />
-                  </Link>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleSelectMode('sentences')}
+                      className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border-2 border-pink-500 text-pink-600 dark:text-pink-400 hover:bg-pink-50 dark:hover:bg-pink-900/20 font-medium rounded-lg transition-all text-sm"
+                    >
+                      Select Sentences
+                    </button>
+                    <button
+                      onClick={() => handleStartTraining('sentences')}
+                      className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium rounded-lg transition-all text-sm"
+                    >
+                      Start Practice
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
                 {contentLoading ? (
                   <div className="text-center py-8">
@@ -1168,13 +1200,33 @@ export default function RoadmapPage() {
                 ) : (
                   <div className="space-y-3">
                     {paginatedSentences.map((item: any) => (
-                      <div
-                        key={item.id}
-                        className="block p-4 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg select-none"
-                      >
-                        <div className="text-xl font-japanese text-black dark:text-white mb-2">{item.japanese_text}</div>
-                        <p className="text-sm text-gray-700 dark:text-gray-300">{item.english_translation}</p>
-                      </div>
+                      selectionMode ? (
+                        <button
+                          key={item.id}
+                          onClick={() => toggleSentenceSelection(item.id)}
+                          className={`relative w-full text-left p-4 border-2 rounded-lg transition-all ${
+                            selectedSentences.has(item.id)
+                              ? 'bg-pink-50 dark:bg-pink-900/20 border-pink-300 dark:border-pink-500 border-b-4 border-b-pink-500'
+                              : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-pink-200 dark:hover:border-pink-800'
+                          }`}
+                        >
+                          {selectedSentences.has(item.id) && (
+                            <div className="absolute top-2 right-2 w-6 h-6 bg-pink-500 rounded-full flex items-center justify-center">
+                              <span className="text-white text-sm font-bold">✓</span>
+                            </div>
+                          )}
+                          <div className="text-xl font-japanese text-black dark:text-white mb-2 pr-8">{item.japanese_text}</div>
+                          <p className="text-sm text-gray-700 dark:text-gray-300">{item.english_translation}</p>
+                        </button>
+                      ) : (
+                        <div
+                          key={item.id}
+                          className="block p-4 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg select-none"
+                        >
+                          <div className="text-xl font-japanese text-black dark:text-white mb-2">{item.japanese_text}</div>
+                          <p className="text-sm text-gray-700 dark:text-gray-300">{item.english_translation}</p>
+                        </div>
+                      )
                     ))}
                     
                     {/* Pagination Controls */}
