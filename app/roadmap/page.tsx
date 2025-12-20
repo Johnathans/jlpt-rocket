@@ -44,6 +44,8 @@ export default function RoadmapPage() {
   const [knownVocabulary, setKnownVocabulary] = useState<Set<string>>(new Set());
   const [selectionMode, setSelectionMode] = useState(false);
   const [markKnownMode, setMarkKnownMode] = useState(false);
+  const [sentencesPage, setSentencesPage] = useState(1);
+  const SENTENCES_PER_PAGE = 100;
 
   // Get user's first name
   const userName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || 'there';
@@ -477,6 +479,10 @@ export default function RoadmapPage() {
     };
 
     loadContent();
+    // Reset sentences page when changing tabs or levels
+    if (activeTab === 'sentences') {
+      setSentencesPage(1);
+    }
   }, [activeTab, currentLevel]);
 
   // Listen for level switcher event from navbar
@@ -494,6 +500,15 @@ export default function RoadmapPage() {
   const totalItems = kanjiData.length + vocabularyData.length;
   const progressPercent = totalItems > 0 ? Math.round((totalKnown / totalItems) * 100) : 0;
   const filledSegments = Math.round((progressPercent / 100) * 20); // 20 segments = 5% each
+
+  // Calculate paginated sentences
+  const paginatedSentences = useMemo(() => {
+    const startIndex = (sentencesPage - 1) * SENTENCES_PER_PAGE;
+    const endIndex = startIndex + SENTENCES_PER_PAGE;
+    return sentencesData.slice(startIndex, endIndex);
+  }, [sentencesData, sentencesPage, SENTENCES_PER_PAGE]);
+
+  const totalSentencesPages = Math.ceil(sentencesData.length / SENTENCES_PER_PAGE);
 
   if (loading) {
     return (
@@ -1152,7 +1167,7 @@ export default function RoadmapPage() {
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    {sentencesData.map((item: any) => (
+                    {paginatedSentences.map((item: any) => (
                       <Link
                         key={item.id}
                         href="/sentences"
@@ -1162,6 +1177,29 @@ export default function RoadmapPage() {
                         <p className="text-sm text-gray-700 dark:text-gray-300">{item.english_translation}</p>
                       </Link>
                     ))}
+                    
+                    {/* Pagination Controls */}
+                    {totalSentencesPages > 1 && (
+                      <div className="flex items-center justify-center gap-2 mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <button
+                          onClick={() => setSentencesPage(p => Math.max(1, p - 1))}
+                          disabled={sentencesPage === 1}
+                          className="px-4 py-2 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                        >
+                          Previous
+                        </button>
+                        <span className="text-sm text-gray-600 dark:text-gray-400 px-4">
+                          Page {sentencesPage} of {totalSentencesPages} ({sentencesData.length} total)
+                        </span>
+                        <button
+                          onClick={() => setSentencesPage(p => Math.min(totalSentencesPages, p + 1))}
+                          disabled={sentencesPage === totalSentencesPages}
+                          className="px-4 py-2 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                        >
+                          Next
+                        </button>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
