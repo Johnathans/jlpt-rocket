@@ -1170,7 +1170,7 @@ export default function RoadmapPage() {
                     {paginatedSentences.map((item: any) => (
                       <div
                         key={item.id}
-                        className="block p-4 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg"
+                        className="block p-4 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg select-none"
                       >
                         <div className="text-xl font-japanese text-black dark:text-white mb-2">{item.japanese_text}</div>
                         <p className="text-sm text-gray-700 dark:text-gray-300">{item.english_translation}</p>
