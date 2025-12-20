@@ -37,3 +37,7 @@ next-env.d.ts
 
 # audio cache
 /public/audio-cache
+
+# data files (stored in Supabase, backup in backup-data/)
+/public/data/*.json
+backup-data/*.json

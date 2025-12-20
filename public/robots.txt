@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /data/
+Disallow: /api/
+
+# Allow only main pages
+Allow: /
+Allow: /kanji
+Allow: /vocabulary
+Allow: /sentences
