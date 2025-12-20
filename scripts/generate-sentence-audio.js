@@ -3,6 +3,7 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../.env.local') });
 
 const TTS_API_URL = 'https://texttospeech.googleapis.com/v1/text:synthesize';
+const JLPT_LEVEL = 'N4';
 
 // Load sentences data
 function loadSentences() {
@@ -22,7 +23,7 @@ async function generateAudio(text, outputPath) {
     input: { text },
     voice: {
       languageCode: 'ja-JP',
-      name: 'ja-JP-Neural2-B', // High quality neural voice
+      name: 'ja-JP-Chirp3-HD-Enceladus', // Chirp 3 HD voice (latest generation, female)
     },
     audioConfig: {
       audioEncoding: 'MP3',
