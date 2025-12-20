@@ -77,19 +77,19 @@ async function main() {
   console.log('=== Sentence Audio Generator (Google TTS Chirp 3) ===\n');
 
   const sentences = loadSentences();
-  const n5Sentences = sentences.filter(s => s.jlpt_level === 'N5');
+  const levelSentences = sentences.filter(s => s.jlpt_level === JLPT_LEVEL);
 
-  console.log(`Found ${n5Sentences.length} N5 sentences\n`);
+  console.log(`Found ${levelSentences.length} ${JLPT_LEVEL} sentences\n`);
 
-  const audioDir = ensureAudioDirectory('N5');
+  const audioDir = ensureAudioDirectory(JLPT_LEVEL);
   console.log(`Audio directory: ${audioDir}\n`);
 
   let generated = 0;
   let skipped = 0;
   let errors = 0;
 
-  for (let i = 0; i < n5Sentences.length; i++) {
-    const sentence = n5Sentences[i];
+  for (let i = 0; i < levelSentences.length; i++) {
+    const sentence = levelSentences[i];
     const filename = getSafeFilename(sentence.japanese_text);
     const outputPath = path.join(audioDir, filename);
 
@@ -103,7 +103,7 @@ async function main() {
     }
 
     try {
-      console.log(`[${i + 1}/${n5Sentences.length}] Generating: ${sentence.japanese_text}`);
+      console.log(`[${i + 1}/${levelSentences.length}] Generating: ${sentence.japanese_text}`);
       await generateAudio(sentence.japanese_text, outputPath);
       generated++;
       
@@ -123,7 +123,7 @@ async function main() {
   console.log(`Generated: ${generated} new audio files`);
   console.log(`Skipped: ${skipped} existing files`);
   console.log(`Errors: ${errors}`);
-  console.log(`Total N5 sentences: ${n5Sentences.length}`);
+  console.log(`Total ${JLPT_LEVEL} sentences: ${levelSentences.length}`);
   console.log(`\nAudio files saved to: ${audioDir}`);
 }
 
