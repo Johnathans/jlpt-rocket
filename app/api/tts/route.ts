@@ -28,7 +28,7 @@ function getCachedAudioPath(text: string): string | null {
 
 export async function POST(request: NextRequest) {
   try {
-    const { text, languageCode = 'ja-JP', voiceName = 'ja-JP-Journey-F' } = await request.json();
+    const { text, languageCode = 'ja-JP', voiceName = 'ja-JP-Neural2-B' } = await request.json();
 
     if (!text) {
       return NextResponse.json({ error: 'Text is required' }, { status: 400 });
