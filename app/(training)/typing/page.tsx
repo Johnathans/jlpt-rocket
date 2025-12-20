@@ -6,7 +6,7 @@ import { Volume2, RotateCcw, ArrowRight, CheckCircle, X } from 'lucide-react';
 import TrainingHeader from '@/components/TrainingHeader';
 import QuitConfirmationModal from '@/components/QuitConfirmationModal';
 import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
-import { StreakSystem } from '@/lib/streakSystem';
+import { StreakSystemSupabase as StreakSystem } from '@/lib/streakSystemSupabase';
 
 interface TypingItem {
   id: string;

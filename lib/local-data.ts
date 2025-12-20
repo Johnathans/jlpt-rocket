@@ -2,27 +2,23 @@ import { supabase } from './supabase'
 
 export type JLPTLevel = 'N5' | 'N4' | 'N3' | 'N2' | 'N1'
 
-// In-memory cache for Supabase data
+// In-memory cache for JSON data
 let kanjiCache: any[] | null = null;
 let vocabularyCache: any[] | null = null;
 let sentencesCache: any[] | null = null;
 
-// Load data from Supabase (protected by authentication)
+// Load JSON data from public/data folder (fast client-side loading)
 async function loadKanjiData() {
   if (kanjiCache) return kanjiCache;
   
   try {
-    const { data, error } = await supabase
-      .from('kanji')
-      .select('*')
-      .order('frequency_rank', { ascending: true });
-    
-    if (error) throw error;
-    kanjiCache = data || [];
-    console.log('✓ Loaded kanji from Supabase:', kanjiCache?.length || 0, 'entries');
+    const response = await fetch('/data/kanji.json');
+    if (!response.ok) throw new Error('Failed to load kanji.json');
+    kanjiCache = await response.json();
+    console.log('✓ Loaded kanji from JSON:', kanjiCache?.length || 0, 'entries');
     return kanjiCache;
   } catch (error) {
-    console.error('Failed to load kanji data:', error);
+    console.error('Failed to load local kanji data:', error);
     return null;
   }
 }
@@ -31,17 +27,13 @@ async function loadVocabularyData() {
   if (vocabularyCache) return vocabularyCache;
   
   try {
-    const { data, error } = await supabase
-      .from('vocabulary')
-      .select('*')
-      .order('frequency_rank', { ascending: true });
-    
-    if (error) throw error;
-    vocabularyCache = data || [];
-    console.log('✓ Loaded vocabulary from Supabase:', vocabularyCache?.length || 0, 'entries');
+    const response = await fetch('/data/vocabulary.json');
+    if (!response.ok) throw new Error('Failed to load vocabulary.json');
+    vocabularyCache = await response.json();
+    console.log('✓ Loaded vocabulary from JSON:', vocabularyCache?.length || 0, 'entries');
     return vocabularyCache;
   } catch (error) {
-    console.error('Failed to load vocabulary data:', error);
+    console.error('Failed to load local vocabulary data:', error);
     return null;
   }
 }
@@ -50,17 +42,13 @@ async function loadSentencesData() {
   if (sentencesCache) return sentencesCache;
   
   try {
-    const { data, error } = await supabase
-      .from('sentences')
-      .select('*')
-      .order('jlpt_level', { ascending: false });
-    
-    if (error) throw error;
-    sentencesCache = data || [];
-    console.log('✓ Loaded sentences from Supabase:', sentencesCache?.length || 0, 'entries');
+    const response = await fetch('/data/sentences.json');
+    if (!response.ok) throw new Error('Failed to load sentences.json');
+    sentencesCache = await response.json();
+    console.log('✓ Loaded sentences from JSON:', sentencesCache?.length || 0, 'entries');
     return sentencesCache;
   } catch (error) {
-    console.error('Failed to load sentences data:', error);
+    console.error('Failed to load local sentences data:', error);
     return null;
   }
 }

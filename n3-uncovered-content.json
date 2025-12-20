@@ -1,0 +1,6104 @@
+{
+  "summary": {
+    "total_n3_vocab": 1717,
+    "used_n3_vocab": 545,
+    "unused_n3_vocab": 1148,
+    "vocab_coverage_percent": "31.7",
+    "total_n3_kanji": 367,
+    "used_n3_kanji": 280,
+    "unused_n3_kanji": 87,
+    "kanji_coverage_percent": "76.3"
+  },
+  "unused_vocabulary": [
+    {
+      "word": "諦める",
+      "reading": "あきらめる",
+      "meaning": "to give up,to abandon"
+    },
+    {
+      "word": "預ける",
+      "reading": "あずける",
+      "meaning": "to give into custody,to entrust,to deposit"
+    },
+    {
+      "word": "与える",
+      "reading": "あたえる",
+      "meaning": "to give,to present,to award"
+    },
+    {
+      "word": "現す",
+      "reading": "あらわす",
+      "meaning": "to show,to indicate,to display"
+    },
+    {
+      "word": "裏切る",
+      "reading": "うらぎる",
+      "meaning": "to betray,to turn traitor to,to double-cross"
+    },
+    {
+      "word": "売れる",
+      "reading": "うれる",
+      "meaning": "to be sold"
+    },
+    {
+      "word": "応じる",
+      "reading": "おうじる",
+      "meaning": "to respond,to satisfy,to accept,to comply with,to apply for"
+    },
+    {
+      "word": "抱く",
+      "reading": "いだく",
+      "meaning": "(sl) to embrace,to hug,to harbour,to entertain"
+    },
+    {
+      "word": "至る",
+      "reading": "いたる",
+      "meaning": "to come,to arrive"
+    },
+    {
+      "word": "恐れる",
+      "reading": "おそれる",
+      "meaning": "to fear,to be afraid of"
+    },
+    {
+      "word": "違反",
+      "reading": "いはん",
+      "meaning": "violation (of law),transgression,infringement,breach"
+    },
+    {
+      "word": "衣服",
+      "reading": "いふく",
+      "meaning": "clothes"
+    },
+    {
+      "word": "居間",
+      "reading": "いま",
+      "meaning": "living room (western style)"
+    },
+    {
+      "word": "今に",
+      "reading": "いまに",
+      "meaning": "before long,even now"
+    },
+    {
+      "word": "今にも",
+      "reading": "いまにも",
+      "meaning": "at any time,soon"
+    },
+    {
+      "word": "否",
+      "reading": "いや",
+      "meaning": "no,the noes"
+    },
+    {
+      "word": "以来",
+      "reading": "いらい",
+      "meaning": "since,henceforth"
+    },
+    {
+      "word": "いらいら",
+      "reading": "いらいら",
+      "meaning": "getting nervous,irritation"
+    },
+    {
+      "word": "いらっしゃい",
+      "reading": "いらっしゃい",
+      "meaning": "welcome"
+    },
+    {
+      "word": "医療",
+      "reading": "いりょう",
+      "meaning": "medical care,medical treatment"
+    },
+    {
+      "word": "岩",
+      "reading": "いわ",
+      "meaning": "rock,crag"
+    },
+    {
+      "word": "言わば",
+      "reading": "いわば",
+      "meaning": "so to speak"
+    },
+    {
+      "word": "いわゆる",
+      "reading": "いわゆる",
+      "meaning": "the so-called,so to speak"
+    },
+    {
+      "word": "インク",
+      "reading": "インク",
+      "meaning": "ink"
+    },
+    {
+      "word": "印刷",
+      "reading": "いんさつ",
+      "meaning": "printing"
+    },
+    {
+      "word": "引退",
+      "reading": "いんたい",
+      "meaning": "retire"
+    },
+    {
+      "word": "引用",
+      "reading": "いんよう",
+      "meaning": "quotation,citation"
+    },
+    {
+      "word": "ウイスキー",
+      "reading": "ウイスキー",
+      "meaning": "whisky"
+    },
+    {
+      "word": "嗽",
+      "reading": "うがい",
+      "meaning": "gargle,rinse mouth"
+    },
+    {
+      "word": "受け取る",
+      "reading": "うけとる",
+      "meaning": "to receive,to get,to accept,to take"
+    },
+    {
+      "word": "兎",
+      "reading": "うさぎ",
+      "meaning": "rabbit,hare,cony"
+    },
+    {
+      "word": "牛",
+      "reading": "うし",
+      "meaning": "cattle,cow"
+    },
+    {
+      "word": "失う",
+      "reading": "うしなう",
+      "meaning": "to lose,to part with"
+    },
+    {
+      "word": "疑う",
+      "reading": "うたがう",
+      "meaning": "to doubt,to distrust,to be suspicious of,to suspect"
+    },
+    {
+      "word": "撃つ",
+      "reading": "うつ",
+      "meaning": "to attack,to defeat,to destroy"
+    },
+    {
+      "word": "移す",
+      "reading": "うつす",
+      "meaning": "to remove,to transfer,to infect"
+    },
+    {
+      "word": "訴える",
+      "reading": "うったえる",
+      "meaning": "to sue (a person),to resort to,to appeal to"
+    },
+    {
+      "word": "うなる",
+      "reading": "うなる",
+      "meaning": "to groan,to moan"
+    },
+    {
+      "word": "奪う",
+      "reading": "うばう",
+      "meaning": "to snatch away"
+    },
+    {
+      "word": "馬",
+      "reading": "うま",
+      "meaning": "(1) horse,(2) promoted bishop (shogi)"
+    },
+    {
+      "word": "生まれ",
+      "reading": "うまれ",
+      "meaning": "birth,birth-place"
+    },
+    {
+      "word": "梅",
+      "reading": "うめ",
+      "meaning": "plum,plum-tree,lowest (of a three-tier ranking system)"
+    },
+    {
+      "word": "替える",
+      "reading": "かえる",
+      "meaning": "to exchange,to interchange,to substitute,to replace"
+    },
+    {
+      "word": "換える",
+      "reading": "かえる",
+      "meaning": "to exchange,to interchange,to substitute,to replace"
+    },
+    {
+      "word": "画家",
+      "reading": "がか",
+      "meaning": "painter,artist"
+    },
+    {
+      "word": "抱える",
+      "reading": "かかえる",
+      "meaning": "to hold or carry under or in the arms"
+    },
+    {
+      "word": "化学",
+      "reading": "かがく",
+      "meaning": "chemistry"
+    },
+    {
+      "word": "輝く",
+      "reading": "かがやく",
+      "meaning": "to shine,to glitter,to sparkle"
+    },
+    {
+      "word": "罹る",
+      "reading": "かかる",
+      "meaning": "to suffer from"
+    },
+    {
+      "word": "汚染",
+      "reading": "おせん",
+      "meaning": "pollution,contamination"
+    },
+    {
+      "word": "おそらく",
+      "reading": "おそらく",
+      "meaning": "perhaps"
+    },
+    {
+      "word": "活用",
+      "reading": "かつよう",
+      "meaning": "conjugation,practical use"
+    },
+    {
+      "word": "悲しむ",
+      "reading": "かなしむ",
+      "meaning": "to be sad,to mourn for,to regret"
+    },
+    {
+      "word": "必ずしも",
+      "reading": "かならずしも",
+      "meaning": "(not) always,(not) necessarily,(not) all,(not) entirely"
+    },
+    {
+      "word": "株",
+      "reading": "かぶ",
+      "meaning": "share,stock,stump (of tree)"
+    },
+    {
+      "word": "被る",
+      "reading": "かぶる",
+      "meaning": "to suffer"
+    },
+    {
+      "word": "構う",
+      "reading": "かまう",
+      "meaning": "to mind,to care about,to be concerned about"
+    },
+    {
+      "word": "我慢",
+      "reading": "がまん",
+      "meaning": "patience,endurance,perseverance"
+    },
+    {
+      "word": "雷",
+      "reading": "かみなり",
+      "meaning": "thunder"
+    },
+    {
+      "word": "髪の毛",
+      "reading": "かみのけ",
+      "meaning": "hair (head)"
+    },
+    {
+      "word": "科目",
+      "reading": "かもく",
+      "meaning": "(school) subject,curriculum,course"
+    },
+    {
+      "word": "火曜",
+      "reading": "かよう",
+      "meaning": "(abbr) Tuesday"
+    },
+    {
+      "word": "刈る",
+      "reading": "かる",
+      "meaning": "to cut (hair),to mow (grass),to harvest"
+    },
+    {
+      "word": "彼等",
+      "reading": "かれら",
+      "meaning": "they (usually male)"
+    },
+    {
+      "word": "皮",
+      "reading": "かわ",
+      "meaning": "skin,hide,leather,fur,pelt,bark,shell"
+    },
+    {
+      "word": "革",
+      "reading": "かわ",
+      "meaning": "leather"
+    },
+    {
+      "word": "かわいそう",
+      "reading": "かわいそう",
+      "meaning": "poor,pitiable,pathetic"
+    },
+    {
+      "word": "かわいらしい",
+      "reading": "かわいらしい",
+      "meaning": "lovely,sweet"
+    },
+    {
+      "word": "缶",
+      "reading": "かん",
+      "meaning": "can,tin"
+    },
+    {
+      "word": "勘",
+      "reading": "かん",
+      "meaning": "perception,intuition,the sixth sense"
+    },
+    {
+      "word": "感覚",
+      "reading": "かんかく",
+      "meaning": "sense,sensation"
+    },
+    {
+      "word": "観客",
+      "reading": "かんきゃく",
+      "meaning": "audience,spectator(s)"
+    },
+    {
+      "word": "観察",
+      "reading": "かんさつ",
+      "meaning": "observation,survey"
+    },
+    {
+      "word": "感謝",
+      "reading": "かんしゃ",
+      "meaning": "thanks,gratitude"
+    },
+    {
+      "word": "患者",
+      "reading": "かんじゃ",
+      "meaning": "a patient"
+    },
+    {
+      "word": "勘定",
+      "reading": "かんじょう",
+      "meaning": "calculation,counting,consideration"
+    },
+    {
+      "word": "感心",
+      "reading": "かんしん",
+      "meaning": "admiration,Well done!"
+    },
+    {
+      "word": "関心",
+      "reading": "かんしん",
+      "meaning": "concern,interest"
+    },
+    {
+      "word": "鬼",
+      "reading": "おに",
+      "meaning": "ogre,demon,it (i.e., in a game of tag)"
+    },
+    {
+      "word": "オフィス",
+      "reading": "オフィス",
+      "meaning": "office"
+    },
+    {
+      "word": "溺れる",
+      "reading": "おぼれる",
+      "meaning": "to be drowned,to indulge in"
+    },
+    {
+      "word": "おまえ",
+      "reading": "おまえ",
+      "meaning": "(fam) you (sing),presence (of a high personage)"
+    },
+    {
+      "word": "お目出度う",
+      "reading": "おめでとう",
+      "meaning": "Congratulations!,an auspicious occasion!"
+    },
+    {
+      "word": "主に",
+      "reading": "おもに",
+      "meaning": "mainly,primarily"
+    },
+    {
+      "word": "思わず",
+      "reading": "おもわず",
+      "meaning": "unintentional,spontaneous"
+    },
+    {
+      "word": "おや",
+      "reading": "おや",
+      "meaning": "parents"
+    },
+    {
+      "word": "泳ぎ",
+      "reading": "およぎ",
+      "meaning": "swimming"
+    },
+    {
+      "word": "およそ",
+      "reading": "およそ",
+      "meaning": "about,roughly,as a rule,approximately"
+    },
+    {
+      "word": "及ぼす",
+      "reading": "およぼす",
+      "meaning": "to exert,to cause,to exercise"
+    },
+    {
+      "word": "居る",
+      "reading": "おる",
+      "meaning": "to be (animate),to be,to exist"
+    },
+    {
+      "word": "下す",
+      "reading": "おろす",
+      "meaning": "to lower,to let go down"
+    },
+    {
+      "word": "降ろす",
+      "reading": "おろす",
+      "meaning": "to take down,to launch,to drop"
+    },
+    {
+      "word": "恩",
+      "reading": "おん",
+      "meaning": "favour,obligation,debt of gratitude"
+    },
+    {
+      "word": "温暖",
+      "reading": "おんだん",
+      "meaning": "warmth"
+    },
+    {
+      "word": "温度",
+      "reading": "おんど",
+      "meaning": "temperature"
+    },
+    {
+      "word": "カード",
+      "reading": "カード",
+      "meaning": "card,curd"
+    },
+    {
+      "word": "会員",
+      "reading": "かいいん",
+      "meaning": "member,the membership"
+    },
+    {
+      "word": "海外",
+      "reading": "かいがい",
+      "meaning": "foreign,abroad,overseas"
+    },
+    {
+      "word": "会計",
+      "reading": "かいけい",
+      "meaning": "account,finance,accountant"
+    },
+    {
+      "word": "会合",
+      "reading": "かいごう",
+      "meaning": "meeting,assembly"
+    },
+    {
+      "word": "外交",
+      "reading": "がいこう",
+      "meaning": "diplomacy"
+    },
+    {
+      "word": "開始",
+      "reading": "かいし",
+      "meaning": "start,commencement,beginning"
+    },
+    {
+      "word": "解釈",
+      "reading": "かいしゃく",
+      "meaning": "explanation,interpretation"
+    },
+    {
+      "word": "回復",
+      "reading": "かいふく",
+      "meaning": "recovery (from illness),improvement,rehabilitation,restoration"
+    },
+    {
+      "word": "関連",
+      "reading": "かんれん",
+      "meaning": "relation,connection,relevance"
+    },
+    {
+      "word": "議員",
+      "reading": "ぎいん",
+      "meaning": "member of the Diet, congress or parliament"
+    },
+    {
+      "word": "記憶",
+      "reading": "きおく",
+      "meaning": "memory,recollection,remembrance"
+    },
+    {
+      "word": "機械",
+      "reading": "きかい",
+      "meaning": "machine,mechanism"
+    },
+    {
+      "word": "議会",
+      "reading": "ぎかい",
+      "meaning": "Diet,congress,parliament"
+    },
+    {
+      "word": "期間",
+      "reading": "きかん",
+      "meaning": "period,term"
+    },
+    {
+      "word": "機関",
+      "reading": "きかん",
+      "meaning": "organ,mechanism,facility,engine"
+    },
+    {
+      "word": "企業",
+      "reading": "きぎょう",
+      "meaning": "enterprise,undertaking"
+    },
+    {
+      "word": "家具",
+      "reading": "かぐ",
+      "meaning": "furniture"
+    },
+    {
+      "word": "覚悟",
+      "reading": "かくご",
+      "meaning": "resolution,resignation,readiness,preparedness"
+    },
+    {
+      "word": "確実",
+      "reading": "かくじつ",
+      "meaning": "certainty,reliability,soundness"
+    },
+    {
+      "word": "学者",
+      "reading": "がくしゃ",
+      "meaning": "scholar"
+    },
+    {
+      "word": "学習",
+      "reading": "がくしゅう",
+      "meaning": "study,learning"
+    },
+    {
+      "word": "隠す",
+      "reading": "かくす",
+      "meaning": "to hide,to conceal"
+    },
+    {
+      "word": "拡大",
+      "reading": "かくだい",
+      "meaning": "magnification,enlargement"
+    },
+    {
+      "word": "確認",
+      "reading": "かくにん",
+      "meaning": "affirmation,confirmation"
+    },
+    {
+      "word": "学問",
+      "reading": "がくもん",
+      "meaning": "scholarship,study,learning"
+    },
+    {
+      "word": "隠れる",
+      "reading": "かくれる",
+      "meaning": "to hide,to be hidden,to conceal oneself,to disappear"
+    },
+    {
+      "word": "陰",
+      "reading": "かげ",
+      "meaning": "shade,shadow,other side"
+    },
+    {
+      "word": "欠ける",
+      "reading": "かける",
+      "meaning": "to be lacking"
+    },
+    {
+      "word": "加減",
+      "reading": "かげん",
+      "meaning": "addition and subtraction,allowance for"
+    },
+    {
+      "word": "過去",
+      "reading": "かこ",
+      "meaning": "the past,bygone days,the previous"
+    },
+    {
+      "word": "籠",
+      "reading": "かご",
+      "meaning": "basket,cage"
+    },
+    {
+      "word": "囲む",
+      "reading": "かこむ",
+      "meaning": "to surround,to encircle"
+    },
+    {
+      "word": "火災",
+      "reading": "かさい",
+      "meaning": "conflagration,fire"
+    },
+    {
+      "word": "家事",
+      "reading": "かじ",
+      "meaning": "housework,domestic chores"
+    },
+    {
+      "word": "賢い",
+      "reading": "かしこい",
+      "meaning": "wise,clever,smart"
+    },
+    {
+      "word": "歌手",
+      "reading": "かしゅ",
+      "meaning": "singer"
+    },
+    {
+      "word": "稼ぐ",
+      "reading": "かせぐ",
+      "meaning": "to earn income,to labor"
+    },
+    {
+      "word": "数える",
+      "reading": "かぞえる",
+      "meaning": "to count"
+    },
+    {
+      "word": "型",
+      "reading": "かた",
+      "meaning": "mold,model,style,shape,data-type"
+    },
+    {
+      "word": "肩",
+      "reading": "かた",
+      "meaning": "shoulder"
+    },
+    {
+      "word": "方々",
+      "reading": "かたがた",
+      "meaning": "persons,this and that,here and there,everywhere"
+    },
+    {
+      "word": "刀",
+      "reading": "かたな",
+      "meaning": "sword,saber,knife,engraving tool"
+    },
+    {
+      "word": "語る",
+      "reading": "かたる",
+      "meaning": "to talk,to tell,to recite"
+    },
+    {
+      "word": "勝ち",
+      "reading": "かち",
+      "meaning": "win,victory"
+    },
+    {
+      "word": "活気",
+      "reading": "かっき",
+      "meaning": "energy,liveliness"
+    },
+    {
+      "word": "学期",
+      "reading": "がっき",
+      "meaning": "term (school)"
+    },
+    {
+      "word": "器用",
+      "reading": "きよう",
+      "meaning": "skillful,handy"
+    },
+    {
+      "word": "教科書",
+      "reading": "きょうかしょ",
+      "meaning": "text book"
+    },
+    {
+      "word": "行儀",
+      "reading": "ぎょうぎ",
+      "meaning": "manners"
+    },
+    {
+      "word": "供給",
+      "reading": "きょうきゅう",
+      "meaning": "supply,provision"
+    },
+    {
+      "word": "教師",
+      "reading": "きょうし",
+      "meaning": "teacher (classroom)"
+    },
+    {
+      "word": "教授",
+      "reading": "きょうじゅ",
+      "meaning": "teaching,instruction,professor"
+    },
+    {
+      "word": "強調",
+      "reading": "きょうちょう",
+      "meaning": "emphasis,stress,stressed point"
+    },
+    {
+      "word": "共通",
+      "reading": "きょうつう",
+      "meaning": "commonness,community"
+    },
+    {
+      "word": "共同",
+      "reading": "きょうどう",
+      "meaning": "cooperation,association,collaboration,joint"
+    },
+    {
+      "word": "恐怖",
+      "reading": "きょうふ",
+      "meaning": "be afraid,dread,dismay,terror"
+    },
+    {
+      "word": "完了",
+      "reading": "かんりょう",
+      "meaning": "completion,conclusion"
+    },
+    {
+      "word": "組合",
+      "reading": "くみあい",
+      "meaning": "association,union"
+    },
+    {
+      "word": "曇",
+      "reading": "くもり",
+      "meaning": "cloudiness,cloudy weather,shadow"
+    },
+    {
+      "word": "暮らす",
+      "reading": "くらす",
+      "meaning": "to live,to get along"
+    },
+    {
+      "word": "グラス",
+      "reading": "グラス",
+      "meaning": "(1) glass,(2) grass"
+    },
+    {
+      "word": "グランド",
+      "reading": "グランド",
+      "meaning": "gland,grand,(electrical) ground"
+    },
+    {
+      "word": "繰り返す",
+      "reading": "くりかえす",
+      "meaning": "to repeat,to do something over again"
+    },
+    {
+      "word": "クリスマス",
+      "reading": "クリスマス",
+      "meaning": "Christmas"
+    },
+    {
+      "word": "狂う",
+      "reading": "くるう",
+      "meaning": "to go mad,to get out of order"
+    },
+    {
+      "word": "グループ",
+      "reading": "グループ",
+      "meaning": "group"
+    },
+    {
+      "word": "苦しい",
+      "reading": "くるしい",
+      "meaning": "painful,difficult"
+    },
+    {
+      "word": "苦しむ",
+      "reading": "くるしむ",
+      "meaning": "to suffer,to groan,to be worried"
+    },
+    {
+      "word": "暮れ",
+      "reading": "くれ",
+      "meaning": "year end,sunset,nightfall,end"
+    },
+    {
+      "word": "加える",
+      "reading": "くわえる",
+      "meaning": "to append,to sum up,to add (up)"
+    },
+    {
+      "word": "加わる",
+      "reading": "くわわる",
+      "meaning": "to join in,to accede to,to increase,to gain in (influence)"
+    },
+    {
+      "word": "訓",
+      "reading": "くん",
+      "meaning": "native Japanese reading of a Chinese character"
+    },
+    {
+      "word": "軍",
+      "reading": "ぐん",
+      "meaning": "army,force,troops"
+    },
+    {
+      "word": "軍隊",
+      "reading": "ぐんたい",
+      "meaning": "army,troops"
+    },
+    {
+      "word": "訓練",
+      "reading": "くんれん",
+      "meaning": "practice,training"
+    },
+    {
+      "word": "敬意",
+      "reading": "けいい",
+      "meaning": "respect,honour"
+    },
+    {
+      "word": "経営",
+      "reading": "けいえい",
+      "meaning": "management,administration"
+    },
+    {
+      "word": "景気",
+      "reading": "けいき",
+      "meaning": "condition,state,business (condition)"
+    },
+    {
+      "word": "傾向",
+      "reading": "けいこう",
+      "meaning": "tendency,trend,inclination"
+    },
+    {
+      "word": "警告",
+      "reading": "けいこく",
+      "meaning": "warning,advice"
+    },
+    {
+      "word": "計算",
+      "reading": "けいさん",
+      "meaning": "calculation,reckoning"
+    },
+    {
+      "word": "掲示",
+      "reading": "けいじ",
+      "meaning": "notice,bulletin"
+    },
+    {
+      "word": "刑事",
+      "reading": "けいじ",
+      "meaning": "criminal case,(police) detective"
+    },
+    {
+      "word": "芸術",
+      "reading": "げいじゅつ",
+      "meaning": "(fine) art,the arts"
+    },
+    {
+      "word": "契約",
+      "reading": "けいやく",
+      "meaning": "contract,compact,agreement"
+    },
+    {
+      "word": "経由",
+      "reading": "けいゆ",
+      "meaning": "go by the way,via"
+    },
+    {
+      "word": "ケース",
+      "reading": "ケース",
+      "meaning": "case"
+    },
+    {
+      "word": "劇場",
+      "reading": "げきじょう",
+      "meaning": "theatre,playhouse"
+    },
+    {
+      "word": "化粧",
+      "reading": "けしょう",
+      "meaning": "make-up (cosmetic)"
+    },
+    {
+      "word": "けち",
+      "reading": "けち",
+      "meaning": "stinginess,miser,miserliness"
+    },
+    {
+      "word": "欠陥",
+      "reading": "けっかん",
+      "meaning": "defect,fault,deficiency"
+    },
+    {
+      "word": "決心",
+      "reading": "けっしん",
+      "meaning": "determination,resolution"
+    },
+    {
+      "word": "欠席",
+      "reading": "けっせき",
+      "meaning": "absence,non-attendance"
+    },
+    {
+      "word": "効く",
+      "reading": "きく",
+      "meaning": "to be effective"
+    },
+    {
+      "word": "機嫌",
+      "reading": "きげん",
+      "meaning": "humour,temper,mood"
+    },
+    {
+      "word": "気候",
+      "reading": "きこう",
+      "meaning": "climate"
+    },
+    {
+      "word": "岸",
+      "reading": "きし",
+      "meaning": "bank,coast,shore"
+    },
+    {
+      "word": "生地",
+      "reading": "きじ",
+      "meaning": "birthplace"
+    },
+    {
+      "word": "記事",
+      "reading": "きじ",
+      "meaning": "article,news story,report,account"
+    },
+    {
+      "word": "技師",
+      "reading": "ぎし",
+      "meaning": "engineer,technician"
+    },
+    {
+      "word": "記者",
+      "reading": "きしゃ",
+      "meaning": "reporter"
+    },
+    {
+      "word": "期待",
+      "reading": "きたい",
+      "meaning": "expectation,anticipation,hope"
+    },
+    {
+      "word": "帰宅",
+      "reading": "きたく",
+      "meaning": "returning home"
+    },
+    {
+      "word": "貴重",
+      "reading": "きちょう",
+      "meaning": "precious,valuable"
+    },
+    {
+      "word": "議長",
+      "reading": "ぎちょう",
+      "meaning": "chairman"
+    },
+    {
+      "word": "きつい",
+      "reading": "きつい",
+      "meaning": "tight,close,intense"
+    },
+    {
+      "word": "気付く",
+      "reading": "きづく",
+      "meaning": "to notice,to recognize,to become aware of"
+    },
+    {
+      "word": "気に入る",
+      "reading": "きにいる",
+      "meaning": "to be pleased with,to suit"
+    },
+    {
+      "word": "記入",
+      "reading": "きにゅう",
+      "meaning": "entry,filling in of forms"
+    },
+    {
+      "word": "記念",
+      "reading": "きねん",
+      "meaning": "commemoration,memory"
+    },
+    {
+      "word": "気の毒",
+      "reading": "きのどく",
+      "meaning": "pitiful,a pity"
+    },
+    {
+      "word": "寄付",
+      "reading": "きふ",
+      "meaning": "contribution,donation"
+    },
+    {
+      "word": "希望",
+      "reading": "きぼう",
+      "meaning": "hope,wish,aspiration"
+    },
+    {
+      "word": "基本",
+      "reading": "きほん",
+      "meaning": "foundation,basis,standard"
+    },
+    {
+      "word": "決まり",
+      "reading": "きまり",
+      "meaning": "settlement,conclusion,regulation,rule"
+    },
+    {
+      "word": "奇妙",
+      "reading": "きみょう",
+      "meaning": "strange,queer,curious"
+    },
+    {
+      "word": "義務",
+      "reading": "ぎむ",
+      "meaning": "duty,obligation,responsibility"
+    },
+    {
+      "word": "疑問",
+      "reading": "ぎもん",
+      "meaning": "question,problem,doubt,guess"
+    },
+    {
+      "word": "逆",
+      "reading": "ぎゃく",
+      "meaning": "reverse,opposite"
+    },
+    {
+      "word": "キャプテン",
+      "reading": "キャプテン",
+      "meaning": "captain"
+    },
+    {
+      "word": "旧",
+      "reading": "きゅう",
+      "meaning": "ex-"
+    },
+    {
+      "word": "休暇",
+      "reading": "きゅうか",
+      "meaning": "holiday,day off,furlough"
+    },
+    {
+      "word": "休憩",
+      "reading": "きゅうけい",
+      "meaning": "rest,break,recess,intermission"
+    },
+    {
+      "word": "急激",
+      "reading": "きゅうげき",
+      "meaning": "sudden,precipitous,radical"
+    },
+    {
+      "word": "吸収",
+      "reading": "きゅうしゅう",
+      "meaning": "absorption,suction,attraction"
+    },
+    {
+      "word": "救助",
+      "reading": "きゅうじょ",
+      "meaning": "relief,aid,rescue"
+    },
+    {
+      "word": "急速",
+      "reading": "きゅうそく",
+      "meaning": "rapid (e.g. progress)"
+    },
+    {
+      "word": "決定",
+      "reading": "けってい",
+      "meaning": "decision,determination"
+    },
+    {
+      "word": "欠点",
+      "reading": "けってん",
+      "meaning": "faults,defect,weakness"
+    },
+    {
+      "word": "月曜",
+      "reading": "げつよう",
+      "meaning": "Monday"
+    },
+    {
+      "word": "結論",
+      "reading": "けつろん",
+      "meaning": "conclusion"
+    },
+    {
+      "word": "煙",
+      "reading": "けむり",
+      "meaning": "smoke,fumes"
+    },
+    {
+      "word": "券",
+      "reading": "けん",
+      "meaning": "ticket,coupon,bond,certificate"
+    },
+    {
+      "word": "県",
+      "reading": "けん",
+      "meaning": "prefecture"
+    },
+    {
+      "word": "見解",
+      "reading": "けんかい",
+      "meaning": "opinion,point of view"
+    },
+    {
+      "word": "限界",
+      "reading": "げんかい",
+      "meaning": "limit,bound"
+    },
+    {
+      "word": "現金",
+      "reading": "げんきん",
+      "meaning": "cash,ready money,mercenary,self-interested"
+    },
+    {
+      "word": "ドラマ",
+      "reading": "ドラマ",
+      "meaning": "drama"
+    },
+    {
+      "word": "強力",
+      "reading": "きょうりょく",
+      "meaning": "herculean strength,mountain carrier-guide"
+    },
+    {
+      "word": "許可",
+      "reading": "きょか",
+      "meaning": "permission,approval"
+    },
+    {
+      "word": "巨大",
+      "reading": "きょだい",
+      "meaning": "huge,gigantic,enormous"
+    },
+    {
+      "word": "嫌う",
+      "reading": "きらう",
+      "meaning": "to hate,to dislike,to loathe"
+    },
+    {
+      "word": "霧",
+      "reading": "きり",
+      "meaning": "fog,mist"
+    },
+    {
+      "word": "切れる",
+      "reading": "きれる",
+      "meaning": "(1) to cut well,to be sharp,(2) to break (off)"
+    },
+    {
+      "word": "記録",
+      "reading": "きろく",
+      "meaning": "record,minutes,document"
+    },
+    {
+      "word": "銀",
+      "reading": "ぎん",
+      "meaning": "(1) silver,silver coin,silver paint"
+    },
+    {
+      "word": "禁煙",
+      "reading": "きんえん",
+      "meaning": "No Smoking!"
+    },
+    {
+      "word": "金庫",
+      "reading": "きんこ",
+      "meaning": "safe,vault,treasury,provider of funds"
+    },
+    {
+      "word": "禁止",
+      "reading": "きんし",
+      "meaning": "prohibition,ban"
+    },
+    {
+      "word": "金銭",
+      "reading": "きんせん",
+      "meaning": "money,cash"
+    },
+    {
+      "word": "金属",
+      "reading": "きんぞく",
+      "meaning": "metal"
+    },
+    {
+      "word": "近代",
+      "reading": "きんだい",
+      "meaning": "present day"
+    },
+    {
+      "word": "筋肉",
+      "reading": "きんにく",
+      "meaning": "muscle,sinew"
+    },
+    {
+      "word": "金融",
+      "reading": "きんゆう",
+      "meaning": "monetary circulation,credit situation"
+    },
+    {
+      "word": "句",
+      "reading": "く",
+      "meaning": "sentence"
+    },
+    {
+      "word": "食う",
+      "reading": "くう",
+      "meaning": "(male) (vulg) to eat"
+    },
+    {
+      "word": "偶然",
+      "reading": "ぐうぜん",
+      "meaning": "(by) chance,unexpectedly,suddenly"
+    },
+    {
+      "word": "臭い",
+      "reading": "くさい",
+      "meaning": "odour,scent,smell,stench"
+    },
+    {
+      "word": "鎖",
+      "reading": "くさり",
+      "meaning": "chain"
+    },
+    {
+      "word": "腐る",
+      "reading": "くさる",
+      "meaning": "to rot,to go bad"
+    },
+    {
+      "word": "癖",
+      "reading": "くせ",
+      "meaning": "a habit (often a bad habit),peculiarity"
+    },
+    {
+      "word": "具体",
+      "reading": "ぐたい",
+      "meaning": "concrete,tangible,material"
+    },
+    {
+      "word": "下さる",
+      "reading": "くださる",
+      "meaning": "(hon) to give,to confer"
+    },
+    {
+      "word": "下り",
+      "reading": "くだり",
+      "meaning": "down-train (going away from Tokyo)"
+    },
+    {
+      "word": "苦痛",
+      "reading": "くつう",
+      "meaning": "pain,agony"
+    },
+    {
+      "word": "ぐっすり",
+      "reading": "ぐっすり",
+      "meaning": "sound asleep,fast asleep"
+    },
+    {
+      "word": "区別",
+      "reading": "くべつ",
+      "meaning": "distinction,differentiation,classification"
+    },
+    {
+      "word": "強盗",
+      "reading": "ごうとう",
+      "meaning": "robbery,burglary"
+    },
+    {
+      "word": "幸福",
+      "reading": "こうふく",
+      "meaning": "happiness,blessedness"
+    },
+    {
+      "word": "公平",
+      "reading": "こうへい",
+      "meaning": "fairness,impartial,justice"
+    },
+    {
+      "word": "候補",
+      "reading": "こうほ",
+      "meaning": "candidacy"
+    },
+    {
+      "word": "考慮",
+      "reading": "こうりょ",
+      "meaning": "consideration,taking into account"
+    },
+    {
+      "word": "越える",
+      "reading": "こえる",
+      "meaning": "to exceed,to cross over,to cross"
+    },
+    {
+      "word": "コーチ",
+      "reading": "コーチ",
+      "meaning": "coach"
+    },
+    {
+      "word": "コード",
+      "reading": "コード",
+      "meaning": "code,cord,chord"
+    },
+    {
+      "word": "氷",
+      "reading": "こおり",
+      "meaning": "ice,hail"
+    },
+    {
+      "word": "凍る",
+      "reading": "こおる",
+      "meaning": "to freeze,to be frozen over,to congeal"
+    },
+    {
+      "word": "ゴール",
+      "reading": "ゴール",
+      "meaning": "goal"
+    },
+    {
+      "word": "誤解",
+      "reading": "ごかい",
+      "meaning": "misunderstanding"
+    },
+    {
+      "word": "語学",
+      "reading": "ごがく",
+      "meaning": "language study"
+    },
+    {
+      "word": "言語",
+      "reading": "げんご",
+      "meaning": "language"
+    },
+    {
+      "word": "検査",
+      "reading": "けんさ",
+      "meaning": "inspection (e.g. customs, factory),examination"
+    },
+    {
+      "word": "現在",
+      "reading": "げんざい",
+      "meaning": "present,up to now,nowadays,modern times,current"
+    },
+    {
+      "word": "現実",
+      "reading": "げんじつ",
+      "meaning": "reality"
+    },
+    {
+      "word": "現象",
+      "reading": "げんしょう",
+      "meaning": "phenomenon"
+    },
+    {
+      "word": "現状",
+      "reading": "げんじょう",
+      "meaning": "present condition,existing state,status quo"
+    },
+    {
+      "word": "建設",
+      "reading": "けんせつ",
+      "meaning": "construction,establishment"
+    },
+    {
+      "word": "現代",
+      "reading": "げんだい",
+      "meaning": "nowadays,modern times,present-day"
+    },
+    {
+      "word": "建築",
+      "reading": "けんちく",
+      "meaning": "construction,architecture"
+    },
+    {
+      "word": "見当",
+      "reading": "けんとう",
+      "meaning": "be found,aim,estimate,guess,approx"
+    },
+    {
+      "word": "検討",
+      "reading": "けんとう",
+      "meaning": "consideration,examination,investigation,study,scrutiny"
+    },
+    {
+      "word": "現場",
+      "reading": "げんば",
+      "meaning": "actual spot,scene,scene of the crime"
+    },
+    {
+      "word": "憲法",
+      "reading": "けんぽう",
+      "meaning": "constitution"
+    },
+    {
+      "word": "権利",
+      "reading": "けんり",
+      "meaning": "right,privilege"
+    },
+    {
+      "word": "恋",
+      "reading": "こい",
+      "meaning": "love,tender passion"
+    },
+    {
+      "word": "濃い",
+      "reading": "こい",
+      "meaning": "thick (as of color, liquid),dense,strong"
+    },
+    {
+      "word": "恋人",
+      "reading": "こいびと",
+      "meaning": "lover,sweetheart"
+    },
+    {
+      "word": "幸運",
+      "reading": "こううん",
+      "meaning": "good luck,fortune"
+    },
+    {
+      "word": "講演",
+      "reading": "こうえん",
+      "meaning": "lecture,address"
+    },
+    {
+      "word": "効果",
+      "reading": "こうか",
+      "meaning": "effect,effectiveness,efficacy,result"
+    },
+    {
+      "word": "硬貨",
+      "reading": "こうか",
+      "meaning": "coin"
+    },
+    {
+      "word": "高価",
+      "reading": "こうか",
+      "meaning": "high price"
+    },
+    {
+      "word": "交換",
+      "reading": "こうかん",
+      "meaning": "exchange,interchange,reciprocity"
+    },
+    {
+      "word": "航空",
+      "reading": "こうくう",
+      "meaning": "aviation,flying"
+    },
+    {
+      "word": "光景",
+      "reading": "こうけい",
+      "meaning": "scene,spectacle"
+    },
+    {
+      "word": "合計",
+      "reading": "ごうけい",
+      "meaning": "sum total,total amount"
+    },
+    {
+      "word": "攻撃",
+      "reading": "こうげき",
+      "meaning": "attack,strike,offensive,criticism,censure"
+    },
+    {
+      "word": "貢献",
+      "reading": "こうけん",
+      "meaning": "contribution,services"
+    },
+    {
+      "word": "広告",
+      "reading": "こうこく",
+      "meaning": "advertisement"
+    },
+    {
+      "word": "交際",
+      "reading": "こうさい",
+      "meaning": "company,friendship,association,society,acquaintance"
+    },
+    {
+      "word": "後者",
+      "reading": "こうしゃ",
+      "meaning": "the latter"
+    },
+    {
+      "word": "工場",
+      "reading": "こうば",
+      "meaning": "factory,plant,mill,workshop"
+    },
+    {
+      "word": "構成",
+      "reading": "こうせい",
+      "meaning": "organization,composition"
+    },
+    {
+      "word": "高速",
+      "reading": "こうそく",
+      "meaning": "high speed,high gear"
+    },
+    {
+      "word": "参考",
+      "reading": "さんこう",
+      "meaning": "reference,consultation"
+    },
+    {
+      "word": "酸素",
+      "reading": "さんそ",
+      "meaning": "oxygen"
+    },
+    {
+      "word": "氏",
+      "reading": "し",
+      "meaning": "family name,lineage,birth"
+    },
+    {
+      "word": "詩",
+      "reading": "し",
+      "meaning": "poem,verse of poetry"
+    },
+    {
+      "word": "ジーンズ",
+      "reading": "ジーンズ",
+      "meaning": "jeans"
+    },
+    {
+      "word": "ジェット機",
+      "reading": "ジェットき",
+      "meaning": "jet aeroplane"
+    },
+    {
+      "word": "直に",
+      "reading": "じかに",
+      "meaning": "immediately,readily,directly"
+    },
+    {
+      "word": "しかも",
+      "reading": "しかも",
+      "meaning": "moreover,furthermore,nevertheless,and yet"
+    },
+    {
+      "word": "叱る",
+      "reading": "しかる",
+      "meaning": "to scold"
+    },
+    {
+      "word": "故郷",
+      "reading": "こきょう",
+      "meaning": "home town,birthplace,old village,historic village"
+    },
+    {
+      "word": "国語",
+      "reading": "こくご",
+      "meaning": "national language"
+    },
+    {
+      "word": "黒板",
+      "reading": "こくばん",
+      "meaning": "blackboard"
+    },
+    {
+      "word": "克服",
+      "reading": "こくふく",
+      "meaning": "subjugation,conquest"
+    },
+    {
+      "word": "国民",
+      "reading": "こくみん",
+      "meaning": "national,people,citizen"
+    },
+    {
+      "word": "穀物",
+      "reading": "こくもつ",
+      "meaning": "grain,cereal,corn"
+    },
+    {
+      "word": "腰",
+      "reading": "こし",
+      "meaning": "hip"
+    },
+    {
+      "word": "個人",
+      "reading": "こじん",
+      "meaning": "individual,private person,personal,private"
+    },
+    {
+      "word": "越す",
+      "reading": "こす",
+      "meaning": "to go over (e.g. with audience)"
+    },
+    {
+      "word": "国家",
+      "reading": "こっか",
+      "meaning": "state,country,nation"
+    },
+    {
+      "word": "国会",
+      "reading": "こっかい",
+      "meaning": "National Diet,parliament,congress"
+    },
+    {
+      "word": "国境",
+      "reading": "こっきょう",
+      "meaning": "national or state border"
+    },
+    {
+      "word": "骨折",
+      "reading": "こっせつ",
+      "meaning": "bone fracture"
+    },
+    {
+      "word": "小包",
+      "reading": "こづつみ",
+      "meaning": "parcel,package"
+    },
+    {
+      "word": "異なる",
+      "reading": "ことなる",
+      "meaning": "to differ,to vary,to disagree"
+    },
+    {
+      "word": "諺",
+      "reading": "ことわざ",
+      "meaning": "proverb,maxim"
+    },
+    {
+      "word": "断る",
+      "reading": "ことわる",
+      "meaning": "to refuse,to decline,to dismiss"
+    },
+    {
+      "word": "粉",
+      "reading": "こな",
+      "meaning": "flour,meal,powder"
+    },
+    {
+      "word": "好み",
+      "reading": "このみ",
+      "meaning": "liking,taste,choice"
+    },
+    {
+      "word": "好む",
+      "reading": "このむ",
+      "meaning": "to like,to prefer"
+    },
+    {
+      "word": "小麦",
+      "reading": "こむぎ",
+      "meaning": "wheat"
+    },
+    {
+      "word": "ごめんなさい",
+      "reading": "ごめんなさい",
+      "meaning": "I beg your pardon,excuse me"
+    },
+    {
+      "word": "小屋",
+      "reading": "こや",
+      "meaning": "hut,cabin,shed,(animal) pen"
+    },
+    {
+      "word": "これら",
+      "reading": "これら",
+      "meaning": "these"
+    },
+    {
+      "word": "殺す",
+      "reading": "ころす",
+      "meaning": "to kill"
+    },
+    {
+      "word": "転ぶ",
+      "reading": "ころぶ",
+      "meaning": "to fall down,to fall over"
+    },
+    {
+      "word": "今回",
+      "reading": "こんかい",
+      "meaning": "now,this time,lately"
+    },
+    {
+      "word": "今後",
+      "reading": "こんご",
+      "meaning": "from now on,hereafter"
+    },
+    {
+      "word": "混雑",
+      "reading": "こんざつ",
+      "meaning": "confusion,congestion"
+    },
+    {
+      "word": "困難",
+      "reading": "こんなん",
+      "meaning": "difficulty,distress"
+    },
+    {
+      "word": "支配",
+      "reading": "しはい",
+      "meaning": "rule,control,direction"
+    },
+    {
+      "word": "芝居",
+      "reading": "しばい",
+      "meaning": "play,drama"
+    },
+    {
+      "word": "しばしば",
+      "reading": "しばしば",
+      "meaning": "often,again and again,frequently"
+    },
+    {
+      "word": "芝生",
+      "reading": "しばふ",
+      "meaning": "lawn"
+    },
+    {
+      "word": "支払う",
+      "reading": "しはらう",
+      "meaning": "to pay"
+    },
+    {
+      "word": "死亡",
+      "reading": "しぼう",
+      "meaning": "death,mortality"
+    },
+    {
+      "word": "資本",
+      "reading": "しほん",
+      "meaning": "funds,capital"
+    },
+    {
+      "word": "仕舞い",
+      "reading": "しまい",
+      "meaning": "sisters"
+    },
+    {
+      "word": "姉妹",
+      "reading": "しまい",
+      "meaning": "sisters"
+    },
+    {
+      "word": "仕舞う",
+      "reading": "しまう",
+      "meaning": "to finish,to close,to do something completely"
+    },
+    {
+      "word": "仕舞った",
+      "reading": "しまった",
+      "meaning": "Damn it!"
+    },
+    {
+      "word": "事務",
+      "reading": "じむ",
+      "meaning": "business,office work"
+    },
+    {
+      "word": "示す",
+      "reading": "しめす",
+      "meaning": "to denote,to show,to point out,to indicate"
+    },
+    {
+      "word": "占める",
+      "reading": "しめる",
+      "meaning": "(1) to comprise,to account for,to make up (of),(2) to hold,to occupy"
+    },
+    {
+      "word": "こんにちは",
+      "reading": "こんにちは",
+      "meaning": "hello,good day (daytime greeting, id)"
+    },
+    {
+      "word": "婚約",
+      "reading": "こんやく",
+      "meaning": "engagement,betrothal"
+    },
+    {
+      "word": "混乱",
+      "reading": "こんらん",
+      "meaning": "disorder,chaos,confusion,mayhem"
+    },
+    {
+      "word": "差",
+      "reading": "さ",
+      "meaning": "difference,variation"
+    },
+    {
+      "word": "財産",
+      "reading": "ざいさん",
+      "meaning": "property,fortune,assets"
+    },
+    {
+      "word": "最終",
+      "reading": "さいしゅう",
+      "meaning": "last,final,closing"
+    },
+    {
+      "word": "最中",
+      "reading": "さいちゅう",
+      "meaning": "in the middle of"
+    },
+    {
+      "word": "最低",
+      "reading": "さいてい",
+      "meaning": "least,lowest,worst"
+    },
+    {
+      "word": "裁判",
+      "reading": "さいばん",
+      "meaning": "trial,judgement"
+    },
+    {
+      "word": "サイン",
+      "reading": "サイン",
+      "meaning": "(1) autograph,(2) sign,(3) sine"
+    },
+    {
+      "word": "逆らう",
+      "reading": "さからう",
+      "meaning": "to go against,to oppose,to disobey,to defy"
+    },
+    {
+      "word": "作物",
+      "reading": "さくもつ",
+      "meaning": "produce (e.g. agricultural),crops"
+    },
+    {
+      "word": "酒",
+      "reading": "さけ",
+      "meaning": "alcohol,sake"
+    },
+    {
+      "word": "叫ぶ",
+      "reading": "さけぶ",
+      "meaning": "to shout,to cry"
+    },
+    {
+      "word": "避ける",
+      "reading": "さける",
+      "meaning": "(1) to avoid (physical contact ),(2) to ward off,to avert"
+    },
+    {
+      "word": "支える",
+      "reading": "ささえる",
+      "meaning": "to be blocked,to choke,to be obstructed"
+    },
+    {
+      "word": "指す",
+      "reading": "さす",
+      "meaning": "to point,to put up umbrella,to play"
+    },
+    {
+      "word": "座席",
+      "reading": "ざせき",
+      "meaning": "seat"
+    },
+    {
+      "word": "誘う",
+      "reading": "さそう",
+      "meaning": "(1) to invite,to ask,(2) to tempt,to lure,to induce"
+    },
+    {
+      "word": "札",
+      "reading": "さつ",
+      "meaning": "(1) token,label,(2) ticket,(3) charm"
+    },
+    {
+      "word": "作家",
+      "reading": "さっか",
+      "meaning": "author,writer,novelist,artist"
+    },
+    {
+      "word": "作曲",
+      "reading": "さっきょく",
+      "meaning": "composition,setting (of music)"
+    },
+    {
+      "word": "ざっと",
+      "reading": "ざっと",
+      "meaning": "roughly,in round numbers"
+    },
+    {
+      "word": "さっぱり",
+      "reading": "さっぱり",
+      "meaning": "feeling refreshed,feeling relieved,neat,trimmed"
+    },
+    {
+      "word": "さて",
+      "reading": "さて",
+      "meaning": "well,now,then"
+    },
+    {
+      "word": "砂漠",
+      "reading": "さばく",
+      "meaning": "desert"
+    },
+    {
+      "word": "差別",
+      "reading": "さべつ",
+      "meaning": "discrimination,distinction,differentiation"
+    },
+    {
+      "word": "作法",
+      "reading": "さほう",
+      "meaning": "manners,etiquette,propriety"
+    },
+    {
+      "word": "覚ます",
+      "reading": "さます",
+      "meaning": "to awaken"
+    },
+    {
+      "word": "覚める",
+      "reading": "さめる",
+      "meaning": "to wake,to wake up"
+    },
+    {
+      "word": "左右",
+      "reading": "さゆう",
+      "meaning": "(1) left and right,(2) influence,control,domination"
+    },
+    {
+      "word": "皿",
+      "reading": "さら",
+      "meaning": "plate,dish"
+    },
+    {
+      "word": "更に",
+      "reading": "さらに",
+      "meaning": "furthermore,again,after all,more and more,moreover"
+    },
+    {
+      "word": "去る",
+      "reading": "さる",
+      "meaning": "to leave,to go away"
+    },
+    {
+      "word": "猿",
+      "reading": "さる",
+      "meaning": "monkey"
+    },
+    {
+      "word": "騒ぎ",
+      "reading": "さわぎ",
+      "meaning": "uproar,disturbance"
+    },
+    {
+      "word": "主婦",
+      "reading": "しゅふ",
+      "meaning": "housewife,mistress"
+    },
+    {
+      "word": "支給",
+      "reading": "しきゅう",
+      "meaning": "payment,allowance"
+    },
+    {
+      "word": "しきりに",
+      "reading": "しきりに",
+      "meaning": "frequently,repeatedly,incessantly,eagerly"
+    },
+    {
+      "word": "刺激",
+      "reading": "しげき",
+      "meaning": "stimulus,impetus,incentive"
+    },
+    {
+      "word": "資源",
+      "reading": "しげん",
+      "meaning": "resources"
+    },
+    {
+      "word": "事件",
+      "reading": "じけん",
+      "meaning": "event,affair,incident"
+    },
+    {
+      "word": "時刻",
+      "reading": "じこく",
+      "meaning": "instant,time,moment"
+    },
+    {
+      "word": "自殺",
+      "reading": "じさつ",
+      "meaning": "suicide"
+    },
+    {
+      "word": "事実",
+      "reading": "じじつ",
+      "meaning": "fact,truth,reality"
+    },
+    {
+      "word": "支出",
+      "reading": "ししゅつ",
+      "meaning": "expenditure,expenses"
+    },
+    {
+      "word": "事情",
+      "reading": "じじょう",
+      "meaning": "circumstances,consideration,conditions,situation,reasons"
+    },
+    {
+      "word": "詩人",
+      "reading": "しじん",
+      "meaning": "poet"
+    },
+    {
+      "word": "自身",
+      "reading": "じしん",
+      "meaning": "by oneself,personally"
+    },
+    {
+      "word": "沈む",
+      "reading": "しずむ",
+      "meaning": "to sink,to feel depressed"
+    },
+    {
+      "word": "思想",
+      "reading": "しそう",
+      "meaning": "thought,idea"
+    },
+    {
+      "word": "舌",
+      "reading": "した",
+      "meaning": "tongue"
+    },
+    {
+      "word": "事態",
+      "reading": "じたい",
+      "meaning": "situation,present state of affairs"
+    },
+    {
+      "word": "従う",
+      "reading": "したがう",
+      "meaning": "to abide (by the rules),to obey,to follow,to accompany"
+    },
+    {
+      "word": "親しい",
+      "reading": "したしい",
+      "meaning": "intimate,close (e.g. friend)"
+    },
+    {
+      "word": "失業",
+      "reading": "しつぎょう",
+      "meaning": "unemployment"
+    },
+    {
+      "word": "実験",
+      "reading": "じっけん",
+      "meaning": "experiment"
+    },
+    {
+      "word": "実現",
+      "reading": "じつげん",
+      "meaning": "implementation,materialization,realization"
+    },
+    {
+      "word": "実行",
+      "reading": "じっこう",
+      "meaning": "practice,performance,execution (e.g. program),realization"
+    },
+    {
+      "word": "実際",
+      "reading": "じっさい",
+      "meaning": "practical,actual condition,status quo"
+    },
+    {
+      "word": "実施",
+      "reading": "じっし",
+      "meaning": "enforcement,enact,put into practice,carry out,operation"
+    },
+    {
+      "word": "じっと",
+      "reading": "じっと",
+      "meaning": "fixedly,firmly,patiently,quietly"
+    },
+    {
+      "word": "実に",
+      "reading": "じつに",
+      "meaning": "indeed,truly,surely"
+    },
+    {
+      "word": "失望",
+      "reading": "しつぼう",
+      "meaning": "disappointment,despair"
+    },
+    {
+      "word": "支店",
+      "reading": "してん",
+      "meaning": "branch store (office)"
+    },
+    {
+      "word": "指導",
+      "reading": "しどう",
+      "meaning": "leadership,guidance,coaching"
+    },
+    {
+      "word": "自動",
+      "reading": "じどう",
+      "meaning": "automatic,self-motion"
+    },
+    {
+      "word": "女子",
+      "reading": "じょし",
+      "meaning": "woman,girl"
+    },
+    {
+      "word": "助手",
+      "reading": "じょしゅ",
+      "meaning": "helper,helpmeet,assistant,tutor"
+    },
+    {
+      "word": "署名",
+      "reading": "しょめい",
+      "meaning": "signature"
+    },
+    {
+      "word": "書物",
+      "reading": "しょもつ",
+      "meaning": "books"
+    },
+    {
+      "word": "女優",
+      "reading": "じょゆう",
+      "meaning": "actress"
+    },
+    {
+      "word": "処理",
+      "reading": "しょり",
+      "meaning": "processing,dealing with,treatment,disposition,disposal"
+    },
+    {
+      "word": "書類",
+      "reading": "しょるい",
+      "meaning": "documents,official papers"
+    },
+    {
+      "word": "知らせ",
+      "reading": "しらせ",
+      "meaning": "notice"
+    },
+    {
+      "word": "尻",
+      "reading": "しり",
+      "meaning": "buttocks,bottom"
+    },
+    {
+      "word": "霜",
+      "reading": "しも",
+      "meaning": "frost"
+    },
+    {
+      "word": "借金",
+      "reading": "しゃっきん",
+      "meaning": "debt,loan,liabilities"
+    },
+    {
+      "word": "しゃべる",
+      "reading": "しゃべる",
+      "meaning": "to talk,to chat,to chatter"
+    },
+    {
+      "word": "邪魔",
+      "reading": "じゃま",
+      "meaning": "hindrance,intrusion"
+    },
+    {
+      "word": "州",
+      "reading": "しゅう",
+      "meaning": "sandbank"
+    },
+    {
+      "word": "銃",
+      "reading": "じゅう",
+      "meaning": "gun"
+    },
+    {
+      "word": "周囲",
+      "reading": "しゅうい",
+      "meaning": "surroundings,circumference,environs"
+    },
+    {
+      "word": "宗教",
+      "reading": "しゅうきょう",
+      "meaning": "religion"
+    },
+    {
+      "word": "重視",
+      "reading": "じゅうし",
+      "meaning": "importance,stress,serious consideration"
+    },
+    {
+      "word": "就職",
+      "reading": "しゅうしょく",
+      "meaning": "finding employment,inauguration"
+    },
+    {
+      "word": "ジュース",
+      "reading": "ジュース",
+      "meaning": "juice,soft drink,deuce"
+    },
+    {
+      "word": "修正",
+      "reading": "しゅうせい",
+      "meaning": "amendment,correction,revision,modification"
+    },
+    {
+      "word": "重大",
+      "reading": "じゅうだい",
+      "meaning": "serious,important,grave,weighty"
+    },
+    {
+      "word": "住宅",
+      "reading": "じゅうたく",
+      "meaning": "resident,housing"
+    },
+    {
+      "word": "集団",
+      "reading": "しゅうだん",
+      "meaning": "group,mass"
+    },
+    {
+      "word": "集中",
+      "reading": "しゅうちゅう",
+      "meaning": "concentration,focusing the mind"
+    },
+    {
+      "word": "主義",
+      "reading": "しゅぎ",
+      "meaning": "doctrine,rule,principle"
+    },
+    {
+      "word": "宿泊",
+      "reading": "しゅくはく",
+      "meaning": "lodging"
+    },
+    {
+      "word": "手術",
+      "reading": "しゅじゅつ",
+      "meaning": "surgical operation"
+    },
+    {
+      "word": "首相",
+      "reading": "しゅしょう",
+      "meaning": "Prime Minister"
+    },
+    {
+      "word": "手段",
+      "reading": "しゅだん",
+      "meaning": "means,way,measure"
+    },
+    {
+      "word": "主張",
+      "reading": "しゅちょう",
+      "meaning": "claim,request,insistence,assertion"
+    },
+    {
+      "word": "出身",
+      "reading": "しゅっしん",
+      "meaning": "graduate from,come from"
+    },
+    {
+      "word": "出版",
+      "reading": "しゅっぱん",
+      "meaning": "publication"
+    },
+    {
+      "word": "首都",
+      "reading": "しゅと",
+      "meaning": "capital city"
+    },
+    {
+      "word": "救う",
+      "reading": "すくう",
+      "meaning": "to rescue from,to help out of"
+    },
+    {
+      "word": "優れる",
+      "reading": "すぐれる",
+      "meaning": "to surpass,to outstrip,to excel"
+    },
+    {
+      "word": "スケート",
+      "reading": "スケート",
+      "meaning": "skate(s),skating"
+    },
+    {
+      "word": "すごい",
+      "reading": "すごい",
+      "meaning": "terrible,dreadful,terrific,amazing,great"
+    },
+    {
+      "word": "少しも",
+      "reading": "すこしも",
+      "meaning": "anything of,not one bit"
+    },
+    {
+      "word": "勧める",
+      "reading": "すすめる",
+      "meaning": "to recommend,to advise,to encourage,to offer (wine)"
+    },
+    {
+      "word": "スター",
+      "reading": "スター",
+      "meaning": "star"
+    },
+    {
+      "word": "スタンド",
+      "reading": "スタンド",
+      "meaning": "stand"
+    },
+    {
+      "word": "頭痛",
+      "reading": "ずつう",
+      "meaning": "headache"
+    },
+    {
+      "word": "ずっと",
+      "reading": "ずっと",
+      "meaning": "consecutively,throughout,a lot"
+    },
+    {
+      "word": "すてき",
+      "reading": "すてき",
+      "meaning": "lovely,dreamy,beautiful,great"
+    },
+    {
+      "word": "既に",
+      "reading": "すでに",
+      "meaning": "already,too late"
+    },
+    {
+      "word": "すなわち",
+      "reading": "すなわち",
+      "meaning": "that is,namely,i.e."
+    },
+    {
+      "word": "主要",
+      "reading": "しゅよう",
+      "meaning": "chief,main,principal,major"
+    },
+    {
+      "word": "需要",
+      "reading": "じゅよう",
+      "meaning": "demand,request"
+    },
+    {
+      "word": "種類",
+      "reading": "しゅるい",
+      "meaning": "variety,kind,type"
+    },
+    {
+      "word": "瞬間",
+      "reading": "しゅんかん",
+      "meaning": "moment,second,instant"
+    },
+    {
+      "word": "順調",
+      "reading": "じゅんちょう",
+      "meaning": "favourable,doing well,O.K.,all right"
+    },
+    {
+      "word": "順番",
+      "reading": "じゅんばん",
+      "meaning": "turn (in line),order of things"
+    },
+    {
+      "word": "使用",
+      "reading": "しよう",
+      "meaning": "use,application,employment,utilization"
+    },
+    {
+      "word": "賞",
+      "reading": "しょう",
+      "meaning": "prize,award"
+    },
+    {
+      "word": "障害",
+      "reading": "しょうがい",
+      "meaning": "obstacle,impediment (fault),damage"
+    },
+    {
+      "word": "奨学金",
+      "reading": "しょうがくきん",
+      "meaning": "scholarship"
+    },
+    {
+      "word": "乗客",
+      "reading": "じょうきゃく",
+      "meaning": "passenger"
+    },
+    {
+      "word": "上京",
+      "reading": "じょうきょう",
+      "meaning": "proceeding to the capital (Tokyo)"
+    },
+    {
+      "word": "条件",
+      "reading": "じょうけん",
+      "meaning": "conditions,terms"
+    },
+    {
+      "word": "正午",
+      "reading": "しょうご",
+      "meaning": "noon,mid-day"
+    },
+    {
+      "word": "正直",
+      "reading": "しょうじき",
+      "meaning": "honesty,integrity,frankness"
+    },
+    {
+      "word": "常識",
+      "reading": "じょうしき",
+      "meaning": "common sense"
+    },
+    {
+      "word": "少女",
+      "reading": "しょうじょ",
+      "meaning": "daughter,young lady,virgin,maiden,little girl"
+    },
+    {
+      "word": "少々",
+      "reading": "しょうしょう",
+      "meaning": "just a minute,small quantity"
+    },
+    {
+      "word": "症状",
+      "reading": "しょうじょう",
+      "meaning": "symptoms,condition"
+    },
+    {
+      "word": "生じる",
+      "reading": "しょうじる",
+      "meaning": "to produce,to yield,to result from,to arise,to be generated"
+    },
+    {
+      "word": "上達",
+      "reading": "じょうたつ",
+      "meaning": "improvement,advance,progress"
+    },
+    {
+      "word": "上等",
+      "reading": "じょうとう",
+      "meaning": "superiority,first class,very good"
+    },
+    {
+      "word": "衝突",
+      "reading": "しょうとつ",
+      "meaning": "collision,conflict"
+    },
+    {
+      "word": "商人",
+      "reading": "しょうにん",
+      "meaning": "trader,shopkeeper,merchant"
+    },
+    {
+      "word": "承認",
+      "reading": "しょうにん",
+      "meaning": "recognition,acknowledgement,approval,consent,agreement"
+    },
+    {
+      "word": "少年",
+      "reading": "しょうねん",
+      "meaning": "boys,juveniles"
+    },
+    {
+      "word": "商売",
+      "reading": "しょうばい",
+      "meaning": "trade,business,commerce,transaction,occupation"
+    },
+    {
+      "word": "消費",
+      "reading": "しょうひ",
+      "meaning": "consumption,expenditure"
+    },
+    {
+      "word": "消防",
+      "reading": "しょうぼう",
+      "meaning": "fire fighting,fire department"
+    },
+    {
+      "word": "証明",
+      "reading": "しょうめい",
+      "meaning": "proof,verification"
+    },
+    {
+      "word": "女王",
+      "reading": "じょおう",
+      "meaning": "queen"
+    },
+    {
+      "word": "職業",
+      "reading": "しょくぎょう",
+      "meaning": "occupation,business"
+    },
+    {
+      "word": "食卓",
+      "reading": "しょくたく",
+      "meaning": "dining table"
+    },
+    {
+      "word": "食品",
+      "reading": "しょくひん",
+      "meaning": "commodity,foodstuff"
+    },
+    {
+      "word": "植物",
+      "reading": "しょくぶつ",
+      "meaning": "plant,vegetation"
+    },
+    {
+      "word": "食物",
+      "reading": "しょくもつ",
+      "meaning": "food,foodstuff"
+    },
+    {
+      "word": "食欲",
+      "reading": "しょくよく",
+      "meaning": "appetite (for food)"
+    },
+    {
+      "word": "食糧",
+      "reading": "しょくりょう",
+      "meaning": "provisions,rations"
+    },
+    {
+      "word": "書斎",
+      "reading": "しょさい",
+      "meaning": "study"
+    },
+    {
+      "word": "進学",
+      "reading": "しんがく",
+      "meaning": "going on to university"
+    },
+    {
+      "word": "神経",
+      "reading": "しんけい",
+      "meaning": "nerve,sensitivity"
+    },
+    {
+      "word": "信仰",
+      "reading": "しんこう",
+      "meaning": "(religious) faith,belief,creed"
+    },
+    {
+      "word": "信号",
+      "reading": "しんごう",
+      "meaning": "traffic lights,signal,semaphore"
+    },
+    {
+      "word": "人工",
+      "reading": "じんこう",
+      "meaning": "artificial,manmade,human work,human skill,artificiality"
+    },
+    {
+      "word": "深刻",
+      "reading": "しんこく",
+      "meaning": "serious"
+    },
+    {
+      "word": "診察",
+      "reading": "しんさつ",
+      "meaning": "medical examination"
+    },
+    {
+      "word": "人種",
+      "reading": "じんしゅ",
+      "meaning": "race (of people)"
+    },
+    {
+      "word": "人生",
+      "reading": "じんせい",
+      "meaning": "(human) life (i.e. conception to death)"
+    },
+    {
+      "word": "親戚",
+      "reading": "しんせき",
+      "meaning": "relative"
+    },
+    {
+      "word": "心臓",
+      "reading": "しんぞう",
+      "meaning": "heart"
+    },
+    {
+      "word": "身体",
+      "reading": "しんたい",
+      "meaning": "the body"
+    },
+    {
+      "word": "身長",
+      "reading": "しんちょう",
+      "meaning": "height (of body),stature"
+    },
+    {
+      "word": "慎重",
+      "reading": "しんちょう",
+      "meaning": "discretion,prudence"
+    },
+    {
+      "word": "審判",
+      "reading": "しんぱん",
+      "meaning": "refereeing,trial,judgement,umpire,referee"
+    },
+    {
+      "word": "人物",
+      "reading": "じんぶつ",
+      "meaning": "character,personality,person,man,personage,talented man"
+    },
+    {
+      "word": "親友",
+      "reading": "しんゆう",
+      "meaning": "close friend,buddy"
+    },
+    {
+      "word": "信用",
+      "reading": "しんよう",
+      "meaning": "confidence,dependence,credit,faith"
+    },
+    {
+      "word": "信頼",
+      "reading": "しんらい",
+      "meaning": "reliance,trust,confidence"
+    },
+    {
+      "word": "心理",
+      "reading": "しんり",
+      "meaning": "mentality"
+    },
+    {
+      "word": "人類",
+      "reading": "じんるい",
+      "meaning": "mankind,humanity"
+    },
+    {
+      "word": "巣",
+      "reading": "す",
+      "meaning": "nest,rookery,breeding place,beehive,cobweb"
+    },
+    {
+      "word": "水準",
+      "reading": "すいじゅん",
+      "meaning": "(1) water level,(2) level,standard"
+    },
+    {
+      "word": "推薦",
+      "reading": "すいせん",
+      "meaning": "recommendation"
+    },
+    {
+      "word": "スイッチ",
+      "reading": "スイッチ",
+      "meaning": "switch"
+    },
+    {
+      "word": "随分",
+      "reading": "ずいぶん",
+      "meaning": "extremely"
+    },
+    {
+      "word": "数字",
+      "reading": "すうじ",
+      "meaning": "numeral,figure"
+    },
+    {
+      "word": "スープ",
+      "reading": "スープ",
+      "meaning": "(Western) soup"
+    },
+    {
+      "word": "ソファー",
+      "reading": "ソファー",
+      "meaning": "sofa,couch"
+    },
+    {
+      "word": "粗末",
+      "reading": "そまつ",
+      "meaning": "crude,rough,plain,humble"
+    },
+    {
+      "word": "それとも",
+      "reading": "それとも",
+      "meaning": "or,or else"
+    },
+    {
+      "word": "損",
+      "reading": "そん",
+      "meaning": "loss,disadvantage"
+    },
+    {
+      "word": "損害",
+      "reading": "そんがい",
+      "meaning": "damage,injury,loss"
+    },
+    {
+      "word": "存在",
+      "reading": "そんざい",
+      "meaning": "existence,being"
+    },
+    {
+      "word": "田",
+      "reading": "た",
+      "meaning": "rice field"
+    },
+    {
+      "word": "素晴らしい",
+      "reading": "すばらしい",
+      "meaning": "wonderful,splendid,magnificent"
+    },
+    {
+      "word": "スピーチ",
+      "reading": "スピーチ",
+      "meaning": "speech"
+    },
+    {
+      "word": "済ませる",
+      "reading": "すませる",
+      "meaning": "to be finished"
+    },
+    {
+      "word": "角",
+      "reading": "すみ",
+      "meaning": "horn"
+    },
+    {
+      "word": "すみません",
+      "reading": "すみません",
+      "meaning": "sorry,excuse me"
+    },
+    {
+      "word": "鋭い",
+      "reading": "するどい",
+      "meaning": "pointed,sharp"
+    },
+    {
+      "word": "背",
+      "reading": "せい",
+      "meaning": "height,stature"
+    },
+    {
+      "word": "所為",
+      "reading": "せい",
+      "meaning": "cause,reason,fault"
+    },
+    {
+      "word": "正確",
+      "reading": "せいかく",
+      "meaning": "accurate,punctuality,exactness,authenticity,veracity"
+    },
+    {
+      "word": "世紀",
+      "reading": "せいき",
+      "meaning": "century,era"
+    },
+    {
+      "word": "請求",
+      "reading": "せいきゅう",
+      "meaning": "claim,demand,application,request"
+    },
+    {
+      "word": "税金",
+      "reading": "ぜいきん",
+      "meaning": "tax,duty"
+    },
+    {
+      "word": "清潔",
+      "reading": "せいけつ",
+      "meaning": "clean"
+    },
+    {
+      "word": "制限",
+      "reading": "せいげん",
+      "meaning": "restriction,restraint,limitation"
+    },
+    {
+      "word": "正式",
+      "reading": "せいしき",
+      "meaning": "due form,official,formality"
+    },
+    {
+      "word": "成人",
+      "reading": "せいじん",
+      "meaning": "adult"
+    },
+    {
+      "word": "精々",
+      "reading": "せいぜい",
+      "meaning": "at the most,at best,to the utmost,as much (far) as possible"
+    },
+    {
+      "word": "製造",
+      "reading": "せいぞう",
+      "meaning": "manufacture,production"
+    },
+    {
+      "word": "贅沢",
+      "reading": "ぜいたく",
+      "meaning": "luxury,extravagance"
+    },
+    {
+      "word": "制度",
+      "reading": "せいど",
+      "meaning": "system,institution,organization"
+    },
+    {
+      "word": "青年",
+      "reading": "せいねん",
+      "meaning": "youth,young man"
+    },
+    {
+      "word": "製品",
+      "reading": "せいひん",
+      "meaning": "manufactured goods,finished goods"
+    },
+    {
+      "word": "政府",
+      "reading": "せいふ",
+      "meaning": "government,administration"
+    },
+    {
+      "word": "生物",
+      "reading": "せいぶつ",
+      "meaning": "raw food"
+    },
+    {
+      "word": "唯",
+      "reading": "ただ",
+      "meaning": "free of charge,mere,sole,only,usual,common"
+    },
+    {
+      "word": "戦い",
+      "reading": "たたかい",
+      "meaning": "battle,fight,struggle,conflict"
+    },
+    {
+      "word": "戦う",
+      "reading": "たたかう",
+      "meaning": "to fight,to battle,to combat"
+    },
+    {
+      "word": "叩く",
+      "reading": "たたく",
+      "meaning": "to strike,to clap,to dust,to beat"
+    },
+    {
+      "word": "直ちに",
+      "reading": "ただちに",
+      "meaning": "at once,immediately,directly,in person"
+    },
+    {
+      "word": "立ち上がる",
+      "reading": "たちあがる",
+      "meaning": "to stand up"
+    },
+    {
+      "word": "立場",
+      "reading": "たちば",
+      "meaning": "standpoint,position,situation"
+    },
+    {
+      "word": "経つ",
+      "reading": "たつ",
+      "meaning": "to pass,to lapse"
+    },
+    {
+      "word": "達する",
+      "reading": "たっする",
+      "meaning": "to reach,to get to"
+    },
+    {
+      "word": "だって",
+      "reading": "だって",
+      "meaning": "but,because,even,also,too"
+    },
+    {
+      "word": "たっぷり",
+      "reading": "たっぷり",
+      "meaning": "full,in plenty,ample"
+    },
+    {
+      "word": "谷",
+      "reading": "たに",
+      "meaning": "valley"
+    },
+    {
+      "word": "他人",
+      "reading": "たにん",
+      "meaning": "another person,unrelated person,outsider,stranger"
+    },
+    {
+      "word": "生命",
+      "reading": "せいめい",
+      "meaning": "life,existence"
+    },
+    {
+      "word": "咳",
+      "reading": "せき",
+      "meaning": "cough"
+    },
+    {
+      "word": "石炭",
+      "reading": "せきたん",
+      "meaning": "coal"
+    },
+    {
+      "word": "石油",
+      "reading": "せきゆ",
+      "meaning": "oil,petroleum,kerosene"
+    },
+    {
+      "word": "世間",
+      "reading": "せけん",
+      "meaning": "world,society"
+    },
+    {
+      "word": "設計",
+      "reading": "せっけい",
+      "meaning": "plan,design"
+    },
+    {
+      "word": "セット",
+      "reading": "セット",
+      "meaning": "set"
+    },
+    {
+      "word": "設備",
+      "reading": "せつび",
+      "meaning": "equipment,device,facilities,installation"
+    },
+    {
+      "word": "絶滅",
+      "reading": "ぜつめつ",
+      "meaning": "destruction,extinction"
+    },
+    {
+      "word": "是非",
+      "reading": "ぜひ",
+      "meaning": "certainly,without fail"
+    },
+    {
+      "word": "責める",
+      "reading": "せめる",
+      "meaning": "to condemn,to blame,to criticize"
+    },
+    {
+      "word": "専攻",
+      "reading": "せんこう",
+      "meaning": "major subject,special study"
+    },
+    {
+      "word": "全国",
+      "reading": "ぜんこく",
+      "meaning": "country-wide,nation-wide,whole country,national"
+    },
+    {
+      "word": "先日",
+      "reading": "せんじつ",
+      "meaning": "the other day,a few days ago"
+    },
+    {
+      "word": "前者",
+      "reading": "ぜんしゃ",
+      "meaning": "the former"
+    },
+    {
+      "word": "選手",
+      "reading": "せんしゅ",
+      "meaning": "(1) player (in game),(2) team"
+    },
+    {
+      "word": "センター",
+      "reading": "センター",
+      "meaning": "a center"
+    },
+    {
+      "word": "選択",
+      "reading": "せんたく",
+      "meaning": "selection,choice"
+    },
+    {
+      "word": "然う",
+      "reading": "そう",
+      "meaning": "so"
+    },
+    {
+      "word": "増加",
+      "reading": "ぞうか",
+      "meaning": "increase,addition"
+    },
+    {
+      "word": "想像",
+      "reading": "そうぞう",
+      "meaning": "imagination,guess"
+    },
+    {
+      "word": "相続",
+      "reading": "そうぞく",
+      "meaning": "succession,inheritance"
+    },
+    {
+      "word": "装置",
+      "reading": "そうち",
+      "meaning": "equipment,installation,apparatus"
+    },
+    {
+      "word": "相当",
+      "reading": "そうとう",
+      "meaning": "suitable,fair,tolerable,proper"
+    },
+    {
+      "word": "速度",
+      "reading": "そくど",
+      "meaning": "speed,velocity,rate"
+    },
+    {
+      "word": "底",
+      "reading": "そこ",
+      "meaning": "bottom,sole"
+    },
+    {
+      "word": "組織",
+      "reading": "そしき",
+      "meaning": "(1) organization,(2) structure,construction,(3) tissue,(4) system"
+    },
+    {
+      "word": "注ぐ",
+      "reading": "そそぐ",
+      "meaning": "to pour (into),to irrigate,to pay,to fill,to feed (e.g. a fire)"
+    },
+    {
+      "word": "育つ",
+      "reading": "そだつ",
+      "meaning": "to raise (child),to be brought up,to grow (up)"
+    },
+    {
+      "word": "そっくり",
+      "reading": "そっくり",
+      "meaning": "all,altogether,entirely,be just like,the splitting image of"
+    },
+    {
+      "word": "そっと",
+      "reading": "そっと",
+      "meaning": "face of the earth"
+    },
+    {
+      "word": "袖",
+      "reading": "そで",
+      "meaning": "sleeve"
+    },
+    {
+      "word": "備える",
+      "reading": "そなえる",
+      "meaning": "to furnish,to provide for,to equip,to install"
+    },
+    {
+      "word": "そのうち",
+      "reading": "そのうち",
+      "meaning": "eventually,sooner or later,of the previously mentioned"
+    },
+    {
+      "word": "体育",
+      "reading": "たいいく",
+      "meaning": "physical education,gymnastics,athletics"
+    },
+    {
+      "word": "体温",
+      "reading": "たいおん",
+      "meaning": "temperature (body)"
+    },
+    {
+      "word": "大会",
+      "reading": "たいかい",
+      "meaning": "convention,tournament,mass meeting,rally"
+    },
+    {
+      "word": "大気",
+      "reading": "たいき",
+      "meaning": "atmosphere"
+    },
+    {
+      "word": "代金",
+      "reading": "だいきん",
+      "meaning": "price,payment,cost,charge"
+    },
+    {
+      "word": "退屈",
+      "reading": "たいくつ",
+      "meaning": "tedium,boredom"
+    },
+    {
+      "word": "滞在",
+      "reading": "たいざい",
+      "meaning": "stay,sojourn"
+    },
+    {
+      "word": "大使",
+      "reading": "たいし",
+      "meaning": "ambassador"
+    },
+    {
+      "word": "大した",
+      "reading": "たいした",
+      "meaning": "considerable,great,important,significant,a big deal"
+    },
+    {
+      "word": "対象",
+      "reading": "たいしょう",
+      "meaning": "target,object (of worship, study, etc),subject (of taxation, etc)"
+    },
+    {
+      "word": "大臣",
+      "reading": "だいじん",
+      "meaning": "cabinet minister"
+    },
+    {
+      "word": "対する",
+      "reading": "たいする",
+      "meaning": "to face,to confront,to oppose"
+    },
+    {
+      "word": "大戦",
+      "reading": "たいせん",
+      "meaning": "great war,great battle"
+    },
+    {
+      "word": "態度",
+      "reading": "たいど",
+      "meaning": "attitude,manner"
+    },
+    {
+      "word": "大統領",
+      "reading": "だいとうりょう",
+      "meaning": "president,chief executive"
+    },
+    {
+      "word": "大半",
+      "reading": "たいはん",
+      "meaning": "majority,mostly,generally"
+    },
+    {
+      "word": "代表",
+      "reading": "だいひょう",
+      "meaning": "representative,representation,delegation,type,example,model"
+    },
+    {
+      "word": "大部分",
+      "reading": "だいぶぶん",
+      "meaning": "most part,greater part,majority"
+    },
+    {
+      "word": "タイプライター",
+      "reading": "タイプライター",
+      "meaning": "typewriter"
+    },
+    {
+      "word": "逮捕",
+      "reading": "たいほ",
+      "meaning": "arrest,apprehension,capture"
+    },
+    {
+      "word": "ダイヤ",
+      "reading": "ダイヤ",
+      "meaning": "(1) dyer,(2) diagram,(3) (railway) schedule,(4) diamond"
+    },
+    {
+      "word": "太陽",
+      "reading": "たいよう",
+      "meaning": "sun,solar"
+    },
+    {
+      "word": "平ら",
+      "reading": "たいら",
+      "meaning": "flatness,level,smooth,calm,plain"
+    },
+    {
+      "word": "代理",
+      "reading": "だいり",
+      "meaning": "representation,agency,proxy,deputy,agent"
+    },
+    {
+      "word": "大陸",
+      "reading": "たいりく",
+      "meaning": "continent"
+    },
+    {
+      "word": "倒す",
+      "reading": "たおす",
+      "meaning": "to throw down,to beat,to bring down,to blow down"
+    },
+    {
+      "word": "タオル",
+      "reading": "タオル",
+      "meaning": "(hand) towel"
+    },
+    {
+      "word": "宝",
+      "reading": "たから",
+      "meaning": "treasure"
+    },
+    {
+      "word": "確かめる",
+      "reading": "たしかめる",
+      "meaning": "to ascertain"
+    },
+    {
+      "word": "多少",
+      "reading": "たしょう",
+      "meaning": "more or less,somewhat,a little,some"
+    },
+    {
+      "word": "只",
+      "reading": "ただ",
+      "meaning": "free of charge,mere,only"
+    },
+    {
+      "word": "勤め",
+      "reading": "つとめ",
+      "meaning": "(1) service,duty,business,responsibility,task,(2) Buddhist religious services"
+    },
+    {
+      "word": "務め",
+      "reading": "つとめ",
+      "meaning": "(1) service,duty,(2) Buddhist religious services"
+    },
+    {
+      "word": "繋ぐ",
+      "reading": "つなぐ",
+      "meaning": "to tie,to fasten,to connect,to transfer (phone call)"
+    },
+    {
+      "word": "翼",
+      "reading": "つばさ",
+      "meaning": "wings"
+    },
+    {
+      "word": "つまり",
+      "reading": "つまり",
+      "meaning": "in short,in brief,in other words"
+    },
+    {
+      "word": "罪",
+      "reading": "つみ",
+      "meaning": "crime,fault,indiscretion"
+    },
+    {
+      "word": "詰める",
+      "reading": "つめる",
+      "meaning": "to pack,to shorten,to work out (details)"
+    },
+    {
+      "word": "積もる",
+      "reading": "つもる",
+      "meaning": "to pile up"
+    },
+    {
+      "word": "梅雨",
+      "reading": "つゆ",
+      "meaning": "rainy season,rain during the rainy season"
+    },
+    {
+      "word": "出会い",
+      "reading": "であい",
+      "meaning": "meeting,rendezvous,encounter"
+    },
+    {
+      "word": "たびたび",
+      "reading": "たびたび",
+      "meaning": "often,repeatedly,frequently"
+    },
+    {
+      "word": "玉",
+      "reading": "たま",
+      "meaning": "ball,sphere,coin"
+    },
+    {
+      "word": "偶",
+      "reading": "たま",
+      "meaning": "even number,couple,man and wife,friend"
+    },
+    {
+      "word": "偶々",
+      "reading": "たまたま",
+      "meaning": "casually,unexpectedly,accidentally,by chance"
+    },
+    {
+      "word": "たまらない",
+      "reading": "たまらない",
+      "meaning": "intolerable,unbearable,unendurable"
+    },
+    {
+      "word": "黙る",
+      "reading": "だまる",
+      "meaning": "to be silent"
+    },
+    {
+      "word": "駄目",
+      "reading": "だめ",
+      "meaning": "useless,no good,hopeless"
+    },
+    {
+      "word": "便り",
+      "reading": "たより",
+      "meaning": "news,tidings,information,correspondence,letter"
+    },
+    {
+      "word": "頼る",
+      "reading": "たよる",
+      "meaning": "to rely on,to have recourse to,to depend on"
+    },
+    {
+      "word": "単位",
+      "reading": "たんい",
+      "meaning": "unit,denomination,credit (in school)"
+    },
+    {
+      "word": "単語",
+      "reading": "たんご",
+      "meaning": "word,vocabulary,(usually) single-character word"
+    },
+    {
+      "word": "男子",
+      "reading": "だんし",
+      "meaning": "youth,young man"
+    },
+    {
+      "word": "単純",
+      "reading": "たんじゅん",
+      "meaning": "simplicity"
+    },
+    {
+      "word": "ダンス",
+      "reading": "ダンス",
+      "meaning": "dance"
+    },
+    {
+      "word": "団体",
+      "reading": "だんたい",
+      "meaning": "organization,association"
+    },
+    {
+      "word": "担当",
+      "reading": "たんとう",
+      "meaning": "(in) charge"
+    },
+    {
+      "word": "単なる",
+      "reading": "たんなる",
+      "meaning": "mere,simple,sheer"
+    },
+    {
+      "word": "地位",
+      "reading": "ちい",
+      "meaning": "(social) position,status"
+    },
+    {
+      "word": "チーズ",
+      "reading": "チーズ",
+      "meaning": "cheese"
+    },
+    {
+      "word": "知恵",
+      "reading": "ちえ",
+      "meaning": "wisdom,wit,sagacity,sense,intelligence,advice"
+    },
+    {
+      "word": "地下",
+      "reading": "ちか",
+      "meaning": "basement,underground"
+    },
+    {
+      "word": "答案",
+      "reading": "とうあん",
+      "meaning": "examination paper,examination script"
+    },
+    {
+      "word": "同一",
+      "reading": "どういつ",
+      "meaning": "identity,sameness,similarity"
+    },
+    {
+      "word": "当時",
+      "reading": "とうじ",
+      "meaning": "at that time,in those days"
+    },
+    {
+      "word": "動詞",
+      "reading": "どうし",
+      "meaning": "verb"
+    },
+    {
+      "word": "同時",
+      "reading": "どうじ",
+      "meaning": "simultaneous(ly),concurrent,same time,synchronous"
+    },
+    {
+      "word": "道徳",
+      "reading": "どうとく",
+      "meaning": "morals"
+    },
+    {
+      "word": "投票",
+      "reading": "とうひょう",
+      "meaning": "voting,poll"
+    },
+    {
+      "word": "同様",
+      "reading": "どうよう",
+      "meaning": "identical,equal to,same (kind),like"
+    },
+    {
+      "word": "道路",
+      "reading": "どうろ",
+      "meaning": "road,highway"
+    },
+    {
+      "word": "通す",
+      "reading": "とおす",
+      "meaning": "to let pass,to overlook,to continue"
+    },
+    {
+      "word": "通り過ぎる",
+      "reading": "とおりすぎる",
+      "meaning": "to pass,to pass through"
+    },
+    {
+      "word": "都会",
+      "reading": "とかい",
+      "meaning": "city"
+    },
+    {
+      "word": "解く",
+      "reading": "とく",
+      "meaning": "to unfasten"
+    },
+    {
+      "word": "毒",
+      "reading": "どく",
+      "meaning": "poison,toxicant"
+    },
+    {
+      "word": "近頃",
+      "reading": "ちかごろ",
+      "meaning": "lately,recently,nowadays"
+    },
+    {
+      "word": "地球",
+      "reading": "ちきゅう",
+      "meaning": "the earth"
+    },
+    {
+      "word": "地区",
+      "reading": "ちく",
+      "meaning": "district,section,sector"
+    },
+    {
+      "word": "知事",
+      "reading": "ちじ",
+      "meaning": "prefectural governor"
+    },
+    {
+      "word": "父親",
+      "reading": "ちちおや",
+      "meaning": "father"
+    },
+    {
+      "word": "知能",
+      "reading": "ちのう",
+      "meaning": "intelligence,brains"
+    },
+    {
+      "word": "地平線",
+      "reading": "ちへいせん",
+      "meaning": "horizon"
+    },
+    {
+      "word": "地方",
+      "reading": "ちほう",
+      "meaning": "area,locality,district,region,the coast"
+    },
+    {
+      "word": "チャンス",
+      "reading": "チャンス",
+      "meaning": "chance,opportunity"
+    },
+    {
+      "word": "中央",
+      "reading": "ちゅうおう",
+      "meaning": "centre,central,center,middle"
+    },
+    {
+      "word": "中学",
+      "reading": "ちゅうがく",
+      "meaning": "middle school,junior high school"
+    },
+    {
+      "word": "中古",
+      "reading": "ちゅうこ",
+      "meaning": "(1) used,second-hand,old"
+    },
+    {
+      "word": "駐車",
+      "reading": "ちゅうしゃ",
+      "meaning": "parking (e.g. car)"
+    },
+    {
+      "word": "中心",
+      "reading": "ちゅうしん",
+      "meaning": "center,core,heart,pivot,emphasis,balance"
+    },
+    {
+      "word": "長期",
+      "reading": "ちょうき",
+      "meaning": "long time period"
+    },
+    {
+      "word": "調査",
+      "reading": "ちょうさ",
+      "meaning": "investigation,examination,inquiry,survey"
+    },
+    {
+      "word": "調子",
+      "reading": "ちょうし",
+      "meaning": "tune,tone,key"
+    },
+    {
+      "word": "頂戴",
+      "reading": "ちょうだい",
+      "meaning": "(1) please do for me (preceded by -te),(2) reception,being given,get"
+    },
+    {
+      "word": "直接",
+      "reading": "ちょくせつ",
+      "meaning": "direct,immediate,personal,firsthand"
+    },
+    {
+      "word": "著者",
+      "reading": "ちょしゃ",
+      "meaning": "author,writer"
+    },
+    {
+      "word": "遂に",
+      "reading": "ついに",
+      "meaning": "finally,at last"
+    },
+    {
+      "word": "通過",
+      "reading": "つうか",
+      "meaning": "passage through,passing"
+    },
+    {
+      "word": "通学",
+      "reading": "つうがく",
+      "meaning": "commuting to school"
+    },
+    {
+      "word": "通行",
+      "reading": "つうこう",
+      "meaning": "passage,passing"
+    },
+    {
+      "word": "通じる",
+      "reading": "つうじる",
+      "meaning": "to run to,to lead to,to communicate,to understand"
+    },
+    {
+      "word": "通信",
+      "reading": "つうしん",
+      "meaning": "correspondence,communication,news,signal"
+    },
+    {
+      "word": "捕まる",
+      "reading": "つかまる",
+      "meaning": "to be caught,to be arrested"
+    },
+    {
+      "word": "掴む",
+      "reading": "つかむ",
+      "meaning": "to seize,to catch,to grasp"
+    },
+    {
+      "word": "付き合い",
+      "reading": "つきあい",
+      "meaning": "association,socializing,fellowship"
+    },
+    {
+      "word": "次々",
+      "reading": "つぎつぎ",
+      "meaning": "in succession,one by one"
+    },
+    {
+      "word": "就く",
+      "reading": "つく",
+      "meaning": "to settle in (place),to take (seat, position),to study (under teacher)"
+    },
+    {
+      "word": "注ぐ",
+      "reading": "つぐ",
+      "meaning": "to pour (into),to irrigate,to pay"
+    },
+    {
+      "word": "続き",
+      "reading": "つづき",
+      "meaning": "sequel,continuation"
+    },
+    {
+      "word": "包み",
+      "reading": "つつみ",
+      "meaning": "bundle,package,parcel,bale"
+    },
+    {
+      "word": "トラック",
+      "reading": "トラック",
+      "meaning": "(1) truck,(2) (running) track"
+    },
+    {
+      "word": "出会う",
+      "reading": "であう",
+      "meaning": "to meet by chance,to come across,to happen to encounter"
+    },
+    {
+      "word": "定期",
+      "reading": "ていき",
+      "meaning": "fixed term"
+    },
+    {
+      "word": "抵抗",
+      "reading": "ていこう",
+      "meaning": "electrical resistance,resistance,opposition"
+    },
+    {
+      "word": "程度",
+      "reading": "ていど",
+      "meaning": "degree,amount,grade,standard,of the order of (following a number)"
+    },
+    {
+      "word": "停留所",
+      "reading": "ていりゅうじょ",
+      "meaning": "bus or tram stop"
+    },
+    {
+      "word": "敵",
+      "reading": "てき",
+      "meaning": "enemy,rival"
+    },
+    {
+      "word": "出来事",
+      "reading": "できごと",
+      "meaning": "incident,affair,happening,event"
+    },
+    {
+      "word": "適する",
+      "reading": "てきする",
+      "meaning": "to fit,to suit"
+    },
+    {
+      "word": "適切",
+      "reading": "てきせつ",
+      "meaning": "pertinent,appropriate,adequate,relevance"
+    },
+    {
+      "word": "適度",
+      "reading": "てきど",
+      "meaning": "moderate"
+    },
+    {
+      "word": "適用",
+      "reading": "てきよう",
+      "meaning": "applying"
+    },
+    {
+      "word": "出来るだけ",
+      "reading": "できるだけ",
+      "meaning": "if at all possible"
+    },
+    {
+      "word": "手品",
+      "reading": "てじな",
+      "meaning": "sleight of hand,conjuring trick,magic,juggling"
+    },
+    {
+      "word": "鉄",
+      "reading": "てつ",
+      "meaning": "iron"
+    },
+    {
+      "word": "哲学",
+      "reading": "てつがく",
+      "meaning": "philosophy"
+    },
+    {
+      "word": "徹底",
+      "reading": "てってい",
+      "meaning": "thoroughness,completeness"
+    },
+    {
+      "word": "鉄道",
+      "reading": "てつどう",
+      "meaning": "railroad"
+    },
+    {
+      "word": "手間",
+      "reading": "てま",
+      "meaning": "time,labour"
+    },
+    {
+      "word": "デモ",
+      "reading": "デモ",
+      "meaning": "(abbr) demo,demonstration"
+    },
+    {
+      "word": "典型",
+      "reading": "てんけい",
+      "meaning": "type,pattern,archetypal"
+    },
+    {
+      "word": "天候",
+      "reading": "てんこう",
+      "meaning": "weather"
+    },
+    {
+      "word": "電子",
+      "reading": "でんし",
+      "meaning": "electron"
+    },
+    {
+      "word": "天然",
+      "reading": "てんねん",
+      "meaning": "nature,spontaneity"
+    },
+    {
+      "word": "問い",
+      "reading": "とい",
+      "meaning": "question,query"
+    },
+    {
+      "word": "党",
+      "reading": "とう",
+      "meaning": "party (political)"
+    },
+    {
+      "word": "塔",
+      "reading": "とう",
+      "meaning": "tower,pagoda"
+    },
+    {
+      "word": "日光",
+      "reading": "にっこう",
+      "meaning": "sunlight"
+    },
+    {
+      "word": "にっこり",
+      "reading": "にっこり",
+      "meaning": "smile sweetly,smile,grin"
+    },
+    {
+      "word": "入場",
+      "reading": "にゅうじょう",
+      "meaning": "entrance,admission,entering"
+    },
+    {
+      "word": "人間",
+      "reading": "にんげん",
+      "meaning": "human being,man,person"
+    },
+    {
+      "word": "抜く",
+      "reading": "ぬく",
+      "meaning": "to extract,to omit,to surpass,to draw out,to unplug"
+    },
+    {
+      "word": "抜ける",
+      "reading": "ぬける",
+      "meaning": "to come out,to fall out,to be omitted"
+    },
+    {
+      "word": "濡れる",
+      "reading": "ぬれる",
+      "meaning": "to get wet"
+    },
+    {
+      "word": "根",
+      "reading": "ね",
+      "meaning": "root"
+    },
+    {
+      "word": "願い",
+      "reading": "ねがい",
+      "meaning": "desire,wish,request"
+    },
+    {
+      "word": "独身",
+      "reading": "どくしん",
+      "meaning": "bachelorhood,single,unmarried,celibate"
+    },
+    {
+      "word": "特徴",
+      "reading": "とくちょう",
+      "meaning": "feature,characteristic"
+    },
+    {
+      "word": "独立",
+      "reading": "どくりつ",
+      "meaning": "independence (e.g. Ind. Day),self-support"
+    },
+    {
+      "word": "ところが",
+      "reading": "ところが",
+      "meaning": "however,while,even if"
+    },
+    {
+      "word": "登山",
+      "reading": "とざん",
+      "meaning": "mountain-climbing"
+    },
+    {
+      "word": "都市",
+      "reading": "とし",
+      "meaning": "town,city,municipal,urban"
+    },
+    {
+      "word": "年月",
+      "reading": "としつき",
+      "meaning": "months and years"
+    },
+    {
+      "word": "年寄",
+      "reading": "としより",
+      "meaning": "old people,the aged"
+    },
+    {
+      "word": "閉じる",
+      "reading": "とじる",
+      "meaning": "to close (e.g. book, eyes),to shut"
+    },
+    {
+      "word": "途端",
+      "reading": "とたん",
+      "meaning": "just (now, at the moment, etc.)"
+    },
+    {
+      "word": "土地",
+      "reading": "とち",
+      "meaning": "plot of land,lot,soil"
+    },
+    {
+      "word": "トップ",
+      "reading": "トップ",
+      "meaning": "top"
+    },
+    {
+      "word": "届く",
+      "reading": "とどく",
+      "meaning": "to reach"
+    },
+    {
+      "word": "とにかく",
+      "reading": "とにかく",
+      "meaning": "anyhow,at any rate,anyway,somehow or other,generally speaking,in any case"
+    },
+    {
+      "word": "飛ばす",
+      "reading": "とばす",
+      "meaning": "to skip over,to omit"
+    },
+    {
+      "word": "飛び出す",
+      "reading": "とびだす",
+      "meaning": "to jump out,to rush out,to fly out"
+    },
+    {
+      "word": "留める",
+      "reading": "とめる",
+      "meaning": "to fasten,to turn off,to detain"
+    },
+    {
+      "word": "共に",
+      "reading": "ともに",
+      "meaning": "sharing with,participate in"
+    },
+    {
+      "word": "虎",
+      "reading": "とら",
+      "meaning": "tiger"
+    },
+    {
+      "word": "ドライブ",
+      "reading": "ドライブ",
+      "meaning": "drive,trip by car,driving"
+    },
+    {
+      "word": "梅雨",
+      "reading": "ばいう",
+      "meaning": "rainy season,rain during the rainy season"
+    },
+    {
+      "word": "バイオリン",
+      "reading": "バイオリン",
+      "meaning": "violin"
+    },
+    {
+      "word": "配達",
+      "reading": "はいたつ",
+      "meaning": "delivery,distribution"
+    },
+    {
+      "word": "パイプ",
+      "reading": "パイプ",
+      "meaning": "(1) pipe,tube,(2) channels, official or otherwise"
+    },
+    {
+      "word": "パイロット",
+      "reading": "パイロット",
+      "meaning": "pilot"
+    },
+    {
+      "word": "墓",
+      "reading": "はか",
+      "meaning": "grave,tomb"
+    },
+    {
+      "word": "馬鹿",
+      "reading": "ばか",
+      "meaning": "fool,idiot,trivial matter,folly"
+    },
+    {
+      "word": "博士",
+      "reading": "はかせ",
+      "meaning": "doctorate,PhD"
+    },
+    {
+      "word": "計る",
+      "reading": "はかる",
+      "meaning": "to measure,to weigh,to survey"
+    },
+    {
+      "word": "吐く",
+      "reading": "はく",
+      "meaning": "(1) to breathe,(2) to tell (lies),(3) to vomit,to disgorge"
+    },
+    {
+      "word": "拍手",
+      "reading": "はくしゅ",
+      "meaning": "clapping hands,applause"
+    },
+    {
+      "word": "莫大",
+      "reading": "ばくだい",
+      "meaning": "enormous,vast"
+    },
+    {
+      "word": "爆発",
+      "reading": "ばくはつ",
+      "meaning": "explosion,detonation,eruption"
+    },
+    {
+      "word": "博物館",
+      "reading": "はくぶつかん",
+      "meaning": "museum"
+    },
+    {
+      "word": "激しい",
+      "reading": "はげしい",
+      "meaning": "violent,vehement,intense"
+    },
+    {
+      "word": "鋏",
+      "reading": "はさみ",
+      "meaning": "scissors"
+    },
+    {
+      "word": "破産",
+      "reading": "はさん",
+      "meaning": "(personal) bankruptcy"
+    },
+    {
+      "word": "端",
+      "reading": "はし",
+      "meaning": "end (e.g. of street),edge,tip,margin,point"
+    },
+    {
+      "word": "始まり",
+      "reading": "はじまり",
+      "meaning": "origin,beginning"
+    },
+    {
+      "word": "パス",
+      "reading": "パス",
+      "meaning": "path,pass (in games)"
+    },
+    {
+      "word": "外す",
+      "reading": "はずす",
+      "meaning": "to unfasten,to remove"
+    },
+    {
+      "word": "トランプ",
+      "reading": "トランプ",
+      "meaning": "playing cards (lit: trump)"
+    },
+    {
+      "word": "取り上げる",
+      "reading": "とりあげる",
+      "meaning": "to take up,to pick up,to disqualify,to confiscate,to deprive"
+    },
+    {
+      "word": "取れる",
+      "reading": "とれる",
+      "meaning": "to come off,to be taken off,to be removed"
+    },
+    {
+      "word": "泥",
+      "reading": "どろ",
+      "meaning": "mud"
+    },
+    {
+      "word": "屯",
+      "reading": "トン",
+      "meaning": "1000 ton"
+    },
+    {
+      "word": "とんでもない",
+      "reading": "とんでもない",
+      "meaning": "unexpected,offensive,What a thing to say!,No way!"
+    },
+    {
+      "word": "トンネル",
+      "reading": "トンネル",
+      "meaning": "tunnel"
+    },
+    {
+      "word": "流す",
+      "reading": "ながす",
+      "meaning": "to drain,to float,to shed (blood, tears),to cruise (e.g. taxi)"
+    },
+    {
+      "word": "半ば",
+      "reading": "なかば",
+      "meaning": "middle,half,semi,halfway,partly"
+    },
+    {
+      "word": "眺める",
+      "reading": "ながめる",
+      "meaning": "to view,to gaze at"
+    },
+    {
+      "word": "流れ",
+      "reading": "ながれ",
+      "meaning": "stream,current"
+    },
+    {
+      "word": "流れる",
+      "reading": "ながれる",
+      "meaning": "to stream,to flow,to run (ink),to be washed away"
+    },
+    {
+      "word": "無し",
+      "reading": "なし",
+      "meaning": "without"
+    },
+    {
+      "word": "なぜなら",
+      "reading": "なぜなら",
+      "meaning": "because"
+    },
+    {
+      "word": "謎",
+      "reading": "なぞ",
+      "meaning": "riddle,puzzle,enigma"
+    },
+    {
+      "word": "納得",
+      "reading": "なっとく",
+      "meaning": "consent,assent,understanding"
+    },
+    {
+      "word": "等",
+      "reading": "など",
+      "meaning": "et cetera,etc.,and the like"
+    },
+    {
+      "word": "怠ける",
+      "reading": "なまける",
+      "meaning": "to be idle,to neglect"
+    },
+    {
+      "word": "悩む",
+      "reading": "なやむ",
+      "meaning": "to be worried,to be troubled"
+    },
+    {
+      "word": "為る",
+      "reading": "なる",
+      "meaning": "to change,to be of use,to reach to"
+    },
+    {
+      "word": "成る",
+      "reading": "なる",
+      "meaning": "to become"
+    },
+    {
+      "word": "何とか",
+      "reading": "なんとか",
+      "meaning": "somehow,anyhow,one way or another"
+    },
+    {
+      "word": "似合う",
+      "reading": "にあう",
+      "meaning": "to suit,to match,to become,to be like"
+    },
+    {
+      "word": "匂い",
+      "reading": "におい",
+      "meaning": "odour,scent,smell,stench"
+    },
+    {
+      "word": "握る",
+      "reading": "にぎる",
+      "meaning": "to grasp,to seize,to mould sushi"
+    },
+    {
+      "word": "張る",
+      "reading": "はる",
+      "meaning": "to stick,to paste"
+    },
+    {
+      "word": "バン",
+      "reading": "バン",
+      "meaning": "bun,van (caravan),VAN (value-added network)"
+    },
+    {
+      "word": "範囲",
+      "reading": "はんい",
+      "meaning": "extent,scope,sphere,range"
+    },
+    {
+      "word": "願う",
+      "reading": "ねがう",
+      "meaning": "to desire,to wish,to request"
+    },
+    {
+      "word": "鼠",
+      "reading": "ねずみ",
+      "meaning": "(1) mouse,rat,(2) dark gray,slate color"
+    },
+    {
+      "word": "熱心",
+      "reading": "ねっしん",
+      "meaning": "zeal,enthusiasm"
+    },
+    {
+      "word": "熱帯",
+      "reading": "ねったい",
+      "meaning": "tropics"
+    },
+    {
+      "word": "熱中",
+      "reading": "ねっちゅう",
+      "meaning": "nuts!,enthusiasm,zeal,mania"
+    },
+    {
+      "word": "年間",
+      "reading": "ねんかん",
+      "meaning": "year"
+    },
+    {
+      "word": "年月",
+      "reading": "ねんげつ",
+      "meaning": "months and years"
+    },
+    {
+      "word": "年中",
+      "reading": "ねんじゅう",
+      "meaning": "whole year,always,everyday"
+    },
+    {
+      "word": "年代",
+      "reading": "ねんだい",
+      "meaning": "age,era,period,date"
+    },
+    {
+      "word": "年齢",
+      "reading": "ねんれい",
+      "meaning": "age,years"
+    },
+    {
+      "word": "農業",
+      "reading": "のうぎょう",
+      "meaning": "agriculture"
+    },
+    {
+      "word": "農民",
+      "reading": "のうみん",
+      "meaning": "farmers,peasants"
+    },
+    {
+      "word": "能力",
+      "reading": "のうりょく",
+      "meaning": "ability,faculty"
+    },
+    {
+      "word": "残す",
+      "reading": "のこす",
+      "meaning": "to leave (behind, over),to bequeath,to save,to reserve"
+    },
+    {
+      "word": "乗せる",
+      "reading": "のせる",
+      "meaning": "to place on (something),to take on board,to give a ride"
+    },
+    {
+      "word": "除く",
+      "reading": "のぞく",
+      "meaning": "to remove,to exclude,to except"
+    },
+    {
+      "word": "望み",
+      "reading": "のぞみ",
+      "meaning": "wish,desire,(a) hope"
+    },
+    {
+      "word": "望む",
+      "reading": "のぞむ",
+      "meaning": "to desire,to wish for,to see,to command (a view of)"
+    },
+    {
+      "word": "ノック",
+      "reading": "ノック",
+      "meaning": "(1) knock,(2) fungo (baseball)"
+    },
+    {
+      "word": "伸ばす",
+      "reading": "のばす",
+      "meaning": "to lengthen,to stretch,to reach out,to grow (beard)"
+    },
+    {
+      "word": "伸びる",
+      "reading": "のびる",
+      "meaning": "to stretch,to extend,to make progress,to grow (beard, body height)"
+    },
+    {
+      "word": "述べる",
+      "reading": "のべる",
+      "meaning": "to state,to express,to mention"
+    },
+    {
+      "word": "昇る",
+      "reading": "のぼる",
+      "meaning": "to arise,to ascend,to go up"
+    },
+    {
+      "word": "パーセント",
+      "reading": "パーセント",
+      "meaning": "percent"
+    },
+    {
+      "word": "灰",
+      "reading": "はい",
+      "meaning": "ash"
+    },
+    {
+      "word": "瓶",
+      "reading": "びん",
+      "meaning": "bottle"
+    },
+    {
+      "word": "風景",
+      "reading": "ふうけい",
+      "meaning": "scenery"
+    },
+    {
+      "word": "夫婦",
+      "reading": "ふうふ",
+      "meaning": "married couple,husband and wife"
+    },
+    {
+      "word": "笛",
+      "reading": "ふえ",
+      "meaning": "flute,pipe"
+    },
+    {
+      "word": "武器",
+      "reading": "ぶき",
+      "meaning": "weapon,arms,ordinance"
+    },
+    {
+      "word": "服装",
+      "reading": "ふくそう",
+      "meaning": "garments"
+    },
+    {
+      "word": "含む",
+      "reading": "ふくむ",
+      "meaning": "to hold in the mouth,to bear in mind"
+    },
+    {
+      "word": "不幸",
+      "reading": "ふこう",
+      "meaning": "unhappiness,sorrow,misfortune,disaster,accident,death"
+    },
+    {
+      "word": "パスポート",
+      "reading": "パスポート",
+      "meaning": "passport"
+    },
+    {
+      "word": "旗",
+      "reading": "はた",
+      "meaning": "flag"
+    },
+    {
+      "word": "肌",
+      "reading": "はだ",
+      "meaning": "skin"
+    },
+    {
+      "word": "裸",
+      "reading": "はだか",
+      "meaning": "naked,nude"
+    },
+    {
+      "word": "畑",
+      "reading": "はたけ",
+      "meaning": "field"
+    },
+    {
+      "word": "二十",
+      "reading": "はたち",
+      "meaning": "20 years old,20th year"
+    },
+    {
+      "word": "バッグ",
+      "reading": "バッグ",
+      "meaning": "bag,bug"
+    },
+    {
+      "word": "発行",
+      "reading": "はっこう",
+      "meaning": "issue (publications)"
+    },
+    {
+      "word": "発車",
+      "reading": "はっしゃ",
+      "meaning": "departure of a vehicle"
+    },
+    {
+      "word": "罰する",
+      "reading": "ばっする",
+      "meaning": "to punish,to penalize"
+    },
+    {
+      "word": "発達",
+      "reading": "はったつ",
+      "meaning": "development,growth"
+    },
+    {
+      "word": "ばったり",
+      "reading": "ばったり",
+      "meaning": "with a clash (thud),with a bang,plump,flop"
+    },
+    {
+      "word": "発展",
+      "reading": "はってん",
+      "meaning": "development,growth"
+    },
+    {
+      "word": "発表",
+      "reading": "はっぴょう",
+      "meaning": "announcement,publication"
+    },
+    {
+      "word": "発明",
+      "reading": "はつめい",
+      "meaning": "invention"
+    },
+    {
+      "word": "離す",
+      "reading": "はなす",
+      "meaning": "to part,divide,separate"
+    },
+    {
+      "word": "放す",
+      "reading": "はなす",
+      "meaning": "to separate,to set free"
+    },
+    {
+      "word": "離れる",
+      "reading": "はなれる",
+      "meaning": "to be separated from,to leave,to go away,to be a long way off"
+    },
+    {
+      "word": "羽",
+      "reading": "はね",
+      "meaning": "counter for birds,counter for rabbits"
+    },
+    {
+      "word": "幅",
+      "reading": "はば",
+      "meaning": "width,breadth"
+    },
+    {
+      "word": "母親",
+      "reading": "ははおや",
+      "meaning": "mother"
+    },
+    {
+      "word": "省く",
+      "reading": "はぶく",
+      "meaning": "to omit,to eliminate,to curtail,to economize"
+    },
+    {
+      "word": "場面",
+      "reading": "ばめん",
+      "meaning": "scene,setting (e.g. of novel)"
+    },
+    {
+      "word": "分析",
+      "reading": "ぶんせき",
+      "meaning": "analysis"
+    },
+    {
+      "word": "文明",
+      "reading": "ぶんめい",
+      "meaning": "civilization,culture"
+    },
+    {
+      "word": "分野",
+      "reading": "ぶんや",
+      "meaning": "field,sphere,realm,division,branch"
+    },
+    {
+      "word": "塀",
+      "reading": "へい",
+      "meaning": "wall,fence"
+    },
+    {
+      "word": "平均",
+      "reading": "へいきん",
+      "meaning": "equilibrium,balance,average,mean"
+    },
+    {
+      "word": "平和",
+      "reading": "へいわ",
+      "meaning": "peace,harmony"
+    },
+    {
+      "word": "減らす",
+      "reading": "へらす",
+      "meaning": "to abate,to decrease,to diminish,to shorten"
+    },
+    {
+      "word": "ベルト",
+      "reading": "ベルト",
+      "meaning": "Belt for western clothes"
+    },
+    {
+      "word": "変化",
+      "reading": "へんか",
+      "meaning": "goblin,ghost,apparition,bugbear"
+    },
+    {
+      "word": "ペンキ",
+      "reading": "ペンキ",
+      "meaning": "(n) paint (nl: pek)"
+    },
+    {
+      "word": "ベンチ",
+      "reading": "ベンチ",
+      "meaning": "bench"
+    },
+    {
+      "word": "棒",
+      "reading": "ぼう",
+      "meaning": "pole,rod,stick"
+    },
+    {
+      "word": "方向",
+      "reading": "ほうこう",
+      "meaning": "direction,course,way"
+    },
+    {
+      "word": "報告",
+      "reading": "ほうこく",
+      "meaning": "report,information"
+    },
+    {
+      "word": "宝石",
+      "reading": "ほうせき",
+      "meaning": "gem,jewel"
+    },
+    {
+      "word": "反抗",
+      "reading": "はんこう",
+      "meaning": "opposition,resistance"
+    },
+    {
+      "word": "犯罪",
+      "reading": "はんざい",
+      "meaning": "crime"
+    },
+    {
+      "word": "ハンサム",
+      "reading": "ハンサム",
+      "meaning": "handsome"
+    },
+    {
+      "word": "判断",
+      "reading": "はんだん",
+      "meaning": "judgement,decision"
+    },
+    {
+      "word": "犯人",
+      "reading": "はんにん",
+      "meaning": "offender,criminal"
+    },
+    {
+      "word": "販売",
+      "reading": "はんばい",
+      "meaning": "sale,selling,marketing"
+    },
+    {
+      "word": "灯",
+      "reading": "ひ",
+      "meaning": "light"
+    },
+    {
+      "word": "被害",
+      "reading": "ひがい",
+      "meaning": "damage"
+    },
+    {
+      "word": "轢く",
+      "reading": "ひく",
+      "meaning": "to run somebody over (with vehicle),to knock someone down"
+    },
+    {
+      "word": "悲劇",
+      "reading": "ひげき",
+      "meaning": "tragedy"
+    },
+    {
+      "word": "膝",
+      "reading": "ひざ",
+      "meaning": "knee,lap"
+    },
+    {
+      "word": "美人",
+      "reading": "びじん",
+      "meaning": "beautiful person (woman)"
+    },
+    {
+      "word": "日付",
+      "reading": "ひづけ",
+      "meaning": "date,dating"
+    },
+    {
+      "word": "必死",
+      "reading": "ひっし",
+      "meaning": "inevitable death,desperation,frantic,inevitable result"
+    },
+    {
+      "word": "引っ張る",
+      "reading": "ひっぱる",
+      "meaning": "(1) to pull,to draw,to stretch,to drag,(2) to pull the ball (baseball)"
+    },
+    {
+      "word": "否定",
+      "reading": "ひてい",
+      "meaning": "negation,denial,repudiation"
+    },
+    {
+      "word": "ビデオ",
+      "reading": "ビデオ",
+      "meaning": "video"
+    },
+    {
+      "word": "一言",
+      "reading": "ひとこと",
+      "meaning": "single word"
+    },
+    {
+      "word": "人込み",
+      "reading": "ひとごみ",
+      "meaning": "crowd of people"
+    },
+    {
+      "word": "等しい",
+      "reading": "ひとしい",
+      "meaning": "equal"
+    },
+    {
+      "word": "独り",
+      "reading": "ひとり",
+      "meaning": "alone,unmarried"
+    },
+    {
+      "word": "一人一人",
+      "reading": "ひとりひとり",
+      "meaning": "one by one,each,one at a time"
+    },
+    {
+      "word": "批判",
+      "reading": "ひはん",
+      "meaning": "criticism,judgement,comment"
+    },
+    {
+      "word": "批評",
+      "reading": "ひひょう",
+      "meaning": "criticism,review,commentary"
+    },
+    {
+      "word": "微妙",
+      "reading": "びみょう",
+      "meaning": "delicate,subtle"
+    },
+    {
+      "word": "紐",
+      "reading": "ひも",
+      "meaning": "(1) string,cord,(2) pimp"
+    },
+    {
+      "word": "費用",
+      "reading": "ひよう",
+      "meaning": "cost,expense"
+    },
+    {
+      "word": "秒",
+      "reading": "びょう",
+      "meaning": "second (60th min)"
+    },
+    {
+      "word": "評価",
+      "reading": "ひょうか",
+      "meaning": "valuation,estimation,assessment,evaluation"
+    },
+    {
+      "word": "平等",
+      "reading": "びょうどう",
+      "meaning": "equality (a),impartiality,evenness"
+    },
+    {
+      "word": "表面",
+      "reading": "ひょうめん",
+      "meaning": "surface,outside,face,appearance"
+    },
+    {
+      "word": "広がる",
+      "reading": "ひろがる",
+      "meaning": "to spread (out),to extend,to stretch,to reach to,to get around"
+    },
+    {
+      "word": "本物",
+      "reading": "ほんもの",
+      "meaning": "genuine article"
+    },
+    {
+      "word": "ぼんやり",
+      "reading": "ぼんやり",
+      "meaning": "absent-minded,block-head,dim,faint,vague"
+    },
+    {
+      "word": "まあ",
+      "reading": "まあ",
+      "meaning": "(female) you might say"
+    },
+    {
+      "word": "マーケット",
+      "reading": "マーケット",
+      "meaning": "market"
+    },
+    {
+      "word": "マイク",
+      "reading": "マイク",
+      "meaning": "mike"
+    },
+    {
+      "word": "迷子",
+      "reading": "まいご",
+      "meaning": "lost (stray) child"
+    },
+    {
+      "word": "不思議",
+      "reading": "ふしぎ",
+      "meaning": "mystery,curiosity"
+    },
+    {
+      "word": "不自由",
+      "reading": "ふじゆう",
+      "meaning": "discomfort,disability,inconvenience,destitution"
+    },
+    {
+      "word": "夫人",
+      "reading": "ふじん",
+      "meaning": "wife,Mrs,madam"
+    },
+    {
+      "word": "婦人",
+      "reading": "ふじん",
+      "meaning": "woman,female"
+    },
+    {
+      "word": "不正",
+      "reading": "ふせい",
+      "meaning": "injustice,unfairness"
+    },
+    {
+      "word": "舞台",
+      "reading": "ぶたい",
+      "meaning": "stage (theatre)"
+    },
+    {
+      "word": "双子",
+      "reading": "ふたご",
+      "meaning": "twins,a twin"
+    },
+    {
+      "word": "再び",
+      "reading": "ふたたび",
+      "meaning": "again,once more,a second time"
+    },
+    {
+      "word": "普段",
+      "reading": "ふだん",
+      "meaning": "usually,habitually,ordinarily,always"
+    },
+    {
+      "word": "縁",
+      "reading": "ふち",
+      "meaning": "a means, e.g. of living"
+    },
+    {
+      "word": "打つ",
+      "reading": "ぶつ",
+      "meaning": "to hit,to strike"
+    },
+    {
+      "word": "物価",
+      "reading": "ぶっか",
+      "meaning": "prices of commodities,prices (in general)"
+    },
+    {
+      "word": "物質",
+      "reading": "ぶっしつ",
+      "meaning": "material,substance"
+    },
+    {
+      "word": "物理",
+      "reading": "ぶつり",
+      "meaning": "physics"
+    },
+    {
+      "word": "筆",
+      "reading": "ふで",
+      "meaning": "writing brush"
+    },
+    {
+      "word": "不図",
+      "reading": "ふと",
+      "meaning": "suddenly,casually,accidentally,incidentally,unexpectedly,unintentionally"
+    },
+    {
+      "word": "船",
+      "reading": "ふね",
+      "meaning": "ship,boat,watercraft,shipping,vessel,steamship"
+    },
+    {
+      "word": "部分",
+      "reading": "ぶぶん",
+      "meaning": "portion,section,part"
+    },
+    {
+      "word": "不平",
+      "reading": "ふへい",
+      "meaning": "complaint,discontent,dissatisfaction"
+    },
+    {
+      "word": "不満",
+      "reading": "ふまん",
+      "meaning": "dissatisfaction,displeasure,discontent,complaints,unhappiness"
+    },
+    {
+      "word": "プラス",
+      "reading": "プラス",
+      "meaning": "plus"
+    },
+    {
+      "word": "プラン",
+      "reading": "プラン",
+      "meaning": "plan"
+    },
+    {
+      "word": "不利",
+      "reading": "ふり",
+      "meaning": "disadvantage,handicap,unfavorable,drawback"
+    },
+    {
+      "word": "震える",
+      "reading": "ふるえる",
+      "meaning": "to shiver,to shake,to quake"
+    },
+    {
+      "word": "ブレーキ",
+      "reading": "ブレーキ",
+      "meaning": "a brake"
+    },
+    {
+      "word": "妙",
+      "reading": "みょう",
+      "meaning": "strange,unusual"
+    },
+    {
+      "word": "明後日",
+      "reading": "みょうごにち",
+      "meaning": "day after tomorrow"
+    },
+    {
+      "word": "未来",
+      "reading": "みらい",
+      "meaning": "future (life, tense)"
+    },
+    {
+      "word": "ミルク",
+      "reading": "ミルク",
+      "meaning": "milk"
+    },
+    {
+      "word": "向かい",
+      "reading": "むかい",
+      "meaning": "facing,opposite,across the street,other side"
+    },
+    {
+      "word": "向く",
+      "reading": "むく",
+      "meaning": "to face"
+    },
+    {
+      "word": "向ける",
+      "reading": "むける",
+      "meaning": "to turn towards,to point"
+    },
+    {
+      "word": "虫歯",
+      "reading": "むしば",
+      "meaning": "cavity,tooth decay,decayed tooth,caries"
+    },
+    {
+      "word": "寧ろ",
+      "reading": "むしろ",
+      "meaning": "rather,better,instead"
+    },
+    {
+      "word": "結ぶ",
+      "reading": "むすぶ",
+      "meaning": "to tie,to bind,to link"
+    },
+    {
+      "word": "胸",
+      "reading": "むね",
+      "meaning": "breast,chest"
+    },
+    {
+      "word": "無料",
+      "reading": "むりょう",
+      "meaning": "free,no charge"
+    },
+    {
+      "word": "芽",
+      "reading": "め",
+      "meaning": "sprout"
+    },
+    {
+      "word": "方々",
+      "reading": "ほうぼう",
+      "meaning": "persons,this and that,here and there,everywhere"
+    },
+    {
+      "word": "訪問",
+      "reading": "ほうもん",
+      "meaning": "call,visit"
+    },
+    {
+      "word": "吠える",
+      "reading": "ほえる",
+      "meaning": "to bark,to bay,to howl,to bellow,to roar,to cry"
+    },
+    {
+      "word": "ボーイ",
+      "reading": "ボーイ",
+      "meaning": "boy"
+    },
+    {
+      "word": "ボート",
+      "reading": "ボート",
+      "meaning": "rowing boat"
+    },
+    {
+      "word": "ホーム",
+      "reading": "ホーム",
+      "meaning": "(1) platform,(2) home"
+    },
+    {
+      "word": "誇り",
+      "reading": "ほこり",
+      "meaning": "pride"
+    },
+    {
+      "word": "埃",
+      "reading": "ほこり",
+      "meaning": "dust"
+    },
+    {
+      "word": "保証",
+      "reading": "ほしょう",
+      "meaning": "guarantee,security,assurance,pledge,warranty"
+    },
+    {
+      "word": "保存",
+      "reading": "ほぞん",
+      "meaning": "preservation,conservation,storage,maintenance"
+    },
+    {
+      "word": "仏",
+      "reading": "ほとけ",
+      "meaning": "Buddha,merciful person,Buddhist image,the dead"
+    },
+    {
+      "word": "骨",
+      "reading": "ほね",
+      "meaning": "bone"
+    },
+    {
+      "word": "炎",
+      "reading": "ほのお",
+      "meaning": "flame"
+    },
+    {
+      "word": "頬",
+      "reading": "ほほ",
+      "meaning": "cheek (of face)"
+    },
+    {
+      "word": "頬",
+      "reading": "ほお",
+      "meaning": "cheek (of face)"
+    },
+    {
+      "word": "略",
+      "reading": "ほぼ",
+      "meaning": "almost,roughly,approximately"
+    },
+    {
+      "word": "微笑む",
+      "reading": "ほほえむ",
+      "meaning": "to smile"
+    },
+    {
+      "word": "褒める",
+      "reading": "ほめる",
+      "meaning": "to praise,to admire,to speak well"
+    },
+    {
+      "word": "濠",
+      "reading": "ほり",
+      "meaning": "moat"
+    },
+    {
+      "word": "本人",
+      "reading": "ほんにん",
+      "meaning": "the person himself"
+    },
+    {
+      "word": "戻す",
+      "reading": "もどす",
+      "meaning": "to restore,to put back,to return"
+    },
+    {
+      "word": "基づく",
+      "reading": "もとづく",
+      "meaning": "to be grounded on,to be based on,to be due to,to originate from"
+    },
+    {
+      "word": "物音",
+      "reading": "ものおと",
+      "meaning": "sounds"
+    },
+    {
+      "word": "物語",
+      "reading": "ものがたり",
+      "meaning": "tale,story,legend"
+    },
+    {
+      "word": "物事",
+      "reading": "ものごと",
+      "meaning": "things,everything"
+    },
+    {
+      "word": "模様",
+      "reading": "もよう",
+      "meaning": "pattern,figure,design"
+    },
+    {
+      "word": "貰う",
+      "reading": "もらう",
+      "meaning": "to receive"
+    },
+    {
+      "word": "文句",
+      "reading": "もんく",
+      "meaning": "phrase,complaint"
+    },
+    {
+      "word": "やがて",
+      "reading": "やがて",
+      "meaning": "before long,soon,at length"
+    },
+    {
+      "word": "訳",
+      "reading": "やく",
+      "meaning": "meaning,reason,circumstances,can be deduced,situation"
+    },
+    {
+      "word": "役割",
+      "reading": "やくわり",
+      "meaning": "part,assigning (allotment of) parts,role,duties"
+    },
+    {
+      "word": "厄介",
+      "reading": "やっかい",
+      "meaning": "trouble,burden,care,bother"
+    },
+    {
+      "word": "雇う",
+      "reading": "やとう",
+      "meaning": "to employ,to hire"
+    },
+    {
+      "word": "屋根",
+      "reading": "やね",
+      "meaning": "roof"
+    },
+    {
+      "word": "破る",
+      "reading": "やぶる",
+      "meaning": "to tear,to violate,to defeat,to smash,to destroy"
+    },
+    {
+      "word": "辞める",
+      "reading": "やめる",
+      "meaning": "to retire"
+    },
+    {
+      "word": "やや",
+      "reading": "やや",
+      "meaning": "a little,partially,somewhat,a short time,a while"
+    },
+    {
+      "word": "唯一",
+      "reading": "ゆいいつ",
+      "meaning": "only,sole,unique"
+    },
+    {
+      "word": "勇気",
+      "reading": "ゆうき",
+      "meaning": "courage,bravery,valour,nerve,boldness"
+    },
+    {
+      "word": "有効",
+      "reading": "ゆうこう",
+      "meaning": "validity,availability,effectiveness"
+    },
+    {
+      "word": "優秀",
+      "reading": "ゆうしゅう",
+      "meaning": "superiority,excellence"
+    },
+    {
+      "word": "任せる",
+      "reading": "まかせる",
+      "meaning": "to entrust to another,to leave to"
+    },
+    {
+      "word": "幕",
+      "reading": "まく",
+      "meaning": "curtain,bunting,act (in play)"
+    },
+    {
+      "word": "孫",
+      "reading": "まご",
+      "meaning": "grandchild"
+    },
+    {
+      "word": "まさに",
+      "reading": "まさに",
+      "meaning": "correctly,surely"
+    },
+    {
+      "word": "真面目",
+      "reading": "まじめ",
+      "meaning": "diligent,serious,honest"
+    },
+    {
+      "word": "増す",
+      "reading": "ます",
+      "meaning": "to increase,to grow"
+    },
+    {
+      "word": "貧しい",
+      "reading": "まずしい",
+      "meaning": "poor,needy"
+    },
+    {
+      "word": "マスター",
+      "reading": "マスター",
+      "meaning": "proprietor,manager,barowner,master (e.g. arts, science)"
+    },
+    {
+      "word": "ますます",
+      "reading": "ますます",
+      "meaning": "increasingly,more and more"
+    },
+    {
+      "word": "未だ",
+      "reading": "まだ",
+      "meaning": "yet,still,more,besides"
+    },
+    {
+      "word": "街",
+      "reading": "まち",
+      "meaning": "(1) town,(2) street,road"
+    },
+    {
+      "word": "間違い",
+      "reading": "まちがい",
+      "meaning": "mistake"
+    },
+    {
+      "word": "松",
+      "reading": "まつ",
+      "meaning": "(1) pine tree,(2) highest (of a three-tier ranking system)"
+    },
+    {
+      "word": "真っ赤",
+      "reading": "まっか",
+      "meaning": "deep red,flushed (of face)"
+    },
+    {
+      "word": "真っ直ぐ",
+      "reading": "まっすぐ",
+      "meaning": "straight (ahead),direct,upright"
+    },
+    {
+      "word": "真似",
+      "reading": "まね",
+      "meaning": "mimicry,imitation,behavior,pretense"
+    },
+    {
+      "word": "招く",
+      "reading": "まねく",
+      "meaning": "to invite"
+    },
+    {
+      "word": "ママ",
+      "reading": "ママ",
+      "meaning": "Mama"
+    },
+    {
+      "word": "豆",
+      "reading": "まめ",
+      "meaning": "beans,peas"
+    },
+    {
+      "word": "守る",
+      "reading": "まもる",
+      "meaning": "to protect,to obey,to guard,to abide (by the rules)"
+    },
+    {
+      "word": "丸",
+      "reading": "まる",
+      "meaning": "circle,full (month),perfection,purity,suffix for ship names"
+    },
+    {
+      "word": "まるで",
+      "reading": "まるで",
+      "meaning": "quite,entirely,completely"
+    },
+    {
+      "word": "回す",
+      "reading": "まわす",
+      "meaning": "to turn,to revolve"
+    },
+    {
+      "word": "回り",
+      "reading": "まわり",
+      "meaning": "circumference,surroundings,circulation"
+    },
+    {
+      "word": "万一",
+      "reading": "まんいち",
+      "meaning": "by some chance,by some possibility,if by any chance,10E4:1 odds"
+    },
+    {
+      "word": "満足",
+      "reading": "まんぞく",
+      "meaning": "satisfaction"
+    },
+    {
+      "word": "見送り",
+      "reading": "みおくり",
+      "meaning": "seeing one off,farewell,escort"
+    },
+    {
+      "word": "味方",
+      "reading": "みかた",
+      "meaning": "friend,ally,supporter"
+    },
+    {
+      "word": "見事",
+      "reading": "みごと",
+      "meaning": "splendid,magnificent,beautiful,admirable"
+    },
+    {
+      "word": "満ちる",
+      "reading": "みちる",
+      "meaning": "to be full,to rise (tide),to mature,to expire"
+    },
+    {
+      "word": "認める",
+      "reading": "みとめる",
+      "meaning": "to recognize,to appreciate,to approve,to admit,to notice"
+    },
+    {
+      "word": "見舞い",
+      "reading": "みまい",
+      "meaning": "enquiry,expression of sympathy,expression of concern"
+    },
+    {
+      "word": "要素",
+      "reading": "ようそ",
+      "meaning": "element"
+    },
+    {
+      "word": "要点",
+      "reading": "ようてん",
+      "meaning": "gist,main point"
+    },
+    {
+      "word": "ヨーロッパ",
+      "reading": "ヨーロッパ",
+      "meaning": "Europe"
+    },
+    {
+      "word": "予期",
+      "reading": "よき",
+      "meaning": "expectation,assume will happen,forecast"
+    },
+    {
+      "word": "横切る",
+      "reading": "よこぎる",
+      "meaning": "to cross (e.g. arms),to traverse"
+    },
+    {
+      "word": "止す",
+      "reading": "よす",
+      "meaning": "to cease,to abolish,to resign,to give up"
+    },
+    {
+      "word": "明確",
+      "reading": "めいかく",
+      "meaning": "clear up,clarify,define"
+    },
+    {
+      "word": "命じる",
+      "reading": "めいじる",
+      "meaning": "to order,to command,to appoint"
+    },
+    {
+      "word": "名人",
+      "reading": "めいじん",
+      "meaning": "master,expert"
+    },
+    {
+      "word": "命令",
+      "reading": "めいれい",
+      "meaning": "order,command,decree,directive,(software) instruction"
+    },
+    {
+      "word": "滅多に",
+      "reading": "めったに",
+      "meaning": "rarely (with neg. verb),seldom"
+    },
+    {
+      "word": "メモ",
+      "reading": "メモ",
+      "meaning": "memorandum"
+    },
+    {
+      "word": "綿",
+      "reading": "めん",
+      "meaning": "cotton,padding"
+    },
+    {
+      "word": "免許",
+      "reading": "めんきょ",
+      "meaning": "license,permit,licence,certificate"
+    },
+    {
+      "word": "申し込む",
+      "reading": "もうしこむ",
+      "meaning": "to apply for,to make an application"
+    },
+    {
+      "word": "申し訳",
+      "reading": "もうしわけ",
+      "meaning": "apology,excuse"
+    },
+    {
+      "word": "毛布",
+      "reading": "もうふ",
+      "meaning": "blanket"
+    },
+    {
+      "word": "燃える",
+      "reading": "もえる",
+      "meaning": "to burn"
+    },
+    {
+      "word": "目的",
+      "reading": "もくてき",
+      "meaning": "purpose,goal,aim,objective,intention"
+    },
+    {
+      "word": "目標",
+      "reading": "もくひょう",
+      "meaning": "mark,objective,target"
+    },
+    {
+      "word": "木曜",
+      "reading": "もくよう",
+      "meaning": "Thursday"
+    },
+    {
+      "word": "文字",
+      "reading": "もじ",
+      "meaning": "letter (of alphabet),character"
+    },
+    {
+      "word": "文字",
+      "reading": "もんじ",
+      "meaning": "letter (of alphabet),character"
+    },
+    {
+      "word": "もしも",
+      "reading": "もしも",
+      "meaning": "if"
+    },
+    {
+      "word": "持ち上げる",
+      "reading": "もちあげる",
+      "meaning": "to raise,to lift up,to flatter"
+    },
+    {
+      "word": "用いる",
+      "reading": "もちいる",
+      "meaning": "to use,to make use of"
+    },
+    {
+      "word": "勿論",
+      "reading": "もちろん",
+      "meaning": "of course,certainly,naturally"
+    },
+    {
+      "word": "尤も",
+      "reading": "もっとも",
+      "meaning": "quite right,plausible,natural,but then,although"
+    },
+    {
+      "word": "基",
+      "reading": "もと",
+      "meaning": "basis"
+    },
+    {
+      "word": "論争",
+      "reading": "ろんそう",
+      "meaning": "controversy,dispute"
+    },
+    {
+      "word": "論文",
+      "reading": "ろんぶん",
+      "meaning": "thesis,essay,treatise,paper"
+    },
+    {
+      "word": "輪",
+      "reading": "わ",
+      "meaning": "ring,hoop,circle"
+    },
+    {
+      "word": "ワイン",
+      "reading": "ワイン",
+      "meaning": "wine"
+    },
+    {
+      "word": "わがまま",
+      "reading": "わがまま",
+      "meaning": "selfishness,egoism,wilfulness,disobedience,whim"
+    },
+    {
+      "word": "脇",
+      "reading": "わき",
+      "meaning": "side"
+    },
+    {
+      "word": "分ける",
+      "reading": "わける",
+      "meaning": "to divide,to separate"
+    },
+    {
+      "word": "わざと",
+      "reading": "わざと",
+      "meaning": "on purpose"
+    },
+    {
+      "word": "僅か",
+      "reading": "わずか",
+      "meaning": "only,merely,a little,small quantity"
+    },
+    {
+      "word": "綿",
+      "reading": "わた",
+      "meaning": "cotton,padding"
+    },
+    {
+      "word": "笑い",
+      "reading": "わらい",
+      "meaning": "laugh,laughter,smile"
+    },
+    {
+      "word": "割る",
+      "reading": "わる",
+      "meaning": "to divide,to cut,to break,to halve"
+    },
+    {
+      "word": "我々",
+      "reading": "われわれ",
+      "meaning": "we"
+    },
+    {
+      "word": "湾",
+      "reading": "わん",
+      "meaning": "bay,gulf,inlet"
+    },
+    {
+      "word": "優勝",
+      "reading": "ゆうしょう",
+      "meaning": "overall victory,championship"
+    },
+    {
+      "word": "友情",
+      "reading": "ゆうじょう",
+      "meaning": "friendship,fellowship"
+    },
+    {
+      "word": "有能",
+      "reading": "ゆうのう",
+      "meaning": "able,capable,efficient,skill"
+    },
+    {
+      "word": "郵便",
+      "reading": "ゆうびん",
+      "meaning": "mail,postal service"
+    },
+    {
+      "word": "夕べ",
+      "reading": "ゆうべ",
+      "meaning": "evening"
+    },
+    {
+      "word": "ユーモア",
+      "reading": "ユーモア",
+      "meaning": "humor"
+    },
+    {
+      "word": "有利",
+      "reading": "ゆうり",
+      "meaning": "advantageous,better,profitable,lucrative"
+    },
+    {
+      "word": "床",
+      "reading": "ゆか",
+      "meaning": "floor"
+    },
+    {
+      "word": "愉快",
+      "reading": "ゆかい",
+      "meaning": "pleasant,happy"
+    },
+    {
+      "word": "譲る",
+      "reading": "ゆずる",
+      "meaning": "to turn over,to assign,to hand over"
+    },
+    {
+      "word": "豊か",
+      "reading": "ゆたか",
+      "meaning": "abundant,wealthy,plentiful,rich"
+    },
+    {
+      "word": "許す",
+      "reading": "ゆるす",
+      "meaning": "to permit,to allow,to approve"
+    },
+    {
+      "word": "夜明け",
+      "reading": "よあけ",
+      "meaning": "dawn,daybreak"
+    },
+    {
+      "word": "酔う",
+      "reading": "よう",
+      "meaning": "to get drunk,to become intoxicated"
+    },
+    {
+      "word": "容易",
+      "reading": "ようい",
+      "meaning": "easy,simple,plain"
+    },
+    {
+      "word": "陽気",
+      "reading": "ようき",
+      "meaning": "season,weather,cheerfulness"
+    },
+    {
+      "word": "要求",
+      "reading": "ようきゅう",
+      "meaning": "request,demand,requisition"
+    },
+    {
+      "word": "用心",
+      "reading": "ようじん",
+      "meaning": "care,precaution,guarding,caution"
+    },
+    {
+      "word": "要するに",
+      "reading": "ようするに",
+      "meaning": "in a word,after all,the point is ..,in short .."
+    },
+    {
+      "word": "予測",
+      "reading": "よそく",
+      "meaning": "prediction,estimation"
+    },
+    {
+      "word": "ヨット",
+      "reading": "ヨット",
+      "meaning": "yacht"
+    },
+    {
+      "word": "世の中",
+      "reading": "よのなか",
+      "meaning": "society,the world,the times"
+    },
+    {
+      "word": "予防",
+      "reading": "よぼう",
+      "meaning": "prevention,precaution,protection against"
+    },
+    {
+      "word": "嫁",
+      "reading": "よめ",
+      "meaning": "bride,daughter-in-law"
+    },
+    {
+      "word": "因る",
+      "reading": "よる",
+      "meaning": "according to"
+    },
+    {
+      "word": "喜び",
+      "reading": "よろこび",
+      "meaning": "(a) joy,(a) delight,rapture,pleasure,gratification,rejoicing,congratulations,felicitations"
+    },
+    {
+      "word": "宜しい",
+      "reading": "よろしい",
+      "meaning": "(hon) good,OK,all right,fine,very well,will do,may,can"
+    },
+    {
+      "word": "宜しく",
+      "reading": "よろしく",
+      "meaning": "well,properly,suitably,best regards,please remember me"
+    },
+    {
+      "word": "ライター",
+      "reading": "ライター",
+      "meaning": "lighter,rider,writer"
+    },
+    {
+      "word": "ラケット",
+      "reading": "ラケット",
+      "meaning": "paddle,racket"
+    },
+    {
+      "word": "利益",
+      "reading": "りえき",
+      "meaning": "profits,gains,(political, economic) interest"
+    },
+    {
+      "word": "陸",
+      "reading": "りく",
+      "meaning": "six (used in legal documents)"
+    },
+    {
+      "word": "利口",
+      "reading": "りこう",
+      "meaning": "clever,shrewd,bright,sharp,wise,intelligent"
+    },
+    {
+      "word": "離婚",
+      "reading": "りこん",
+      "meaning": "divorce"
+    },
+    {
+      "word": "理想",
+      "reading": "りそう",
+      "meaning": "ideal"
+    },
+    {
+      "word": "流行",
+      "reading": "りゅうこう",
+      "meaning": "fashionable,fad,in vogue,prevailing"
+    },
+    {
+      "word": "量",
+      "reading": "りょう",
+      "meaning": "quantity,amount,volume,portion (of food)"
+    },
+    {
+      "word": "両替",
+      "reading": "りょうがえ",
+      "meaning": "change,money exchange"
+    },
+    {
+      "word": "料金",
+      "reading": "りょうきん",
+      "meaning": "fee,charge,fare"
+    },
+    {
+      "word": "冷静",
+      "reading": "れいせい",
+      "meaning": "calm,composure,coolness,serenity"
+    },
+    {
+      "word": "列",
+      "reading": "れつ",
+      "meaning": "queue,line,row"
+    },
+    {
+      "word": "列車",
+      "reading": "れっしゃ",
+      "meaning": "train (ordinary)"
+    },
+    {
+      "word": "連想",
+      "reading": "れんそう",
+      "meaning": "association (of ideas),suggestion"
+    },
+    {
+      "word": "連続",
+      "reading": "れんぞく",
+      "meaning": "serial,consecutive,continuity,continuing"
+    },
+    {
+      "word": "老人",
+      "reading": "ろうじん",
+      "meaning": "the aged,old person"
+    },
+    {
+      "word": "労働",
+      "reading": "ろうどう",
+      "meaning": "manual labor,toil,work"
+    },
+    {
+      "word": "ロケット",
+      "reading": "ロケット",
+      "meaning": "locket,rocket"
+    },
+    {
+      "word": "論じる",
+      "reading": "ろんじる",
+      "meaning": "to argue,to discuss,to debate"
+    }
+  ],
+  "unused_kanji": [
+    {
+      "character": "石",
+      "meaning": "stone"
+    },
+    {
+      "character": "太",
+      "meaning": "plump, thick, big around"
+    },
+    {
+      "character": "号",
+      "meaning": "nickname, number, item, title, pseudonym, name, call"
+    },
+    {
+      "character": "打",
+      "meaning": "strike, hit, knock, pound, dozen"
+    },
+    {
+      "character": "申",
+      "meaning": "have the honor to, sign of the monkey, 3-5PM, ninth sign of Chinese zodiac"
+    },
+    {
+      "character": "耳",
+      "meaning": "ear"
+    },
+    {
+      "character": "交",
+      "meaning": "mingle, mixing, association, coming & going"
+    },
+    {
+      "character": "米",
+      "meaning": "rice, USA, metre"
+    },
+    {
+      "character": "草",
+      "meaning": "grass, weeds, herbs, pasture, write, draft"
+    },
+    {
+      "character": "曲",
+      "meaning": "bend, music, melody, composition, pleasure, injustice, fault, curve, crooked, perverse, lean"
+    },
+    {
+      "character": "科",
+      "meaning": "department, course, section"
+    },
+    {
+      "character": "首",
+      "meaning": "neck, counter for songs and poems"
+    },
+    {
+      "character": "失",
+      "meaning": "lose, error, fault, disadvantage, loss"
+    },
+    {
+      "character": "未",
+      "meaning": "un-, not yet, hitherto, still, even now, sign of the ram, 1-3PM, eighth sign of Chinese zodiac"
+    },
+    {
+      "character": "船",
+      "meaning": "ship, boat"
+    },
+    {
+      "character": "君",
+      "meaning": "mister, you, ruler, male name suffix"
+    },
+    {
+      "character": "投",
+      "meaning": "throw, discard, abandon, launch into, join, invest in, hurl, give up, sell at a loss"
+    },
+    {
+      "character": "馬",
+      "meaning": "horse"
+    },
+    {
+      "character": "速",
+      "meaning": "quick, fast"
+    },
+    {
+      "character": "酒",
+      "meaning": "sake, alcohol"
+    },
+    {
+      "character": "路",
+      "meaning": "path, route, road, distance"
+    },
+    {
+      "character": "鳴",
+      "meaning": "chirp, cry, bark, sound, ring, echo, honk"
+    },
+    {
+      "character": "争",
+      "meaning": "contend, dispute, argue"
+    },
+    {
+      "character": "共",
+      "meaning": "together, both, neither, all, and, alike, with"
+    },
+    {
+      "character": "放",
+      "meaning": "set free, release, fire, shoot, emit, banish, liberate"
+    },
+    {
+      "character": "流",
+      "meaning": "current, a sink, flow, forfeit"
+    },
+    {
+      "character": "陽",
+      "meaning": "sunshine, yang principle, positive, male, heaven, daytime"
+    },
+    {
+      "character": "歯",
+      "meaning": "tooth, cog"
+    },
+    {
+      "character": "亡",
+      "meaning": "deceased, the late, dying, perish"
+    },
+    {
+      "character": "福",
+      "meaning": "blessing, fortune, luck, wealth"
+    },
+    {
+      "character": "殺",
+      "meaning": "kill, murder, butcher, slice off, split, diminish, reduce, spoil"
+    },
+    {
+      "character": "疑",
+      "meaning": "doubt, distrust, be suspicious, question"
+    },
+    {
+      "character": "念",
+      "meaning": "wish, sense, idea, thought, feeling, desire, attention"
+    },
+    {
+      "character": "折",
+      "meaning": "fold, break, fracture, bend, yield, submit"
+    },
+    {
+      "character": "望",
+      "meaning": "ambition, full moon, hope, desire, aspire to, expect"
+    },
+    {
+      "character": "列",
+      "meaning": "file, row, rank, tier, column"
+    },
+    {
+      "character": "夫",
+      "meaning": "husband, man"
+    },
+    {
+      "character": "治",
+      "meaning": "reign, be at peace, calm down, subdue, quell, govt, cure, heal, rule, conserve"
+    },
+    {
+      "character": "政",
+      "meaning": "politics, government"
+    },
+    {
+      "character": "危",
+      "meaning": "dangerous, fear, uneasy"
+    },
+    {
+      "character": "存",
+      "meaning": "exist, suppose, be aware of, believe, feel"
+    },
+    {
+      "character": "側",
+      "meaning": "side, lean, oppose, regret"
+    },
+    {
+      "character": "敗",
+      "meaning": "failure, defeat, reversal"
+    },
+    {
+      "character": "官",
+      "meaning": "bureaucrat, the government, organ"
+    },
+    {
+      "character": "察",
+      "meaning": "guess, presume, surmise, judge, understand"
+    },
+    {
+      "character": "靴",
+      "meaning": "shoes"
+    },
+    {
+      "character": "処",
+      "meaning": "dispose, manage, deal with, sentence, condemn, act, behave, place"
+    },
+    {
+      "character": "婦",
+      "meaning": "lady, woman, wife, bride"
+    },
+    {
+      "character": "程",
+      "meaning": "extent, degree, law, formula, distance, limits, amount"
+    },
+    {
+      "character": "娘",
+      "meaning": "daughter, girl"
+    },
+    {
+      "character": "貧",
+      "meaning": "poverty, poor"
+    },
+    {
+      "character": "押",
+      "meaning": "push, stop, check, subdue, attach, seize, weight, shove, press, seal, do in spite of"
+    },
+    {
+      "character": "背",
+      "meaning": "stature, height, back, behind, disobey, defy, go back on, rebel"
+    },
+    {
+      "character": "盗",
+      "meaning": "steal, rob, pilfer"
+    },
+    {
+      "character": "似",
+      "meaning": "becoming, resemble, counterfeit, imitate, suitable"
+    },
+    {
+      "character": "警",
+      "meaning": "admonish, commandment"
+    },
+    {
+      "character": "告",
+      "meaning": "revelation, tell, inform, announce"
+    },
+    {
+      "character": "等",
+      "meaning": "etc., and so forth, class (first), quality, equal, similar"
+    },
+    {
+      "character": "洗",
+      "meaning": "wash, inquire into, probe"
+    },
+    {
+      "character": "許",
+      "meaning": "permit, approve"
+    },
+    {
+      "character": "煙",
+      "meaning": "smoke"
+    },
+    {
+      "character": "易",
+      "meaning": "easy, ready to, simple, fortune-telling, divination"
+    },
+    {
+      "character": "在",
+      "meaning": "exist, outskirts, suburbs, located in"
+    },
+    {
+      "character": "妻",
+      "meaning": "wife, spouse"
+    },
+    {
+      "character": "犯",
+      "meaning": "crime, sin, offense"
+    },
+    {
+      "character": "罪",
+      "meaning": "guilt, sin, crime, fault, blame, offense"
+    },
+    {
+      "character": "制",
+      "meaning": "system, law, rule"
+    },
+    {
+      "character": "権",
+      "meaning": "authority, power, rights"
+    },
+    {
+      "character": "件",
+      "meaning": "affair, case, matter, item"
+    },
+    {
+      "character": "恥",
+      "meaning": "shame, dishonor"
+    },
+    {
+      "character": "逃",
+      "meaning": "escape, flee, shirk, evade, set free"
+    },
+    {
+      "character": "髪",
+      "meaning": "hair of the head"
+    },
+    {
+      "character": "偶",
+      "meaning": "accidentally, even number, couple, man & wife, same kind"
+    },
+    {
+      "character": "認",
+      "meaning": "acknowledge, witness, discern, recognize, appreciate, believe"
+    },
+    {
+      "character": "示",
+      "meaning": "show, indicate, point out, express, display"
+    },
+    {
+      "character": "規",
+      "meaning": "standard, measure"
+    },
+    {
+      "character": "割",
+      "meaning": "proportion, comparatively, divide, cut, separate, split"
+    },
+    {
+      "character": "差",
+      "meaning": "distinction, difference, variation, discrepancy, margin, balance"
+    },
+    {
+      "character": "抜",
+      "meaning": "slip out, extract, pull out, pilfer, quote, remove, omit"
+    },
+    {
+      "character": "候",
+      "meaning": "climate, season, weather, wait for, expect"
+    },
+    {
+      "character": "構",
+      "meaning": "posture, stance, appearance, build, set up"
+    },
+    {
+      "character": "捕",
+      "meaning": "catch, capture"
+    },
+    {
+      "character": "退",
+      "meaning": "retreat, withdraw, retire, resign, repel, expel, reject"
+    },
+    {
+      "character": "怒",
+      "meaning": "angry, be offended"
+    },
+    {
+      "character": "窓",
+      "meaning": "window, pane"
+    },
+    {
+      "character": "否",
+      "meaning": "negate, no, noes, refuse, decline, deny"
+    },
+    {
+      "character": "破",
+      "meaning": "rend, rip, tear, break, destroy, defeat, frustrate"
+    }
+  ]
+}
