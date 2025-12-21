@@ -225,7 +225,7 @@ function SentencePracticeContent() {
         {/* Main Content */}
         <div className="mb-16">
           {/* Japanese Text */}
-          <div className="text-center mb-14">
+          <div className="text-center mb-14 pt-8">
             {showFurigana ? (
               <div 
                 className="text-4xl font-light font-japanese text-gray-900 dark:text-white leading-relaxed tracking-wide"
