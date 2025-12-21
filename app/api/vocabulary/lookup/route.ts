@@ -25,6 +25,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to fetch vocabulary data' }, { status: 500 });
     }
 
+    // Log for debugging
+    console.log('Vocabulary lookup request:', { words, foundCount: data?.length || 0 });
+    if (data && data.length < words.length) {
+      const foundWords = data.map((v: any) => v.word);
+      const missingWords = words.filter((w: string) => !foundWords.includes(w));
+      console.log('Missing vocabulary entries:', missingWords);
+    }
+
     // Convert array to object keyed by word
     const vocabMap = (data || []).reduce((acc: Record<string, any>, vocab: any) => {
       acc[vocab.word] = vocab;

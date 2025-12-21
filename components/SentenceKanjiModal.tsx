@@ -229,40 +229,46 @@ export default function SentenceKanjiModal({
               {/* Compounds Tab Content */}
               {activeTab === 'compounds' && (
                 <div className="space-y-4">
-                  {compounds.map((compound: string, idx: number) => {
-                    const vocab = vocabData[compound];
-                    return (
-                      <div
-                        key={idx}
-                        className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg"
-                      >
-                        <div className="flex items-start justify-between mb-2">
-                          <div className="text-3xl font-japanese text-gray-900 dark:text-white">
-                            {compound}
+                  {compounds.length === 0 ? (
+                    <div className="text-center py-8">
+                      <p className="text-gray-500 dark:text-gray-400">No compound words found in this sentence</p>
+                    </div>
+                  ) : (
+                    compounds.map((compound: string, idx: number) => {
+                      const vocab = vocabData[compound];
+                      return (
+                        <div
+                          key={idx}
+                          className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg"
+                        >
+                          <div className="flex items-start justify-between mb-2">
+                            <div className="text-3xl font-japanese text-gray-900 dark:text-white">
+                              {compound}
+                            </div>
+                            {vocab?.jlpt_level && (
+                              <span className="px-2 py-1 bg-pink-100 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 text-xs font-medium rounded-full">
+                                {vocab.jlpt_level}
+                              </span>
+                            )}
                           </div>
-                          {vocab?.jlpt_level && (
-                            <span className="px-2 py-1 bg-pink-100 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 text-xs font-medium rounded-full">
-                              {vocab.jlpt_level}
-                            </span>
+                          {vocab ? (
+                            <>
+                              <p className="text-sm text-gray-600 dark:text-gray-400 font-japanese mb-1">
+                                {vocab.reading}
+                              </p>
+                              <p className="text-base text-gray-900 dark:text-white">
+                                {vocab.meaning}
+                              </p>
+                            </>
+                          ) : (
+                            <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+                              This compound word is not in the vocabulary database yet
+                            </p>
                           )}
                         </div>
-                        {vocab ? (
-                          <>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 font-japanese mb-1">
-                              {vocab.reading}
-                            </p>
-                            <p className="text-base text-gray-900 dark:text-white">
-                              {vocab.meaning}
-                            </p>
-                          </>
-                        ) : (
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            No vocabulary data available
-                          </p>
-                        )}
-                      </div>
-                    );
-                  })}
+                      );
+                    })
+                  )}
                 </div>
               )}
 
