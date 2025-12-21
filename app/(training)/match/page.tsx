@@ -586,11 +586,11 @@ function MatchPageContent() {
                 }
               } else {
                 if (isSelected && isCorrectAnswer) {
-                  buttonClass += "text-white bg-[#28a745] border-green-700";
+                  buttonClass += "text-green-700 bg-[#f1fdf5] border-[#20c55f]";
                 } else if (isSelected && !isCorrectAnswer) {
                   buttonClass += "bg-gray-200 text-gray-700 border-gray-400";
                 } else if (isCorrectAnswer) {
-                  buttonClass += "text-white bg-[#28a745] border-green-700";
+                  buttonClass += "text-green-700 bg-[#f1fdf5] border-[#20c55f]";
                 } else {
                   buttonClass += "bg-gray-100 text-gray-500 border-gray-300";
                 }
