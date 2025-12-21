@@ -23,6 +23,7 @@ export default function SentenceKanjiModal({
   isOpen,
   onClose,
   kanjiCharacters,
+  compounds = [],
   sentenceText,
   preloadedData,
 }: SentenceKanjiModalProps) {
@@ -82,6 +83,11 @@ export default function SentenceKanjiModal({
         <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
           <h3 className="text-base sm:text-lg font-medium text-gray-900 dark:text-white">
             Kanji in Sentence ({kanjiCharacters.length})
+            {compounds.length > 0 && (
+              <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
+                • {compounds.length} compound{compounds.length !== 1 ? 's' : ''}
+              </span>
+            )}
           </h3>
           <button
             onClick={onClose}
@@ -154,6 +160,25 @@ export default function SentenceKanjiModal({
                     {currentKanji}
                   </div>
                   <p className="text-gray-500 dark:text-gray-400">No data available for this kanji</p>
+                </div>
+              )}
+
+              {/* Compound Words Section */}
+              {compounds.length > 0 && (
+                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                  <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                    Compound Words in Sentence
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {compounds.map((compound, idx) => (
+                      <div
+                        key={idx}
+                        className="px-3 py-2 bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 rounded-lg font-japanese text-base font-medium border border-pink-200 dark:border-pink-800"
+                      >
+                        {compound}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
 

@@ -51,3 +51,45 @@ export async function addFurigana(text: string): Promise<string> {
 export function isKuroshiroReady(): boolean {
   return isInitialized && kuroshiro !== null;
 }
+
+export async function extractCompounds(text: string): Promise<string[]> {
+  if (!kuroshiro || !isInitialized) {
+    await initializeKuroshiro();
+  }
+
+  if (!kuroshiro) {
+    throw new Error('Kuroshiro failed to initialize');
+  }
+
+  try {
+    // Get the analyzer to tokenize the text
+    const analyzer = (kuroshiro as any)._analyzer;
+    if (!analyzer || !analyzer.parse) {
+      console.error('Analyzer not available');
+      return [];
+    }
+
+    const tokens = await analyzer.parse(text);
+    const compounds: string[] = [];
+    const seen = new Set<string>();
+
+    // Extract words that contain 2+ kanji characters
+    for (const token of tokens) {
+      const surface = token.surface_form || token.word || '';
+      
+      // Check if word contains at least 2 kanji
+      const kanjiMatches = surface.match(/[\u4e00-\u9faf]/g);
+      if (kanjiMatches && kanjiMatches.length >= 2) {
+        if (!seen.has(surface)) {
+          seen.add(surface);
+          compounds.push(surface);
+        }
+      }
+    }
+
+    return compounds;
+  } catch (error) {
+    console.error('Error extracting compounds:', error);
+    return [];
+  }
+}

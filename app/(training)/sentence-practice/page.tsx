@@ -38,6 +38,7 @@ function SentencePracticeContent() {
   const [processedText, setProcessedText] = useState<string>('');
   const [showKanjiModal, setShowKanjiModal] = useState(false);
   const [sentenceKanji, setSentenceKanji] = useState<string[]>([]);
+  const [sentenceCompounds, setSentenceCompounds] = useState<string[]>([]);
   const [preloadedKanjiData, setPreloadedKanjiData] = useState<Record<string, any>>({});
   
   const { speak, playAudio, stop, isLoading } = useTTS();
@@ -72,9 +73,19 @@ function SentencePracticeContent() {
           setProcessedText(sentences[currentIndex].japanese_text);
         }
 
-        // Preload kanji data in background
+        // Preload kanji data and extract compounds in background
         const kanji = extractKanji(sentences[currentIndex].japanese_text);
         setSentenceKanji(kanji);
+        
+        // Extract compound words
+        try {
+          const compounds = await extractCompounds(sentences[currentIndex].japanese_text);
+          setSentenceCompounds(compounds);
+        } catch (error) {
+          console.error('Error extracting compounds:', error);
+          setSentenceCompounds([]);
+        }
+        
         if (kanji.length > 0) {
           try {
             const response = await fetch('/api/kanji/lookup', {
@@ -470,6 +481,7 @@ function SentencePracticeContent() {
         isOpen={showKanjiModal}
         onClose={() => setShowKanjiModal(false)}
         kanjiCharacters={sentenceKanji}
+        compounds={sentenceCompounds}
         sentenceText={currentSentence?.japanese_text || ''}
         preloadedData={preloadedKanjiData}
       />
