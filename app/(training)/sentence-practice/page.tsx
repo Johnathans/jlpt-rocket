@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Volume2, Play, Pause, SkipForward, SkipBack, RotateCcw } from 'lucide-react';
+import { Volume2, Play, Pause, SkipForward, SkipBack, RotateCcw, User, UserRound } from 'lucide-react';
 import TrainingHeader from '@/components/TrainingHeader';
 import QuitConfirmationModal from '@/components/QuitConfirmationModal';
 import { useTTS } from '@/lib/useTTS';
@@ -29,6 +29,7 @@ function SentencePracticeContent() {
   const [autoplay, setAutoplay] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentAudioUrl, setCurrentAudioUrl] = useState<string | null>(null);
+  const [voiceGender, setVoiceGender] = useState<'male' | 'female'>('female');
   
   const { speak, playAudio, stop, isLoading } = useTTS();
 
@@ -62,7 +63,10 @@ function SentencePracticeContent() {
     setIsPlaying(true);
     
     try {
-      const audioUrl = await speak(currentSentence.japanese_text, { autoPlay: false });
+      const audioUrl = await speak(currentSentence.japanese_text, { 
+        autoPlay: false,
+        voiceGender: voiceGender 
+      });
       setCurrentAudioUrl(audioUrl);
       
       // Create audio element and play
@@ -171,33 +175,71 @@ function SentencePracticeContent() {
             <button
               onClick={handlePrevious}
               disabled={currentIndex === 0}
-              className="p-3 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              <SkipBack className="h-6 w-6" />
-            </button>
-
-            <button
-              onClick={playCurrentSentence}
-              disabled={isLoading || isPlaying}
-              className="p-4 rounded-full bg-gradient-to-r from-pink-500 to-orange-500 text-white hover:from-pink-600 hover:to-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg"
-            >
-              <Volume2 className="h-8 w-8" />
+              <SkipBack className="w-6 h-6" />
             </button>
 
             <button
               onClick={handleReplay}
-              disabled={!currentAudioUrl || isLoading}
-              className="p-3 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              disabled={!currentAudioUrl}
+              className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              <RotateCcw className="h-6 w-6" />
+              <RotateCcw className="w-6 h-6" />
+            </button>
+
+            <button
+              onClick={isPlaying ? () => stop() : playCurrentSentence}
+              disabled={isLoading}
+              className="p-4 rounded-full bg-blue-500 hover:bg-blue-600 text-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {isPlaying ? <Pause className="w-8 h-8" /> : <Play className="w-8 h-8" />}
             </button>
 
             <button
               onClick={handleNext}
-              disabled={currentIndex === sentences.length - 1}
-              className="p-3 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              disabled={currentIndex >= sentences.length - 1}
+              className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              <SkipForward className="h-6 w-6" />
+              <SkipForward className="w-6 h-6" />
+            </button>
+
+            <button
+              onClick={() => setAutoplay(!autoplay)}
+              className={`p-3 rounded-full transition-colors ${
+                autoplay 
+                  ? 'bg-blue-500 text-white hover:bg-blue-600' 
+                  : 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+              }`}
+            >
+              <Volume2 className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Voice Selection */}
+          <div className="flex items-center justify-center gap-2 mb-6">
+            <span className="text-sm text-gray-600 dark:text-gray-400">Voice:</span>
+            <button
+              onClick={() => setVoiceGender('male')}
+              className={`p-2 rounded-lg transition-colors ${
+                voiceGender === 'male'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+              }`}
+              title="Male voice"
+            >
+              <User className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => setVoiceGender('female')}
+              className={`p-2 rounded-lg transition-colors ${
+                voiceGender === 'female'
+                  ? 'bg-pink-500 text-white'
+                  : 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+              }`}
+              title="Female voice"
+            >
+              <UserRound className="w-5 h-5" />
             </button>
           </div>
 
@@ -207,7 +249,7 @@ function SentencePracticeContent() {
               onClick={handleToggleAutoplay}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
                 autoplay
-                  ? 'bg-gradient-to-r from-pink-500 to-orange-500 text-white'
+                  ? 'bg-blue-500 text-white'
                   : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
               }`}
             >

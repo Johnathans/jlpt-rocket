@@ -11,12 +11,21 @@ function generateSentenceHash(text: string): string {
 }
 
 // Check if cached audio file exists
-function getCachedAudioPath(text: string): string | null {
+function getCachedAudioPath(text: string, voiceGender?: 'male' | 'female'): string | null {
   const hash = generateSentenceHash(text);
   
   // Try all levels
   const levels = ['N5', 'N4', 'N3', 'N2', 'N1'];
   for (const level of levels) {
+    // For N4, check voice subdirectories if voiceGender is specified
+    if (level === 'N4' && voiceGender) {
+      const voicePath = path.join(process.cwd(), 'public', 'audio', 'sentences', level, voiceGender, `${hash}.mp3`);
+      if (fs.existsSync(voicePath)) {
+        return `/audio/sentences/${level}/${voiceGender}/${hash}.mp3`;
+      }
+    }
+    
+    // Check main level directory
     const levelPath = path.join(process.cwd(), 'public', 'audio', 'sentences', level, `${hash}.mp3`);
     if (fs.existsSync(levelPath)) {
       return `/audio/sentences/${level}/${hash}.mp3`;
@@ -28,14 +37,14 @@ function getCachedAudioPath(text: string): string | null {
 
 export async function POST(request: NextRequest) {
   try {
-    const { text, languageCode = 'ja-JP', voiceName = 'ja-JP-Neural2-B' } = await request.json();
+    const { text, languageCode = 'ja-JP', voiceName = 'ja-JP-Neural2-B', voiceGender } = await request.json();
 
     if (!text) {
       return NextResponse.json({ error: 'Text is required' }, { status: 400 });
     }
 
     // Check for cached audio file first
-    const cachedPath = getCachedAudioPath(text);
+    const cachedPath = getCachedAudioPath(text, voiceGender);
     if (cachedPath) {
       return NextResponse.json({
         audioUrl: cachedPath,

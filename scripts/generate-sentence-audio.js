@@ -4,6 +4,7 @@ require('dotenv').config({ path: path.join(__dirname, '../.env.local') });
 
 const TTS_API_URL = 'https://texttospeech.googleapis.com/v1/text:synthesize';
 const JLPT_LEVEL = 'N4';
+const VOICE_GENDER = 'female'; // 'male' or 'female'
 
 // Load sentences data
 function loadSentences() {
@@ -19,11 +20,16 @@ async function generateAudio(text, outputPath) {
     throw new Error('GOOGLE_CLOUD_API_KEY is not set in .env.local');
   }
 
+  // Select voice based on VOICE_GENDER
+  const voiceName = VOICE_GENDER === 'female' 
+    ? 'ja-JP-Chirp3-HD-Aoede'      // Female voice
+    : 'ja-JP-Chirp3-HD-Enceladus'; // Male voice
+  
   const ttsRequest = {
     input: { text },
     voice: {
       languageCode: 'ja-JP',
-      name: 'ja-JP-Chirp3-HD-Enceladus', // Chirp 3 HD voice (latest generation, female)
+      name: voiceName,
     },
     audioConfig: {
       audioEncoding: 'MP3',
@@ -58,9 +64,12 @@ async function generateAudio(text, outputPath) {
   return outputPath;
 }
 
-// Create audio cache directory structure
-function ensureAudioDirectory(level) {
-  const audioDir = path.join(__dirname, '../public/audio/sentences', level);
+// Ensure audio directory exists
+function ensureAudioDirectory(level, voice = null) {
+  let audioDir = path.join(__dirname, '../public/audio/sentences', level);
+  if (voice) {
+    audioDir = path.join(audioDir, voice);
+  }
   if (!fs.existsSync(audioDir)) {
     fs.mkdirSync(audioDir, { recursive: true });
   }
@@ -80,8 +89,9 @@ async function main() {
   const levelSentences = sentences.filter(s => s.jlpt_level === JLPT_LEVEL);
 
   console.log(`Found ${levelSentences.length} ${JLPT_LEVEL} sentences\n`);
+  console.log(`Voice: ${VOICE_GENDER} (${VOICE_GENDER === 'female' ? 'Aoede' : 'Enceladus'})\n`);
 
-  const audioDir = ensureAudioDirectory(JLPT_LEVEL);
+  const audioDir = ensureAudioDirectory(JLPT_LEVEL, VOICE_GENDER);
   console.log(`Audio directory: ${audioDir}\n`);
 
   let generated = 0;

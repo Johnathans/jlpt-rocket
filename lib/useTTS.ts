@@ -4,6 +4,7 @@ interface TTSOptions {
   languageCode?: string;
   voiceName?: string;
   autoPlay?: boolean;
+  voiceGender?: 'male' | 'female';
 }
 
 interface TTSState {
@@ -48,6 +49,7 @@ export function useTTS() {
             text,
             languageCode: options.languageCode || 'ja-JP',
             voiceName: options.voiceName || 'ja-JP-Neural2-B',
+            voiceGender: options.voiceGender || 'female',
           }),
         });
 
