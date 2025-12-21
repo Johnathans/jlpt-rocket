@@ -38,6 +38,7 @@ function SentencePracticeContent() {
   const [processedText, setProcessedText] = useState<string>('');
   const [showKanjiModal, setShowKanjiModal] = useState(false);
   const [sentenceKanji, setSentenceKanji] = useState<string[]>([]);
+  const [preloadedKanjiData, setPreloadedKanjiData] = useState<Record<string, any>>({});
   
   const { speak, playAudio, stop, isLoading } = useTTS();
 
@@ -57,10 +58,11 @@ function SentencePracticeContent() {
     fetchSentences();
   }, [searchParams]);
 
-  // Process furigana when sentence changes
+  // Process furigana and preload kanji data when sentence changes
   useEffect(() => {
-    const processFurigana = async () => {
+    const processSentence = async () => {
       if (sentences.length > 0 && currentIndex < sentences.length) {
+        // Process furigana
         try {
           await initializeKuroshiro();
           const furiganaText = await addFurigana(sentences[currentIndex].japanese_text);
@@ -69,9 +71,28 @@ function SentencePracticeContent() {
           console.error('Error processing furigana:', error);
           setProcessedText(sentences[currentIndex].japanese_text);
         }
+
+        // Preload kanji data in background
+        const kanji = extractKanji(sentences[currentIndex].japanese_text);
+        setSentenceKanji(kanji);
+        if (kanji.length > 0) {
+          try {
+            const response = await fetch('/api/kanji/lookup', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ characters: kanji }),
+            });
+            if (response.ok) {
+              const data = await response.json();
+              setPreloadedKanjiData(data);
+            }
+          } catch (error) {
+            console.error('Error preloading kanji data:', error);
+          }
+        }
       }
     };
-    processFurigana();
+    processSentence();
   }, [currentIndex, sentences]);
 
   // Handle autoplay
@@ -182,9 +203,6 @@ function SentencePracticeContent() {
 
   const handleShowKanji = useCallback(() => {
     if (sentences.length > 0 && currentIndex < sentences.length) {
-      const kanji = extractKanji(sentences[currentIndex].japanese_text);
-      console.log('Extracted kanji:', kanji, 'from:', sentences[currentIndex].japanese_text);
-      setSentenceKanji(kanji);
       setShowKanjiModal(true);
     }
   }, [sentences, currentIndex]);
@@ -453,6 +471,7 @@ function SentencePracticeContent() {
         onClose={() => setShowKanjiModal(false)}
         kanjiCharacters={sentenceKanji}
         sentenceText={currentSentence?.japanese_text || ''}
+        preloadedData={preloadedKanjiData}
       />
     </div>
   );

@@ -16,6 +16,7 @@ interface SentenceKanjiModalProps {
   onClose: () => void;
   kanjiCharacters: string[];
   sentenceText: string;
+  preloadedData?: Record<string, KanjiData>;
 }
 
 export default function SentenceKanjiModal({
@@ -23,16 +24,23 @@ export default function SentenceKanjiModal({
   onClose,
   kanjiCharacters,
   sentenceText,
+  preloadedData,
 }: SentenceKanjiModalProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [kanjiData, setKanjiData] = useState<Record<string, KanjiData>>({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    // Use preloaded data if available, otherwise fetch
     if (isOpen && kanjiCharacters.length > 0) {
-      fetchKanjiData();
+      if (preloadedData && Object.keys(preloadedData).length > 0) {
+        setKanjiData(preloadedData);
+        setIsLoading(false);
+      } else {
+        fetchKanjiData();
+      }
     }
-  }, [isOpen, kanjiCharacters]);
+  }, [isOpen, kanjiCharacters, preloadedData]);
 
   const fetchKanjiData = async () => {
     setIsLoading(true);
