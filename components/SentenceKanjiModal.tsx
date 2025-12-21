@@ -100,51 +100,61 @@ export default function SentenceKanjiModal({
             </div>
           ) : (
             <>
-              {/* Kanji Display */}
-              <div className="text-center mb-8">
-                <div className="text-8xl font-japanese text-gray-900 dark:text-white mb-4">
-                  {currentKanji}
-                </div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {currentIndex + 1} of {kanjiCharacters.length}
-                </p>
-              </div>
-
-              {/* Kanji Details */}
+              {/* Kanji Display and Details - Compact Layout */}
               {currentData ? (
-                <div className="space-y-4 mb-8">
-                  <div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Meaning</p>
-                    <p className="text-lg text-gray-900 dark:text-white">{currentData.meaning}</p>
-                  </div>
-                  
-                  {currentData.on_reading && (
-                    <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">On Reading</p>
-                      <p className="text-lg text-gray-900 dark:text-white font-japanese">
-                        {currentData.on_reading}
+                <div className="mb-8">
+                  {/* Kanji and Meaning Row */}
+                  <div className="flex items-start gap-8 mb-6">
+                    {/* Large Kanji */}
+                    <div className="flex-shrink-0">
+                      <div className="text-8xl font-japanese text-gray-900 dark:text-white leading-none">
+                        {currentKanji}
+                      </div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 text-center mt-2">
+                        {currentIndex + 1} of {kanjiCharacters.length}
                       </p>
                     </div>
-                  )}
-                  
-                  {currentData.kun_reading && (
-                    <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Kun Reading</p>
-                      <p className="text-lg text-gray-900 dark:text-white font-japanese">
-                        {currentData.kun_reading}
-                      </p>
+                    
+                    {/* Meaning and Readings */}
+                    <div className="flex-1 pt-2">
+                      <div className="mb-4">
+                        <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Meaning</p>
+                        <p className="text-xl font-medium text-gray-900 dark:text-white">{currentData.meaning}</p>
+                      </div>
+                      
+                      <div className="grid grid-cols-2 gap-4">
+                        {currentData.on_reading && (
+                          <div>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">On Reading</p>
+                            <p className="text-base text-gray-900 dark:text-white font-japanese">
+                              {currentData.on_reading}
+                            </p>
+                          </div>
+                        )}
+                        
+                        {currentData.kun_reading && (
+                          <div>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Kun Reading</p>
+                            <p className="text-base text-gray-900 dark:text-white font-japanese">
+                              {currentData.kun_reading}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="mt-4">
+                        <span className="inline-block px-3 py-1 bg-pink-100 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 text-xs font-medium rounded-full">
+                          {currentData.jlpt_level}
+                        </span>
+                      </div>
                     </div>
-                  )}
-                  
-                  <div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">JLPT Level</p>
-                    <span className="inline-block px-3 py-1 bg-pink-100 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 text-sm rounded-full">
-                      {currentData.jlpt_level}
-                    </span>
                   </div>
                 </div>
               ) : (
                 <div className="text-center py-8">
+                  <div className="text-8xl font-japanese text-gray-900 dark:text-white mb-4">
+                    {currentKanji}
+                  </div>
                   <p className="text-gray-500 dark:text-gray-400">No data available for this kanji</p>
                 </div>
               )}
