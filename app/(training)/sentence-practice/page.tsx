@@ -269,6 +269,7 @@ function SentencePracticeContent() {
             </div>
           )}
         </div>
+      </div>
 
       {/* Quit Confirmation Modal */}
       <QuitConfirmationModal
