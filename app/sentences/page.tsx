@@ -536,26 +536,30 @@ function SentencesPageContent() {
 
   return (
     <div className="min-h-screen pb-20 bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16">
-      <div className="sticky top-0 z-40 bg-gray-50 dark:bg-gray-900 pb-4 pt-2 mb-6">
-        <div className="flex justify-between items-center">
-          <p className="text-sm text-gray-600 dark:text-gray-300">Select sentences to begin studying</p>
-          <div className="flex gap-3">
-            <button
-              onClick={selectAll}
-              className="px-6 py-3 bg-white text-pink-600 hover:bg-pink-50 font-medium transition-colors rounded-md shadow-sm border-b-4 border-pink-300 hover:border-pink-400 text-base"
-            >
-              Select All
-            </button>
-            <button
-              onClick={clearAll}
-              className="px-6 py-3 bg-gray-400 text-white hover:bg-gray-500 font-medium transition-colors rounded-md shadow-sm border-b-4 border-gray-600 hover:border-gray-700 text-base"
-            >
-              Clear All
-            </button>
+      {/* Sticky header bar */}
+      <div className="sticky top-0 z-50 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex justify-between items-center">
+            <p className="text-sm text-gray-600 dark:text-gray-300">Select sentences to begin studying</p>
+            <div className="flex gap-3">
+              <button
+                onClick={selectAll}
+                className="px-6 py-3 bg-white dark:bg-gray-800 text-pink-600 dark:text-pink-400 hover:bg-pink-50 dark:hover:bg-pink-900/20 font-medium transition-colors rounded-md shadow-sm border-b-4 border-pink-300 hover:border-pink-400 text-base"
+              >
+                Select All
+              </button>
+              <button
+                onClick={clearAll}
+                className="px-6 py-3 bg-gray-400 dark:bg-gray-600 text-white hover:bg-gray-500 dark:hover:bg-gray-500 font-medium transition-colors rounded-md shadow-sm border-b-4 border-gray-600 dark:border-gray-700 hover:border-gray-700 text-base"
+              >
+                Clear All
+              </button>
+            </div>
           </div>
         </div>
       </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
       {loading && (
         <div className="flex justify-center items-center py-12">
