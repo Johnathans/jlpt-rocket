@@ -164,14 +164,14 @@ function SentencePracticeContent() {
         {/* Main Content */}
         <div className="mb-16">
           {/* Japanese Text */}
-          <div className="text-center mb-16">
-            <p className="text-6xl font-light font-japanese text-gray-900 dark:text-white leading-relaxed">
+          <div className="text-center mb-14">
+            <p className="text-4xl font-light font-japanese text-gray-900 dark:text-white leading-relaxed tracking-wide">
               {currentSentence.japanese_text}
             </p>
           </div>
 
           {/* Audio Controls */}
-          <div className="flex items-center justify-center gap-8 mb-12">
+          <div className="flex items-center justify-center gap-6 mb-10">
             <button
               onClick={handlePrevious}
               disabled={currentIndex === 0}
@@ -222,7 +222,7 @@ function SentencePracticeContent() {
           </div>
 
           {/* Voice Selection */}
-          <div className="flex items-center justify-center gap-4 mb-12">
+          <div className="flex items-center justify-center gap-4 mb-10">
             <button
               onClick={() => setVoiceGender('male')}
               className={`px-4 py-2 text-sm transition-colors border-b-2 ${
@@ -247,8 +247,8 @@ function SentencePracticeContent() {
 
 
           {/* English Translation */}
-          <div className="text-center mb-12">
-            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed">
+          <div className="text-center mb-10">
+            <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
               {currentSentence.english_translation}
             </p>
           </div>
