@@ -568,7 +568,7 @@ function MatchPageContent() {
       />
 
       {/* Stats Section */}
-      <div className="bg-gray-100 dark:bg-gray-900 py-4 border-b border-gray-200 dark:border-gray-700">
+      <div className="bg-gray-100 dark:bg-gray-900 py-4">
         <div className="flex items-center justify-center gap-8">
           <div className="flex flex-col items-center">
             <div className="text-xs text-gray-500 dark:text-gray-400">Accuracy</div>
@@ -591,14 +591,9 @@ function MatchPageContent() {
       <div className="flex-1 flex flex-col items-center justify-center px-4 pb-24 pt-8 space-y-8">
         {/* Large Kanji/Character - Not in container */}
         <div className="text-center mb-12">
-          <div className="text-7xl sm:text-8xl md:text-9xl font-normal font-japanese leading-none mb-4 text-gray-900 dark:text-white">
+          <div className="text-7xl sm:text-8xl md:text-9xl font-normal font-japanese leading-none text-gray-900 dark:text-white">
             {currentItem.character}
           </div>
-          {currentItem.reading && (
-            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 font-japanese font-light">
-              {currentItem.reading}
-            </p>
-          )}
         </div>
 
         {/* Answer Buttons - Two columns */}
@@ -609,7 +604,7 @@ function MatchPageContent() {
               const correctMeaning = currentItem.primary_meaning || currentItem.meaning?.split(',')[0]?.trim() || currentItem.meaning;
               const isCorrectAnswer = option === correctMeaning;
               
-              let buttonClass = "w-full p-4 text-center text-base font-semibold rounded-lg transition-all duration-200 border-2 [-webkit-tap-highlight-color:transparent] focus:outline-none active:outline-none ";
+              let buttonClass = "w-full p-4 text-base font-semibold rounded-lg transition-all duration-200 border-2 [-webkit-tap-highlight-color:transparent] focus:outline-none active:outline-none flex items-center justify-center gap-3 ";
               
               if (!showResult) {
                 if (isSelected) {
@@ -619,15 +614,13 @@ function MatchPageContent() {
                 }
               } else {
                 if (isSelected && isCorrectAnswer) {
-                  buttonClass += "text-emerald-700";
-                  buttonClass = buttonClass.replace('border-black', 'border-[#d8f4ba]') + " bg-[#d8f4ba]";
+                  buttonClass += "text-emerald-700 bg-[#d8f4ba] border-emerald-600";
                 } else if (isSelected && !isCorrectAnswer) {
-                  buttonClass += "bg-red-50 text-red-600";
+                  buttonClass += "bg-red-50 text-red-600 border-red-400";
                 } else if (isCorrectAnswer) {
-                  buttonClass += "text-emerald-700";
-                  buttonClass = buttonClass.replace('border-black', 'border-[#d8f4ba]') + " bg-[#d8f4ba]";
+                  buttonClass += "text-emerald-700 bg-[#d8f4ba] border-emerald-600";
                 } else {
-                  buttonClass += "bg-gray-100 text-gray-500";
+                  buttonClass += "bg-gray-100 text-gray-500 border-gray-300";
                 }
               }
 
@@ -635,20 +628,16 @@ function MatchPageContent() {
                 <button
                   key={index}
                   onClick={(e) => handleAnswerSelect(option, e)}
-                  className={`${buttonClass} relative`}
+                  className={buttonClass}
                   disabled={showResult}
                 >
-                  {option}
                   {showResult && isCorrectAnswer && (
-                    <div className="absolute -top-1 -right-1 w-7 h-7 bg-[#d8f4ba] border-2 border-emerald-600 rounded-full flex items-center justify-center">
-                      <span className="text-emerald-700 text-lg font-bold">○</span>
-                    </div>
+                    <span className="text-emerald-700 text-2xl font-bold">○</span>
                   )}
                   {showResult && isSelected && !isCorrectAnswer && (
-                    <div className="absolute -top-1 -right-1 w-7 h-7 bg-red-500 border-2 border-red-700 rounded-full flex items-center justify-center">
-                      <span className="text-white text-lg font-bold">✕</span>
-                    </div>
+                    <span className="text-red-600 text-2xl font-bold">✕</span>
                   )}
+                  <span>{option}</span>
                 </button>
               );
             })}
@@ -659,7 +648,7 @@ function MatchPageContent() {
       </div>
 
       {/* Bottom Row with Finish Button - Show when all items answered correctly */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6">
+      <div className="fixed bottom-0 left-0 right-0 bg-gray-100 dark:bg-gray-900 p-6">
         <div className="max-w-2xl mx-auto flex justify-center">
           {showResult && isCorrect && trainingItems.every(item => 
             correctlyAnsweredIds.has(item.id) || item.id === currentItem.id
