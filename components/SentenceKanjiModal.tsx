@@ -6,8 +6,8 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 interface KanjiData {
   character: string;
   meaning: string;
-  on_reading: string;
-  kun_reading: string;
+  on_reading: string | string[];
+  kun_reading: string | string[];
   jlpt_level: string;
 }
 
@@ -109,6 +109,21 @@ export default function SentenceKanjiModal({
     setCurrentIndex((prev) => (prev < kanjiCharacters.length - 1 ? prev + 1 : 0));
   };
 
+  // Convert katakana to hiragana for easier reading
+  const toHiragana = (text: string | string[]): string | string[] => {
+    const convert = (str: string) => {
+      return str.replace(/[\u30A0-\u30FF]/g, (match) => {
+        const chr = match.charCodeAt(0) - 0x60;
+        return String.fromCharCode(chr);
+      });
+    };
+    
+    if (Array.isArray(text)) {
+      return text.map(convert);
+    }
+    return convert(text);
+  };
+
   if (!isOpen) return null;
 
   const currentKanji = kanjiCharacters[currentIndex];
@@ -193,7 +208,10 @@ export default function SentenceKanjiModal({
                       <div className="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                         <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">On Reading</p>
                         <p className="text-base sm:text-lg text-gray-900 dark:text-white font-japanese font-medium">
-                          {currentData.on_reading}
+                          {(() => {
+                            const converted = toHiragana(currentData.on_reading);
+                            return Array.isArray(converted) ? converted.join('、') : converted;
+                          })()}
                         </p>
                       </div>
                     )}
@@ -202,7 +220,10 @@ export default function SentenceKanjiModal({
                       <div className="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                         <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Kun Reading</p>
                         <p className="text-base sm:text-lg text-gray-900 dark:text-white font-japanese font-medium">
-                          {currentData.kun_reading}
+                          {(() => {
+                            const converted = toHiragana(currentData.kun_reading);
+                            return Array.isArray(converted) ? converted.join('、') : converted;
+                          })()}
                         </p>
                       </div>
                     )}
