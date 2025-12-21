@@ -3,8 +3,8 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../.env.local') });
 
 const TTS_API_URL = 'https://texttospeech.googleapis.com/v1/text:synthesize';
-const JLPT_LEVEL = 'N4';
-const VOICE_GENDER = 'female'; // 'male' or 'female'
+const JLPT_LEVEL = 'N3';
+const VOICE_GENDER = 'male'; // 'male' or 'female'
 
 // Load sentences data
 function loadSentences() {
