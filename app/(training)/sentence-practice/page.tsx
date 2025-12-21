@@ -160,17 +160,30 @@ function SentencePracticeContent() {
   }, [router]);
 
   const extractKanji = (text: string): string[] => {
+    // Remove HTML tags first (from furigana processing)
+    const cleanText = text.replace(/<[^>]*>/g, '');
+    
     // Match all kanji characters (Unicode range for CJK Unified Ideographs)
     const kanjiRegex = /[\u4e00-\u9faf]/g;
-    const matches = text.match(kanjiRegex);
+    const matches = cleanText.match(kanjiRegex);
     if (!matches) return [];
-    // Remove duplicates and return
-    return Array.from(new Set(matches));
+    
+    // Remove duplicates while preserving order
+    const seen = new Set<string>();
+    const result: string[] = [];
+    for (const kanji of matches) {
+      if (!seen.has(kanji)) {
+        seen.add(kanji);
+        result.push(kanji);
+      }
+    }
+    return result;
   };
 
   const handleShowKanji = useCallback(() => {
     if (sentences.length > 0 && currentIndex < sentences.length) {
       const kanji = extractKanji(sentences[currentIndex].japanese_text);
+      console.log('Extracted kanji:', kanji, 'from:', sentences[currentIndex].japanese_text);
       setSentenceKanji(kanji);
       setShowKanjiModal(true);
     }
