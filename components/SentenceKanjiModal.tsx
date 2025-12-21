@@ -76,23 +76,24 @@ export default function SentenceKanjiModal({
   const currentData = kanjiData[currentKanji];
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={onClose}>
+      <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
+          <h3 className="text-base sm:text-lg font-medium text-gray-900 dark:text-white">
             Kanji in Sentence ({kanjiCharacters.length})
           </h3>
           <button
             onClick={onClose}
-            className="p-2 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+            className="p-2 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors touch-manipulation"
+            aria-label="Close modal"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-8">
+        <div className="p-4 sm:p-6">
           {isLoading ? (
             <div className="text-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
@@ -100,59 +101,56 @@ export default function SentenceKanjiModal({
             </div>
           ) : (
             <>
-              {/* Kanji Display and Details - Compact Layout */}
+              {/* Kanji Display and Details - Vertical Layout */}
               {currentData ? (
-                <div className="mb-8">
-                  {/* Kanji and Meaning Row */}
-                  <div className="flex items-start gap-8 mb-6">
-                    {/* Large Kanji */}
-                    <div className="flex-shrink-0">
-                      <div className="text-8xl font-japanese text-gray-900 dark:text-white leading-none">
-                        {currentKanji}
-                      </div>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 text-center mt-2">
-                        {currentIndex + 1} of {kanjiCharacters.length}
-                      </p>
+                <div className="mb-6">
+                  {/* Large Kanji - Centered on Top */}
+                  <div className="text-center mb-6">
+                    <div className="text-7xl sm:text-8xl font-japanese text-gray-900 dark:text-white leading-none mb-2">
+                      {currentKanji}
                     </div>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {currentIndex + 1} of {kanjiCharacters.length}
+                    </p>
+                  </div>
+                  
+                  {/* Meaning */}
+                  <div className="text-center mb-4">
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Meaning</p>
+                    <p className="text-xl sm:text-2xl font-medium text-gray-900 dark:text-white">{currentData.meaning}</p>
+                  </div>
+                  
+                  {/* Readings - Side by Side */}
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4">
+                    {currentData.on_reading && (
+                      <div className="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">On Reading</p>
+                        <p className="text-base sm:text-lg text-gray-900 dark:text-white font-japanese font-medium">
+                          {currentData.on_reading}
+                        </p>
+                      </div>
+                    )}
                     
-                    {/* Meaning and Readings */}
-                    <div className="flex-1 pt-2">
-                      <div className="mb-4">
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Meaning</p>
-                        <p className="text-xl font-medium text-gray-900 dark:text-white">{currentData.meaning}</p>
+                    {currentData.kun_reading && (
+                      <div className="text-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Kun Reading</p>
+                        <p className="text-base sm:text-lg text-gray-900 dark:text-white font-japanese font-medium">
+                          {currentData.kun_reading}
+                        </p>
                       </div>
-                      
-                      <div className="grid grid-cols-2 gap-4">
-                        {currentData.on_reading && (
-                          <div>
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">On Reading</p>
-                            <p className="text-base text-gray-900 dark:text-white font-japanese">
-                              {currentData.on_reading}
-                            </p>
-                          </div>
-                        )}
-                        
-                        {currentData.kun_reading && (
-                          <div>
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Kun Reading</p>
-                            <p className="text-base text-gray-900 dark:text-white font-japanese">
-                              {currentData.kun_reading}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                      
-                      <div className="mt-4">
-                        <span className="inline-block px-3 py-1 bg-pink-100 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 text-xs font-medium rounded-full">
-                          {currentData.jlpt_level}
-                        </span>
-                      </div>
-                    </div>
+                    )}
+                  </div>
+                  
+                  {/* JLPT Level Badge */}
+                  <div className="text-center">
+                    <span className="inline-block px-3 py-1 bg-pink-100 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 text-xs font-medium rounded-full">
+                      {currentData.jlpt_level}
+                    </span>
                   </div>
                 </div>
               ) : (
                 <div className="text-center py-8">
-                  <div className="text-8xl font-japanese text-gray-900 dark:text-white mb-4">
+                  <div className="text-7xl sm:text-8xl font-japanese text-gray-900 dark:text-white mb-4">
                     {currentKanji}
                   </div>
                   <p className="text-gray-500 dark:text-gray-400">No data available for this kanji</p>
@@ -161,20 +159,21 @@ export default function SentenceKanjiModal({
 
               {/* Navigation */}
               {kanjiCharacters.length > 1 && (
-                <div className="flex items-center justify-center gap-4">
+                <div className="flex items-center justify-center gap-2 sm:gap-4">
                   <button
                     onClick={handlePrevious}
-                    className="p-3 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                    className="p-2 sm:p-3 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors touch-manipulation"
+                    aria-label="Previous kanji"
                   >
-                    <ChevronLeft className="w-6 h-6" />
+                    <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
                   
-                  <div className="flex gap-2">
+                  <div className="flex gap-1.5 sm:gap-2 overflow-x-auto max-w-[200px] sm:max-w-none">
                     {kanjiCharacters.map((kanji, idx) => (
                       <button
                         key={idx}
                         onClick={() => setCurrentIndex(idx)}
-                        className={`w-12 h-12 rounded-lg font-japanese text-xl transition-colors ${
+                        className={`w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 rounded-lg font-japanese text-lg sm:text-xl transition-colors touch-manipulation ${
                           idx === currentIndex
                             ? 'bg-pink-500 text-white'
                             : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
@@ -187,9 +186,10 @@ export default function SentenceKanjiModal({
                   
                   <button
                     onClick={handleNext}
-                    className="p-3 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                    className="p-2 sm:p-3 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors touch-manipulation"
+                    aria-label="Next kanji"
                   >
-                    <ChevronRight className="w-6 h-6" />
+                    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
                 </div>
               )}
