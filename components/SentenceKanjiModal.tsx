@@ -169,7 +169,7 @@ export default function SentenceKanjiModal({
           ) : (
             <>
               {/* Kanji Tab Content */}
-              {activeTab === 'kanji' && currentData ? (
+              {activeTab === 'kanji' && currentData && (
                 <div className="mb-6">
                   {/* Large Kanji - Centered on Top */}
                   <div className="text-center mb-6">
