@@ -201,25 +201,52 @@ function SentencePracticeContent() {
   // Completion screen
   if (isComplete) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-center max-w-md mx-auto px-4">
-          <CheckCircle2 className="w-20 h-20 text-green-500 mx-auto mb-6" />
-          <h2 className="text-3xl font-light text-gray-900 dark:text-white mb-4">Practice Complete!</h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-8">
-            You've completed {sentences.length} sentences
-          </p>
-          <div className="flex gap-4 justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col items-center justify-center p-4 sm:p-6">
+        <div className="w-full max-w-3xl">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+              Practice Complete
+            </h1>
+            <p className="text-lg text-gray-600 dark:text-gray-400">
+              You've completed {sentences.length} sentences
+            </p>
+          </div>
+
+          {/* Stats Card */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            {/* Sentences Completed */}
+            <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700 p-6">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Completed</span>
+                <CheckCircle2 className="h-5 w-5" style={{ color: '#dfef87' }} />
+              </div>
+              <div className="text-3xl font-bold text-gray-900 dark:text-white">{sentences.length}</div>
+            </div>
+
+            {/* Continue Card */}
+            <div className="bg-gradient-to-r from-pink-500 to-orange-500 rounded-lg p-6 text-white">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium">Great Job!</span>
+              </div>
+              <div className="text-lg font-bold">Keep Learning</div>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4">
             <button
               onClick={handleRestart}
-              className="px-6 py-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-pink-300 dark:hover:border-pink-500 hover:bg-pink-50 dark:hover:bg-pink-900/20 font-semibold transition-all rounded-lg"
             >
+              <RotateCcw className="h-5 w-5" />
               Practice Again
             </button>
             <button
               onClick={handleFinish}
-              className="px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-700 dark:hover:bg-gray-200 transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-semibold transition-all rounded-lg shadow-lg hover:shadow-xl"
             >
-              Finish
+              Continue
             </button>
           </div>
         </div>
