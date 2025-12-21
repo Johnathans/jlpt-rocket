@@ -17,8 +17,8 @@ function getCachedAudioPath(text: string, voiceGender?: 'male' | 'female'): stri
   // Try all levels
   const levels = ['N5', 'N4', 'N3', 'N2', 'N1'];
   for (const level of levels) {
-    // For N4, check voice subdirectories if voiceGender is specified
-    if (level === 'N4' && voiceGender) {
+    // For N4 and N3, check voice subdirectories if voiceGender is specified
+    if ((level === 'N4' || level === 'N3') && voiceGender) {
       const voicePath = path.join(process.cwd(), 'public', 'audio', 'sentences', level, voiceGender, `${hash}.mp3`);
       if (fs.existsSync(voicePath)) {
         return `/audio/sentences/${level}/${voiceGender}/${hash}.mp3`;
