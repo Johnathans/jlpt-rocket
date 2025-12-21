@@ -565,25 +565,27 @@ function MatchPageContent() {
       <TrainingHeader 
         progress={progress}
         onClose={handleClose}
-        rightButton={
-          <div className="flex items-center gap-3 mr-2">
-            <div className="flex flex-col items-center">
-              <div className="text-xs text-gray-500 dark:text-gray-400">Accuracy</div>
-              <div className="text-base font-bold text-gray-900 dark:text-white">{accuracy}%</div>
-            </div>
-            <div className="w-px h-8 bg-gray-300 dark:bg-gray-600"></div>
-            <div className="flex flex-col items-center">
-              <div className="text-xs text-gray-500 dark:text-gray-400">Score</div>
-              <div className="text-base font-bold text-gray-900 dark:text-white">{score}/{totalCompleted}</div>
-            </div>
-            <div className="w-px h-8 bg-gray-300 dark:bg-gray-600"></div>
-            <div className="flex flex-col items-center">
-              <div className="text-xs text-gray-500 dark:text-gray-400">Cards</div>
-              <div className="text-base font-bold text-gray-900 dark:text-white">{totalCompleted}/{trainingItems.length}</div>
-            </div>
-          </div>
-        }
       />
+
+      {/* Stats Section */}
+      <div className="bg-gray-100 dark:bg-gray-900 py-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-center gap-8">
+          <div className="flex flex-col items-center">
+            <div className="text-xs text-gray-500 dark:text-gray-400">Accuracy</div>
+            <div className="text-base font-bold text-gray-900 dark:text-white">{accuracy}%</div>
+          </div>
+          <div className="w-px h-8 bg-gray-300 dark:bg-gray-600"></div>
+          <div className="flex flex-col items-center">
+            <div className="text-xs text-gray-500 dark:text-gray-400">Score</div>
+            <div className="text-base font-bold text-gray-900 dark:text-white">{score}/{totalCompleted}</div>
+          </div>
+          <div className="w-px h-8 bg-gray-300 dark:bg-gray-600"></div>
+          <div className="flex flex-col items-center">
+            <div className="text-xs text-gray-500 dark:text-gray-400">Cards</div>
+            <div className="text-base font-bold text-gray-900 dark:text-white">{totalCompleted}/{trainingItems.length}</div>
+          </div>
+        </div>
+      </div>
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 pb-24 pt-8 space-y-8">
@@ -607,13 +609,13 @@ function MatchPageContent() {
               const correctMeaning = currentItem.primary_meaning || currentItem.meaning?.split(',')[0]?.trim() || currentItem.meaning;
               const isCorrectAnswer = option === correctMeaning;
               
-              let buttonClass = "w-full p-4 text-center text-base font-semibold rounded-lg transition-all duration-200 border-2 border-black [-webkit-tap-highlight-color:transparent] focus:outline-none active:outline-none ";
+              let buttonClass = "w-full p-4 text-center text-base font-semibold rounded-lg transition-all duration-200 border-2 [-webkit-tap-highlight-color:transparent] focus:outline-none active:outline-none ";
               
               if (!showResult) {
                 if (isSelected) {
-                  buttonClass += "bg-gradient-to-r from-pink-100 to-orange-100 text-pink-700 shadow-md";
+                  buttonClass += "bg-gradient-to-r from-pink-100 to-orange-100 text-pink-700 border-pink-300 shadow-md";
                 } else {
-                  buttonClass += "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 shadow-sm cursor-pointer";
+                  buttonClass += "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600 shadow-sm cursor-pointer";
                 }
               } else {
                 if (isSelected && isCorrectAnswer) {
@@ -638,13 +640,13 @@ function MatchPageContent() {
                 >
                   {option}
                   {showResult && isCorrectAnswer && (
-                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-[#d8f4ba] border-2 border-emerald-600 rounded flex items-center justify-center">
-                      <span className="text-emerald-700 text-xs font-bold">✓</span>
+                    <div className="absolute -top-1 -right-1 w-7 h-7 bg-[#d8f4ba] border-2 border-emerald-600 rounded-full flex items-center justify-center">
+                      <span className="text-emerald-700 text-lg font-bold">○</span>
                     </div>
                   )}
                   {showResult && isSelected && !isCorrectAnswer && (
-                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 rounded flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">✗</span>
+                    <div className="absolute -top-1 -right-1 w-7 h-7 bg-red-500 border-2 border-red-700 rounded-full flex items-center justify-center">
+                      <span className="text-white text-lg font-bold">✕</span>
                     </div>
                   )}
                 </button>
