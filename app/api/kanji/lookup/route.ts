@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase-server';
+import { createClient } from '@supabase/supabase-js';
 
 export async function POST(request: NextRequest) {
   try {
@@ -9,7 +9,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Characters array is required' }, { status: 400 });
     }
 
-    const supabase = createClient();
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
     
     // Fetch kanji data for all characters
     const { data, error } = await supabase
@@ -23,7 +26,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Convert array to object keyed by character
-    const kanjiMap = data.reduce((acc, kanji) => {
+    const kanjiMap = (data || []).reduce((acc: Record<string, any>, kanji: any) => {
       acc[kanji.character] = kanji;
       return acc;
     }, {} as Record<string, any>);
