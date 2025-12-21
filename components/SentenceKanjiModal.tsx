@@ -109,10 +109,13 @@ export default function SentenceKanjiModal({
     setCurrentIndex((prev) => (prev < kanjiCharacters.length - 1 ? prev + 1 : 0));
   };
 
-  // Convert katakana to hiragana for easier reading
+  // Convert katakana to hiragana and clean up okurigana indicators
   const toHiragana = (text: string | string[]): string | string[] => {
     const convert = (str: string) => {
-      return str.replace(/[\u30A0-\u30FF]/g, (match) => {
+      // Remove okurigana indicators (periods)
+      const cleaned = str.replace(/\./g, '');
+      // Convert katakana to hiragana
+      return cleaned.replace(/[\u30A0-\u30FF]/g, (match) => {
         const chr = match.charCodeAt(0) - 0x60;
         return String.fromCharCode(chr);
       });
