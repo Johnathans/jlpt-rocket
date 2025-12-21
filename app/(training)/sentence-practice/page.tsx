@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Volume2, Play, Pause, SkipForward, SkipBack, RotateCcw, User, UserRound, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
+import { Volume2, Play, Pause, SkipForward, SkipBack, RotateCcw, User, UserRound, Eye, EyeOff, CheckCircle2, Languages } from 'lucide-react';
+import { addFurigana, initializeKuroshiro } from '@/lib/furigana';
 import TrainingHeader from '@/components/TrainingHeader';
 import QuitConfirmationModal from '@/components/QuitConfirmationModal';
 import { useTTS } from '@/lib/useTTS';
@@ -32,6 +33,8 @@ function SentencePracticeContent() {
   const [voiceGender, setVoiceGender] = useState<'male' | 'female'>('female');
   const [showEnglish, setShowEnglish] = useState(true);
   const [isComplete, setIsComplete] = useState(false);
+  const [showFurigana, setShowFurigana] = useState(true);
+  const [processedText, setProcessedText] = useState<string>('');
   
   const { speak, playAudio, stop, isLoading } = useTTS();
 
@@ -50,6 +53,23 @@ function SentencePracticeContent() {
 
     fetchSentences();
   }, [searchParams]);
+
+  // Process furigana when sentence changes
+  useEffect(() => {
+    const processFurigana = async () => {
+      if (sentences.length > 0 && currentIndex < sentences.length) {
+        try {
+          await initializeKuroshiro();
+          const furiganaText = await addFurigana(sentences[currentIndex].japanese_text);
+          setProcessedText(furiganaText);
+        } catch (error) {
+          console.error('Error processing furigana:', error);
+          setProcessedText(sentences[currentIndex].japanese_text);
+        }
+      }
+    };
+    processFurigana();
+  }, [currentIndex, sentences]);
 
   // Handle autoplay
   useEffect(() => {
@@ -206,9 +226,16 @@ function SentencePracticeContent() {
         <div className="mb-16">
           {/* Japanese Text */}
           <div className="text-center mb-14">
-            <p className="text-4xl font-light font-japanese text-gray-900 dark:text-white leading-relaxed tracking-wide">
-              {currentSentence.japanese_text}
-            </p>
+            {showFurigana ? (
+              <div 
+                className="text-4xl font-light font-japanese text-gray-900 dark:text-white leading-relaxed tracking-wide"
+                dangerouslySetInnerHTML={{ __html: processedText || currentSentence.japanese_text }}
+              />
+            ) : (
+              <p className="text-4xl font-light font-japanese text-gray-900 dark:text-white leading-relaxed tracking-wide">
+                {currentSentence.japanese_text}
+              </p>
+            )}
           </div>
 
           {/* Audio Controls */}
@@ -242,8 +269,7 @@ function SentencePracticeContent() {
 
             <button
               onClick={handleNext}
-              disabled={currentIndex >= sentences.length - 1}
-              className="p-3 text-gray-400 hover:text-gray-900 dark:hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="p-3 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
               title="Next"
             >
               <SkipForward className="w-5 h-5" />
@@ -307,6 +333,14 @@ function SentencePracticeContent() {
               title="Toggle English translation"
             >
               {showEnglish ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
+            </button>
+            
+            <button
+              onClick={() => setShowFurigana(!showFurigana)}
+              className="p-2 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              title="Toggle furigana readings"
+            >
+              <Languages className="w-5 h-5" />
             </button>
           </div>
 
