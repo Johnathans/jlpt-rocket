@@ -262,21 +262,13 @@ function MatchPageContent() {
 
   useEffect(() => {
     if (currentItem && trainingItems.length > 0) {
-      // Create options: correct answer + 3 random wrong answers
-      // Use primary_meaning for kanji (single word), fall back to first meaning
-      const getDisplayMeaning = (item: TrainingItem) => {
-        if (item.primary_meaning) return item.primary_meaning;
-        return item.meaning?.split(',')[0]?.trim() || item.meaning;
-      };
+      // Generate 3 wrong answers from other items
+      const allMeanings = trainingItems
+        .filter(item => item.id !== currentItem.id)
+        .map(item => item.primary_meaning || item.meaning?.split(',')[0]?.trim() || item.meaning)
+        .filter(Boolean);
       
-      const correctAnswer = getDisplayMeaning(currentItem);
-      
-      // Get wrong answers from training items and sample items
-      const allMeanings = [
-        ...trainingItems.map(item => getDisplayMeaning(item)),
-        ...sampleItems.map(item => getDisplayMeaning(item))
-      ];
-      
+      const correctAnswer = currentItem.primary_meaning || currentItem.meaning?.split(',')[0]?.trim() || currentItem.meaning;
       const wrongAnswers = allMeanings
         .filter(meaning => meaning !== correctAnswer)
         .sort(() => Math.random() - 0.5)
@@ -285,43 +277,37 @@ function MatchPageContent() {
       const allOptions = [correctAnswer, ...wrongAnswers];
       setShuffledOptions(allOptions.sort(() => Math.random() - 0.5));
       
-      // Preload audio for the current question to avoid delay
-      preloadCurrentAudio();
+      // Play audio immediately when question loads
+      if (shouldPlayVoice()) {
+        const audioText = currentItem.primary_reading || currentItem.reading || currentItem.character;
+        
+        // For kanji, use pre-generated audio files
+        if (currentItem.type === 'kanji') {
+          const charCode = currentItem.character.charCodeAt(0);
+          const audioPath = `/audio/kanji/${charCode}.mp3`;
+          const audio = new Audio(audioPath);
+          audio.volume = 1.0;
+          audio.play().catch(error => console.error('Failed to play kanji audio:', error));
+        } else {
+          // For vocabulary, use Google TTS
+          speakText(audioText, {
+            languageCode: 'ja-JP',
+            voiceName: 'ja-JP-Neural2-B',
+            autoPlay: true
+          }).catch(error => {
+            console.error('TTS failed:', error);
+            // Fallback to Web Speech API
+            if ('speechSynthesis' in window) {
+              const utterance = new SpeechSynthesisUtterance(audioText);
+              utterance.lang = 'ja-JP';
+              utterance.rate = 0.8;
+              speechSynthesis.speak(utterance);
+            }
+          });
+        }
+      }
     }
   }, [currentItem, trainingItems]);
-  
-  const preloadCurrentAudio = async () => {
-    if (currentItem) {
-      // For kanji, use pre-generated audio files based on character code
-      if (currentItem.type === 'kanji') {
-        const charCode = currentItem.character.charCodeAt(0);
-        const audioPath = `/audio/kanji/${charCode}.mp3`;
-        setPreloadedAudio(audioPath);
-        // Preload the audio file
-        const audio = new Audio(audioPath);
-        audio.preload = 'auto';
-        audio.load();
-        console.log('Preloaded kanji audio:', audioPath);
-        return;
-      }
-      
-      // For vocabulary, use TTS API
-      const audioText = currentItem.reading || currentItem.character;
-      try {
-        console.log('Preloading audio for:', audioText);
-        const audioUrl = await speak(audioText, {
-          languageCode: 'ja-JP',
-          voiceName: 'ja-JP-Chirp3-HD-Leda',
-          autoPlay: false
-        });
-        setPreloadedAudio(audioUrl);
-        console.log('Audio preloaded successfully');
-      } catch (error) {
-        console.error('Failed to preload audio:', error);
-        setPreloadedAudio(null);
-      }
-    }
-  };
 
   const playJapaneseAudio = async (text: string) => {
     console.log('Playing Japanese audio for:', text);
@@ -394,14 +380,6 @@ function MatchPageContent() {
       // Play correct answer sound
       playCorrectSound();
       
-      // Play Japanese audio after a small delay if voice is enabled
-      if (shouldPlayVoice()) {
-        const audioText = currentItem.primary_reading || currentItem.reading || currentItem.character;
-        setTimeout(() => {
-          playJapaneseAudio(audioText);
-        }, 300);
-      }
-      
       setScore(score + 1);
       
       // Mark this item as correctly answered
@@ -426,12 +404,6 @@ function MatchPageContent() {
         }, 1500);
       }
     } else {
-      // Play Japanese audio immediately for incorrect answers if voice is enabled
-      if (shouldPlayVoice()) {
-        const audioText = currentItem.primary_reading || currentItem.reading || currentItem.character;
-        playJapaneseAudio(audioText);
-      }
-      
       // Play incorrect answer sound
       playIncorrectSound();
       
@@ -604,7 +576,7 @@ function MatchPageContent() {
               const correctMeaning = currentItem.primary_meaning || currentItem.meaning?.split(',')[0]?.trim() || currentItem.meaning;
               const isCorrectAnswer = option === correctMeaning;
               
-              let buttonClass = "w-full p-4 text-base font-semibold rounded-lg transition-all duration-200 border-2 [-webkit-tap-highlight-color:transparent] focus:outline-none active:outline-none flex items-center justify-center gap-3 ";
+              let buttonClass = "w-full p-4 text-base font-semibold rounded-lg transition-all duration-200 border-2 [-webkit-tap-highlight-color:transparent] focus:outline-none active:outline-none flex items-center gap-8 ";
               
               if (!showResult) {
                 if (isSelected) {
@@ -614,11 +586,11 @@ function MatchPageContent() {
                 }
               } else {
                 if (isSelected && isCorrectAnswer) {
-                  buttonClass += "text-emerald-700 bg-[#d8f4ba] border-emerald-600";
+                  buttonClass += "text-white bg-[#28a745] border-green-700";
                 } else if (isSelected && !isCorrectAnswer) {
-                  buttonClass += "bg-red-50 text-red-600 border-red-400";
+                  buttonClass += "bg-gray-200 text-gray-700 border-gray-400";
                 } else if (isCorrectAnswer) {
-                  buttonClass += "text-emerald-700 bg-[#d8f4ba] border-emerald-600";
+                  buttonClass += "text-white bg-[#28a745] border-green-700";
                 } else {
                   buttonClass += "bg-gray-100 text-gray-500 border-gray-300";
                 }
@@ -632,12 +604,12 @@ function MatchPageContent() {
                   disabled={showResult}
                 >
                   {showResult && isCorrectAnswer && (
-                    <span className="text-emerald-700 text-2xl font-bold">○</span>
+                    <span className="text-white text-4xl font-bold flex-shrink-0 ml-2">○</span>
                   )}
                   {showResult && isSelected && !isCorrectAnswer && (
-                    <span className="text-red-600 text-2xl font-bold">✕</span>
+                    <span className="text-gray-700 text-4xl font-bold flex-shrink-0 ml-2">✕</span>
                   )}
-                  <span>{option}</span>
+                  <span className="flex-1 text-center pr-12">{option}</span>
                 </button>
               );
             })}
