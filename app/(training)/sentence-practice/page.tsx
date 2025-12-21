@@ -153,127 +153,114 @@ function SentencePracticeContent() {
         onClose={handleQuit}
       />
 
-      <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="max-w-5xl mx-auto px-4 py-16">
         {/* Sentence Counter */}
-        <div className="text-center mb-6">
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            Sentence {currentIndex + 1} of {sentences.length}
+        <div className="text-center mb-4">
+          <p className="text-xs uppercase tracking-wider text-gray-400 dark:text-gray-500">
+            {currentIndex + 1} / {sentences.length}
           </p>
         </div>
 
-        {/* Main Sentence Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-12 mb-6">
+        {/* Main Content */}
+        <div className="mb-16">
           {/* Japanese Text */}
-          <div className="text-center mb-12">
-            <p className="text-5xl font-light font-japanese text-gray-900 dark:text-white leading-relaxed">
+          <div className="text-center mb-16">
+            <p className="text-6xl font-light font-japanese text-gray-900 dark:text-white leading-relaxed">
               {currentSentence.japanese_text}
             </p>
           </div>
 
           {/* Audio Controls */}
-          <div className="flex items-center justify-center gap-6 mb-10">
+          <div className="flex items-center justify-center gap-8 mb-12">
             <button
               onClick={handlePrevious}
               disabled={currentIndex === 0}
-              className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="p-3 text-gray-400 hover:text-gray-900 dark:hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              title="Previous"
             >
-              <SkipBack className="w-6 h-6" />
+              <SkipBack className="w-5 h-5" />
             </button>
 
             <button
               onClick={handleReplay}
               disabled={!currentAudioUrl}
-              className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="p-3 text-gray-400 hover:text-gray-900 dark:hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              title="Replay"
             >
-              <RotateCcw className="w-6 h-6" />
+              <RotateCcw className="w-5 h-5" />
             </button>
 
             <button
               onClick={isPlaying ? () => stop() : playCurrentSentence}
               disabled={isLoading}
-              className="p-4 rounded-full bg-blue-500 hover:bg-blue-600 text-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="p-4 text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              title="Play"
             >
-              {isPlaying ? <Pause className="w-8 h-8" /> : <Play className="w-8 h-8" />}
+              {isPlaying ? <Pause className="w-7 h-7" /> : <Play className="w-7 h-7" />}
             </button>
 
             <button
               onClick={handleNext}
               disabled={currentIndex >= sentences.length - 1}
-              className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="p-3 text-gray-400 hover:text-gray-900 dark:hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              title="Next"
             >
-              <SkipForward className="w-6 h-6" />
+              <SkipForward className="w-5 h-5" />
             </button>
 
             <button
               onClick={() => setAutoplay(!autoplay)}
-              className={`p-3 rounded-full transition-colors ${
+              className={`p-3 transition-colors ${
                 autoplay 
-                  ? 'bg-blue-500 text-white hover:bg-blue-600' 
-                  : 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+                  ? 'text-gray-900 dark:text-white' 
+                  : 'text-gray-400 hover:text-gray-900 dark:hover:text-white'
               }`}
+              title="Autoplay"
             >
-              <Volume2 className="w-6 h-6" />
+              <Volume2 className="w-5 h-5" />
             </button>
           </div>
 
           {/* Voice Selection */}
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Voice:</span>
+          <div className="flex items-center justify-center gap-4 mb-12">
             <button
               onClick={() => setVoiceGender('male')}
-              className={`p-2 rounded-lg transition-colors ${
+              className={`px-4 py-2 text-sm transition-colors border-b-2 ${
                 voiceGender === 'male'
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+                  ? 'border-gray-900 dark:border-white text-gray-900 dark:text-white'
+                  : 'border-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
               }`}
-              title="Male voice"
             >
-              <User className="w-5 h-5" />
+              Male
             </button>
             <button
               onClick={() => setVoiceGender('female')}
-              className={`p-2 rounded-lg transition-colors ${
+              className={`px-4 py-2 text-sm transition-colors border-b-2 ${
                 voiceGender === 'female'
-                  ? 'bg-pink-500 text-white'
-                  : 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+                  ? 'border-gray-900 dark:border-white text-gray-900 dark:text-white'
+                  : 'border-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
               }`}
-              title="Female voice"
             >
-              <UserRound className="w-5 h-5" />
+              Female
             </button>
           </div>
 
-          {/* Autoplay Toggle */}
-          <div className="flex items-center justify-center gap-3 mb-10">
-            <button
-              onClick={handleToggleAutoplay}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
-                autoplay
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-              }`}
-            >
-              {autoplay ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-              {autoplay ? 'Autoplay On' : 'Autoplay Off'}
-            </button>
-          </div>
 
           {/* English Translation */}
-          <div className="text-center pt-8 border-t border-gray-200 dark:border-gray-700">
-            <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+          <div className="text-center mb-12">
+            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed">
               {currentSentence.english_translation}
             </p>
           </div>
 
           {/* Grammar Points */}
           {currentSentence.grammar_points && currentSentence.grammar_points.length > 0 && (
-            <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">Grammar Points:</p>
-              <div className="flex flex-wrap gap-2">
+            <div className="text-center">
+              <div className="inline-flex flex-wrap gap-3 justify-center">
                 {currentSentence.grammar_points.map((point, idx) => (
                   <span
                     key={idx}
-                    className="px-3 py-1 bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 text-sm rounded-full"
+                    className="text-xs text-gray-400 dark:text-gray-500"
                   >
                     {point}
                   </span>
@@ -282,26 +269,6 @@ function SentencePracticeContent() {
             </div>
           )}
         </div>
-
-        {/* Navigation Buttons */}
-        <div className="flex justify-between items-center">
-          <button
-            onClick={handlePrevious}
-            disabled={currentIndex === 0}
-            className="px-6 py-3 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium"
-          >
-            Previous
-          </button>
-          
-          <button
-            onClick={handleNext}
-            disabled={currentIndex === sentences.length - 1}
-            className="px-6 py-3 bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-lg hover:from-pink-600 hover:to-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium shadow-lg"
-          >
-            {currentIndex === sentences.length - 1 ? 'Finish' : 'Next'}
-          </button>
-        </div>
-      </div>
 
       {/* Quit Confirmation Modal */}
       <QuitConfirmationModal
