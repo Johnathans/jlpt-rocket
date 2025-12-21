@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Volume2, Play, Pause, SkipForward, SkipBack, RotateCcw, User, UserRound, Eye, EyeOff, CheckCircle2, Languages, BookOpen } from 'lucide-react';
-import { addFurigana, initializeKuroshiro } from '@/lib/furigana';
+import { addFurigana, initializeKuroshiro, extractCompounds } from '@/lib/furigana';
 import TrainingHeader from '@/components/TrainingHeader';
 import QuitConfirmationModal from '@/components/QuitConfirmationModal';
 import SentenceKanjiModal from '@/components/SentenceKanjiModal';

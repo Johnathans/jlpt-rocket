@@ -15,6 +15,7 @@ interface SentenceKanjiModalProps {
   isOpen: boolean;
   onClose: () => void;
   kanjiCharacters: string[];
+  compounds?: string[];
   sentenceText: string;
   preloadedData?: Record<string, KanjiData>;
 }
@@ -170,7 +171,7 @@ export default function SentenceKanjiModal({
                     Compound Words in Sentence
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {compounds.map((compound, idx) => (
+                    {compounds.map((compound: string, idx: number) => (
                       <div
                         key={idx}
                         className="px-3 py-2 bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 rounded-lg font-japanese text-base font-medium border border-pink-200 dark:border-pink-800"
