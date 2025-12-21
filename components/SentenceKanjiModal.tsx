@@ -11,13 +11,21 @@ interface KanjiData {
   jlpt_level: string;
 }
 
+interface VocabData {
+  word: string;
+  reading: string;
+  meaning: string;
+  jlpt_level: string;
+}
+
 interface SentenceKanjiModalProps {
   isOpen: boolean;
   onClose: () => void;
   kanjiCharacters: string[];
   compounds?: string[];
   sentenceText: string;
-  preloadedData?: Record<string, KanjiData>;
+  preloadedKanjiData?: Record<string, KanjiData>;
+  preloadedVocabData?: Record<string, VocabData>;
 }
 
 export default function SentenceKanjiModal({
@@ -26,23 +34,35 @@ export default function SentenceKanjiModal({
   kanjiCharacters,
   compounds = [],
   sentenceText,
-  preloadedData,
+  preloadedKanjiData,
+  preloadedVocabData,
 }: SentenceKanjiModalProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState<'kanji' | 'compounds'>('kanji');
   const [kanjiData, setKanjiData] = useState<Record<string, KanjiData>>({});
+  const [vocabData, setVocabData] = useState<Record<string, VocabData>>({});
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // Use preloaded data if available, otherwise fetch
     if (isOpen && kanjiCharacters.length > 0) {
-      if (preloadedData && Object.keys(preloadedData).length > 0) {
-        setKanjiData(preloadedData);
+      if (preloadedKanjiData && Object.keys(preloadedKanjiData).length > 0) {
+        setKanjiData(preloadedKanjiData);
         setIsLoading(false);
       } else {
         fetchKanjiData();
       }
     }
-  }, [isOpen, kanjiCharacters, preloadedData]);
+    
+    // Load vocabulary data for compounds
+    if (isOpen && compounds.length > 0) {
+      if (preloadedVocabData && Object.keys(preloadedVocabData).length > 0) {
+        setVocabData(preloadedVocabData);
+      } else {
+        fetchVocabData();
+      }
+    }
+  }, [isOpen, kanjiCharacters, compounds, preloadedKanjiData, preloadedVocabData]);
 
   const fetchKanjiData = async () => {
     setIsLoading(true);
@@ -64,6 +84,23 @@ export default function SentenceKanjiModal({
     }
   };
 
+  const fetchVocabData = async () => {
+    try {
+      const response = await fetch('/api/vocabulary/lookup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ words: compounds }),
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setVocabData(data);
+      }
+    } catch (error) {
+      console.error('Error fetching vocabulary data:', error);
+    }
+  };
+
   const handlePrevious = () => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : kanjiCharacters.length - 1));
   };
@@ -81,22 +118,45 @@ export default function SentenceKanjiModal({
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
-        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
-          <h3 className="text-base sm:text-lg font-medium text-gray-900 dark:text-white">
-            Kanji in Sentence ({kanjiCharacters.length})
+        <div className="border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between p-4 sm:p-6">
+            <h3 className="text-base sm:text-lg font-medium text-gray-900 dark:text-white">
+              Sentence Breakdown
+            </h3>
+            <button
+              onClick={onClose}
+              className="p-2 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors touch-manipulation"
+              aria-label="Close modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+          
+          {/* Tabs */}
+          <div className="flex border-t border-gray-200 dark:border-gray-700">
+            <button
+              onClick={() => setActiveTab('kanji')}
+              className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+                activeTab === 'kanji'
+                  ? 'text-pink-600 dark:text-pink-400 border-b-2 border-pink-600 dark:border-pink-400'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+              }`}
+            >
+              Kanji ({kanjiCharacters.length})
+            </button>
             {compounds.length > 0 && (
-              <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
-                • {compounds.length} compound{compounds.length !== 1 ? 's' : ''}
-              </span>
+              <button
+                onClick={() => setActiveTab('compounds')}
+                className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+                  activeTab === 'compounds'
+                    ? 'text-pink-600 dark:text-pink-400 border-b-2 border-pink-600 dark:border-pink-400'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                }`}
+              >
+                Compounds ({compounds.length})
+              </button>
             )}
-          </h3>
-          <button
-            onClick={onClose}
-            className="p-2 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors touch-manipulation"
-            aria-label="Close modal"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          </div>
         </div>
 
         {/* Content */}
@@ -108,8 +168,8 @@ export default function SentenceKanjiModal({
             </div>
           ) : (
             <>
-              {/* Kanji Display and Details - Vertical Layout */}
-              {currentData ? (
+              {/* Kanji Tab Content */}
+              {activeTab === 'kanji' && currentData ? (
                 <div className="mb-6">
                   {/* Large Kanji - Centered on Top */}
                   <div className="text-center mb-6">
@@ -155,7 +215,9 @@ export default function SentenceKanjiModal({
                     </span>
                   </div>
                 </div>
-              ) : (
+              )}
+              
+              {activeTab === 'kanji' && !currentData && (
                 <div className="text-center py-8">
                   <div className="text-7xl sm:text-8xl font-japanese text-gray-900 dark:text-white mb-4">
                     {currentKanji}
@@ -164,27 +226,48 @@ export default function SentenceKanjiModal({
                 </div>
               )}
 
-              {/* Compound Words Section */}
-              {compounds.length > 0 && (
-                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-                  <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-                    Compound Words in Sentence
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {compounds.map((compound: string, idx: number) => (
+              {/* Compounds Tab Content */}
+              {activeTab === 'compounds' && (
+                <div className="space-y-4">
+                  {compounds.map((compound: string, idx: number) => {
+                    const vocab = vocabData[compound];
+                    return (
                       <div
                         key={idx}
-                        className="px-3 py-2 bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 rounded-lg font-japanese text-base font-medium border border-pink-200 dark:border-pink-800"
+                        className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg"
                       >
-                        {compound}
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="text-3xl font-japanese text-gray-900 dark:text-white">
+                            {compound}
+                          </div>
+                          {vocab?.jlpt_level && (
+                            <span className="px-2 py-1 bg-pink-100 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 text-xs font-medium rounded-full">
+                              {vocab.jlpt_level}
+                            </span>
+                          )}
+                        </div>
+                        {vocab ? (
+                          <>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 font-japanese mb-1">
+                              {vocab.reading}
+                            </p>
+                            <p className="text-base text-gray-900 dark:text-white">
+                              {vocab.meaning}
+                            </p>
+                          </>
+                        ) : (
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            No vocabulary data available
+                          </p>
+                        )}
                       </div>
-                    ))}
-                  </div>
+                    );
+                  })}
                 </div>
               )}
 
-              {/* Navigation */}
-              {kanjiCharacters.length > 1 && (
+              {/* Navigation for Kanji */}
+              {activeTab === 'kanji' && kanjiCharacters.length > 1 && (
                 <div className="flex items-center justify-center gap-2 sm:gap-4">
                   <button
                     onClick={handlePrevious}

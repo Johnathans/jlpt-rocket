@@ -40,6 +40,7 @@ function SentencePracticeContent() {
   const [sentenceKanji, setSentenceKanji] = useState<string[]>([]);
   const [sentenceCompounds, setSentenceCompounds] = useState<string[]>([]);
   const [preloadedKanjiData, setPreloadedKanjiData] = useState<Record<string, any>>({});
+  const [preloadedVocabData, setPreloadedVocabData] = useState<Record<string, any>>({});
   
   const { speak, playAudio, stop, isLoading } = useTTS();
 
@@ -78,14 +79,16 @@ function SentencePracticeContent() {
         setSentenceKanji(kanji);
         
         // Extract compound words
+        let compounds: string[] = [];
         try {
-          const compounds = await extractCompounds(sentences[currentIndex].japanese_text);
+          compounds = await extractCompounds(sentences[currentIndex].japanese_text);
           setSentenceCompounds(compounds);
         } catch (error) {
           console.error('Error extracting compounds:', error);
           setSentenceCompounds([]);
         }
         
+        // Preload kanji data
         if (kanji.length > 0) {
           try {
             const response = await fetch('/api/kanji/lookup', {
@@ -99,6 +102,23 @@ function SentencePracticeContent() {
             }
           } catch (error) {
             console.error('Error preloading kanji data:', error);
+          }
+        }
+        
+        // Preload vocabulary data for compounds
+        if (compounds.length > 0) {
+          try {
+            const response = await fetch('/api/vocabulary/lookup', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ words: compounds }),
+            });
+            if (response.ok) {
+              const data = await response.json();
+              setPreloadedVocabData(data);
+            }
+          } catch (error) {
+            console.error('Error preloading vocabulary data:', error);
           }
         }
       }
@@ -483,7 +503,8 @@ function SentencePracticeContent() {
         kanjiCharacters={sentenceKanji}
         compounds={sentenceCompounds}
         sentenceText={currentSentence?.japanese_text || ''}
-        preloadedData={preloadedKanjiData}
+        preloadedKanjiData={preloadedKanjiData}
+        preloadedVocabData={preloadedVocabData}
       />
     </div>
   );
