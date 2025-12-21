@@ -2,10 +2,11 @@
 
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Volume2, Play, Pause, SkipForward, SkipBack, RotateCcw, User, UserRound, Eye, EyeOff, CheckCircle2, Languages } from 'lucide-react';
+import { Volume2, Play, Pause, SkipForward, SkipBack, RotateCcw, User, UserRound, Eye, EyeOff, CheckCircle2, Languages, BookOpen } from 'lucide-react';
 import { addFurigana, initializeKuroshiro } from '@/lib/furigana';
 import TrainingHeader from '@/components/TrainingHeader';
 import QuitConfirmationModal from '@/components/QuitConfirmationModal';
+import SentenceKanjiModal from '@/components/SentenceKanjiModal';
 import { useTTS } from '@/lib/useTTS';
 import { getSentencesByLevel } from '@/lib/supabase-data';
 import type { JLPTLevel } from '@/lib/supabase-data';
@@ -35,6 +36,8 @@ function SentencePracticeContent() {
   const [isComplete, setIsComplete] = useState(false);
   const [showFurigana, setShowFurigana] = useState(true);
   const [processedText, setProcessedText] = useState<string>('');
+  const [showKanjiModal, setShowKanjiModal] = useState(false);
+  const [sentenceKanji, setSentenceKanji] = useState<string[]>([]);
   
   const { speak, playAudio, stop, isLoading } = useTTS();
 
@@ -155,6 +158,23 @@ function SentencePracticeContent() {
   const handleFinish = useCallback(() => {
     router.push('/roadmap');
   }, [router]);
+
+  const extractKanji = (text: string): string[] => {
+    // Match all kanji characters (Unicode range for CJK Unified Ideographs)
+    const kanjiRegex = /[\u4e00-\u9faf]/g;
+    const matches = text.match(kanjiRegex);
+    if (!matches) return [];
+    // Remove duplicates and return
+    return Array.from(new Set(matches));
+  };
+
+  const handleShowKanji = useCallback(() => {
+    if (sentences.length > 0 && currentIndex < sentences.length) {
+      const kanji = extractKanji(sentences[currentIndex].japanese_text);
+      setSentenceKanji(kanji);
+      setShowKanjiModal(true);
+    }
+  }, [sentences, currentIndex]);
 
   const handleQuit = useCallback(() => {
     setShowQuitModal(true);
@@ -342,6 +362,14 @@ function SentencePracticeContent() {
             >
               <Languages className="w-5 h-5" />
             </button>
+            
+            <button
+              onClick={handleShowKanji}
+              className="p-2 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              title="View kanji in sentence"
+            >
+              <BookOpen className="w-5 h-5" />
+            </button>
           </div>
 
 
@@ -377,6 +405,14 @@ function SentencePracticeContent() {
         isOpen={showQuitModal}
         onKeepLearning={() => setShowQuitModal(false)}
         onQuit={confirmQuit}
+      />
+
+      {/* Kanji Modal */}
+      <SentenceKanjiModal
+        isOpen={showKanjiModal}
+        onClose={() => setShowKanjiModal(false)}
+        kanjiCharacters={sentenceKanji}
+        sentenceText={currentSentence?.japanese_text || ''}
       />
     </div>
   );
