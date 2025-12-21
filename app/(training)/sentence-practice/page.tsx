@@ -162,16 +162,16 @@ function SentencePracticeContent() {
         </div>
 
         {/* Main Sentence Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-12 mb-6">
           {/* Japanese Text */}
-          <div className="text-center mb-8">
-            <p className="text-4xl font-japanese text-gray-900 dark:text-white mb-4 leading-relaxed">
+          <div className="text-center mb-12">
+            <p className="text-5xl font-light font-japanese text-gray-900 dark:text-white leading-relaxed">
               {currentSentence.japanese_text}
             </p>
           </div>
 
           {/* Audio Controls */}
-          <div className="flex items-center justify-center gap-4 mb-8">
+          <div className="flex items-center justify-center gap-6 mb-10">
             <button
               onClick={handlePrevious}
               disabled={currentIndex === 0}
@@ -217,8 +217,8 @@ function SentencePracticeContent() {
           </div>
 
           {/* Voice Selection */}
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <span className="text-sm text-gray-600 dark:text-gray-400">Voice:</span>
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Voice:</span>
             <button
               onClick={() => setVoiceGender('male')}
               className={`p-2 rounded-lg transition-colors ${
@@ -244,7 +244,7 @@ function SentencePracticeContent() {
           </div>
 
           {/* Autoplay Toggle */}
-          <div className="flex items-center justify-center gap-3 mb-8">
+          <div className="flex items-center justify-center gap-3 mb-10">
             <button
               onClick={handleToggleAutoplay}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
@@ -259,16 +259,16 @@ function SentencePracticeContent() {
           </div>
 
           {/* English Translation */}
-          <div className="text-center pt-6 border-t border-gray-200 dark:border-gray-700">
-            <p className="text-xl text-gray-700 dark:text-gray-300">
+          <div className="text-center pt-8 border-t border-gray-200 dark:border-gray-700">
+            <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
               {currentSentence.english_translation}
             </p>
           </div>
 
           {/* Grammar Points */}
           {currentSentence.grammar_points && currentSentence.grammar_points.length > 0 && (
-            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Grammar Points:</p>
+            <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">Grammar Points:</p>
               <div className="flex flex-wrap gap-2">
                 {currentSentence.grammar_points.map((point, idx) => (
                   <span
