@@ -23,6 +23,14 @@ function getCachedAudioPath(text: string, voiceGender?: 'male' | 'female'): stri
       if (fs.existsSync(voicePath)) {
         return `/audio/sentences/${level}/${voiceGender}/${hash}.mp3`;
       }
+      
+      // For N3, if female voice doesn't exist, fall back to male
+      if (level === 'N3' && voiceGender === 'female') {
+        const malePath = path.join(process.cwd(), 'public', 'audio', 'sentences', level, 'male', `${hash}.mp3`);
+        if (fs.existsSync(malePath)) {
+          return `/audio/sentences/${level}/male/${hash}.mp3`;
+        }
+      }
     }
     
     // Check main level directory
