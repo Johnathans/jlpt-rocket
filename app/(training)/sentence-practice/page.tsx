@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Volume2, Play, Pause, SkipForward, SkipBack, RotateCcw, User, UserRound } from 'lucide-react';
+import { Volume2, Play, Pause, SkipForward, SkipBack, RotateCcw, User, UserRound, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 import TrainingHeader from '@/components/TrainingHeader';
 import QuitConfirmationModal from '@/components/QuitConfirmationModal';
 import { useTTS } from '@/lib/useTTS';
@@ -30,6 +30,8 @@ function SentencePracticeContent() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentAudioUrl, setCurrentAudioUrl] = useState<string | null>(null);
   const [voiceGender, setVoiceGender] = useState<'male' | 'female'>('female');
+  const [showEnglish, setShowEnglish] = useState(true);
+  const [isComplete, setIsComplete] = useState(false);
   
   const { speak, playAudio, stop, isLoading } = useTTS();
 
@@ -103,13 +105,13 @@ function SentencePracticeContent() {
   }, [currentAudioUrl, playAudio, playCurrentSentence]);
 
   const handleNext = useCallback(() => {
-    stop();
-    setIsPlaying(false);
     if (currentIndex < sentences.length - 1) {
       setCurrentIndex(prev => prev + 1);
       setCurrentAudioUrl(null);
+    } else {
+      setIsComplete(true);
     }
-  }, [currentIndex, sentences.length, stop]);
+  }, [currentIndex, sentences.length]);
 
   const handlePrevious = useCallback(() => {
     stop();
@@ -123,6 +125,16 @@ function SentencePracticeContent() {
   const handleToggleAutoplay = useCallback(() => {
     setAutoplay(prev => !prev);
   }, []);
+
+  const handleRestart = useCallback(() => {
+    setCurrentIndex(0);
+    setIsComplete(false);
+    setCurrentAudioUrl(null);
+  }, []);
+
+  const handleFinish = useCallback(() => {
+    router.push('/roadmap');
+  }, [router]);
 
   const handleQuit = useCallback(() => {
     setShowQuitModal(true);
@@ -141,6 +153,35 @@ function SentencePracticeContent() {
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
           <p className="text-gray-600 dark:text-gray-300">Loading sentences...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Completion screen
+  if (isComplete) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto px-4">
+          <CheckCircle2 className="w-20 h-20 text-green-500 mx-auto mb-6" />
+          <h2 className="text-3xl font-light text-gray-900 dark:text-white mb-4">Practice Complete!</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-8">
+            You've completed {sentences.length} sentences
+          </p>
+          <div className="flex gap-4 justify-center">
+            <button
+              onClick={handleRestart}
+              className="px-6 py-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+            >
+              Practice Again
+            </button>
+            <button
+              onClick={handleFinish}
+              className="px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-700 dark:hover:bg-gray-200 transition-colors"
+            >
+              Finish
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -221,37 +262,63 @@ function SentencePracticeContent() {
             </button>
           </div>
 
-          {/* Voice Selection */}
-          <div className="flex items-center justify-center gap-4 mb-10">
+          {/* Voice Selection & Controls */}
+          <div className="flex items-center justify-center gap-6 mb-10">
+            <div className="flex gap-4">
+              <button
+                onClick={() => setVoiceGender('male')}
+                className={`px-4 py-2 text-sm transition-colors border-b-2 ${
+                  voiceGender === 'male'
+                    ? 'border-gray-900 dark:border-white text-gray-900 dark:text-white'
+                    : 'border-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
+                }`}
+              >
+                Male
+              </button>
+              <button
+                onClick={() => setVoiceGender('female')}
+                className={`px-4 py-2 text-sm transition-colors border-b-2 ${
+                  voiceGender === 'female'
+                    ? 'border-gray-900 dark:border-white text-gray-900 dark:text-white'
+                    : 'border-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
+                }`}
+              >
+                Female
+              </button>
+            </div>
+            
+            <div className="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
+            
             <button
-              onClick={() => setVoiceGender('male')}
+              onClick={handleToggleAutoplay}
               className={`px-4 py-2 text-sm transition-colors border-b-2 ${
-                voiceGender === 'male'
+                autoplay
                   ? 'border-gray-900 dark:border-white text-gray-900 dark:text-white'
                   : 'border-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
               }`}
+              title="Toggle autoplay"
             >
-              Male
+              Autoplay
             </button>
+            
             <button
-              onClick={() => setVoiceGender('female')}
-              className={`px-4 py-2 text-sm transition-colors border-b-2 ${
-                voiceGender === 'female'
-                  ? 'border-gray-900 dark:border-white text-gray-900 dark:text-white'
-                  : 'border-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
-              }`}
+              onClick={() => setShowEnglish(!showEnglish)}
+              className="p-2 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              title="Toggle English translation"
             >
-              Female
+              {showEnglish ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
             </button>
           </div>
 
 
           {/* English Translation */}
-          <div className="text-center mb-10">
-            <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-              {currentSentence.english_translation}
-            </p>
-          </div>
+          {showEnglish && (
+            <div className="text-center mb-10">
+              <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                {currentSentence.english_translation}
+              </p>
+            </div>
+          )}
 
           {/* Grammar Points */}
           {currentSentence.grammar_points && currentSentence.grammar_points.length > 0 && (
