@@ -561,7 +561,7 @@ function MatchPageContent() {
   const accuracy = totalCompleted > 0 ? Math.round((score / totalCompleted) * 100) : 0;
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 flex flex-col">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
       <TrainingHeader 
         progress={progress}
         onClose={handleClose}
@@ -589,11 +589,11 @@ function MatchPageContent() {
       <div className="flex-1 flex flex-col items-center justify-center px-4 pb-24 pt-8 space-y-8">
         {/* Large Kanji/Character - Not in container */}
         <div className="text-center mb-12">
-          <div className="text-[10rem] sm:text-9xl md:text-[12rem] lg:text-[14rem] font-bold font-japanese leading-none mb-4 text-gray-900 dark:text-white">
+          <div className="text-7xl sm:text-8xl md:text-9xl font-normal font-japanese leading-none mb-4 text-gray-900 dark:text-white">
             {currentItem.character}
           </div>
           {currentItem.reading && (
-            <p className="text-2xl sm:text-3xl text-gray-600 dark:text-gray-300 font-japanese">
+            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 font-japanese font-light">
               {currentItem.reading}
             </p>
           )}
@@ -617,11 +617,13 @@ function MatchPageContent() {
                 }
               } else {
                 if (isSelected && isCorrectAnswer) {
-                  buttonClass += "bg-emerald-50 text-emerald-700";
+                  buttonClass += "text-emerald-700";
+                  buttonClass = buttonClass.replace('border-black', 'border-[#d8f4ba]') + " bg-[#d8f4ba]";
                 } else if (isSelected && !isCorrectAnswer) {
                   buttonClass += "bg-red-50 text-red-600";
                 } else if (isCorrectAnswer) {
-                  buttonClass += "bg-emerald-50 text-emerald-700";
+                  buttonClass += "text-emerald-700";
+                  buttonClass = buttonClass.replace('border-black', 'border-[#d8f4ba]') + " bg-[#d8f4ba]";
                 } else {
                   buttonClass += "bg-gray-100 text-gray-500";
                 }
@@ -636,8 +638,8 @@ function MatchPageContent() {
                 >
                   {option}
                   {showResult && isCorrectAnswer && (
-                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-emerald-500 rounded flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">✓</span>
+                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-[#d8f4ba] border-2 border-emerald-600 rounded flex items-center justify-center">
+                      <span className="text-emerald-700 text-xs font-bold">✓</span>
                     </div>
                   )}
                   {showResult && isSelected && !isCorrectAnswer && (
