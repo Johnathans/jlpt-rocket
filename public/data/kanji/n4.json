@@ -1,0 +1,998 @@
+[
+  {
+    "id": "95cb16f1-42a2-45f7-9c7a-9a6dd294892c",
+    "character": "不",
+    "meaning": "negative, non-, bad, ugly, clumsy",
+    "stroke_count": 4
+  },
+  {
+    "id": "9cfa364e-6d51-46ba-867e-b92652633619",
+    "character": "世",
+    "meaning": "generation, world, society, public",
+    "stroke_count": 5
+  },
+  {
+    "id": "6043a035-156b-4150-b185-bcf507b229cd",
+    "character": "主",
+    "meaning": "lord, chief, master, main thing, principal",
+    "stroke_count": 5
+  },
+  {
+    "id": "abf1c210-3015-40d4-ab8f-6bff64afde68",
+    "character": "事",
+    "meaning": "matter, thing, fact, business, reason, possibly",
+    "stroke_count": 8
+  },
+  {
+    "id": "e7254041-43ab-478e-b8cf-6606437ac4da",
+    "character": "京",
+    "meaning": "capital, 10**16",
+    "stroke_count": 8
+  },
+  {
+    "id": "cfe0cd95-32d3-4161-998d-6ca907c8fb2c",
+    "character": "仕",
+    "meaning": "attend, doing, official, serve",
+    "stroke_count": 5
+  },
+  {
+    "id": "55057f9b-59f9-4aed-8ddf-7d82da07ce1b",
+    "character": "代",
+    "meaning": "substitute, change, convert, replace, period, age, counter for decades of ages, eras, etc., generation, charge, rate, fee",
+    "stroke_count": 5
+  },
+  {
+    "id": "a3c4cb4b-8f36-4bd4-9f8e-666a5e8ccb20",
+    "character": "以",
+    "meaning": "by means of, because, in view of, compared with",
+    "stroke_count": 5
+  },
+  {
+    "id": "51d385ba-dcef-4d16-aeb5-94bfd96242c4",
+    "character": "会",
+    "meaning": "meeting, meet, party, association, interview, join",
+    "stroke_count": 6
+  },
+  {
+    "id": "f6092d14-227a-4b1a-b41d-71ab6e9cb679",
+    "character": "住",
+    "meaning": "dwell, reside, live, inhabit",
+    "stroke_count": 7
+  },
+  {
+    "id": "73c2c70d-3665-4534-9f41-86a07b2ba8b1",
+    "character": "体",
+    "meaning": "body, substance, object, reality, counter for images",
+    "stroke_count": 7
+  },
+  {
+    "id": "71d2c878-cb2b-4407-88a7-a8fc8dcf35a9",
+    "character": "作",
+    "meaning": "make, production, prepare, build",
+    "stroke_count": 7
+  },
+  {
+    "id": "40158ffd-9b32-42de-8816-0ed555f3f929",
+    "character": "使",
+    "meaning": "use, send on a mission, order, messenger, envoy, ambassador, cause",
+    "stroke_count": 8
+  },
+  {
+    "id": "525f36c6-cad6-4a6e-a04f-3c0e993ed862",
+    "character": "借",
+    "meaning": "borrow, rent",
+    "stroke_count": 10
+  },
+  {
+    "id": "0e1dd292-2aa2-4188-a9ce-e09c12fb05e0",
+    "character": "元",
+    "meaning": "beginning, former time, origin",
+    "stroke_count": 4
+  },
+  {
+    "id": "998fbcc0-f95c-4c44-9ca6-b637f8598985",
+    "character": "兄",
+    "meaning": "elder brother, big brother",
+    "stroke_count": 5
+  },
+  {
+    "id": "94190610-301c-4604-82fe-4449197a4620",
+    "character": "公",
+    "meaning": "public, prince, official, governmental",
+    "stroke_count": 4
+  },
+  {
+    "id": "41ee9bec-5f45-4626-a719-a3072fb687d7",
+    "character": "写",
+    "meaning": "copy, be photographed, describe",
+    "stroke_count": 5
+  },
+  {
+    "id": "41643625-1b39-4e6e-8324-801cbdd58c90",
+    "character": "冬",
+    "meaning": "winter",
+    "stroke_count": 5
+  },
+  {
+    "id": "febc3099-48af-4cb1-9fdb-3ad05f86e5b1",
+    "character": "切",
+    "meaning": "cut, cutoff, be sharp",
+    "stroke_count": 4
+  },
+  {
+    "id": "8474e912-1118-4fba-bf7b-ad259a45689d",
+    "character": "別",
+    "meaning": "separate, branch off, diverge, fork, another, extra, specially",
+    "stroke_count": 7
+  },
+  {
+    "id": "c3ad9bde-8d43-495f-9ddc-53aa460b977d",
+    "character": "力",
+    "meaning": "power, strength, strong, strain, bear up, exert",
+    "stroke_count": 2
+  },
+  {
+    "id": "ea1eedfa-04f7-4d2f-aae9-7e8ecfa25b04",
+    "character": "勉",
+    "meaning": "exertion, endeavour, encourage, strive, make effort, diligent",
+    "stroke_count": 10
+  },
+  {
+    "id": "fa80db30-d7db-492b-ba40-3c526e6c8b97",
+    "character": "動",
+    "meaning": "move, motion, change, confusion, shift, shake",
+    "stroke_count": 11
+  },
+  {
+    "id": "fc66ce70-aeb5-4be8-b5cf-d44a99fa6d6e",
+    "character": "医",
+    "meaning": "doctor, medicine",
+    "stroke_count": 7
+  },
+  {
+    "id": "fab2c641-ffc5-4ad4-b127-e4f06efe4d57",
+    "character": "去",
+    "meaning": "gone, past, quit, leave, elapse, eliminate, divorce",
+    "stroke_count": 5
+  },
+  {
+    "id": "60a4b9c9-b6ce-43ad-b8a7-fcba4be0963c",
+    "character": "口",
+    "meaning": "mouth",
+    "stroke_count": 3
+  },
+  {
+    "id": "89104798-bd98-4477-a46d-449c29d4cc1f",
+    "character": "古",
+    "meaning": "old",
+    "stroke_count": 5
+  },
+  {
+    "id": "398b3d22-8d19-40fb-95d2-8b66825dc896",
+    "character": "台",
+    "meaning": "pedestal, a stand, counter for machines and vehicles",
+    "stroke_count": 5
+  },
+  {
+    "id": "758d796a-a82d-4d1a-86f8-613b0c9276a5",
+    "character": "同",
+    "meaning": "same, agree, equal",
+    "stroke_count": 6
+  },
+  {
+    "id": "fdc6056a-72e5-4f83-b6f0-808ffd5dada6",
+    "character": "味",
+    "meaning": "flavor, taste",
+    "stroke_count": 8
+  },
+  {
+    "id": "c1188527-48b1-4556-b95f-68805a519a51",
+    "character": "品",
+    "meaning": "goods, refinement, dignity, article, counter for meal courses",
+    "stroke_count": 9
+  },
+  {
+    "id": "9bc6ab39-b007-41da-896e-a50d4765a0e3",
+    "character": "員",
+    "meaning": "employee, member, number, the one in charge",
+    "stroke_count": 10
+  },
+  {
+    "id": "408cd77d-f080-49bb-a40a-7dc0a20ba9e5",
+    "character": "問",
+    "meaning": "question, ask, problem",
+    "stroke_count": 11
+  },
+  {
+    "id": "5b1ad725-5069-4e8f-81fb-703e2badce73",
+    "character": "図",
+    "meaning": "map, drawing, plan, extraordinary, audacious",
+    "stroke_count": 7
+  },
+  {
+    "id": "c4ecd53a-2339-4f24-81fe-0294ef34b26a",
+    "character": "地",
+    "meaning": "ground, earth",
+    "stroke_count": 6
+  },
+  {
+    "id": "ebf3c33e-335b-4b52-b768-3153585fd0c0",
+    "character": "堂",
+    "meaning": "public chamber, hall",
+    "stroke_count": 11
+  },
+  {
+    "id": "a01b1572-8f00-4cbb-af2c-4e9344e05311",
+    "character": "場",
+    "meaning": "location, place",
+    "stroke_count": 12
+  },
+  {
+    "id": "12f3cc73-94f9-481c-bfbd-204d0ef8e0f0",
+    "character": "売",
+    "meaning": "sell",
+    "stroke_count": 7
+  },
+  {
+    "id": "32e3c27e-6275-4e3b-a614-70ace4f965a6",
+    "character": "夏",
+    "meaning": "summer",
+    "stroke_count": 10
+  },
+  {
+    "id": "2594ec0c-e295-4395-91cd-6bac64434f18",
+    "character": "夕",
+    "meaning": "evening",
+    "stroke_count": 3
+  },
+  {
+    "id": "34466f01-0f86-41c4-8f75-b499abfce479",
+    "character": "多",
+    "meaning": "many, frequent, much",
+    "stroke_count": 6
+  },
+  {
+    "id": "98991cd6-373e-4b9a-9f83-ca8ad06db01f",
+    "character": "夜",
+    "meaning": "night, evening",
+    "stroke_count": 8
+  },
+  {
+    "id": "34fa3054-54e6-469b-9012-ce2ad2627509",
+    "character": "妹",
+    "meaning": "younger sister",
+    "stroke_count": 8
+  },
+  {
+    "id": "7b16a850-e8ff-48f4-8ba1-448ca7d3c05a",
+    "character": "姉",
+    "meaning": "elder sister",
+    "stroke_count": 8
+  },
+  {
+    "id": "f21e2560-f0ff-4b86-99be-40ad215f76ed",
+    "character": "始",
+    "meaning": "commence, begin",
+    "stroke_count": 8
+  },
+  {
+    "id": "f785e1e2-c09a-4b86-ba6d-dbf6043712f0",
+    "character": "字",
+    "meaning": "character, letter, word, section of village",
+    "stroke_count": 6
+  },
+  {
+    "id": "29e17c5e-1ea7-4364-8ce6-787bb45e845f",
+    "character": "安",
+    "meaning": "relax, cheap, low, quiet, rested, contented, peaceful",
+    "stroke_count": 6
+  },
+  {
+    "id": "20f4edbc-687a-4614-a88d-6180dc4c9e61",
+    "character": "室",
+    "meaning": "room, apartment, chamber, greenhouse, cellar",
+    "stroke_count": 9
+  },
+  {
+    "id": "dde3fd60-0f3b-44d9-b3ce-87b671eeefd5",
+    "character": "家",
+    "meaning": "house, home, family, professional, expert, performer",
+    "stroke_count": 10
+  },
+  {
+    "id": "30bcc1e9-9301-4d7a-a955-a7612a753a21",
+    "character": "少",
+    "meaning": "few, little",
+    "stroke_count": 4
+  },
+  {
+    "id": "d02f4abc-1edc-420f-b7f3-2e2a11550684",
+    "character": "屋",
+    "meaning": "roof, house, shop, dealer, seller",
+    "stroke_count": 9
+  },
+  {
+    "id": "38ca7760-2c09-4a22-a499-8e8ca73ef819",
+    "character": "工",
+    "meaning": "craft, construction, katakana e radical (no. 48)",
+    "stroke_count": 3
+  },
+  {
+    "id": "04b62c2f-9703-4823-b5c1-ba2a5ee0ecd4",
+    "character": "帰",
+    "meaning": "homecoming, arrive at, lead to, result in",
+    "stroke_count": 10
+  },
+  {
+    "id": "954ae1c3-7e84-4ce4-9af8-6168284cf877",
+    "character": "広",
+    "meaning": "wide, broad, spacious",
+    "stroke_count": 5
+  },
+  {
+    "id": "89bb4f40-6c45-4669-8959-a8a996b866bd",
+    "character": "店",
+    "meaning": "store, shop",
+    "stroke_count": 8
+  },
+  {
+    "id": "58899847-68f1-40cb-af86-394d14218893",
+    "character": "度",
+    "meaning": "degrees, occurrence, time, counter for occurrences, consider, attitude",
+    "stroke_count": 9
+  },
+  {
+    "id": "4f209857-8a3b-41d9-9bf6-2514f5edf230",
+    "character": "建",
+    "meaning": "build",
+    "stroke_count": 9
+  },
+  {
+    "id": "f294e6fb-26c3-43e9-ad14-0af5eac0841e",
+    "character": "弟",
+    "meaning": "younger brother, faithful service to elders",
+    "stroke_count": 7
+  },
+  {
+    "id": "b4fb0574-0c14-4f1b-927e-ebee223e2cde",
+    "character": "強",
+    "meaning": "strong",
+    "stroke_count": 11
+  },
+  {
+    "id": "607ce34a-fed2-4114-a597-92222b7f35d8",
+    "character": "待",
+    "meaning": "wait, depend on",
+    "stroke_count": 9
+  },
+  {
+    "id": "80f0a65b-464f-4f7f-92f8-39b2c3f55410",
+    "character": "心",
+    "meaning": "heart, mind, spirit, heart radical (no. 61)",
+    "stroke_count": 4
+  },
+  {
+    "id": "6c5f2faf-57ff-4982-8535-08995cb75b1a",
+    "character": "思",
+    "meaning": "think",
+    "stroke_count": 9
+  },
+  {
+    "id": "67fa97cd-4664-4023-91da-4c7da87bf978",
+    "character": "急",
+    "meaning": "hurry, emergency, sudden, steep",
+    "stroke_count": 9
+  },
+  {
+    "id": "c8353ad7-53e8-4ceb-ba82-db24fcf9f05c",
+    "character": "悪",
+    "meaning": "bad, vice, rascal, false, evil, wrong",
+    "stroke_count": 11
+  },
+  {
+    "id": "4c8bd089-fca4-4c83-b967-0626c458af3d",
+    "character": "意",
+    "meaning": "idea, mind, heart, taste, thought, desire, care, liking",
+    "stroke_count": 13
+  },
+  {
+    "id": "15e6f3fe-8c70-4a0d-b9da-0585d3231088",
+    "character": "手",
+    "meaning": "hand",
+    "stroke_count": 4
+  },
+  {
+    "id": "965337e3-d706-4c90-b45d-999effeb9493",
+    "character": "持",
+    "meaning": "hold, have",
+    "stroke_count": 9
+  },
+  {
+    "id": "9606627b-9e07-46c7-ad73-b148cf7ebe17",
+    "character": "教",
+    "meaning": "teach, faith, doctrine",
+    "stroke_count": 11
+  },
+  {
+    "id": "52413319-f307-4e52-af6f-326e0301cc8b",
+    "character": "文",
+    "meaning": "sentence, literature, style, art, decoration, figures, plan, literary radical (no. 67)",
+    "stroke_count": 4
+  },
+  {
+    "id": "71757ffb-0217-4bbd-8d4a-06712b1d56fa",
+    "character": "料",
+    "meaning": "fee, materials",
+    "stroke_count": 10
+  },
+  {
+    "id": "9b8c2bc3-587c-455a-bf06-2894b4f22fb3",
+    "character": "新",
+    "meaning": "new",
+    "stroke_count": 13
+  },
+  {
+    "id": "42b75522-d156-47e7-8523-4516050363de",
+    "character": "方",
+    "meaning": "direction, person, alternative",
+    "stroke_count": 4
+  },
+  {
+    "id": "1c47c31f-50bd-4a23-bf1e-5ab81c3a8d0a",
+    "character": "旅",
+    "meaning": "trip, travel",
+    "stroke_count": 10
+  },
+  {
+    "id": "87277a08-1bc8-41b3-afc0-57c45af0f6b5",
+    "character": "族",
+    "meaning": "tribe, family",
+    "stroke_count": 11
+  },
+  {
+    "id": "91b12f5a-126d-463f-9dc7-785ce30f751f",
+    "character": "早",
+    "meaning": "early, fast",
+    "stroke_count": 6
+  },
+  {
+    "id": "d6ba41ba-457c-45a8-a0fb-18c9f1d3f194",
+    "character": "明",
+    "meaning": "bright, light",
+    "stroke_count": 8
+  },
+  {
+    "id": "f9cba06b-4c95-4867-a628-0d92bf46640e",
+    "character": "映",
+    "meaning": "reflect, reflection, projection",
+    "stroke_count": 9
+  },
+  {
+    "id": "38590924-985c-466f-8f7f-8db2ee4d706f",
+    "character": "春",
+    "meaning": "springtime, spring (season)",
+    "stroke_count": 9
+  },
+  {
+    "id": "e9584b20-ce81-4974-94e4-ce765c365a32",
+    "character": "昼",
+    "meaning": "daytime, noon",
+    "stroke_count": 9
+  },
+  {
+    "id": "9c3028a6-25e5-4c09-aec8-6333fc60afb0",
+    "character": "曜",
+    "meaning": "weekday",
+    "stroke_count": 18
+  },
+  {
+    "id": "7fc243de-bb7f-4147-a09a-b65a23a1ee84",
+    "character": "有",
+    "meaning": "possess, have, exist, happen, occur, approx",
+    "stroke_count": 6
+  },
+  {
+    "id": "51042580-fc4f-4ad7-9dc6-3ed3118ca793",
+    "character": "服",
+    "meaning": "clothing, admit, obey, discharge",
+    "stroke_count": 8
+  },
+  {
+    "id": "ff98ca53-7573-4ef0-9b84-037df104f0d5",
+    "character": "朝",
+    "meaning": "morning, dynasty, regime, epoch, period, (North) Korea",
+    "stroke_count": 12
+  },
+  {
+    "id": "64b812a6-3e18-4624-a445-8d72728218c3",
+    "character": "業",
+    "meaning": "business, vocation, arts, performance",
+    "stroke_count": 13
+  },
+  {
+    "id": "2d97377e-8402-4606-a06b-69a2afa2b0db",
+    "character": "楽",
+    "meaning": "music, comfort, ease",
+    "stroke_count": 13
+  },
+  {
+    "id": "934e2767-61eb-49a1-9902-a432a4fd1558",
+    "character": "歌",
+    "meaning": "song, sing",
+    "stroke_count": 14
+  },
+  {
+    "id": "a041d024-41dc-4f3c-9126-606fd051fb5b",
+    "character": "止",
+    "meaning": "stop, halt",
+    "stroke_count": 4
+  },
+  {
+    "id": "ce685f43-89d7-4e72-98f2-bcbdb194fd4e",
+    "character": "正",
+    "meaning": "correct, justice, righteous, 10**40",
+    "stroke_count": 5
+  },
+  {
+    "id": "2c11587a-289b-4c7a-9a09-13f6c9a7f5a1",
+    "character": "歩",
+    "meaning": "walk, counter for steps",
+    "stroke_count": 8
+  },
+  {
+    "id": "3d8e00cc-35af-4fae-a0c4-98ecaab7e51d",
+    "character": "死",
+    "meaning": "death, die",
+    "stroke_count": 6
+  },
+  {
+    "id": "24dbfb31-51fd-459d-b77a-7716d40be86c",
+    "character": "注",
+    "meaning": "pour, irrigate, shed (tears), flow into, concentrate on, notes, comment, annotate",
+    "stroke_count": 8
+  },
+  {
+    "id": "24836362-8f2a-4352-ae7e-b46f83a77567",
+    "character": "洋",
+    "meaning": "ocean, sea, foreign, Western style",
+    "stroke_count": 9
+  },
+  {
+    "id": "b688ccc2-4716-4a34-a7ff-49c7ce46628a",
+    "character": "海",
+    "meaning": "sea, ocean",
+    "stroke_count": 9
+  },
+  {
+    "id": "e7022199-1300-4e8a-9be5-6157fb17e223",
+    "character": "漢",
+    "meaning": "Sino-, China",
+    "stroke_count": 13
+  },
+  {
+    "id": "61665db4-af93-41ac-9cb2-dfecb25ba85d",
+    "character": "牛",
+    "meaning": "cow",
+    "stroke_count": 4
+  },
+  {
+    "id": "7c895048-96cd-4843-9a11-ae4219e10d9f",
+    "character": "物",
+    "meaning": "thing, object, matter",
+    "stroke_count": 8
+  },
+  {
+    "id": "1bf9f78b-f433-4bcd-9e8e-cc549a238344",
+    "character": "特",
+    "meaning": "special",
+    "stroke_count": 10
+  },
+  {
+    "id": "c95b3734-b82a-4c3e-bfcc-f4437187c9e1",
+    "character": "犬",
+    "meaning": "dog",
+    "stroke_count": 4
+  },
+  {
+    "id": "5677b888-75d1-4350-be1c-cbab157a5a55",
+    "character": "理",
+    "meaning": "logic, arrangement, reason, justice, truth",
+    "stroke_count": 11
+  },
+  {
+    "id": "7085b47d-fd29-43bc-93d5-c152dc6b4425",
+    "character": "用",
+    "meaning": "utilize, business, service, use, employ",
+    "stroke_count": 5
+  },
+  {
+    "id": "d56fb323-48fd-4b7c-a4e8-b5716b5e2141",
+    "character": "田",
+    "meaning": "rice field, rice paddy",
+    "stroke_count": 5
+  },
+  {
+    "id": "e527c562-e00c-4907-a5f6-c36039b9fb16",
+    "character": "町",
+    "meaning": "town, village, block, street",
+    "stroke_count": 7
+  },
+  {
+    "id": "272844ff-66b0-412b-955c-f7c94d78507e",
+    "character": "画",
+    "meaning": "brush-stroke, picture",
+    "stroke_count": 8
+  },
+  {
+    "id": "b3f177ac-8c7d-42df-a1e9-222d7259ebd2",
+    "character": "界",
+    "meaning": "world, boundary",
+    "stroke_count": 9
+  },
+  {
+    "id": "d1aa89f1-36e3-4fd3-97e2-6530cf1a4893",
+    "character": "病",
+    "meaning": "ill, sick",
+    "stroke_count": 10
+  },
+  {
+    "id": "64cd6610-5db6-4ae9-900c-6848463e5291",
+    "character": "発",
+    "meaning": "departure, discharge, publish, emit, start from, disclose, counter for gunshots",
+    "stroke_count": 9
+  },
+  {
+    "id": "a28ed2ec-4771-4bad-a6cb-0f73e5c39500",
+    "character": "目",
+    "meaning": "eye, class, look, insight, experience, care, favor",
+    "stroke_count": 5
+  },
+  {
+    "id": "18819e02-377f-4e03-9d7f-8605a1f74ea6",
+    "character": "真",
+    "meaning": "true, reality, Buddhist sect",
+    "stroke_count": 10
+  },
+  {
+    "id": "cf87ac92-bf31-4c6a-83fb-754d3b901072",
+    "character": "着",
+    "meaning": "don, arrive, wear, counter for suits of clothing",
+    "stroke_count": 12
+  },
+  {
+    "id": "cb98c91f-818d-4969-b8c0-655d8a1cb241",
+    "character": "知",
+    "meaning": "know, wisdom",
+    "stroke_count": 8
+  },
+  {
+    "id": "349591dc-475a-4365-a752-91b59840dd76",
+    "character": "研",
+    "meaning": "polish, study of, sharpen",
+    "stroke_count": 9
+  },
+  {
+    "id": "eb82bcd4-1358-4180-a2af-6210d70ddd28",
+    "character": "社",
+    "meaning": "company, firm, office, association, shrine",
+    "stroke_count": 7
+  },
+  {
+    "id": "ac3b85db-321f-4024-a300-539b94157cbe",
+    "character": "私",
+    "meaning": "private, I, me",
+    "stroke_count": 7
+  },
+  {
+    "id": "1dfb531e-89a7-4cf2-b095-56c7800581e9",
+    "character": "秋",
+    "meaning": "autumn",
+    "stroke_count": 9
+  },
+  {
+    "id": "2b9631e0-9e08-40c0-9bcb-554495448544",
+    "character": "究",
+    "meaning": "research, study",
+    "stroke_count": 7
+  },
+  {
+    "id": "a0b83e64-b6f0-4436-80c2-8c5abc541f01",
+    "character": "空",
+    "meaning": "empty, sky, void, vacant, vacuum",
+    "stroke_count": 8
+  },
+  {
+    "id": "761609fd-288e-4827-8fbc-c45bfce386b3",
+    "character": "立",
+    "meaning": "stand up, rise, set up, erect",
+    "stroke_count": 5
+  },
+  {
+    "id": "64a6d697-2ece-458b-94c7-1c355fc3944e",
+    "character": "答",
+    "meaning": "solution, answer",
+    "stroke_count": 12
+  },
+  {
+    "id": "b280ea92-b680-4006-9cfd-5fa455551e39",
+    "character": "紙",
+    "meaning": "paper",
+    "stroke_count": 10
+  },
+  {
+    "id": "aa10d1ff-c4f4-409b-8e1c-9822f500a84a",
+    "character": "終",
+    "meaning": "end, finish",
+    "stroke_count": 11
+  },
+  {
+    "id": "b27cef33-b220-4194-97c8-30b0a041b5a6",
+    "character": "習",
+    "meaning": "learn",
+    "stroke_count": 11
+  },
+  {
+    "id": "71d13b84-9fb5-4096-b50b-f3ce05087706",
+    "character": "考",
+    "meaning": "consider, think over",
+    "stroke_count": 6
+  },
+  {
+    "id": "1612080d-8b6a-405c-a9ee-81f1e68eb262",
+    "character": "者",
+    "meaning": "someone, person",
+    "stroke_count": 8
+  },
+  {
+    "id": "d103875b-2212-47b2-bb70-b8002c1f074d",
+    "character": "肉",
+    "meaning": "meat",
+    "stroke_count": 6
+  },
+  {
+    "id": "d772a973-e465-44ed-bdde-96552e8e8068",
+    "character": "自",
+    "meaning": "oneself",
+    "stroke_count": 6
+  },
+  {
+    "id": "2b140cb1-fe82-480e-a87f-aa699c19c82a",
+    "character": "色",
+    "meaning": "color",
+    "stroke_count": 6
+  },
+  {
+    "id": "7fa7b929-8278-4a4a-a128-246e31ef17ef",
+    "character": "花",
+    "meaning": "flower",
+    "stroke_count": 7
+  },
+  {
+    "id": "8191e90b-b0ef-4625-82b4-1126279e74c5",
+    "character": "英",
+    "meaning": "England, English, hero, outstanding, calyx",
+    "stroke_count": 8
+  },
+  {
+    "id": "1d46468d-77e5-4e1e-9bef-77dc8977d2eb",
+    "character": "茶",
+    "meaning": "tea",
+    "stroke_count": 9
+  },
+  {
+    "id": "bb765175-a6a5-4a9c-aa35-6c5d2eddf7e5",
+    "character": "親",
+    "meaning": "parent, intimacy, relative, familiarity, dealer (cards)",
+    "stroke_count": 16
+  },
+  {
+    "id": "03b9609c-ff34-4467-99ae-b0940c88c8e5",
+    "character": "言",
+    "meaning": "say, word",
+    "stroke_count": 7
+  },
+  {
+    "id": "ad43cbcd-f063-4d67-9ce1-ce5a159ef2a1",
+    "character": "計",
+    "meaning": "plot, plan, scheme, measure",
+    "stroke_count": 9
+  },
+  {
+    "id": "e0fe41c9-e5e2-4dda-bcc8-8b9561bd0864",
+    "character": "試",
+    "meaning": "test, try, attempt, experiment, ordeal",
+    "stroke_count": 13
+  },
+  {
+    "id": "e17a82bc-4c51-4db7-9f54-5574232a2d77",
+    "character": "買",
+    "meaning": "buy",
+    "stroke_count": 12
+  },
+  {
+    "id": "efc10d31-f395-4b32-9ce4-12f735feb17b",
+    "character": "貸",
+    "meaning": "lend",
+    "stroke_count": 12
+  },
+  {
+    "id": "a385fdd6-6aed-4c13-a22b-b4bdc7523df8",
+    "character": "質",
+    "meaning": "substance, quality, matter, temperament",
+    "stroke_count": 15
+  },
+  {
+    "id": "f7f2f4a6-5e93-4ec8-8f0f-42106ce24285",
+    "character": "赤",
+    "meaning": "red",
+    "stroke_count": 7
+  },
+  {
+    "id": "a7dda808-68fd-4f93-9387-85b36e3b9c48",
+    "character": "走",
+    "meaning": "run",
+    "stroke_count": 7
+  },
+  {
+    "id": "530c853e-1480-45be-944b-a9ce6d0682c1",
+    "character": "起",
+    "meaning": "rouse, wake up, get up",
+    "stroke_count": 10
+  },
+  {
+    "id": "00fe9adf-1508-4393-a0d8-6fd7efc6480c",
+    "character": "足",
+    "meaning": "leg, foot, be sufficient, counter for pairs of footwear",
+    "stroke_count": 7
+  },
+  {
+    "id": "a28c0245-35f0-4ec4-9d20-7af4642d6440",
+    "character": "転",
+    "meaning": "revolve, turn around, change",
+    "stroke_count": 11
+  },
+  {
+    "id": "3c83e236-e8b9-4b53-9a2c-75bac69e5325",
+    "character": "近",
+    "meaning": "near, early, akin, tantamount",
+    "stroke_count": 7
+  },
+  {
+    "id": "b496d431-62ca-49fe-87b5-532ce8325171",
+    "character": "送",
+    "meaning": "escort, send",
+    "stroke_count": 9
+  },
+  {
+    "id": "ab3dfc13-94fd-4404-a761-0052fedb2625",
+    "character": "通",
+    "meaning": "traffic, pass through, avenue, commute, counter for letters, notes, documents, etc.",
+    "stroke_count": 10
+  },
+  {
+    "id": "c53b3064-9d75-45a2-a778-d19c0c282813",
+    "character": "週",
+    "meaning": "week",
+    "stroke_count": 11
+  },
+  {
+    "id": "e2925d7f-81f8-40c6-88cb-8592c91bf363",
+    "character": "運",
+    "meaning": "carry, luck, destiny, fate, lot, transport, progress, advance",
+    "stroke_count": 12
+  },
+  {
+    "id": "010c0756-f4ef-4270-9b80-f67bf10efc59",
+    "character": "道",
+    "meaning": "road-way, street, district, journey, course, moral, teachings",
+    "stroke_count": 12
+  },
+  {
+    "id": "e93bbe08-9b19-4328-82cb-72a1144f9931",
+    "character": "重",
+    "meaning": "heavy, important, esteem, respect, heap up, pile up, nest of boxes, -fold",
+    "stroke_count": 9
+  },
+  {
+    "id": "a7fefc68-adb5-460f-8d1e-e0edc0b6ebc9",
+    "character": "野",
+    "meaning": "plains, field, rustic, civilian life",
+    "stroke_count": 11
+  },
+  {
+    "id": "e7a2a586-6082-4fb1-8267-ae6ea4e78053",
+    "character": "銀",
+    "meaning": "silver",
+    "stroke_count": 14
+  },
+  {
+    "id": "c4306462-e832-4f47-94a4-391dc2879b43",
+    "character": "開",
+    "meaning": "open, unfold, unseal",
+    "stroke_count": 12
+  },
+  {
+    "id": "f8afda26-2b2b-4ad1-bf60-b6cec5a7f1b0",
+    "character": "院",
+    "meaning": "Inst., institution, temple, mansion, school",
+    "stroke_count": 10
+  },
+  {
+    "id": "1196878a-56d1-42a7-94d9-9f9f48ab30bb",
+    "character": "集",
+    "meaning": "gather, meet, congregate, swarm, flock",
+    "stroke_count": 12
+  },
+  {
+    "id": "d55d128e-a5b8-42a7-916e-8f99d03f7f04",
+    "character": "青",
+    "meaning": "blue, green",
+    "stroke_count": 8
+  },
+  {
+    "id": "4bec0288-16d7-4595-9bf0-dfba00cff481",
+    "character": "音",
+    "meaning": "sound, noise",
+    "stroke_count": 9
+  },
+  {
+    "id": "21c3730c-6110-4c65-938c-2e7073e34a83",
+    "character": "題",
+    "meaning": "topic, subject",
+    "stroke_count": 18
+  },
+  {
+    "id": "1cf5a291-d0aa-4b71-82ab-f4344e6ef3d1",
+    "character": "風",
+    "meaning": "wind, air, style, manner",
+    "stroke_count": 9
+  },
+  {
+    "id": "594f03a1-fb98-4660-8927-940083241865",
+    "character": "飯",
+    "meaning": "meal, boiled rice",
+    "stroke_count": 12
+  },
+  {
+    "id": "7851498d-c31d-43c3-b8a0-21e34a2a71a5",
+    "character": "飲",
+    "meaning": "drink, smoke, take",
+    "stroke_count": 12
+  },
+  {
+    "id": "9cee5df8-d7f6-4dbf-82c9-8bc629c3deba",
+    "character": "館",
+    "meaning": "building, mansion, large building, palace",
+    "stroke_count": 16
+  },
+  {
+    "id": "a476e2ea-a40d-44b8-a99b-ced1a1866f3e",
+    "character": "駅",
+    "meaning": "station",
+    "stroke_count": 14
+  },
+  {
+    "id": "d3ed5c08-bf5b-4cf6-b814-8a19f06c2488",
+    "character": "験",
+    "meaning": "verification, effect, testing",
+    "stroke_count": 18
+  },
+  {
+    "id": "d8d931f1-3e37-42d6-a29c-ceff1b5cb2fc",
+    "character": "魚",
+    "meaning": "fish",
+    "stroke_count": 11
+  },
+  {
+    "id": "9299f660-0d13-4f4e-b9aa-da4854f5f099",
+    "character": "鳥",
+    "meaning": "bird, chicken",
+    "stroke_count": 11
+  },
+  {
+    "id": "6b00e9ba-e89b-472a-b16a-8c53736ab079",
+    "character": "黒",
+    "meaning": "black",
+    "stroke_count": 11
+  }
+]

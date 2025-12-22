@@ -1,0 +1,476 @@
+[
+  {
+    "id": "82afddee-c6c2-4098-858a-6f8353192b9d",
+    "character": "一",
+    "meaning": "one, one radical (no.1)",
+    "stroke_count": 1
+  },
+  {
+    "id": "c0b77428-1b04-43cc-ae7e-a5246beb4773",
+    "character": "七",
+    "meaning": "seven",
+    "stroke_count": 2
+  },
+  {
+    "id": "296ddd82-b0c2-40b1-872d-9b847162537d",
+    "character": "万",
+    "meaning": "ten thousand, 10,000",
+    "stroke_count": 3
+  },
+  {
+    "id": "93456437-7e74-4034-bf04-2726c407a91d",
+    "character": "三",
+    "meaning": "three",
+    "stroke_count": 3
+  },
+  {
+    "id": "0bc68855-bb9b-43a7-88eb-656d93d3b26c",
+    "character": "上",
+    "meaning": "above, up",
+    "stroke_count": 3
+  },
+  {
+    "id": "9957d7f7-39dd-411f-bca8-d90cf888c749",
+    "character": "下",
+    "meaning": "below, down, descend, give, low, inferior",
+    "stroke_count": 3
+  },
+  {
+    "id": "d985f280-25d3-4875-a5af-0bca3a621933",
+    "character": "中",
+    "meaning": "in, inside, middle, mean, center",
+    "stroke_count": 4
+  },
+  {
+    "id": "c7a0f094-02d5-43a0-a089-84959c8c5e1f",
+    "character": "九",
+    "meaning": "nine",
+    "stroke_count": 2
+  },
+  {
+    "id": "d76e981b-201b-4a25-8856-3f0affc2f4c8",
+    "character": "二",
+    "meaning": "two, two radical (no. 7)",
+    "stroke_count": 2
+  },
+  {
+    "id": "e02bb957-dbfc-4ef9-8dbf-b53505a17f25",
+    "character": "五",
+    "meaning": "five",
+    "stroke_count": 4
+  },
+  {
+    "id": "cea4c7b5-c882-4e70-904a-e3843da04c53",
+    "character": "人",
+    "meaning": "person",
+    "stroke_count": 2
+  },
+  {
+    "id": "3a5bac5e-b0bc-43d9-a4b4-8eb99aa2ecdd",
+    "character": "今",
+    "meaning": "now",
+    "stroke_count": 4
+  },
+  {
+    "id": "fcfa9668-0046-4ea3-98fc-ed38ac04e415",
+    "character": "休",
+    "meaning": "rest, day off, retire, sleep",
+    "stroke_count": 6
+  },
+  {
+    "id": "c5c02358-78b1-4872-9a20-56594996fdb7",
+    "character": "何",
+    "meaning": "what",
+    "stroke_count": 7
+  },
+  {
+    "id": "bea8c67e-a56e-4607-b3ce-b7fc3b8125a5",
+    "character": "先",
+    "meaning": "before, ahead, previous, future, precedence",
+    "stroke_count": 6
+  },
+  {
+    "id": "b49abce6-5cd1-4170-b70e-7efadcdc3d19",
+    "character": "入",
+    "meaning": "enter, insert",
+    "stroke_count": 2
+  },
+  {
+    "id": "93643d66-d841-4136-a612-3b6e7cde138b",
+    "character": "八",
+    "meaning": "eight, eight radical (no. 12)",
+    "stroke_count": 2
+  },
+  {
+    "id": "3b07fa66-8626-4b21-95c3-d2f142199bbb",
+    "character": "六",
+    "meaning": "six",
+    "stroke_count": 4
+  },
+  {
+    "id": "88eb0931-cf7a-47b8-becf-69bc7a18f5b3",
+    "character": "円",
+    "meaning": "circle, yen, round",
+    "stroke_count": 4
+  },
+  {
+    "id": "b759101e-2bfd-443f-ae4d-fe3ea210d3aa",
+    "character": "出",
+    "meaning": "exit, leave, go out, come out, put out, protrude",
+    "stroke_count": 5
+  },
+  {
+    "id": "af6a44a1-3562-4bff-ae0a-098fcfe01fde",
+    "character": "前",
+    "meaning": "in front, before",
+    "stroke_count": 9
+  },
+  {
+    "id": "3d2c40e1-a3a7-4b91-a960-c326d3fd9e42",
+    "character": "北",
+    "meaning": "north",
+    "stroke_count": 5
+  },
+  {
+    "id": "5514525b-0f92-4819-a39f-f64e303f1d2d",
+    "character": "十",
+    "meaning": "ten",
+    "stroke_count": 2
+  },
+  {
+    "id": "5eadacc0-b86b-4e40-819c-93790adb0d64",
+    "character": "千",
+    "meaning": "thousand",
+    "stroke_count": 3
+  },
+  {
+    "id": "84ea0c7d-7356-474b-8ba8-9a1afc98d092",
+    "character": "午",
+    "meaning": "noon, sign of the horse, 11AM-1PM, seventh sign of Chinese zodiac",
+    "stroke_count": 4
+  },
+  {
+    "id": "e945567f-95ae-4e23-b092-4c6772217aa6",
+    "character": "半",
+    "meaning": "half, middle, odd number, semi-, part-",
+    "stroke_count": 5
+  },
+  {
+    "id": "fb0d6715-9e5c-4de2-ad4b-ba48d23cc5ce",
+    "character": "南",
+    "meaning": "south",
+    "stroke_count": 9
+  },
+  {
+    "id": "659a343a-bcb2-4487-acbb-d0e1105e0566",
+    "character": "友",
+    "meaning": "friend",
+    "stroke_count": 4
+  },
+  {
+    "id": "bd90a51f-1d4d-4d80-b17a-5ecb77176bcc",
+    "character": "右",
+    "meaning": "right",
+    "stroke_count": 5
+  },
+  {
+    "id": "1df9f4a5-ea37-4d16-a5c9-2ff8a19ba3fa",
+    "character": "名",
+    "meaning": "name, noted, distinguished, reputation",
+    "stroke_count": 6
+  },
+  {
+    "id": "3ebc6cf3-0cab-45d8-8f91-0496990c2137",
+    "character": "四",
+    "meaning": "four",
+    "stroke_count": 5
+  },
+  {
+    "id": "2a0dc12f-335b-4a43-a326-ad613a282b5d",
+    "character": "国",
+    "meaning": "country",
+    "stroke_count": 8
+  },
+  {
+    "id": "f0f8fd94-fa87-4cf7-a061-6ca19dcb87f3",
+    "character": "土",
+    "meaning": "soil, earth, ground, Turkey",
+    "stroke_count": 3
+  },
+  {
+    "id": "58424e8f-8cef-4a03-b925-4afc07f671de",
+    "character": "外",
+    "meaning": "outside",
+    "stroke_count": 5
+  },
+  {
+    "id": "ae7b1517-5b90-4b3d-a3cd-7234794236e1",
+    "character": "大",
+    "meaning": "large, big",
+    "stroke_count": 3
+  },
+  {
+    "id": "ecb627eb-24e2-4eb7-bee9-47b65e295ce6",
+    "character": "天",
+    "meaning": "heavens, sky, imperial",
+    "stroke_count": 4
+  },
+  {
+    "id": "2a68ef4e-195b-4035-8ebe-dee33355bff5",
+    "character": "女",
+    "meaning": "woman, female",
+    "stroke_count": 3
+  },
+  {
+    "id": "8e13d6ed-650b-45c2-806e-51e4056e5b2d",
+    "character": "子",
+    "meaning": "child, sign of the rat, 11PM-1AM, first sign of Chinese zodiac",
+    "stroke_count": 3
+  },
+  {
+    "id": "a8f38cfb-03f2-4020-8c69-f477d31f0b24",
+    "character": "学",
+    "meaning": "study, learning, science",
+    "stroke_count": 8
+  },
+  {
+    "id": "758532f6-5b13-4d60-9d4e-9ab496b983ff",
+    "character": "小",
+    "meaning": "little, small",
+    "stroke_count": 3
+  },
+  {
+    "id": "e1f148c3-3693-4a00-abbc-a8071dbf4712",
+    "character": "山",
+    "meaning": "mountain",
+    "stroke_count": 3
+  },
+  {
+    "id": "90397485-faec-4c32-b5da-3fbd73fde0f3",
+    "character": "川",
+    "meaning": "stream, river, river or three-stroke river radical (no. 47)",
+    "stroke_count": 3
+  },
+  {
+    "id": "8c199c12-1f12-49e8-9802-c260e362b09e",
+    "character": "左",
+    "meaning": "left",
+    "stroke_count": 5
+  },
+  {
+    "id": "e32d7de5-af4e-4ef6-8cd0-1d1b118a4ee8",
+    "character": "年",
+    "meaning": "year, counter for years",
+    "stroke_count": 6
+  },
+  {
+    "id": "c98faaf5-b37f-411d-9349-3626d72fb4b0",
+    "character": "後",
+    "meaning": "behind, back, later",
+    "stroke_count": 9
+  },
+  {
+    "id": "b2f79669-f086-48a7-bc13-e93c5dc629cf",
+    "character": "日",
+    "meaning": "day, sun, Japan, counter for days",
+    "stroke_count": 4
+  },
+  {
+    "id": "a16c5cbe-473a-4ad9-af5c-eff9d0c432e3",
+    "character": "時",
+    "meaning": "time, hour",
+    "stroke_count": 10
+  },
+  {
+    "id": "e481fab6-678e-4f80-a784-6cc787ad6a90",
+    "character": "書",
+    "meaning": "write",
+    "stroke_count": 10
+  },
+  {
+    "id": "16a6aec5-439f-4796-9e34-0bae2196b54a",
+    "character": "月",
+    "meaning": "month, moon",
+    "stroke_count": 4
+  },
+  {
+    "id": "f297c150-8b4f-4009-a907-8f8cb1ec1f87",
+    "character": "木",
+    "meaning": "tree, wood",
+    "stroke_count": 4
+  },
+  {
+    "id": "fa4da8ce-1c79-43e9-8cac-705d0b8919ca",
+    "character": "本",
+    "meaning": "book, present, main, origin, true, real, counter for long cylindrical things",
+    "stroke_count": 5
+  },
+  {
+    "id": "745ce18d-0126-4ff0-9f89-34dfac4ca156",
+    "character": "来",
+    "meaning": "come, due, next, cause, become",
+    "stroke_count": 7
+  },
+  {
+    "id": "2729e4b4-3e12-40c2-bcfd-1cabad5c20f9",
+    "character": "東",
+    "meaning": "east",
+    "stroke_count": 8
+  },
+  {
+    "id": "a57e66db-f5f5-4a95-9d1b-375abd8deb9b",
+    "character": "校",
+    "meaning": "exam, school, printing, proof, correction",
+    "stroke_count": 10
+  },
+  {
+    "id": "626076c7-b23a-422d-a2f5-d523ea2ffe09",
+    "character": "母",
+    "meaning": "mother",
+    "stroke_count": 5
+  },
+  {
+    "id": "4c694b91-927c-4e5d-97a2-a2f6174c05e5",
+    "character": "毎",
+    "meaning": "every",
+    "stroke_count": 6
+  },
+  {
+    "id": "20fc99f4-ce5b-4ef9-a786-512e18e24750",
+    "character": "気",
+    "meaning": "spirit, mind, air, atmosphere, mood",
+    "stroke_count": 6
+  },
+  {
+    "id": "480b388e-d2b7-4534-a128-9d45b8214e6a",
+    "character": "水",
+    "meaning": "water",
+    "stroke_count": 4
+  },
+  {
+    "id": "6c95978e-a2dc-4e36-ac9a-c311687fbf56",
+    "character": "火",
+    "meaning": "fire",
+    "stroke_count": 4
+  },
+  {
+    "id": "ab1501f9-21a4-44f5-94bd-925259e79d34",
+    "character": "父",
+    "meaning": "father",
+    "stroke_count": 4
+  },
+  {
+    "id": "2a9cbc5f-7db4-4f45-b896-37443cba6a5f",
+    "character": "生",
+    "meaning": "life, genuine, birth",
+    "stroke_count": 5
+  },
+  {
+    "id": "884995af-95e4-419f-9569-4154321e866c",
+    "character": "男",
+    "meaning": "male",
+    "stroke_count": 7
+  },
+  {
+    "id": "e2201853-2d53-4a90-b803-b544c55b568f",
+    "character": "白",
+    "meaning": "white",
+    "stroke_count": 5
+  },
+  {
+    "id": "b53a47c4-28b2-4ab7-aa79-a1b54ea9c3c3",
+    "character": "百",
+    "meaning": "hundred",
+    "stroke_count": 6
+  },
+  {
+    "id": "bffeff5b-9215-4d2d-ab78-ae802ee4a269",
+    "character": "聞",
+    "meaning": "hear, ask, listen",
+    "stroke_count": 14
+  },
+  {
+    "id": "6c93be3f-81df-4be2-adca-f8ec005a5e4d",
+    "character": "行",
+    "meaning": "going, journey, carry out, conduct, act, line, row, bank",
+    "stroke_count": 6
+  },
+  {
+    "id": "4dcddfae-ca7b-41dd-8e1a-81cea313a23f",
+    "character": "西",
+    "meaning": "west, Spain",
+    "stroke_count": 6
+  },
+  {
+    "id": "2e7f0c9c-d3f5-4905-927e-53a15c497809",
+    "character": "見",
+    "meaning": "see, hopes, chances, idea, opinion, look at, visible",
+    "stroke_count": 7
+  },
+  {
+    "id": "5d176191-6e67-4191-9c5e-69fc6aac79f6",
+    "character": "話",
+    "meaning": "tale, talk",
+    "stroke_count": 13
+  },
+  {
+    "id": "f075909b-220f-4c68-90d2-e7af9d6cdb7b",
+    "character": "語",
+    "meaning": "word, speech, language",
+    "stroke_count": 14
+  },
+  {
+    "id": "144f651e-9564-4324-976e-f7cc76934c50",
+    "character": "読",
+    "meaning": "read",
+    "stroke_count": 14
+  },
+  {
+    "id": "b98ce213-6ff4-4e29-9dbe-5a9addaf0f05",
+    "character": "車",
+    "meaning": "car",
+    "stroke_count": 7
+  },
+  {
+    "id": "dedf752d-2b22-441d-bcb3-ce75e004e03c",
+    "character": "金",
+    "meaning": "gold",
+    "stroke_count": 8
+  },
+  {
+    "id": "d491744b-955f-41f2-9ecb-6e41099320a9",
+    "character": "長",
+    "meaning": "long, leader, superior, senior",
+    "stroke_count": 8
+  },
+  {
+    "id": "bf7e35cf-20fe-4479-9bb2-3a35815279b2",
+    "character": "間",
+    "meaning": "Interval",
+    "stroke_count": 12
+  },
+  {
+    "id": "f4b2f212-a0cf-4873-9aed-f8db9b87ad71",
+    "character": "雨",
+    "meaning": "rain",
+    "stroke_count": 8
+  },
+  {
+    "id": "10670769-c2e6-4fd1-bec4-74d67dab4139",
+    "character": "電",
+    "meaning": "electricity",
+    "stroke_count": 13
+  },
+  {
+    "id": "f10fc710-7b53-47b7-a735-87f681e3fbb0",
+    "character": "食",
+    "meaning": "eat, food",
+    "stroke_count": 9
+  },
+  {
+    "id": "dc8e1e58-1f4c-46a9-aacc-c1247f723a6c",
+    "character": "高",
+    "meaning": "tall, high, expensive",
+    "stroke_count": 10
+  }
+]

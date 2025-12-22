@@ -1,12 +1,20 @@
 import Link from 'next/link';
 import { BookOpen, Search, GraduationCap } from 'lucide-react';
-import { getKanjiByLevel } from '@/lib/supabase-data';
 import PublicNavbar from '@/components/PublicNavbar';
 import type { Metadata } from 'next';
 import KanjiSearchClient from './KanjiSearchClient';
+import fs from 'fs';
+import path from 'path';
+
+interface KanjiItem {
+  id: string;
+  character: string;
+  meaning: string;
+  stroke_count: number;
+}
 
 // Generate static params for all JLPT levels
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return [
     { level: 'n5' },
     { level: 'n4' },
@@ -55,11 +63,13 @@ export async function generateMetadata({ params }: { params: { level: string } }
   };
 }
 
-export default async function KanjiLevelPage({ params }: { params: { level: string } }) {
+export default function KanjiLevelPage({ params }: { params: { level: string } }) {
   const level = params.level.toUpperCase();
   
-  // Fetch kanji data at build time
-  const kanjiList = await getKanjiByLevel(level as any);
+  // Read kanji data from static JSON file
+  const filePath = path.join(process.cwd(), 'public', 'data', 'kanji', `${params.level}.json`);
+  const fileContents = fs.readFileSync(filePath, 'utf8');
+  const kanjiList: KanjiItem[] = JSON.parse(fileContents);
 
   // Data is already fetched at build time above
 
@@ -154,11 +164,13 @@ export default async function KanjiLevelPage({ params }: { params: { level: stri
               </div>
 
               {/* Search Bar and Practice Button */}
-              <div className="flex items-center gap-4">
-                <KanjiSearchClient level={level} />
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                <div className="flex-1">
+                  <KanjiSearchClient level={level} />
+                </div>
                 <Link
                   href="/signup"
-                  className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:border-pink-500 hover:text-pink-600 hover:bg-pink-50 transition-all whitespace-nowrap"
+                  className="flex items-center justify-center gap-2 px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:border-pink-500 hover:text-pink-600 hover:bg-pink-50 transition-all whitespace-nowrap"
                 >
                   <GraduationCap className="h-5 w-5" />
                   Practice {level} Kanji
