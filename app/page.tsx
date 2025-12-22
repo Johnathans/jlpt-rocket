@@ -1,41 +1,36 @@
-'use client';
-
-import { useEffect } from 'react';
 import { BookOpen, FileText, MessageSquare, Star } from 'lucide-react';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Rocket JLPT - Master Japanese Language Proficiency Test | N5 to N1',
+  description: 'Master Japanese with Rocket JLPT. Comprehensive JLPT preparation with adaptive practice, progress tracking, and mastery-based learning for all levels N5 to N1.',
+  keywords: 'JLPT, Japanese Language Proficiency Test, learn Japanese, JLPT N5, JLPT N4, JLPT N3, JLPT N2, JLPT N1, Japanese study, kanji, vocabulary',
+  openGraph: {
+    title: 'Rocket JLPT - Master Japanese Language Proficiency Test',
+    description: 'Comprehensive JLPT preparation with adaptive practice, progress tracking, and mastery-based learning for all levels N5 to N1.',
+    url: 'https://www.rocketjlpt.com',
+    siteName: 'Rocket JLPT',
+    type: 'website',
+    images: [{
+      url: 'https://www.rocketjlpt.com/og-image.png',
+      width: 1200,
+      height: 630,
+      alt: 'Rocket JLPT - Japanese Language Learning'
+    }]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Rocket JLPT - Master Japanese Language Proficiency Test',
+    description: 'Comprehensive JLPT preparation with adaptive practice, progress tracking, and mastery-based learning for all levels N5 to N1.',
+    images: ['https://www.rocketjlpt.com/og-image.png']
+  },
+  alternates: {
+    canonical: 'https://www.rocketjlpt.com'
+  }
+};
 
 export default function HomePage() {
-  useEffect(() => {
-    document.title = 'Rocket JLPT - Master Japanese Language Proficiency Test | N5 to N1';
-    
-    const updateMetaTag = (name: string, content: string) => {
-      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
-      if (!meta) {
-        meta = document.createElement('meta');
-        meta.name = name;
-        document.head.appendChild(meta);
-      }
-      meta.content = content;
-    };
-
-    const updateOGTag = (property: string, content: string) => {
-      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
-      if (!meta) {
-        meta = document.createElement('meta');
-        meta.setAttribute('property', property);
-        document.head.appendChild(meta);
-      }
-      meta.content = content;
-    };
-
-    updateMetaTag('description', 'Master Japanese with Rocket JLPT. Comprehensive JLPT preparation with adaptive practice, progress tracking, and mastery-based learning for all levels N5 to N1.');
-    updateMetaTag('keywords', 'JLPT, Japanese Language Proficiency Test, learn Japanese, JLPT N5, JLPT N4, JLPT N3, JLPT N2, JLPT N1, Japanese study, kanji, vocabulary');
-    updateOGTag('og:title', 'Rocket JLPT - Master Japanese Language Proficiency Test');
-    updateOGTag('og:description', 'Comprehensive JLPT preparation with adaptive practice, progress tracking, and mastery-based learning for all levels N5 to N1.');
-    updateOGTag('og:url', 'https://www.rocketjlpt.com');
-    updateMetaTag('twitter:title', 'Rocket JLPT - Master Japanese Language Proficiency Test');
-    updateMetaTag('twitter:description', 'Comprehensive JLPT preparation with adaptive practice, progress tracking, and mastery-based learning for all levels N5 to N1.');
-  }, []);
   const jlptLevels = [
     { level: 'N5', description: 'Beginner' },
     { level: 'N4', description: 'Elementary' },
