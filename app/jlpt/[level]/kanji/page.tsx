@@ -1,150 +1,69 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import { BookOpen, Search, GraduationCap } from 'lucide-react';
 import { getKanjiByLevel } from '@/lib/supabase-data';
 import PublicNavbar from '@/components/PublicNavbar';
+import type { Metadata } from 'next';
+import KanjiSearchClient from './KanjiSearchClient';
 
-interface KanjiItem {
-  id: string;
-  character: string;
-  meaning: string;
-  onyomi: string;
-  kunyomi: string;
-  strokes: number;
-  level: string;
+// Generate static params for all JLPT levels
+export async function generateStaticParams() {
+  return [
+    { level: 'n5' },
+    { level: 'n4' },
+    { level: 'n3' },
+    { level: 'n2' },
+    { level: 'n1' },
+  ];
 }
 
-export default function KanjiLevelPage() {
-  const params = useParams();
-  const level = (params.level as string).toUpperCase();
-  const [kanjiList, setKanjiList] = useState<KanjiItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-
-  // Update page metadata for SEO
-  useEffect(() => {
-    const levelCounts: Record<string, number> = {
-      'N5': 80,
-      'N4': 167,
-      'N3': 370,
-      'N2': 415,
-      'N1': 1179
-    };
-
-    const count = levelCounts[level] || 0;
-    const pageTitle = `JLPT ${level} Kanji - Complete List of ${count} Characters | Rocket JLPT`;
-    const pageDescription = `Browse all ${count} JLPT ${level} kanji characters. Click any kanji to see detailed stroke order, readings, meanings, and vocabulary examples. Perfect for ${level} exam preparation.`;
-    const pageUrl = `https://www.rocketjlpt.com/jlpt/${level.toLowerCase()}/kanji`;
-
-    document.title = pageTitle;
-
-    const updateMetaTag = (name: string, content: string) => {
-      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
-      if (!meta) {
-        meta = document.createElement('meta');
-        meta.name = name;
-        document.head.appendChild(meta);
-      }
-      meta.content = content;
-    };
-
-    const updateOGTag = (property: string, content: string) => {
-      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
-      if (!meta) {
-        meta = document.createElement('meta');
-        meta.setAttribute('property', property);
-        document.head.appendChild(meta);
-      }
-      meta.content = content;
-    };
-
-    updateMetaTag('description', pageDescription);
-    updateMetaTag('keywords', `JLPT ${level} kanji, ${level} kanji list, Japanese ${level} characters, JLPT kanji study, ${level} exam preparation`);
-
-    updateOGTag('og:title', pageTitle);
-    updateOGTag('og:description', pageDescription);
-    updateOGTag('og:url', pageUrl);
-    updateOGTag('og:type', 'website');
-    updateOGTag('og:site_name', 'Rocket JLPT');
-
-    updateMetaTag('twitter:card', 'summary_large_image');
-    updateMetaTag('twitter:title', pageTitle);
-    updateMetaTag('twitter:description', pageDescription);
-
-    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.rel = 'canonical';
-      document.head.appendChild(canonical);
-    }
-    canonical.href = pageUrl;
-  }, [level]);
-
-  useEffect(() => {
-    const fetchKanji = async () => {
-      try {
-        setLoading(true);
-        
-        // Try to get from localStorage first (client-side cache)
-        const cacheKey = `kanji_${level}_cache`;
-        const cachedData = localStorage.getItem(cacheKey);
-        const cacheTimestamp = localStorage.getItem(`${cacheKey}_timestamp`);
-        
-        // Cache for 1 hour
-        const CACHE_DURATION = 1000 * 60 * 60;
-        const isCacheValid = cacheTimestamp && (Date.now() - parseInt(cacheTimestamp)) < CACHE_DURATION;
-        
-        if (cachedData && isCacheValid) {
-          console.log(`Using cached kanji for level ${level}`);
-          setKanjiList(JSON.parse(cachedData));
-          setLoading(false);
-          return;
-        }
-        
-        // Fetch from server
-        const data = await getKanjiByLevel(level as any);
-        console.log(`Fetched ${data.length} kanji for level ${level}`);
-        setKanjiList(data as any);
-        
-        // Store in localStorage
-        try {
-          localStorage.setItem(cacheKey, JSON.stringify(data));
-          localStorage.setItem(`${cacheKey}_timestamp`, Date.now().toString());
-        } catch (e) {
-          console.warn('Failed to cache data in localStorage:', e);
-        }
-      } catch (error) {
-        console.error('Error fetching kanji:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchKanji();
-  }, [level]);
-
-  const filteredKanji = kanjiList.filter(k => 
-    k.character.includes(searchTerm) ||
-    k.meaning.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const levelInfo = {
-    N5: { title: 'JLPT N5 Kanji', description: 'Basic kanji for everyday situations', count: '~80 kanji' },
-    N4: { title: 'JLPT N4 Kanji', description: 'Elementary kanji for daily communication', count: '~170 kanji' },
-    N3: { title: 'JLPT N3 Kanji', description: 'Intermediate kanji for work and social situations', count: '~370 kanji' },
-    N2: { title: 'JLPT N2 Kanji', description: 'Advanced kanji for professional use', count: '~370 kanji' },
-    N1: { title: 'JLPT N1 Kanji', description: 'Near-native kanji proficiency', count: '~1,200 kanji' },
+// Generate metadata for each level
+export async function generateMetadata({ params }: { params: { level: string } }): Promise<Metadata> {
+  const level = params.level.toUpperCase();
+  
+  const levelCounts: Record<string, number> = {
+    'N5': 80,
+    'N4': 167,
+    'N3': 370,
+    'N2': 415,
+    'N1': 1179
   };
 
-  const info = levelInfo[level as keyof typeof levelInfo];
+  const count = levelCounts[level] || 0;
+  const pageTitle = `JLPT ${level} Kanji - Complete List of ${count} Characters | Rocket JLPT`;
+  const pageDescription = `Browse all ${count} JLPT ${level} kanji characters. Click any kanji to see detailed stroke order, readings, meanings, and vocabulary examples. Perfect for ${level} exam preparation.`;
+  const pageUrl = `https://www.rocketjlpt.com/jlpt/${level.toLowerCase()}/kanji`;
 
-  // SEO metadata
-  const pageTitle = `JLPT ${level} Kanji List - Complete Reference | Rocket JLPT`;
-  const pageDescription = `Complete list of ${filteredKanji.length || info?.count} kanji characters for JLPT ${level}. Learn Japanese kanji with meanings, readings, and stroke counts.`;
-  const pageUrl = `https://rocketjlpt.com/jlpt/${level.toLowerCase()}/kanji`;
+  return {
+    title: pageTitle,
+    description: pageDescription,
+    keywords: `JLPT ${level} kanji, ${level} kanji list, Japanese ${level} characters, JLPT kanji study, ${level} exam preparation`,
+    openGraph: {
+      title: pageTitle,
+      description: pageDescription,
+      url: pageUrl,
+      type: 'website',
+      siteName: 'Rocket JLPT',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: pageTitle,
+      description: pageDescription,
+    },
+    alternates: {
+      canonical: pageUrl,
+    },
+  };
+}
+
+export default async function KanjiLevelPage({ params }: { params: { level: string } }) {
+  const level = params.level.toUpperCase();
+  
+  // Fetch kanji data at build time
+  const kanjiList = await getKanjiByLevel(level as any);
+
+  // Data is already fetched at build time above
+
+  const pageUrl = `https://www.rocketjlpt.com/jlpt/${level.toLowerCase()}/kanji`;
 
   // Structured data for SEO
   const structuredData = [
@@ -152,11 +71,11 @@ export default function KanjiLevelPage() {
       "@context": "https://schema.org",
       "@type": "EducationalOccupationalProgram",
       "name": `JLPT ${level} Kanji Reference`,
-      "description": pageDescription,
+      "description": `Complete list of ${kanjiList.length} kanji characters for JLPT ${level}`,
       "provider": {
         "@type": "Organization",
         "name": "Rocket JLPT",
-        "url": "https://rocketjlpt.com"
+        "url": "https://www.rocketjlpt.com"
       },
       "educationalLevel": `JLPT ${level}`,
       "inLanguage": "ja",
@@ -170,16 +89,16 @@ export default function KanjiLevelPage() {
       "@context": "https://schema.org",
       "@type": "ItemList",
       "name": `JLPT ${level} Kanji List`,
-      "description": `Complete collection of ${filteredKanji.length || info?.count} kanji for JLPT ${level}`,
-      "numberOfItems": filteredKanji.length,
-      "itemListElement": filteredKanji.slice(0, 10).map((kanji, index) => ({
+      "description": `Complete collection of ${kanjiList.length} kanji for JLPT ${level}`,
+      "numberOfItems": kanjiList.length,
+      "itemListElement": kanjiList.slice(0, 10).map((kanji, index) => ({
         "@type": "ListItem",
         "position": index + 1,
         "item": {
           "@type": "Thing",
           "name": kanji.character,
           "description": kanji.meaning,
-          "url": `https://rocketjlpt.com/jlpt/${level.toLowerCase()}/kanji/${encodeURIComponent(kanji.character)}`
+          "url": `https://www.rocketjlpt.com/jlpt/${level.toLowerCase()}/kanji/${encodeURIComponent(kanji.character)}`
         }
       }))
     },
@@ -191,7 +110,7 @@ export default function KanjiLevelPage() {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://rocketjlpt.com"
+          "item": "https://www.rocketjlpt.com"
         },
         {
           "@type": "ListItem",
@@ -202,61 +121,6 @@ export default function KanjiLevelPage() {
       ]
     }
   ];
-
-  useEffect(() => {
-    // Set document title and meta tags
-    document.title = pageTitle;
-    
-    // Update or create meta tags
-    const updateMetaTag = (name: string, content: string) => {
-      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
-      if (!meta) {
-        meta = document.createElement('meta');
-        meta.name = name;
-        document.head.appendChild(meta);
-      }
-      meta.content = content;
-    };
-
-    const updateOGTag = (property: string, content: string) => {
-      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
-      if (!meta) {
-        meta = document.createElement('meta');
-        meta.setAttribute('property', property);
-        document.head.appendChild(meta);
-      }
-      meta.content = content;
-    };
-
-    updateMetaTag('description', pageDescription);
-    updateMetaTag('keywords', `JLPT ${level}, Japanese kanji, ${level} kanji list, kanji meanings, kanji readings, Japanese learning, JLPT study`);
-    updateOGTag('og:title', pageTitle);
-    updateOGTag('og:description', pageDescription);
-    updateOGTag('og:url', pageUrl);
-    updateOGTag('og:type', 'website');
-    updateMetaTag('twitter:card', 'summary_large_image');
-    updateMetaTag('twitter:title', pageTitle);
-    updateMetaTag('twitter:description', pageDescription);
-
-    // Add canonical link
-    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.rel = 'canonical';
-      document.head.appendChild(canonical);
-    }
-    canonical.href = pageUrl;
-
-    // Add structured data (remove old one first)
-    const oldScripts = document.querySelectorAll('script[type="application/ld+json"]');
-    oldScripts.forEach(s => s.remove());
-    
-    // Add new structured data
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(structuredData);
-    document.head.appendChild(script);
-  }, [level, filteredKanji.length]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -281,7 +145,7 @@ export default function KanjiLevelPage() {
                     {level} Kanji
                   </h1>
                   <span className="px-3 py-1 text-sm font-medium bg-gradient-to-r from-pink-500 to-orange-500 text-white rounded-full">
-                    {filteredKanji.length} characters
+                    {kanjiList.length} characters
                   </span>
                 </div>
                 <p className="text-lg text-gray-600">
@@ -289,18 +153,10 @@ export default function KanjiLevelPage() {
                 </p>
               </div>
 
-              {/* Search Bar and Practice Button */}
+              {/* Search Bar and Practice Button - Client Component */}
+              <KanjiSearchClient level={level} />
               <div className="flex items-center gap-4">
-                <div className="relative flex-1 max-w-lg">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="Search by character or meaning..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-shadow"
-                  />
-                </div>
+                <div className="flex-1"></div>
                 <Link
                   href="/signup"
                   className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:border-pink-500 hover:text-pink-600 hover:bg-pink-50 transition-all whitespace-nowrap"
@@ -366,18 +222,9 @@ export default function KanjiLevelPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        {/* Loading State */}
-        {loading && (
-          <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading kanji...</p>
-          </div>
-        )}
-
-        {/* Kanji Grid */}
-        {!loading && (
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-3">
-            {filteredKanji.map((kanji) => (
+        {/* Kanji Grid - Static at build time */}
+        <div id="kanji-grid" className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-3">
+          {kanjiList.map((kanji) => (
               <Link
                 key={kanji.id}
                 href={`/jlpt/${level.toLowerCase()}/kanji/${encodeURIComponent(kanji.character)}`}
@@ -394,21 +241,18 @@ export default function KanjiLevelPage() {
                     {kanji.meaning}
                   </div>
                   <div className="text-xs text-gray-400">
-                    {kanji.strokes}
+                    {kanji.stroke_count}
                   </div>
                 </div>
               </Link>
             ))}
-          </div>
-        )}
+        </div>
 
-        {/* Empty State */}
-        {!loading && filteredKanji.length === 0 && (
-          <div className="text-center py-12">
-            <BookOpen className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-xl text-gray-500">No kanji found</p>
-          </div>
-        )}
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       </div>
 
       {/* Footer CTA */}
@@ -419,7 +263,7 @@ export default function KanjiLevelPage() {
               Start learning today
             </h2>
             <p className="text-gray-600 mb-8 text-lg">
-              Track your progress and master all {filteredKanji.length} {level} kanji with interactive practice tools.
+              Track your progress and master all {kanjiList.length} {level} kanji with interactive practice tools.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
