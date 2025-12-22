@@ -10,7 +10,6 @@ interface KanjiItem {
   id: string;
   character: string;
   meaning: string;
-  stroke_count: number;
 }
 
 // Generate static params for all JLPT levels
@@ -164,7 +163,7 @@ export default function KanjiLevelPage({ params }: { params: { level: string } }
               </div>
 
               {/* Search Bar and Practice Button */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 max-w-2xl">
                 <div className="flex-1">
                   <KanjiSearchClient level={level} />
                 </div>
@@ -248,11 +247,8 @@ export default function KanjiLevelPage({ params }: { params: { level: string } }
                   <div className="text-4xl font-bold text-gray-900 mb-1 group-hover:text-pink-600 transition-colors font-japanese">
                     {kanji.character}
                   </div>
-                  <div className="text-xs text-gray-500 mb-0.5 line-clamp-1">
+                  <div className="text-xs text-gray-500 line-clamp-1">
                     {kanji.meaning}
-                  </div>
-                  <div className="text-xs text-gray-400">
-                    {kanji.stroke_count}
                   </div>
                 </div>
               </Link>

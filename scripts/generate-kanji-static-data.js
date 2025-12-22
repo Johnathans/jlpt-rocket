@@ -37,12 +37,19 @@ async function generateKanjiData() {
     }
 
     // Only keep the fields we need for the layout
-    const simplifiedData = data.map(kanji => ({
-      id: kanji.id,
-      character: kanji.character,
-      meaning: kanji.meaning,
-      stroke_count: kanji.stroke_count
-    }));
+    const simplifiedData = data.map(kanji => {
+      // Clean up meaning - take only the first meaning before comma
+      let cleanMeaning = kanji.meaning;
+      if (cleanMeaning.includes(',')) {
+        cleanMeaning = cleanMeaning.split(',')[0].trim();
+      }
+      
+      return {
+        id: kanji.id,
+        character: kanji.character,
+        meaning: cleanMeaning
+      };
+    });
 
     const filename = path.join(outputDir, `${level.toLowerCase()}.json`);
     fs.writeFileSync(filename, JSON.stringify(simplifiedData, null, 2));
