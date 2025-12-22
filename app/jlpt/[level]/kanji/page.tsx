@@ -153,10 +153,9 @@ export default async function KanjiLevelPage({ params }: { params: { level: stri
                 </p>
               </div>
 
-              {/* Search Bar and Practice Button - Client Component */}
-              <KanjiSearchClient level={level} />
+              {/* Search Bar and Practice Button */}
               <div className="flex items-center gap-4">
-                <div className="flex-1"></div>
+                <KanjiSearchClient level={level} />
                 <Link
                   href="/signup"
                   className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:border-pink-500 hover:text-pink-600 hover:bg-pink-50 transition-all whitespace-nowrap"
