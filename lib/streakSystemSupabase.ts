@@ -141,6 +141,43 @@ export class StreakSystemSupabase {
   }
 
   /**
+   * Get days studied in current month
+   */
+  static getMonthlyProgress(dailyStreaks: Record<string, boolean>): number {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const prefix = `${year}-${month}`;
+    
+    return Object.keys(dailyStreaks).filter(date => 
+      date.startsWith(prefix) && dailyStreaks[date]
+    ).length;
+  }
+
+  /**
+   * Get calendar data for current month
+   */
+  static getMonthlyCalendar(dailyStreaks: Record<string, boolean>): Array<{ date: string; hasActivity: boolean }> {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    
+    // Get number of days in current month
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    
+    const calendar = [];
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      calendar.push({
+        date: dateStr,
+        hasActivity: dailyStreaks[dateStr] || false
+      });
+    }
+    
+    return calendar;
+  }
+
+  /**
    * Sync from Supabase - just an alias for getStreakData
    */
   static async syncWithSupabase(): Promise<StreakData> {

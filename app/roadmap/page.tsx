@@ -25,7 +25,11 @@ export default function RoadmapPage() {
   const router = useRouter();
   const [stats, setStats] = useState<ProgressStats | null>(null);
   const [loading, setLoading] = useState(true);
-  const [streakData, setStreakData] = useState({ currentStreak: 0 });
+  const [streakData, setStreakData] = useState({ 
+    currentStreak: 0, 
+    dailyStreaks: {} as Record<string, boolean>,
+    monthlyDays: 0 
+  });
   const [isLevelModalOpen, setIsLevelModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'hiragana' | 'katakana' | 'kanji' | 'vocabulary' | 'sentences' | 'stories'>('kanji');
   const [kanjiData, setKanjiData] = useState<any[]>([]);
@@ -391,7 +395,9 @@ export default function RoadmapPage() {
         
         // Set streak data
         setStreakData({
-          currentStreak: streak.currentStreak
+          currentStreak: streak.currentStreak,
+          dailyStreaks: streak.dailyStreaks,
+          monthlyDays: StreakSystem.getMonthlyProgress(streak.dailyStreaks)
         });
         
         // Set content data
@@ -533,13 +539,46 @@ export default function RoadmapPage() {
           </button>
 
           {/* Streak Card */}
-          <div className="bg-gradient-to-r from-pink-500 to-orange-500 dark:from-pink-400 dark:to-orange-400 rounded-lg p-6 text-white">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium opacity-90">Current Streak</span>
-              <Flame className="h-5 w-5" />
+          <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <Flame className="h-5 w-5 text-orange-500" />
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Study Activity</span>
+                </div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                  {streakData.monthlyDays} {streakData.monthlyDays === 1 ? 'day' : 'days'} this month
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-3xl font-bold text-orange-500">{streakData.currentStreak}</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">day streak</div>
+              </div>
             </div>
-            <div className="text-4xl font-bold">{streakData.currentStreak}</div>
-            <div className="text-sm opacity-90 mt-1">days in a row</div>
+            
+            {/* Monthly Calendar Grid */}
+            <div className="grid grid-cols-7 gap-1">
+              {StreakSystem.getMonthlyCalendar(streakData.dailyStreaks).map((day, index) => {
+                const dayNum = new Date(day.date).getDate();
+                const isToday = day.date === new Date().toISOString().split('T')[0];
+                return (
+                  <div
+                    key={day.date}
+                    className={`
+                      aspect-square rounded-sm flex items-center justify-center text-xs
+                      ${day.hasActivity 
+                        ? 'bg-orange-500 text-white font-medium' 
+                        : 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500'
+                      }
+                      ${isToday ? 'ring-2 ring-orange-400 ring-offset-1' : ''}
+                    `}
+                    title={day.date}
+                  >
+                    {dayNum}
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* Review Due Card */}
