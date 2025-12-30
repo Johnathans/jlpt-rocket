@@ -51,9 +51,47 @@ function FlashcardPageContent() {
   
   const { speak, playAudio } = useTTS();
 
-  // Load selected items from URL parameters and localStorage
+  // Load selected items from URL parameters and sessionStorage
   useEffect(() => {
     const fetchTrainingItems = async () => {
+      // Try sessionStorage first for instant loading
+      const cachedData = sessionStorage.getItem('trainingData');
+      if (cachedData) {
+        try {
+          const parsedData = JSON.parse(cachedData);
+          const type = searchParams.get('type');
+          
+          // Transform data based on type
+          const selectedItems: TrainingItem[] = parsedData.map((item: any) => {
+            if (type === 'kanji') {
+              return {
+                id: item.id,
+                character: item.character,
+                meaning: item.meaning,
+                primary_reading: item.primary_reading,
+                primary_meaning: item.primary_meaning,
+                type: 'kanji' as const
+              };
+            } else {
+              return {
+                id: item.id,
+                character: item.word,
+                meaning: item.meaning,
+                reading: item.reading,
+                type: 'vocabulary' as const
+              };
+            }
+          });
+          
+          setTrainingItems(selectedItems);
+          sessionStorage.removeItem('trainingData');
+          return;
+        } catch (error) {
+          console.error('Error parsing cached training data:', error);
+        }
+      }
+      
+      // Fallback: load from URL parameters
       const type = searchParams.get('type');
       const itemIds = searchParams.get('items')?.split(',') || [];
       
@@ -61,24 +99,7 @@ function FlashcardPageContent() {
         let selectedItems: TrainingItem[] = [];
         
         if (type === 'vocabulary') {
-          // Try to get vocabulary data from localStorage first (passed from vocabulary page)
-          const storedVocabData = localStorage.getItem('selectedVocabularyData');
-          if (storedVocabData) {
-            try {
-              const parsedVocabData = JSON.parse(storedVocabData);
-              selectedItems = parsedVocabData.map((item: any) => ({
-                id: item.id,
-                character: item.word,
-                meaning: item.meaning,
-                reading: item.reading,
-                type: 'vocabulary' as const
-              }));
-              localStorage.removeItem('selectedVocabularyData');
-            } catch (error) {
-              console.error('Failed to parse stored vocabulary data:', error);
-            }
-          }
-          // Fallback to fetching from Supabase if localStorage fails
+          // Fallback to fetching from Supabase
           if (selectedItems.length === 0) {
             const allVocabData = await getVocabularyByLevel('N5' as JLPTLevel);
             selectedItems = allVocabData

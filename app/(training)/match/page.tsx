@@ -70,7 +70,51 @@ function MatchPageContent() {
   // Load selected items from URL parameters
   useEffect(() => {
     const fetchTrainingItems = async () => {
-      // Check if this is a review session
+      // Try sessionStorage first for instant loading
+      const cachedData = sessionStorage.getItem('trainingData');
+      if (cachedData) {
+        try {
+          const parsedData = JSON.parse(cachedData);
+          const type = searchParams.get('type');
+          
+          // Transform data based on type
+          const selectedItems: TrainingItem[] = parsedData.map((item: any) => {
+            if (type === 'kanji') {
+              return {
+                id: item.id,
+                character: item.character,
+                meaning: item.meaning,
+                primary_reading: item.primary_reading,
+                type: 'kanji' as const
+              };
+            } else if (type === 'vocabulary') {
+              return {
+                id: item.id,
+                character: item.word,
+                meaning: item.meaning,
+                reading: item.reading,
+                type: 'vocabulary' as const
+              };
+            } else {
+              return {
+                id: item.id,
+                character: item.japanese_text,
+                meaning: item.english_translation,
+                type: 'sentences' as const
+              };
+            }
+          });
+          
+          setTrainingItems(selectedItems);
+          setItemQueue(selectedItems);
+          sessionStorage.removeItem('trainingData');
+          return;
+        } catch (error) {
+          console.error('Error parsing cached training data:', error);
+        }
+      }
+      
+      // Fallback: Check if this is a review session
       const mode = searchParams.get('mode');
       const isReviewMode = mode === 'review';
       
