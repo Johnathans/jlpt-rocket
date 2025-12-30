@@ -539,43 +539,30 @@ export default function RoadmapPage() {
           </button>
 
           {/* Streak Card */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700 p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <Flame className="h-5 w-5 text-orange-500" />
-                  <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Study Activity</span>
-                </div>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {streakData.monthlyDays} {streakData.monthlyDays === 1 ? 'day' : 'days'} this month
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="text-3xl font-bold text-orange-500">{streakData.currentStreak}</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">day streak</div>
+          <div className="bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700 p-4">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs text-gray-500 dark:text-gray-400">{streakData.monthlyDays} days this month</span>
+              <div className="flex items-center gap-1">
+                <Flame className="h-4 w-4 text-orange-500" />
+                <span className="text-sm font-semibold text-gray-900 dark:text-white">{streakData.currentStreak} day streak</span>
               </div>
             </div>
             
             {/* Monthly Calendar Grid */}
-            <div className="grid grid-cols-7 gap-1">
-              {StreakSystem.getMonthlyCalendar(streakData.dailyStreaks).map((day, index) => {
-                const dayNum = new Date(day.date).getDate();
-                const isToday = day.date === new Date().toISOString().split('T')[0];
+            <div className="grid grid-cols-7 gap-[3px]">
+              {StreakSystem.getMonthlyCalendar(streakData.dailyStreaks).map((day) => {
                 return (
                   <div
                     key={day.date}
                     className={`
-                      aspect-square rounded-sm flex items-center justify-center text-xs
+                      w-3 h-3 rounded-sm
                       ${day.hasActivity 
-                        ? 'bg-orange-500 text-white font-medium' 
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500'
+                        ? 'bg-emerald-500 dark:bg-emerald-400' 
+                        : 'bg-gray-200 dark:bg-gray-700'
                       }
-                      ${isToday ? 'ring-2 ring-orange-400 ring-offset-1' : ''}
                     `}
                     title={day.date}
-                  >
-                    {dayNum}
-                  </div>
+                  />
                 );
               })}
             </div>
