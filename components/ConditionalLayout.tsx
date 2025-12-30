@@ -15,6 +15,7 @@ interface ConditionalLayoutProps {
 export default function ConditionalLayout({ children }: ConditionalLayoutProps) {
   const pathname = usePathname();
   const isLessonMode = pathname?.startsWith('/lessons/');
+  const isPageStoryMode = pathname?.startsWith('/page-stories');
   const isTrainingMode = pathname === '/match' || pathname === '/cloze' || pathname === '/input' || pathname === '/flashcard' || pathname === '/typing' || pathname === '/sentence-practice' || pathname?.includes('/training/') || pathname?.includes('/story/') || pathname?.includes('/test/') && pathname !== '/test';
   const isPublicJLPTPage = pathname?.startsWith('/jlpt/');
   const isHowToPassPage = pathname?.startsWith('/how-to-pass/');
@@ -51,8 +52,8 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
     );
   }
 
-  if (isTrainingMode || isLessonMode) {
-    // Clean layout for training modes and lessons
+  if (isTrainingMode || isLessonMode || isPageStoryMode) {
+    // Clean layout for training modes, lessons, and page stories
     return (
       <div className="min-h-screen" style={{ backgroundColor: '#f9fafb' }}>
         {children}
