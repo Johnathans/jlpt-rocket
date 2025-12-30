@@ -347,7 +347,7 @@ export default function RoadmapPage() {
           getContentCountsByLevel(currentLevel),
           ReviewSystemSupabase.getItemsDueForReview(),
           ReviewSystemSupabase.getProgressData(),
-          StreakSystem.syncWithSupabase().then(() => StreakSystem.getStreakData()),
+          StreakSystem.syncWithSupabase(), // Now returns synced data directly
           getKanjiByLevel(currentLevel),
           getVocabularyByLevel(currentLevel)
         ]);

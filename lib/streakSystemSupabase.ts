@@ -375,13 +375,13 @@ export class StreakSystemSupabase {
   /**
    * Sync local streak data with Supabase (call on login/page load)
    * This is the ONLY place that should write validated/reset data to Supabase
-   * to ensure cross-device sync works correctly
+   * Returns the synced data to avoid redundant database calls
    */
-  static async syncWithSupabase(): Promise<void> {
+  static async syncWithSupabase(): Promise<StreakData> {
     const userId = await this.getUserId();
     if (!userId) {
       console.log('[StreakSystem] No user logged in, cannot sync');
-      return;
+      return this.getDefaultStreakData();
     }
 
     const localData = this.getLocalStreakData();
@@ -394,8 +394,9 @@ export class StreakSystemSupabase {
         console.log('[StreakSystem] Uploading local streak to Supabase');
         await this.saveToSupabase(validatedLocal);
         this.saveLocalStreakData(validatedLocal);
+        return validatedLocal;
       }
-      return;
+      return this.getDefaultStreakData();
     }
 
     // Don't validate yet - compare raw data first to determine which is source of truth
@@ -435,6 +436,7 @@ export class StreakSystemSupabase {
     await this.saveToSupabase(validatedMergedData);
 
     console.log(`[StreakSystem] Synced: streak = ${validatedMergedData.currentStreak}, last session = ${validatedMergedData.lastSessionDate}`);
+    return validatedMergedData;
   }
 
   /**
