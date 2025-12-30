@@ -399,29 +399,29 @@ export class StreakSystemSupabase {
       return this.getDefaultStreakData();
     }
 
-    // Compare dates to determine source of truth
-    const moreRecentDate = this.getMoreRecentDate(localData.lastSessionDate, supabaseData.lastSessionDate);
+    // Determine which data is source of truth by comparing total sessions
+    // Higher total sessions = more activity = more authoritative
+    const useLocal = localData.totalSessions > supabaseData.totalSessions;
     
     let finalData: StreakData;
     
-    if (moreRecentDate === localData.lastSessionDate && localData.lastSessionDate !== null) {
-      // Local data is more recent - validate it and use as source of truth
+    if (useLocal) {
+      // Local has more sessions - validate and use it
       const validatedLocal = this.validateStreak(localData);
       finalData = {
         ...validatedLocal,
-        totalSessions: Math.max(localData.totalSessions, supabaseData.totalSessions),
+        totalSessions: localData.totalSessions,
         dailyStreaks: { ...supabaseData.dailyStreaks, ...localData.dailyStreaks }
       };
-      console.log('[StreakSystem] Local data is more recent, using validated local data');
+      console.log(`[StreakSystem] Local has more sessions (${localData.totalSessions} vs ${supabaseData.totalSessions}), using validated local data`);
     } else {
-      // Supabase data is more recent or equal - trust it as already validated
-      // Don't re-validate Supabase data - it was validated when recorded
+      // Supabase has equal or more sessions - trust it completely
       finalData = {
         ...supabaseData,
-        totalSessions: Math.max(localData.totalSessions, supabaseData.totalSessions),
+        totalSessions: supabaseData.totalSessions,
         dailyStreaks: { ...localData.dailyStreaks, ...supabaseData.dailyStreaks }
       };
-      console.log('[StreakSystem] Supabase data is more recent, trusting server data');
+      console.log(`[StreakSystem] Supabase has more/equal sessions (${supabaseData.totalSessions} vs ${localData.totalSessions}), trusting server data`);
     }
 
     // Recalculate weekly progress
@@ -433,8 +433,8 @@ export class StreakSystemSupabase {
     // Save merged data to both sources
     this.saveLocalStreakData(finalData);
     
-    // Only save to Supabase if local data was more recent (to avoid overwriting with stale data)
-    if (moreRecentDate === localData.lastSessionDate && localData.lastSessionDate !== null) {
+    // Only save to Supabase if local data had more sessions (to avoid overwriting with stale data)
+    if (useLocal) {
       await this.saveToSupabase(finalData);
       console.log('[StreakSystem] Saved updated local data to Supabase');
     } else {
