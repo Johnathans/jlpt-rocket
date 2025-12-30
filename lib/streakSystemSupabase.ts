@@ -373,9 +373,8 @@ export class StreakSystemSupabase {
   }
 
   /**
-   * Sync local streak data with Supabase (call on login/page load)
-   * This is the ONLY place that should write validated/reset data to Supabase
-   * Returns the synced data to avoid redundant database calls
+   * Sync with Supabase - Server is ALWAYS the source of truth
+   * Simply loads from server and caches locally for display
    */
   static async syncWithSupabase(): Promise<StreakData> {
     const userId = await this.getUserId();
@@ -384,65 +383,19 @@ export class StreakSystemSupabase {
       return this.getDefaultStreakData();
     }
 
-    const localData = this.getLocalStreakData();
+    // Load from Supabase - server is source of truth
     const supabaseData = await this.loadFromSupabase();
 
     if (!supabaseData) {
-      // No data in Supabase, upload local data (validated)
-      if (localData.totalSessions > 0) {
-        const validatedLocal = this.validateStreak(localData);
-        console.log('[StreakSystem] Uploading local streak to Supabase');
-        await this.saveToSupabase(validatedLocal);
-        this.saveLocalStreakData(validatedLocal);
-        return validatedLocal;
-      }
+      console.log('[StreakSystem] No streak data in Supabase yet');
       return this.getDefaultStreakData();
     }
 
-    // Determine which data is source of truth by comparing total sessions
-    // Higher total sessions = more activity = more authoritative
-    const useLocal = localData.totalSessions > supabaseData.totalSessions;
+    // Cache to localStorage for offline display only
+    this.saveLocalStreakData(supabaseData);
     
-    let finalData: StreakData;
-    
-    if (useLocal) {
-      // Local has more sessions - validate and use it
-      const validatedLocal = this.validateStreak(localData);
-      finalData = {
-        ...validatedLocal,
-        totalSessions: localData.totalSessions,
-        dailyStreaks: { ...supabaseData.dailyStreaks, ...localData.dailyStreaks }
-      };
-      console.log(`[StreakSystem] Local has more sessions (${localData.totalSessions} vs ${supabaseData.totalSessions}), using validated local data`);
-    } else {
-      // Supabase has equal or more sessions - trust it completely
-      finalData = {
-        ...supabaseData,
-        totalSessions: supabaseData.totalSessions,
-        dailyStreaks: { ...localData.dailyStreaks, ...supabaseData.dailyStreaks }
-      };
-      console.log(`[StreakSystem] Supabase has more/equal sessions (${supabaseData.totalSessions} vs ${localData.totalSessions}), trusting server data`);
-    }
-
-    // Recalculate weekly progress
-    finalData.weeklyProgress = this.calculateWeeklyProgress(
-      finalData.lastSessionDate, 
-      finalData.currentStreak
-    );
-
-    // Save merged data to both sources
-    this.saveLocalStreakData(finalData);
-    
-    // Only save to Supabase if local data had more sessions (to avoid overwriting with stale data)
-    if (useLocal) {
-      await this.saveToSupabase(finalData);
-      console.log('[StreakSystem] Saved updated local data to Supabase');
-    } else {
-      console.log('[StreakSystem] Supabase data is authoritative, not overwriting');
-    }
-
-    console.log(`[StreakSystem] Synced: streak = ${finalData.currentStreak}, last session = ${finalData.lastSessionDate}`);
-    return finalData;
+    console.log(`[StreakSystem] Synced from server: streak = ${supabaseData.currentStreak}, last session = ${supabaseData.lastSessionDate}`);
+    return supabaseData;
   }
 
   /**
