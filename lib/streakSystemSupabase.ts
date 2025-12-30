@@ -399,44 +399,43 @@ export class StreakSystemSupabase {
       return this.getDefaultStreakData();
     }
 
-    // Don't validate yet - compare raw data first to determine which is source of truth
+    // Compare dates to determine source of truth
     const moreRecentDate = this.getMoreRecentDate(localData.lastSessionDate, supabaseData.lastSessionDate);
     
-    let mergedData: StreakData;
+    let finalData: StreakData;
     
     if (moreRecentDate === localData.lastSessionDate && localData.lastSessionDate !== null) {
-      // Local data is more recent, use it as base (then validate)
-      mergedData = {
-        ...localData,
+      // Local data is more recent - validate it and use as source of truth
+      const validatedLocal = this.validateStreak(localData);
+      finalData = {
+        ...validatedLocal,
         totalSessions: Math.max(localData.totalSessions, supabaseData.totalSessions),
         dailyStreaks: { ...supabaseData.dailyStreaks, ...localData.dailyStreaks }
       };
-      console.log('[StreakSystem] Local data is more recent');
+      console.log('[StreakSystem] Local data is more recent, using validated local data');
     } else {
-      // Supabase data is more recent or equal, use it as base (then validate)
-      mergedData = {
+      // Supabase data is more recent or equal - trust it as already validated
+      // Don't re-validate Supabase data - it was validated when recorded
+      finalData = {
         ...supabaseData,
         totalSessions: Math.max(localData.totalSessions, supabaseData.totalSessions),
         dailyStreaks: { ...localData.dailyStreaks, ...supabaseData.dailyStreaks }
       };
-      console.log('[StreakSystem] Supabase data is more recent');
+      console.log('[StreakSystem] Supabase data is more recent, trusting server data');
     }
 
-    // NOW validate the merged data (this is where streak expiration happens)
-    const validatedMergedData = this.validateStreak(mergedData);
-
     // Recalculate weekly progress
-    validatedMergedData.weeklyProgress = this.calculateWeeklyProgress(
-      validatedMergedData.lastSessionDate, 
-      validatedMergedData.currentStreak
+    finalData.weeklyProgress = this.calculateWeeklyProgress(
+      finalData.lastSessionDate, 
+      finalData.currentStreak
     );
 
-    // Save validated merged data to both sources
-    this.saveLocalStreakData(validatedMergedData);
-    await this.saveToSupabase(validatedMergedData);
+    // Save merged data to both sources
+    this.saveLocalStreakData(finalData);
+    await this.saveToSupabase(finalData);
 
-    console.log(`[StreakSystem] Synced: streak = ${validatedMergedData.currentStreak}, last session = ${validatedMergedData.lastSessionDate}`);
-    return validatedMergedData;
+    console.log(`[StreakSystem] Synced: streak = ${finalData.currentStreak}, last session = ${finalData.lastSessionDate}`);
+    return finalData;
   }
 
   /**
