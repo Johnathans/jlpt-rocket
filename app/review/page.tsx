@@ -6,7 +6,7 @@ import { useReviewStore } from '@/lib/store/useReviewStore';
 import { ItemProgress } from '@/lib/reviewSystem';
 import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { Target, Play, RotateCcw, Trash2, CheckCircle } from 'lucide-react';
-import { getVocabularyByLevel, getKanjiByLevel, getSentencesByLevel, JLPTLevel } from '@/lib/supabase-data';
+import { getVocabularyByLevel, getKanjiByLevel, getSentencesByLevel, JLPTLevel } from '@/lib/static-data';
 
 function getItemDetails(progress: ItemProgress) {
   // Use stored content data instead of API calls

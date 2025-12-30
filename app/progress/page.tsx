@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
-import { getContentCountsByLevel, JLPTLevel } from '@/lib/supabase-data';
+import { getContentCountsByLevel, JLPTLevel } from '@/lib/static-data';
 
 interface ReviewStats {
   kanji: { learning: number; mastered: number; total: number };

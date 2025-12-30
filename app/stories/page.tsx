@@ -251,20 +251,8 @@ export default function StoriesPage() {
 
   const handleStoryClick = (lessonId: number) => {
     console.log('Story clicked:', lessonId);
-    // Map lesson IDs to story route IDs
-    const storyMapping: Record<number, string> = {
-      1: '1', // Story 1 - Meeting Tanaka-san
-      3: '2', // Story 2 - The Clock Tower  
-      4: '3', // Story 3 - Family Photo
-      6: '4', // Story 4 - Ramen Adventure
-    };
-    const storyId = storyMapping[lessonId];
-    if (storyId) {
-      console.log('Navigating to story:', storyId);
-      router.push(`/story/${storyId}`);
-    } else {
-      console.log('Story not found for lesson ID:', lessonId);
-    }
+    // For now, redirect to the new page-based story
+    router.push('/page-stories/tokyo-date-1');
   };
 
   const toggleExpansion = (lessonId: number) => {

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Volume2, BookOpen, Brush } from 'lucide-react';
 import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
-import { getKanjiByLevel, KanjiData } from '@/lib/supabase-data';
+import { getKanjiByLevel, KanjiData } from '@/lib/static-data';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
 import TrainingModeModal from '@/components/TrainingModeModal';
 

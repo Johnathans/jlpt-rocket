@@ -9,7 +9,7 @@ import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { StreakSystemSupabase as StreakSystem } from '@/lib/streakSystemSupabase';
 import { speakText, useTTS } from '@/lib/useTTS';
 import { playIncorrectSound, playCorrectSound, shouldPlayVoice, playButtonClickSound } from '@/lib/audioUtils';
-import { getKanjiByLevel, getVocabularyByLevel, JLPTLevel } from '@/lib/supabase-data';
+import { getKanjiByLevel, getVocabularyByLevel, JLPTLevel } from '@/lib/static-data';
 
 interface TrainingItem {
   id: string;

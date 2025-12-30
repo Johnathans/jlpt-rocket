@@ -7,7 +7,7 @@ import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { StreakSystemSupabase as StreakSystem } from '@/lib/streakSystemSupabase';
 import { useTTS } from '@/lib/useTTS';
 import { playIncorrectSound, playCorrectSound, shouldPlayVoice, playButtonClickSound } from '@/lib/audioUtils';
-import { parseClozeText, getSentencesByLevel, SentenceData, JLPTLevel, getRandomVocabulary } from '@/lib/supabase-data';
+import { parseClozeText, getSentencesByLevel, SentenceData, JLPTLevel, getRandomVocabulary } from '@/lib/static-data';
 
 interface WordInSentence {
   id: number;

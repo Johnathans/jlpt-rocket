@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { BookOpen, FileText, MessageSquare, Flame, ChevronRight, Play, RotateCcw, CheckCircle, ArrowLeftRight, BookMarked, ClipboardCheck, Volume2, Brush, GraduationCap, Lock, Star } from 'lucide-react';
 import { useJLPTLevel } from '@/contexts/JLPTLevelContext';
-import { getContentCounts, getKanjiByLevel, getVocabularyByLevel, getSentencesByLevel } from '@/lib/supabase-data';
+import { getContentCountsByLevel, getKanjiByLevel, getVocabularyByLevel, getSentencesByLevel } from '@/lib/static-data';
 import { StreakSystemSupabase as StreakSystem } from '@/lib/streakSystemSupabase';
 import { ReviewSystemSupabase } from '@/lib/reviewSystemSupabase';
 import { useRouter } from 'next/navigation';
@@ -338,16 +338,16 @@ export default function RoadmapPage() {
     }
   };
 
-  // Load progress stats from Supabase (source of truth)
+  // Load progress stats - use static JSON for content counts, Supabase for user progress
   useEffect(() => {
     const loadStats = async () => {
       try {
-        const { getContentCountsByLevel } = await import('@/lib/supabase-data');
-        const counts = await getContentCountsByLevel(currentLevel);
-        const reviewItems = await ReviewSystemSupabase.getItemsDueForReview();
-        
-        // Get all progress data from Supabase (source of truth)
-        const allProgress = await ReviewSystemSupabase.getProgressData();
+        // Fetch content counts and user progress in parallel for speed
+        const [counts, reviewItems, allProgress] = await Promise.all([
+          getContentCountsByLevel(currentLevel),
+          ReviewSystemSupabase.getItemsDueForReview(),
+          ReviewSystemSupabase.getProgressData()
+        ]);
         
         // Count mastered and learning items by type
         let kanjiMastered = 0, kanjiLearning = 0;
@@ -401,62 +401,46 @@ export default function RoadmapPage() {
     loadStats();
   }, [currentLevel]);
 
-  // Load all content data on mount for progress meter
-  // IMPORTANT: Always fetch from Supabase (source of truth) when authenticated
+  // Load content data and user progress - optimized with parallel fetching
   useEffect(() => {
     const loadAllContent = async () => {
       try {
-        // Load all progress data from Supabase (source of truth)
-        const allProgress = await ReviewSystemSupabase.getProgressData();
+        // Load content data and progress in parallel for speed
+        const [allProgress, kanjiDataResult, vocabDataResult] = await Promise.all([
+          ReviewSystemSupabase.getProgressData(),
+          getKanjiByLevel(currentLevel),
+          getVocabularyByLevel(currentLevel)
+        ]);
         
-        // Debug: Log all progress keys
-        console.log(`[Roadmap] Total progress items from Supabase: ${allProgress.size}`);
-        const progressKeys = Array.from(allProgress.keys());
-        console.log(`[Roadmap] Progress keys sample:`, progressKeys.slice(0, 5));
+        console.log(`[Roadmap] Loaded ${kanjiDataResult.length} kanji, ${vocabDataResult.length} vocabulary for ${currentLevel}`);
         
-        // Load kanji data
-        const kanjiDataResult = await getKanjiByLevel(currentLevel);
         setKanjiData(kanjiDataResult);
+        setVocabularyData(vocabDataResult);
         
-        // Debug: Log kanji IDs
-        console.log(`[Roadmap] Kanji items for ${currentLevel}: ${kanjiDataResult.length}`);
-        if (kanjiDataResult.length > 0) {
-          console.log(`[Roadmap] Sample kanji ID: ${kanjiDataResult[0].id}`);
-        }
-        
-        // Filter mastered kanji from batch progress data
+        // Filter mastered items from progress data
         const masteredKanjiIds = new Set<string>();
-        for (const item of kanjiDataResult) {
+        const masteredVocabIds = new Set<string>();
+        
+        kanjiDataResult.forEach(item => {
           const key = `kanji_${item.id}`;
           const progress = allProgress.get(key);
           if (progress && progress.masteryLevel >= 100) {
             masteredKanjiIds.add(item.id);
           }
-        }
-        setKnownKanji(masteredKanjiIds);
+        });
         
-        // Load vocabulary data
-        const vocabDataResult = await getVocabularyByLevel(currentLevel);
-        setVocabularyData(vocabDataResult);
-        
-        // Debug: Log vocabulary IDs
-        console.log(`[Roadmap] Vocabulary items for ${currentLevel}: ${vocabDataResult.length}`);
-        if (vocabDataResult.length > 0) {
-          console.log(`[Roadmap] Sample vocabulary ID: ${vocabDataResult[0].id}`);
-        }
-        
-        // Filter mastered vocabulary from batch progress data
-        const masteredVocabIds = new Set<string>();
-        for (const item of vocabDataResult) {
+        vocabDataResult.forEach(item => {
           const key = `vocabulary_${item.id}`;
           const progress = allProgress.get(key);
           if (progress && progress.masteryLevel >= 100) {
             masteredVocabIds.add(item.id);
           }
-        }
+        });
+        
+        setKnownKanji(masteredKanjiIds);
         setKnownVocabulary(masteredVocabIds);
         
-        console.log(`[Roadmap] Synced from Supabase: ${masteredKanjiIds.size} kanji, ${masteredVocabIds.size} vocabulary mastered`);
+        console.log(`[Roadmap] Mastered: ${masteredKanjiIds.size} kanji, ${masteredVocabIds.size} vocabulary`);
       } catch (error) {
         console.error('Error loading content:', error);
       }

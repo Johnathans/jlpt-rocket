@@ -8,18 +8,18 @@ import TrainingHeader from '@/components/TrainingHeader';
 import QuitConfirmationModal from '@/components/QuitConfirmationModal';
 import SentenceKanjiModal from '@/components/SentenceKanjiModal';
 import { useTTS } from '@/lib/useTTS';
-import { getSentencesByLevel } from '@/lib/supabase-data';
-import type { JLPTLevel } from '@/lib/supabase-data';
+import { getSentencesByLevel } from '@/lib/static-data';
+import type { JLPTLevel } from '@/lib/static-data';
 
 interface SentenceItem {
   id: string;
   japanese_text: string;
   english_translation: string;
   jlpt_level: JLPTLevel;
-  difficulty_level: number;
-  grammar_points: string[];
-  vocabulary_used: string[];
-  kanji_used: string[];
+  difficulty_level?: number;
+  grammar_points?: string[];
+  vocabulary_used?: string[];
+  kanji_used?: string[];
 }
 
 function SentencePracticeContent() {
