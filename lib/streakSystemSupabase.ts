@@ -213,7 +213,7 @@ export class StreakSystemSupabase {
 
   /**
    * Get current streak data - tries Supabase first, falls back to localStorage
-   * Automatically validates and resets expired streaks
+   * Validates streak but doesn't auto-save to Supabase to preserve cross-device data
    */
   static async getStreakData(): Promise<StreakData> {
     const userId = await this.getUserId();
@@ -224,16 +224,15 @@ export class StreakSystemSupabase {
       const supabaseData = await this.loadFromSupabase();
       if (supabaseData) {
         console.log('[StreakSystem] Loaded streak from Supabase:', supabaseData.currentStreak);
-        // Validate streak before returning
+        // Validate streak for display purposes
         const validatedData = this.validateStreak(supabaseData);
         
-        // If streak was reset, save the updated data
+        // Only save to localStorage for local display
+        // Don't save to Supabase here - let recordSession() or syncWithSupabase() handle that
+        this.saveLocalStreakData(validatedData);
+        
         if (validatedData.currentStreak !== supabaseData.currentStreak) {
-          console.log('[StreakSystem] Streak was expired, saving reset data');
-          this.saveLocalStreakData(validatedData);
-          await this.saveToSupabase(validatedData);
-        } else {
-          this.saveLocalStreakData(validatedData);
+          console.log('[StreakSystem] Streak expired locally (not syncing to preserve cross-device data)');
         }
         
         return validatedData;
@@ -245,7 +244,7 @@ export class StreakSystemSupabase {
     const localData = this.getLocalStreakData();
     console.log('[StreakSystem] Using localStorage streak:', localData.currentStreak);
     
-    // Validate local data too
+    // Validate local data for display
     const validatedData = this.validateStreak(localData);
     if (validatedData.currentStreak !== localData.currentStreak) {
       this.saveLocalStreakData(validatedData);
@@ -374,8 +373,9 @@ export class StreakSystemSupabase {
   }
 
   /**
-   * Sync local streak data with Supabase (call on login)
-   * Validates both sources and merges intelligently
+   * Sync local streak data with Supabase (call on login/page load)
+   * This is the ONLY place that should write validated/reset data to Supabase
+   * to ensure cross-device sync works correctly
    */
   static async syncWithSupabase(): Promise<void> {
     const userId = await this.getUserId();
@@ -384,51 +384,57 @@ export class StreakSystemSupabase {
       return;
     }
 
-    const localData = this.validateStreak(this.getLocalStreakData());
+    const localData = this.getLocalStreakData();
     const supabaseData = await this.loadFromSupabase();
 
     if (!supabaseData) {
-      // No data in Supabase, upload local data
+      // No data in Supabase, upload local data (validated)
       if (localData.totalSessions > 0) {
+        const validatedLocal = this.validateStreak(localData);
         console.log('[StreakSystem] Uploading local streak to Supabase');
-        await this.saveToSupabase(localData);
+        await this.saveToSupabase(validatedLocal);
+        this.saveLocalStreakData(validatedLocal);
       }
       return;
     }
 
-    const validatedSupabaseData = this.validateStreak(supabaseData);
-
-    // Merge: take the data with the most recent session
-    const moreRecentDate = this.getMoreRecentDate(localData.lastSessionDate, validatedSupabaseData.lastSessionDate);
+    // Don't validate yet - compare raw data first to determine which is source of truth
+    const moreRecentDate = this.getMoreRecentDate(localData.lastSessionDate, supabaseData.lastSessionDate);
     
     let mergedData: StreakData;
     
-    if (moreRecentDate === localData.lastSessionDate) {
-      // Local data is more recent, use it as base
+    if (moreRecentDate === localData.lastSessionDate && localData.lastSessionDate !== null) {
+      // Local data is more recent, use it as base (then validate)
       mergedData = {
         ...localData,
-        totalSessions: Math.max(localData.totalSessions, validatedSupabaseData.totalSessions),
-        dailyStreaks: { ...validatedSupabaseData.dailyStreaks, ...localData.dailyStreaks }
+        totalSessions: Math.max(localData.totalSessions, supabaseData.totalSessions),
+        dailyStreaks: { ...supabaseData.dailyStreaks, ...localData.dailyStreaks }
       };
-      console.log('[StreakSystem] Using local data (more recent)');
+      console.log('[StreakSystem] Local data is more recent');
     } else {
-      // Supabase data is more recent, use it as base
+      // Supabase data is more recent or equal, use it as base (then validate)
       mergedData = {
-        ...validatedSupabaseData,
-        totalSessions: Math.max(localData.totalSessions, validatedSupabaseData.totalSessions),
-        dailyStreaks: { ...localData.dailyStreaks, ...validatedSupabaseData.dailyStreaks }
+        ...supabaseData,
+        totalSessions: Math.max(localData.totalSessions, supabaseData.totalSessions),
+        dailyStreaks: { ...localData.dailyStreaks, ...supabaseData.dailyStreaks }
       };
-      console.log('[StreakSystem] Using Supabase data (more recent)');
+      console.log('[StreakSystem] Supabase data is more recent');
     }
 
+    // NOW validate the merged data (this is where streak expiration happens)
+    const validatedMergedData = this.validateStreak(mergedData);
+
     // Recalculate weekly progress
-    mergedData.weeklyProgress = this.calculateWeeklyProgress(mergedData.lastSessionDate, mergedData.currentStreak);
+    validatedMergedData.weeklyProgress = this.calculateWeeklyProgress(
+      validatedMergedData.lastSessionDate, 
+      validatedMergedData.currentStreak
+    );
 
-    // Save merged data to both
-    this.saveLocalStreakData(mergedData);
-    await this.saveToSupabase(mergedData);
+    // Save validated merged data to both sources
+    this.saveLocalStreakData(validatedMergedData);
+    await this.saveToSupabase(validatedMergedData);
 
-    console.log(`[StreakSystem] Synced: streak = ${mergedData.currentStreak}, last session = ${mergedData.lastSessionDate}`);
+    console.log(`[StreakSystem] Synced: streak = ${validatedMergedData.currentStreak}, last session = ${validatedMergedData.lastSessionDate}`);
   }
 
   /**
