@@ -29,15 +29,14 @@ export default function TrainingModeModal({
     setIsNavigating(true);
     
     try {
-      // Store selected data in localStorage for the training page
-      const storageKey = itemType === 'kanji' ? 'selectedKanjiData' : 'selectedVocabularyData';
-      localStorage.setItem(storageKey, JSON.stringify(selectedData));
+      // Store selected data in sessionStorage for instant loading
+      sessionStorage.setItem('trainingData', JSON.stringify(selectedData));
       
-      // Navigate to the appropriate training mode
+      // Navigate to the appropriate training mode (no item IDs in URL)
       if (mode === 'match') {
-        router.push(`/match?type=${itemType}&items=${selectedItems.join(',')}`);
+        router.push(`/match?type=${itemType}`);
       } else if (mode === 'flashcard') {
-        router.push(`/flashcard?type=${itemType}&items=${selectedItems.join(',')}`);
+        router.push(`/flashcard?type=${itemType}`);
       } else if (mode === 'input') {
         // Transform kanji data for typing page
         if (itemType === 'kanji') {

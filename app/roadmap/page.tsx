@@ -276,11 +276,15 @@ export default function RoadmapPage() {
     
     // Sentences use sentence practice mode
     if (type === 'sentences') {
-      const selectedItems = selectedSentences.size > 0 
+      const selectedIds = selectedSentences.size > 0 
         ? Array.from(selectedSentences)
         : sentencesData.slice((sentencesPage - 1) * SENTENCES_PER_PAGE, sentencesPage * SENTENCES_PER_PAGE).map(s => s.id);
       
-      router.push(`/sentence-practice?level=${currentLevel}&items=${selectedItems.join(',')}`);
+      // Pass the actual sentence data via sessionStorage for instant loading
+      const selectedData = sentencesData.filter(s => selectedIds.includes(s.id));
+      sessionStorage.setItem('trainingData', JSON.stringify(selectedData));
+      
+      router.push(`/sentence-practice?level=${currentLevel}`);
       setSelectionMode(false);
       return;
     }

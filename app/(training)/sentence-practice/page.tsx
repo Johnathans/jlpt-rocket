@@ -44,9 +44,23 @@ function SentencePracticeContent() {
   
   const { speak, playAudio, stop, isLoading } = useTTS();
 
-  // Load selected sentences from URL parameters
+  // Load selected sentences - try sessionStorage first for instant loading
   useEffect(() => {
-    const fetchSentences = async () => {
+    const loadSentences = async () => {
+      // Try to get pre-loaded data from sessionStorage
+      const cachedData = sessionStorage.getItem('trainingData');
+      if (cachedData) {
+        try {
+          const parsedData = JSON.parse(cachedData);
+          setSentences(parsedData);
+          sessionStorage.removeItem('trainingData'); // Clean up after use
+          return;
+        } catch (error) {
+          console.error('Error parsing cached training data:', error);
+        }
+      }
+      
+      // Fallback: load from URL parameters (legacy support)
       const itemIds = searchParams.get('items')?.split(',') || [];
       const level = searchParams.get('level') as JLPTLevel;
       
@@ -57,7 +71,7 @@ function SentencePracticeContent() {
       }
     };
 
-    fetchSentences();
+    loadSentences();
   }, [searchParams]);
 
   // Process furigana and preload kanji data when sentence changes
