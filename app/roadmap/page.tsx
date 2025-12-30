@@ -338,15 +338,18 @@ export default function RoadmapPage() {
     }
   };
 
-  // Load progress stats - use static JSON for content counts, Supabase for user progress
+  // Load all data in a single optimized call
   useEffect(() => {
-    const loadStats = async () => {
+    const loadAllData = async () => {
       try {
-        // Fetch content counts and user progress in parallel for speed
-        const [counts, reviewItems, allProgress] = await Promise.all([
+        // Fetch everything in parallel - content counts, user progress, streak, and content data
+        const [counts, reviewItems, allProgress, streak, kanjiDataResult, vocabDataResult] = await Promise.all([
           getContentCountsByLevel(currentLevel),
           ReviewSystemSupabase.getItemsDueForReview(),
-          ReviewSystemSupabase.getProgressData()
+          ReviewSystemSupabase.getProgressData(),
+          StreakSystem.syncWithSupabase().then(() => StreakSystem.getStreakData()),
+          getKanjiByLevel(currentLevel),
+          getVocabularyByLevel(currentLevel)
         ]);
         
         // Count mastered and learning items by type
@@ -366,6 +369,7 @@ export default function RoadmapPage() {
           }
         });
         
+        // Set stats
         setStats({
           kanji: {
             total: counts.kanji,
@@ -385,37 +389,16 @@ export default function RoadmapPage() {
           reviewDue: reviewItems.length
         });
         
-        // Load streak data and sync with Supabase
-        await StreakSystem.syncWithSupabase();
-        const streak = await StreakSystem.getStreakData();
+        // Set streak data
         setStreakData({
           currentStreak: streak.currentStreak
         });
-      } catch (error) {
-        console.error('Error loading stats:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadStats();
-  }, [currentLevel]);
-
-  // Load content data and user progress - optimized with parallel fetching
-  useEffect(() => {
-    const loadAllContent = async () => {
-      try {
-        // Load content data and progress in parallel for speed
-        const [allProgress, kanjiDataResult, vocabDataResult] = await Promise.all([
-          ReviewSystemSupabase.getProgressData(),
-          getKanjiByLevel(currentLevel),
-          getVocabularyByLevel(currentLevel)
-        ]);
         
-        console.log(`[Roadmap] Loaded ${kanjiDataResult.length} kanji, ${vocabDataResult.length} vocabulary for ${currentLevel}`);
-        
+        // Set content data
         setKanjiData(kanjiDataResult);
         setVocabularyData(vocabDataResult);
+        
+        console.log(`[Roadmap] Loaded ${kanjiDataResult.length} kanji, ${vocabDataResult.length} vocabulary for ${currentLevel}`);
         
         // Filter mastered items from progress data
         const masteredKanjiIds = new Set<string>();
@@ -442,25 +425,27 @@ export default function RoadmapPage() {
         
         console.log(`[Roadmap] Mastered: ${masteredKanjiIds.size} kanji, ${masteredVocabIds.size} vocabulary`);
       } catch (error) {
-        console.error('Error loading content:', error);
+        console.error('Error loading data:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    loadAllContent();
+    loadAllData();
     
     // Refresh data when page becomes visible (returning from training or other device sync)
     const handleVisibilityChange = () => {
       if (!document.hidden) {
-        loadAllContent();
+        loadAllData();
       }
     };
     
     document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('focus', loadAllContent);
+    window.addEventListener('focus', loadAllData);
     
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('focus', loadAllContent);
+      window.removeEventListener('focus', loadAllData);
     };
   }, [currentLevel]);
 
