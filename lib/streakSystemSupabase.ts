@@ -162,7 +162,58 @@ export class StreakSystemSupabase {
   }
 
   /**
+   * Validate if streak is still active based on last session date
+   */
+  private static validateStreak(data: StreakData): StreakData {
+    if (!data.lastSessionDate || data.currentStreak === 0) {
+      return data;
+    }
+
+    const today = this.getTodayString();
+    const daysSinceLastSession = this.calculateDayDifference(data.lastSessionDate, today);
+
+    // If more than 1 day has passed, streak is broken
+    if (daysSinceLastSession > 1) {
+      console.log(`[StreakSystem] Streak expired: ${daysSinceLastSession} days since last session`);
+      return {
+        ...data,
+        currentStreak: 0,
+        weeklyProgress: [false, false, false, false, false, false, false]
+      };
+    }
+
+    return data;
+  }
+
+  /**
+   * Get today's date as YYYY-MM-DD string
+   */
+  private static getTodayString(): string {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  }
+
+  /**
+   * Calculate day difference between two date strings (YYYY-MM-DD)
+   * Returns the number of calendar days between dates
+   */
+  private static calculateDayDifference(date1: string, date2: string): number {
+    // Parse dates as local dates (not UTC) to avoid timezone issues
+    const [y1, m1, d1] = date1.split('-').map(Number);
+    const [y2, m2, d2] = date2.split('-').map(Number);
+    
+    const firstDate = new Date(y1, m1 - 1, d1);
+    const secondDate = new Date(y2, m2 - 1, d2);
+    
+    const diffTime = secondDate.getTime() - firstDate.getTime();
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    
+    return diffDays;
+  }
+
+  /**
    * Get current streak data - tries Supabase first, falls back to localStorage
+   * Automatically validates and resets expired streaks
    */
   static async getStreakData(): Promise<StreakData> {
     const userId = await this.getUserId();
@@ -173,9 +224,19 @@ export class StreakSystemSupabase {
       const supabaseData = await this.loadFromSupabase();
       if (supabaseData) {
         console.log('[StreakSystem] Loaded streak from Supabase:', supabaseData.currentStreak);
-        // Update local cache
-        this.saveLocalStreakData(supabaseData);
-        return supabaseData;
+        // Validate streak before returning
+        const validatedData = this.validateStreak(supabaseData);
+        
+        // If streak was reset, save the updated data
+        if (validatedData.currentStreak !== supabaseData.currentStreak) {
+          console.log('[StreakSystem] Streak was expired, saving reset data');
+          this.saveLocalStreakData(validatedData);
+          await this.saveToSupabase(validatedData);
+        } else {
+          this.saveLocalStreakData(validatedData);
+        }
+        
+        return validatedData;
       }
       console.log('[StreakSystem] No Supabase data, using localStorage');
     }
@@ -183,7 +244,14 @@ export class StreakSystemSupabase {
     // Fall back to localStorage
     const localData = this.getLocalStreakData();
     console.log('[StreakSystem] Using localStorage streak:', localData.currentStreak);
-    return localData;
+    
+    // Validate local data too
+    const validatedData = this.validateStreak(localData);
+    if (validatedData.currentStreak !== localData.currentStreak) {
+      this.saveLocalStreakData(validatedData);
+    }
+    
+    return validatedData;
   }
 
   /**
@@ -198,14 +266,14 @@ export class StreakSystemSupabase {
    * Record a completed session and update streak
    */
   static async recordSession(): Promise<StreakData> {
-    const now = new Date();
-    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    const today = this.getTodayString();
     
-    // Get current data (prefer Supabase)
+    // Get current data (prefer Supabase) - this will auto-validate
     const currentData = await this.getStreakData();
 
     // If already completed a session today, just return current data
     if (currentData.dailyStreaks?.[today]) {
+      console.log('[StreakSystem] Session already recorded today');
       return currentData;
     }
 
@@ -218,21 +286,24 @@ export class StreakSystemSupabase {
 
     // Check if this continues the streak
     if (currentData.lastSessionDate) {
-      const lastDate = new Date(currentData.lastSessionDate);
-      const todayDate = new Date(today);
-      const daysDifference = Math.floor((todayDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
+      const daysDifference = this.calculateDayDifference(currentData.lastSessionDate, today);
 
       if (daysDifference === 1) {
         // Consecutive day - continue streak
-        newData.currentStreak++;
-      } else if (daysDifference > 1) {
-        // Missed days - reset streak
+        newData.currentStreak = currentData.currentStreak + 1;
+        console.log(`[StreakSystem] Streak continued: ${newData.currentStreak} days`);
+      } else if (daysDifference === 0) {
+        // Same day - shouldn't happen due to check above, but keep streak
+        newData.currentStreak = currentData.currentStreak;
+      } else {
+        // Gap > 1 day - start new streak (currentData.currentStreak should already be 0 from validation)
         newData.currentStreak = 1;
+        console.log('[StreakSystem] Starting new streak after gap');
       }
-      // daysDifference === 0 means same day (already handled above)
     } else {
-      // First session ever
+      // First session ever or after reset
       newData.currentStreak = 1;
+      console.log('[StreakSystem] First session - streak started');
     }
 
     newData.lastSessionDate = today;
@@ -244,6 +315,7 @@ export class StreakSystemSupabase {
     this.saveLocalStreakData(newData);
     await this.saveToSupabase(newData);
 
+    console.log(`[StreakSystem] Session recorded: streak = ${newData.currentStreak}`);
     return newData;
   }
 
@@ -303,6 +375,7 @@ export class StreakSystemSupabase {
 
   /**
    * Sync local streak data with Supabase (call on login)
+   * Validates both sources and merges intelligently
    */
   static async syncWithSupabase(): Promise<void> {
     const userId = await this.getUserId();
@@ -311,7 +384,7 @@ export class StreakSystemSupabase {
       return;
     }
 
-    const localData = this.getLocalStreakData();
+    const localData = this.validateStreak(this.getLocalStreakData());
     const supabaseData = await this.loadFromSupabase();
 
     if (!supabaseData) {
@@ -323,14 +396,30 @@ export class StreakSystemSupabase {
       return;
     }
 
-    // Merge: take the higher streak and more recent session
-    const mergedData: StreakData = {
-      currentStreak: Math.max(localData.currentStreak, supabaseData.currentStreak),
-      lastSessionDate: this.getMoreRecentDate(localData.lastSessionDate, supabaseData.lastSessionDate),
-      weeklyProgress: [false, false, false, false, false, false, false],
-      totalSessions: Math.max(localData.totalSessions, supabaseData.totalSessions),
-      dailyStreaks: { ...supabaseData.dailyStreaks, ...localData.dailyStreaks }
-    };
+    const validatedSupabaseData = this.validateStreak(supabaseData);
+
+    // Merge: take the data with the most recent session
+    const moreRecentDate = this.getMoreRecentDate(localData.lastSessionDate, validatedSupabaseData.lastSessionDate);
+    
+    let mergedData: StreakData;
+    
+    if (moreRecentDate === localData.lastSessionDate) {
+      // Local data is more recent, use it as base
+      mergedData = {
+        ...localData,
+        totalSessions: Math.max(localData.totalSessions, validatedSupabaseData.totalSessions),
+        dailyStreaks: { ...validatedSupabaseData.dailyStreaks, ...localData.dailyStreaks }
+      };
+      console.log('[StreakSystem] Using local data (more recent)');
+    } else {
+      // Supabase data is more recent, use it as base
+      mergedData = {
+        ...validatedSupabaseData,
+        totalSessions: Math.max(localData.totalSessions, validatedSupabaseData.totalSessions),
+        dailyStreaks: { ...localData.dailyStreaks, ...validatedSupabaseData.dailyStreaks }
+      };
+      console.log('[StreakSystem] Using Supabase data (more recent)');
+    }
 
     // Recalculate weekly progress
     mergedData.weeklyProgress = this.calculateWeeklyProgress(mergedData.lastSessionDate, mergedData.currentStreak);
@@ -339,7 +428,7 @@ export class StreakSystemSupabase {
     this.saveLocalStreakData(mergedData);
     await this.saveToSupabase(mergedData);
 
-    console.log('[StreakSystem] Synced streak data with Supabase');
+    console.log(`[StreakSystem] Synced: streak = ${mergedData.currentStreak}, last session = ${mergedData.lastSessionDate}`);
   }
 
   /**
