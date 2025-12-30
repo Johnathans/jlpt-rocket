@@ -432,7 +432,14 @@ export class StreakSystemSupabase {
 
     // Save merged data to both sources
     this.saveLocalStreakData(finalData);
-    await this.saveToSupabase(finalData);
+    
+    // Only save to Supabase if local data was more recent (to avoid overwriting with stale data)
+    if (moreRecentDate === localData.lastSessionDate && localData.lastSessionDate !== null) {
+      await this.saveToSupabase(finalData);
+      console.log('[StreakSystem] Saved updated local data to Supabase');
+    } else {
+      console.log('[StreakSystem] Supabase data is authoritative, not overwriting');
+    }
 
     console.log(`[StreakSystem] Synced: streak = ${finalData.currentStreak}, last session = ${finalData.lastSessionDate}`);
     return finalData;
@@ -454,5 +461,25 @@ export class StreakSystemSupabase {
     const resetData = this.getDefaultStreakData();
     this.saveLocalStreakData(resetData);
     await this.saveToSupabase(resetData);
+  }
+
+  /**
+   * Force sync from Supabase (clears local cache and reloads)
+   * Use this to debug sync issues
+   */
+  static async forceSyncFromSupabase(): Promise<StreakData> {
+    console.log('[StreakSystem] Force sync: clearing local cache');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(this.STORAGE_KEY);
+    }
+    
+    const supabaseData = await this.loadFromSupabase();
+    if (supabaseData) {
+      this.saveLocalStreakData(supabaseData);
+      console.log('[StreakSystem] Force synced from Supabase:', supabaseData);
+      return supabaseData;
+    }
+    
+    return this.getDefaultStreakData();
   }
 }
